@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Test;
 
-public class QueryWrapperTest {
+public class SQLStringFactoryTest {
 	@Test
 	public void test() {		
 		fail("Not yet implemented");

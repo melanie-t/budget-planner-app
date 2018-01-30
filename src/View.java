@@ -1,26 +1,97 @@
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class View 
+public class View
 {
-	// TODO
-	// This is just a placeholder for now. The idea is that whenever "query" request are made to the QueryWrapper
-	// ( for now the only query is showAll() ), we should pass a view that needs to be update. Kinda like an observer pattern.
-	// Right now the View object only has a toString() method.
-	
+	/////////////////////////////////////////////////////////////////
+	// --- Members --------------------------------------------------
+	private PreparedStatement m_preparedStatement = null;
 	private ResultSet m_resultSet = null;
+	private ArrayList<Object> m_statementParams = new ArrayList<Object>();	// Ugly ass way to create a type-agnostic array
+	private Database m_database = null; // For observer pattern thing
+	// ______________________________________________________________
 
-	View()
+
+	/////////////////////////////////////////////////////////////////
+	// --- Constructor ----------------------------------------------
+	public View(PreparedStatement statement, Database database)
 	{
+		m_preparedStatement = statement;
+		m_database = database;
+	}
+	// ______________________________________________________________
+
+	
+	// Please pass object types (Integer instead of int) - currently only supports Integer, Float and String
+	public void setStatementParams(Object... params)
+	{
+		for (Object param : params)
+		{
+			m_statementParams.add(param);
+		}
 		
+		// Ugly ass dynamic cast at runtime to call the appropriate method - cause overloaded methods are over rated AMIRIGHT !
+		Object param = null;
+		for (int i = 0; i < m_statementParams.size(); i++)
+		{
+			param = m_statementParams.get(i);
+			
+			try
+			{
+				// Index start at 1 : what could go wrong :D
+				if (param instanceof Integer)
+				{
+					m_preparedStatement.setInt(i+1, (int) param);		// Nothing like a good downcast to start the day !
+				}
+				else if (param instanceof String)
+				{
+					m_preparedStatement.setString(i+1, (String) param);	// Feel the downcast
+				}
+				else if (param instanceof Float)
+				{
+					m_preparedStatement.setFloat(i+1, (float) param);	// OOP BABY -- Wooooooooooooo
+				}
+			}
+
+			catch (SQLException e) 
+			{ 
+				// System.out.println("kill ureself");
+				System.err.println(e.getMessage()); 
+			} 
+		}
 	}
 	
-	public void update(ResultSet resultSet) throws SQLException
+	public void clearStatementParams()
 	{
-		m_resultSet = resultSet;
+		m_statementParams.clear();
 	}
 	
+	/////////////////////////////////////////////////////////////////
+	// --- Observer things ------------------------------------------
+	public void update()
+	{
+		try
+		{
+			m_resultSet = m_preparedStatement.executeQuery();
+		}
+		catch (SQLException e) 
+		{ 
+			System.err.println(e.getMessage()); 
+		} 
+
+	}
+
+	private void detach()
+	{
+		m_database.detach(this);
+	}
+	// ______________________________________________________________
+	
+	
+	// This is what does the "viewing"
 	public String toString()
 	{
 		if (m_resultSet == null)
@@ -53,6 +124,9 @@ public class View
 					case "INTEGER":
 						output += m_resultSet.getInt(columnNames[i]) + "\n";
 						break;
+					case "FLOAT":
+						output += m_resultSet.getFloat(columnNames[i]) + "\n";
+						break;
 					default:
 						break;
 					}
@@ -68,7 +142,8 @@ public class View
 		 
 	}
 	
-	
+	/////////////////////////////////////////////////////////////////
+	// --- Private Utilities ---------------------------------------
 	private String[] getColumnNames() throws SQLException 
 	{
 		if (m_resultSet == null)
@@ -81,9 +156,8 @@ public class View
 		
 		for (int i = 0; i < output.length; i++)
 		{
-			output[i] = metaData.getColumnName(i + 1);  // Because their indexes start at 1 !!!
+			output[i] = metaData.getColumnName(i + 1);
 		}
-		
 		return output;
 
 	}
@@ -100,10 +174,36 @@ public class View
 		
 		for (int i = 0; i < output.length; i++)
 		{
-			output[i] = metaData.getColumnTypeName(i + 1);  // Because their indexes start at 1 !!!
+			output[i] = metaData.getColumnTypeName(i + 1);
 		}
 		
 		return output;
 	}
+	// _____________________________________________________________
+	
+	/////////////////////////////////////////////////////////////////
+	// --- CleanUp -------------------------------------------------
+	public void shutdown()
+	{
+		detach();
+		
+		try
+		{
+			if (m_resultSet != null && !m_resultSet.isClosed())
+			{
+				m_resultSet.close();
+			}
+			if (m_preparedStatement != null && !m_preparedStatement.isClosed())
+			{
+				m_preparedStatement.close();
+			}			
+		}
+		catch (Exception e) 
+		{ 
+			System.err.println(e.getMessage()); 
+		}
+	}
+	// _____________________________________________________________
+	
 
 }

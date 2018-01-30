@@ -1,36 +1,27 @@
-import java.sql.SQLException;
-
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException
     {
 		
-		Class.forName("org.sqlite.JDBC");
+		Database myDatabase = new Database("MyDB");
+		SQLStringFactory sql = SQLStringFactory.getInstance();
+		ViewFactory viewFactory = new ViewFactory(myDatabase);		
 		
-		QueryWrapper wrapper = QueryWrapper.getInstance();
-		View view = new View();
+		myDatabase.updateSQL(sql.deleteTable("test"));
 		
-		wrapper.deleteTable("test");
-		wrapper.createTable("test", "ids", "INTEGER");
-		wrapper.addColumn("test", "Name", "VARCHAR");
-		wrapper.addColumn("test", "Number", "INTEGER");
-
-		wrapper.addEntry("test", "1", "Joe", "10");
-		wrapper.addEntry("test", "2", "Jane", "5");
+		myDatabase.updateSQL(sql.createTable("test", "key", "INTEGER"));
+		myDatabase.updateSQL(sql.addColumn("test", "name", "VARCHAR"));
+		myDatabase.updateSQL(sql.addColumn("test", "money", "FLOAT"));
 		
-		wrapper.showAll("test", view);
+		View listing = viewFactory.createView(sql.showAll("test"));
 		
-	
-		System.out.print(view.toString());
+		myDatabase.updateSQL(sql.addEntry("test", "1", "Bob", "10.0"));
+		myDatabase.updateSQL(sql.addEntry("test", "2", "Martha", "20.0"));
 		
-
-		try 
-		{ 
-			wrapper.shutdown();
-		}
-		catch (SQLException e) 
-		{ 
-			System.err.println(e.getMessage());
-		}
+		System.out.println(listing);
+		
+		listing.shutdown();
+		myDatabase.shutdown();
+		
     }
 }
