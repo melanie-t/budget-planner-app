@@ -7,16 +7,16 @@ public class Main {
 		SQLStringFactory sql = SQLStringFactory.getInstance();
 		ViewFactory viewFactory = new ViewFactory(myDatabase);		
 		
-		myDatabase.updateSQL(sql.deleteTable("test"));
+		myDatabase.updateSQL(sql.deleteTable(Account.getTableName()));
 		
-		myDatabase.updateSQL(sql.createTable("test", "key", "INTEGER"));
-		myDatabase.updateSQL(sql.addColumn("test", "name", "VARCHAR"));
-		myDatabase.updateSQL(sql.addColumn("test", "money", "FLOAT"));
+		myDatabase.updateSQL(sql.createTable(Account.getTableName(), "accId", "INTEGER"));
+		myDatabase.updateSQL(sql.addColumn(Account.getTableName(), "bankName", "VARCHAR"));
+		myDatabase.updateSQL(sql.addColumn(Account.getTableName(), "nickname", "VARCHAR"));
+		myDatabase.updateSQL(sql.addColumn(Account.getTableName(), "money", "FLOAT"));
 		
-		View listing = viewFactory.createView(sql.showAll("test"));
-		
-		myDatabase.updateSQL(sql.addEntry("test", "1", "Bob", "10.0"));
-		myDatabase.updateSQL(sql.addEntry("test", "2", "Martha", "20.0"));
+		View listing = viewFactory.createView(sql.showAll(Account.getTableName()));
+		Account a = new Account(1234567890, "A", null, 10.0);
+		a.upsertAccount(myDatabase);
 		
 		System.out.println(listing);
 		

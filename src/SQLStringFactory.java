@@ -47,11 +47,11 @@ public class SQLStringFactory
 	
 	public String addEntry(String tableName, String... values)
 	{
-		String sql = "INSERT INTO " + tableName + " VALUES (";
+		String sql = "INSERT OR REPLACE INTO " + tableName + " VALUES (";
 				
 		for (String value : values)
 		{
-			if (value == "NULL")
+			if (value == "NULL" || value == null)
 			{
 				sql += "NULL, ";
 			}
