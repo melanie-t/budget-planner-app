@@ -5,6 +5,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="SQlite/sqlite-jdbc-3.21.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="mockito-core-2.13.3.jar"/>
+	<classpathentry kind="lib" path="/Users/neokyu/Desktop/COMP354_1/Mockito/mockito-core-2.13.3.jar"/>
+	<classpathentry kind="lib" path="/Users/neokyu/Desktop/COMP354_1/Mockito/byte-buddy-1.7.9.jar"/>
+	<classpathentry kind="lib" path="/Users/neokyu/Desktop/COMP354_1/Mockito/byte-buddy-agent-1.7.9.jar"/>
+	<classpathentry kind="lib" path="/Users/neokyu/Desktop/COMP354_1/Mockito/objenesis-2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
