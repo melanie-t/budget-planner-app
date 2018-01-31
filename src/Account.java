@@ -7,7 +7,7 @@ public class Account {
 	
 	public void upsertAccount(Database db) {
 		SQLStringFactory sql = SQLStringFactory.getInstance();
-		db.updateSQL(sql.addEntry(tableName, ""+accountId, bankName, nickname, ""+balance));
+		db.updateSQL(sql.upsertEntry(tableName, ""+accountId, bankName, nickname, ""+balance));
 	}
 	
 	public static String getTableName() {

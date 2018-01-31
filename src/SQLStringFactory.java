@@ -47,6 +47,29 @@ public class SQLStringFactory
 	
 	public String addEntry(String tableName, String... values)
 	{
+		String sql = "INSERT INTO " + tableName + " VALUES (";
+				
+		for (String value : values)
+		{
+			if (value == "NULL")
+			{
+				sql += "NULL, ";
+			}
+			else
+			{
+				sql += "\"" + value + "\", ";	
+			}
+			
+		}
+		
+		sql = sql.substring(0, sql.length() - 2); // chop off the last ", " 
+		sql += ");";
+		
+		return sql;
+	}
+	
+	public String upsertEntry(String tableName, String... values)
+	{
 		String sql = "INSERT OR REPLACE INTO " + tableName + " VALUES (";
 				
 		for (String value : values)
