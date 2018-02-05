@@ -32,6 +32,17 @@ public class SQLStringFactory
 		
 		return sql;
 	}
+	public String createTable(String tableName, String primaryKeyName, String primaryKeyType, String foreignKeyName, String foreignKeyType, String foreignKeyReferencesTable, String foreignKeyReferencesColumn)
+	{
+
+		String sql = 
+				"CREATE TABLE IF NOT EXISTS " + tableName
+				+ "(" + primaryKeyName + " " + primaryKeyType + " PRIMARY KEY,\n"
+				+ foreignKeyName + " " + foreignKeyType + ",\n"
+				+ "FOREIGN KEY("+foreignKeyName+") REFERENCES "+ foreignKeyReferencesTable+ "("+ foreignKeyReferencesColumn + "));";
+		
+		return sql;
+	}
 	
 	public String addColumn(String tableName, String columnName, String columnType/*, String... defaultValue*/)
 	{
@@ -74,4 +85,5 @@ public class SQLStringFactory
 		
 		return sql;
 	}
+	
 }
