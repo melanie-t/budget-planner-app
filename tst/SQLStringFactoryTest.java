@@ -27,6 +27,16 @@ public class SQLStringFactoryTest {
 		assertEquals(expected, testFactory.addEntry(tableName, value));
 	}
 	
+	/* @TODO JORDAN - I know.... TDD
+	@Test
+	public void testUpdateEntry() {
+		String tableName = "TESTTABLE";
+		String expected = "SELECT * from " + tableName;
+		
+		assertEquals(expected, testFactory.showAll(tableName));
+	}
+	*/
+	
 	@Test
 	public void testCreateTable() {
 		String tableName = "TESTTABLE";
