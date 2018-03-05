@@ -7,7 +7,7 @@ public class AccountRespository {
 	Database myDatabase;
 	SQLStringFactory sql;
 	
-	HashMap<Integer, AccountModel> items; // loaded account models live here
+	HashMap<Integer, AccountModel> itemMap; // loaded account models live here
 	
 
 	public AccountRespository(Database myDatabase) {
@@ -45,26 +45,30 @@ public class AccountRespository {
 	
 	
 	
-	
-	protected boolean isItemLoaded(Integer itemID) {
-		//@TODO
+	// check to see if more that just the primary key is loaded form DB
+	protected boolean isItemLoaded(Integer itemID) { 
+		if(hasItem(itemID)) {		
+			AccountModel objItem = itemMap.get(itemID);
+			return true; // currently not checking any type of boolLoaded value
+		}
 		return false;
 	}
 	
 	protected void loadItem(Integer itemID) {
-		//@TODO
+		//@TODO fetch from db
 	}
 	
 	public boolean hasItem(Integer itemID) {
-		return false;
+		return itemMap.get(itemID) != null;
 	}
 	
 	public AccountModel getItem(Integer itemID) {
 		if(isItemLoaded(itemID))
 			loadItem(itemID);
 		
-		
-		//@TODO
+		if(isItemLoaded(itemID))
+			return itemMap.get(itemID);
+
 		return null;
 	}
 	
