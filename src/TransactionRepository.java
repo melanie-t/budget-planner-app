@@ -1,10 +1,19 @@
 
-public class TransactionController {
+public class TransactionRepository {
 	SQLStringFactory sql;
 	Database myDatabase;
 	
 
-	public TransactionController(Database myDatabase) {
+	
+	
+	public void saveItem() { // @TODO
+		
+	}
+	
+	
+	
+
+	public TransactionRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
 	}

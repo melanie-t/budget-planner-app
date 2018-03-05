@@ -6,8 +6,8 @@ public class Iteration1AppController extends AppController {
 		SQLStringFactory sql;
 		
 		
-		AccountController theAccountController;
-		TransactionController theTransactionController;
+		AccountRespository theAccountRespository;
+		TransactionRepository theTransactionRepository;
 		
 		View accountsView;
 		View transactionsView;
@@ -21,19 +21,20 @@ public class Iteration1AppController extends AppController {
 			this.sql = SQLStringFactory.getInstance();
 			
 			
-			theAccountController = new AccountController(myDatabase);
-			theAccountController.reinitSQLStructure(); // will whipe and reinstall sql tables
+			theAccountRespository = new AccountRespository(myDatabase);
+			theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
 			
 			
-			theTransactionController = new TransactionController(myDatabase);
-			theTransactionController.reinitSQLStructure();
+			theTransactionRepository = new TransactionRepository(myDatabase);
+			theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
 			
 			
 			ViewFactory viewFactory = new ViewFactory(myDatabase);		
 			accountsView = viewFactory.createView(sql.showAll("account"));
 			transactionsView = viewFactory.createView(sql.showAll("transactions"));
-			/* Plans: 
+			/* Plans: - Jordan
 			 * View should be passed data and a callback function to update the data
+			 * Instead of directly accessing the database object 
 			*/
 		}
 		
@@ -78,7 +79,7 @@ public class Iteration1AppController extends AppController {
 					objAccount.SetBankName(bankName);
 					objAccount.SetNickName(nickname);
 					objAccount.SetBalance((int)Float.parseFloat(balance)*100); // are we still assuming cents? to be clarified in team meeting
-					theAccountController.saveAccount(objAccount);
+					theAccountRespository.saveItem(objAccount);
 					//________________________________________
 					
 					

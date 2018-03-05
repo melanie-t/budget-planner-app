@@ -1,8 +1,6 @@
 
 public class AppController {
 	
-		
-		
 		public AppController() {}
 		
 		public void start() {}
@@ -11,5 +9,4 @@ public class AppController {
 		
 		public void shutdown() {}
 
-		
 }
