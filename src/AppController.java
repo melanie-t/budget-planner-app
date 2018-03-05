@@ -1,12 +1,12 @@
 
 public class AppController {
 	
-		public AppController() {}
+	public AppController() {}
+	
+	public void start() {}
+	
+	public void shutdown() {}
 		
-		public void start() {}
-		
-		public void run() {}
-		
-		public void shutdown() {}
-
+	public void run() {}
+	
 }

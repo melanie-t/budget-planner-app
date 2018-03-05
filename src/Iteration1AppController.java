@@ -12,14 +12,13 @@ public class Iteration1AppController extends AppController {
 		View accountsView;
 		View transactionsView;
 		
-		public Iteration1AppController() {
-			
-		}
+		public Iteration1AppController() {}
+		
+		
 		
 		public void start() {
 			myDatabase = new Database("MyDB");
 			this.sql = SQLStringFactory.getInstance();
-			
 			
 			theAccountRespository = new AccountRespository(myDatabase);
 			theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
@@ -28,25 +27,27 @@ public class Iteration1AppController extends AppController {
 			theTransactionRepository = new TransactionRepository(myDatabase);
 			theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
 			
-			
+			InitViews();
+		}
+		
+		protected void InitViews() {
 			ViewFactory viewFactory = new ViewFactory(myDatabase);		
 			accountsView = viewFactory.createView(sql.showAll("account"));
 			transactionsView = viewFactory.createView(sql.showAll("transactions"));
 			/* Plans: - Jordan
 			 * View should be passed data and a callback function to update the data
-			 * Instead of directly accessing the database object 
+			 * Will use Repository to access the models instead of the database
+			 * Views should be able to hold multiple variables external to itself  
 			*/
 		}
 		
 		
-		public void shutdown() {
-			accountsView.shutdown();
-			myDatabase.shutdown();
+		protected void displayCurrentView() {
+			
 		}
 		
-		public void run() {
-			int choice = 0;
-			Scanner reader = new Scanner(System.in);
+		
+		protected void displayTextView(Scanner reader, Integer choice) {
 			while(choice != 4) {
 				System.out.println("Please select an option:\n");
 				System.out.println("1. Add an account");
@@ -137,6 +138,18 @@ public class Iteration1AppController extends AppController {
 				}
 			    		
 			}		
+		}
+		
+		
+		public void shutdown() {
+			accountsView.shutdown();
+			myDatabase.shutdown();
+		}
+		
+		public void run() {
+			int choice = 0;
+			Scanner reader = new Scanner(System.in);
+			displayTextView(reader, choice);
 			reader.close();
 		}
 		

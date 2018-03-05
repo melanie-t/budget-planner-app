@@ -97,48 +97,60 @@ public class SQLStringFactory
 					sanitizedChunk = "NULL, ";
 				else
 					sanitizedChunk = "'" + EscapeSQLValue(value) + "', "; // prevent sql injection
-				
 				sql += key + " = " + sanitizedChunk;
 			}
 			sql = sql.substring(0, sql.length() - 2); // chop off the last ", " 
 			
 			
 			//Build Where condition
-			int whereSize = where.size();
-			if(whereSize > 0) {
-				String glue = " " + conditionOp + " ";
-						
-				String whereCondition = " WHERE ";
-				int i=0;
-				for (Entry<String, String> entry : where.entrySet()) {
-					++i; // current position on scale between 1 and n
-					String key = entry.getKey();
-					String value = entry.getValue();
-					
-					// apply glue
-					if(i != 1) // will only apply glue in-between entries
-						whereCondition += glue;
-					
-					// stick next condition on to string
-					if (value == "NULL")
-						whereCondition += key + " IS " + "NULL";
-					else
-						whereCondition += key + " = '" + EscapeSQLValue(value) + "'"; // prevent sql injection
-					
-				}
-				
-				sql += whereCondition;
-			}
+			String whereCondition = "";
+			whereCondition = BuildWhereCondition(where, conditionOp);
+			if(whereCondition.length() > 0) 
+				sql += " WHERE " + whereCondition;
 		}
 		sql += ';';
 		
 		return sql;
 	}
 	
+	//Build Where condition
+	protected String BuildWhereCondition(SQLValueMap where, String conditionOp) { 
+		//This function may be used to create chunks of conditions
+		//brackets become important when nesting recursively
+		//IE: 	(A='1' OR B='bob' OR C IS NULL)
+		//		(A='1' AND B='bob' AND C IS NULL)
+		
+		
+		String whereCondition = "";
+		int whereSize = where.size();
+		if(whereSize > 0) {		
+			String glue = " " + conditionOp + " ";
+			
+			whereCondition += "(";
+			int i=0;
+			for (Entry<String, String> entry : where.entrySet()) {
+				++i; // current position on scale between 1 and n
+				String key = entry.getKey();
+				String value = entry.getValue();
+				
+				// apply glue
+				if(i != 1) // will only apply glue in-between entries
+					whereCondition += glue;
+				
+				// stick next condition on to string
+				if (value == "NULL")
+					whereCondition += key + " IS " + "NULL";
+				else
+					whereCondition += key + " = '" + EscapeSQLValue(value) + "'"; // prevent sql injection
+				
+			}
+			whereCondition += ")";
+		}
+		return whereCondition;
+	}
 	
 	protected String EscapeSQLValue(String value) {
 		// Credit: https://stackoverflow.com/questions/1812891/java-escape-string-to-prevent-sql-injection
-		// I find it shocking Java dosen't have this built in - Jordan
 		value = value.replace("\\", "\\\\");
 	    value = value.replace("'", "\\'");
 	    value = value.replace("\0", "\\0");

@@ -15,9 +15,7 @@ public class AccountRespository {
 		this.sql = SQLStringFactory.getInstance();
 	}
 	
-	
-	//----------------------------------------------------
-	// Save Account
+		
 	public boolean saveItem(AccountModel objAccount) {
 		
 		if(objAccount.isNew()) {
@@ -41,11 +39,13 @@ public class AccountRespository {
 		
 		return false;
 	}
-	//_____________________________________________________
 	
+	protected void loadItem(Integer itemID) {
+		//@TODO fetch from db
+	}
 	
-	
-	// check to see if more that just the primary key is loaded form DB
+	/*
+	 * // check to see if more that just the primary key is loaded form DB
 	protected boolean isItemLoaded(Integer itemID) { 
 		if(hasItem(itemID)) {		
 			AccountModel objItem = itemMap.get(itemID);
@@ -53,20 +53,19 @@ public class AccountRespository {
 		}
 		return false;
 	}
-	
-	protected void loadItem(Integer itemID) {
-		//@TODO fetch from db
-	}
+	*/
 	
 	public boolean hasItem(Integer itemID) {
 		return itemMap.get(itemID) != null;
 	}
 	
 	public AccountModel getItem(Integer itemID) {
-		if(isItemLoaded(itemID))
+		//Attempt to load from DB if not present
+		if(hasItem(itemID))
 			loadItem(itemID);
 		
-		if(isItemLoaded(itemID))
+		//Return if found
+		if(hasItem(itemID))
 			return itemMap.get(itemID);
 
 		return null;
@@ -80,19 +79,19 @@ public class AccountRespository {
 	// DEVELOPMENT ONLY - Sql Structure 
 	
 	//#####################################################
-	public void reinitSQLStructure() {
+	public void reinitSQLStructure() { // reinstall
 		destroySQLStructure();	
 		initSQLStructure();
 	}
-	
-	public void initSQLStructure() {
+
+	public void initSQLStructure() { // install
 		myDatabase.updateSQL(sql.createTable("account", "accountId", "INTEGER"));	//pass "NULL" to auto-increment
 		myDatabase.updateSQL(sql.addColumn("account", "bankName", "VARCHAR"));
 		myDatabase.updateSQL(sql.addColumn("account", "nickname", "VARCHAR"));
 		myDatabase.updateSQL(sql.addColumn("account", "balance", "INTEGER"));
 	}
 	
-	public void destroySQLStructure() {
+	public void destroySQLStructure() { // uninstall
 		myDatabase.updateSQL(sql.deleteTable("account"));	
 	}
 	//_____________________________________________________
