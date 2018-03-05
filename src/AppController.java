@@ -1,7 +1,7 @@
 
 public class AppController {
 	
-		Database myDatabase;
+		
 		
 		public AppController() {}
 		
@@ -11,7 +11,5 @@ public class AppController {
 		
 		public void shutdown() {}
 
-		public Database getDatabaseInstance() {
-			return myDatabase;
-		}
+		
 }
