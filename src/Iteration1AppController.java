@@ -77,9 +77,9 @@ public class Iteration1AppController extends AppController {
 					
 					// Add an account --------------------------
 					AccountModel objAccount = new AccountModel();
-					objAccount.SetBankName(bankName);
-					objAccount.SetNickName(nickname);
-					objAccount.SetBalance((int)Float.parseFloat(balance)*100); // are we still assuming cents? to be clarified in team meeting
+					objAccount.setBankName(bankName);
+					objAccount.setNickName(nickname);
+					objAccount.setBalance((int)Float.parseFloat(balance)*100); // are we still assuming cents? to be clarified in team meeting
 					theAccountRespository.saveItem(objAccount);
 					//________________________________________
 					

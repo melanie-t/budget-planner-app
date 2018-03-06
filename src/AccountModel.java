@@ -1,14 +1,14 @@
 
-public class AccountModel {
+public class AccountModel extends AbstractModel {
 	
-	boolean boolNew;
 	int accountId;
 	String bankName;
 	String nickname;
 	int balance;
 	
 	public AccountModel() {
-		boolNew = true;
+		super();
+		
 		accountId = 0;
 		bankName = "";
 		nickname = "";
@@ -16,26 +16,26 @@ public class AccountModel {
 	}
 	
 	// ID
+	public boolean hasId(){return accountId != 0;}
 	public int getId() {return accountId;}
 	public void SetId(int accountId) {
+		setIsNewModel(accountId == 0); // ID of 0 is considered new (not saved in DB)
 		this.accountId = accountId;
-		this.boolNew = false;
 	}
 	
-	// Is new
-	// used to determine wither id has been set
-	public boolean isNew() {return boolNew;}
-	
 	// Bank Name
-	public String GetBankName() {return bankName;}
-	public void SetBankName(String bankName) {this.bankName = bankName;}
+	public boolean hasBankName(){return bankName != "";}
+	public String getBankName() {return bankName;}
+	public void setBankName(String bankName) {this.bankName = bankName;}
 	
 	// Nick Name
-	public String GetNickName() {return nickname;}
-	public void SetNickName(String nickname) {this.nickname = nickname;}
+	public boolean hasNickName(){return nickname != "";}
+	public String getNickName() {return nickname;}
+	public void setNickName(String nickname) {this.nickname = nickname;}
 	
 	// Balance
-	public int GetBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
-	public void SetBalance(int balance) {this.balance = balance;}
+	public boolean hasBalance(){return balance != 0;}
+	public int getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
+	public void setBalance(int balance) {this.balance = balance;}
 	
 }

@@ -20,15 +20,15 @@ public class AccountRespository {
 		
 		if(objAccount.isNew()) {
 			//Insert into database
-			myDatabase.updateSQL(sql.addEntry("account", "NULL", objAccount.GetBankName(), objAccount.GetNickName(), Integer.toString(objAccount.GetBalance()) ));
+			myDatabase.updateSQL(sql.addEntry("account", "NULL", objAccount.getBankName(), objAccount.getNickName(), Integer.toString(objAccount.getBalance()) ));
 			//NOTE: currently no way of getting id of newly inserted row. Should update the model with this.
 			
 		} else {
 			//Update ALL account values
 			SQLValueMap values = new SQLValueMap();
-			values.put("bankName", objAccount.GetBankName());
-			values.put("nickname", objAccount.GetNickName());
-			values.put("bankName", objAccount.GetBalance());
+			values.put("bankName", objAccount.getBankName());
+			values.put("nickname", objAccount.getNickName());
+			values.put("bankName", objAccount.getBalance());
 			
 			SQLValueMap where = new SQLValueMap();
 			where.put("accountId", Integer.toString(objAccount.getId()));
