@@ -113,6 +113,24 @@ public class SQLStringFactory
 		return sql;
 	}
 	
+	
+	//This function updates the data
+	public String selectEntryUsingMap(String tableName, SQLValueMap where)
+	{
+		String conditionOp = "AND"; // condition operator used to join where conditions
+		String sql = "SELECT * FROM " + tableName;
+		
+		//Build Where condition
+		String whereCondition = "";
+		whereCondition = BuildWhereCondition(where, conditionOp);
+		if(whereCondition.length() > 0) 
+			sql += " WHERE " + whereCondition;
+		
+		sql += ';';
+		
+		return sql;
+	}
+	
 	//Build Where condition
 	protected String BuildWhereCondition(SQLValueMap where, String conditionOp) { 
 		//This function may be used to create chunks of conditions

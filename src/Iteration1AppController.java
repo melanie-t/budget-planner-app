@@ -42,10 +42,6 @@ public class Iteration1AppController extends AppController {
 		}
 		
 		
-		protected void displayCurrentView() {
-			
-		}
-		
 		
 		protected void displayTextView(Scanner reader, Integer choice) {
 			while(choice != 4) {

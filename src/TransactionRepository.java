@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 /*
  * Transaction Repository
@@ -7,6 +8,9 @@ public class TransactionRepository {
 	SQLStringFactory sql;
 	Database myDatabase;
 	
+	HashMap<Integer, TransactionModel> itemMap; // loaded account models live here
+	
+	
 	public TransactionRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
@@ -14,6 +18,10 @@ public class TransactionRepository {
 	
 	public void loadAllItems() {
 		//@TODO
+	}
+	
+	public void loadItem(Integer intItem) {
+		
 	}
 	
 	

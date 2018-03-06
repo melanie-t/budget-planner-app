@@ -16,7 +16,7 @@ public class AccountRespository {
 	}
 	
 		
-	public boolean saveItem(AccountModel objAccount) {
+	public void saveItem(AccountModel objAccount) {
 		
 		if(objAccount.isNew()) {
 			//Insert into database
@@ -36,12 +36,10 @@ public class AccountRespository {
 			
 			myDatabase.updateSQL( sql.updateEntryUsingMap("account", values, where) );
 		}
-		
-		return false;
 	}
 	
 	protected void loadItem(Integer itemID) {
-		//@TODO fetch from db
+		//@TODO make selectEntryUsingMap and fetchSQL
 	}
 	
 	/*

@@ -21,7 +21,12 @@ public class AccountController {
 		transctions.loadAllItems();
 	}
 	
-	public void SaveTransacton(TransactionModel transaction) {
+	
+	public void loadTransaction(Integer transactionId) {
+		transctions.loadItem(transactionId);
+	}
+	
+	public void saveTransacton(TransactionModel transaction) {
 		transctions.saveItem(transaction);
 	}
 }
