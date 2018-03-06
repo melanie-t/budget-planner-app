@@ -6,6 +6,12 @@ public class AccountTransactionRepository extends TransactionRepository{
 	
 	AccountModel account;
 	
+	public AccountTransactionRepository(Database myDatabase, AccountModel account){
+		super(myDatabase);
+		setAccount(account);
+	}
+	
+	
 	public AccountTransactionRepository(Database myDatabase){
 		super(myDatabase);
 		account = null;
@@ -13,17 +19,16 @@ public class AccountTransactionRepository extends TransactionRepository{
 	
 	public void 		setAccount(AccountModel account) 	{this.account = account;}
 	public AccountModel getAccount() 						{return account;}
-	public boolean 		hasAccount() 						{return account == null;}
-	public boolean		hasAccountId()						{return hasAccount() && account.getId() != 0;}
+	public boolean 		hasAccount() 						{return account != null;}
 	
 	
 	public void loadAllItems() {
-		//@TODO
+		//@TODO restricted to account
 	}
 	
 	
 	public void saveItem(TransactionModel transaction) {
-		if(hasAccountId()) {
+		if(hasAccount() && !getAccount().isNew()) {
 			transaction.setAccountId(account.getId());
 			super.saveItem(transaction);
 		}

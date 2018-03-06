@@ -104,7 +104,7 @@ public class SQLStringFactory
 			
 			//Build Where condition
 			String whereCondition = "";
-			whereCondition = BuildWhereCondition(where, conditionOp);
+			whereCondition = buildWhereCondition(where, conditionOp);
 			if(whereCondition.length() > 0) 
 				sql += " WHERE " + whereCondition;
 		}
@@ -122,7 +122,7 @@ public class SQLStringFactory
 		
 		//Build Where condition
 		String whereCondition = "";
-		whereCondition = BuildWhereCondition(where, conditionOp);
+		whereCondition = buildWhereCondition(where, conditionOp);
 		if(whereCondition.length() > 0) 
 			sql += " WHERE " + whereCondition;
 		
@@ -132,19 +132,14 @@ public class SQLStringFactory
 	}
 	
 	//Build Where condition
-	protected String BuildWhereCondition(SQLValueMap where, String conditionOp) { 
+	protected String buildWhereCondition(SQLValueMap where, String conditionOp) { 
 		//This function may be used to create chunks of conditions
-		//brackets become important when nesting recursively
-		//IE: 	(A='1' OR B='bob' OR C IS NULL)
-		//		(A='1' AND B='bob' AND C IS NULL)
-		
-		
+				
 		String whereCondition = "";
 		int whereSize = where.size();
 		if(whereSize > 0) {		
 			String glue = " " + conditionOp + " ";
 			
-			whereCondition += "(";
 			int i=0;
 			for (Entry<String, String> entry : where.entrySet()) {
 				++i; // current position on scale between 1 and n
@@ -162,7 +157,7 @@ public class SQLStringFactory
 					whereCondition += key + " = '" + EscapeSQLValue(value) + "'"; // prevent sql injection
 				
 			}
-			whereCondition += ")";
+			
 		}
 		return whereCondition;
 	}

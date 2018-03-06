@@ -3,7 +3,7 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException
     {
-		/*// Run Dummy App
+		//*// Run Dummy App
 		runDummyApp();
 		/*/// Run Main App
 		runMainApp();
