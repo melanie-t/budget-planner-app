@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class GUI {
 
 	public GUI() {
 		addAccountWindow();
-		accountWindow();
-		transactionWindow();
+	//	accountWindow();
+	//	transactionWindow();
 		addtransactionWindow();
 	}
 	
@@ -24,6 +25,40 @@ public class GUI {
 	/*
 	 * Account window
 	 */
+	
+	private void initResetButton (JButton resetButton, JTextField [] fieldReset)
+	{
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					
+					// Clear all textfields
+					for (int i = 0; i < fieldReset.length; i++)
+						fieldReset[i].setText("");
+				}
+				
+				catch (Exception e) {
+					System.out.println("Error in resetting");
+				}
+			};
+		});
+	}
+	
+	private void initSubmitButton (JButton submitButton, JTextField [] fieldSubmitted)
+	{
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					// Controller for creating a new bank account
+				}
+				
+				catch(Exception e) {
+					System.out.println("Error in submitting");
+				}
+			}
+		});
+	}
+	
 	private void accountWindow () {
 		JPanel accountPanel = new JPanel();
 		
@@ -95,12 +130,16 @@ public class GUI {
 		addAccountPanel.add(submit);
 		addAccountPanel.add(reset);
 		
+		initSubmitButton(submit, accountTextfield);
+		initResetButton(reset, accountTextfield);
+		
 		initJFrame("Add Account", addAccountPanel, 330, 200);
 	}
 	
 	/*
 	 * Transaction window
 	 */
+
 	private void transactionWindow () {
 		
 		JPanel transactionPanel = new JPanel();
@@ -178,8 +217,14 @@ public class GUI {
 		transactionPanel.add(submit);
 		transactionPanel.add(reset);
 		
+		initSubmitButton (submit, transactionTextfield);
+		initResetButton (reset, transactionTextfield);
 		initJFrame("Add Transaction", transactionPanel, 330, 200);
 	}
+	
+	/*
+	 * Initializes reset button which clears all textfields
+	 */
 	
 	private void budgetWindow () {
 		JPanel budgetPanel = new JPanel();
