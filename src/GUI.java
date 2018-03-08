@@ -5,10 +5,8 @@ import java.awt.event.*;
 public class GUI {
 
 	public GUI() {
-		addAccountWindow();
-	//	accountWindow();
-	//	transactionWindow();
-		addtransactionWindow();
+		accountWindow();
+		transactionWindow();
 	}
 	
 	/*
@@ -19,7 +17,7 @@ public class GUI {
 		frame.add(panel);
 		frame.setSize(width, height);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
 	}
 	
 	/*
@@ -49,11 +47,43 @@ public class GUI {
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
 				try {
-					// Controller for creating a new bank account
+					// Controller for processing textfields
 				}
 				
 				catch(Exception e) {
 					System.out.println("Error in submitting");
+				}
+			}
+		});
+	}
+	
+	private void initDeleteButton (JButton deleteButton, JTextField [] entryDeleted)
+	{	
+		// Delete entry
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					
+				}
+				
+				catch(Exception e) {
+					System.out.println("Error in deleting");
+				}
+			}
+		});
+	}
+	
+	private void initEditButton (JButton editButton, JTextField [] editEntry)
+	{	
+		// Edit entry
+		editButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					
+				}
+				
+				catch(Exception e) {
+					System.out.println("Error in editting");
 				}
 			}
 		});
@@ -99,6 +129,19 @@ public class GUI {
 
         //Add the scroll pane to this panel.
         accountPanel.add(scrollPane);
+        
+        // Initializes add button when clicked, opens addAccountWindow
+		accountButtons[0].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					addAccountWindow();
+				}
+				
+				catch(Exception e) {
+					System.out.println("Error in opening add window");
+				}
+			}
+		});
 		
 		initJFrame("Accounts", accountPanel, 400, 200);
 	}
@@ -182,7 +225,19 @@ public class GUI {
 
         //Add the scroll pane to this panel.
         transactionPanel.add(scrollPane);
-        
+      
+        // Initializes add button when clicked, opens addAccountWindow
+   		transactionButtons[0].addActionListener(new ActionListener() {
+   			public void actionPerformed(ActionEvent a) {
+   				try {
+   					addTransactionWindow();
+   				}
+   				
+   				catch(Exception e) {
+   					System.out.println("Error in opening add window");
+   				}
+   			}
+   		});
 		initJFrame("Transactions", transactionPanel, 400, 200);
 	}
 	
@@ -190,7 +245,7 @@ public class GUI {
 	/*
 	 * Add transaction
 	 */
-	private void addtransactionWindow () {
+	private void addTransactionWindow () {
 		JPanel transactionPanel = new JPanel();
 		
 		JLabel transactionLabel[] = {
