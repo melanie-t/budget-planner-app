@@ -13,6 +13,6 @@
 	<classpathentry kind="lib" path="Mockito/byte-buddy-1.7.9.jar"/>
 	<classpathentry kind="lib" path="Mockito/byte-buddy-agent-1.7.9.jar"/>
 	<classpathentry kind="lib" path="Mockito/objenesis-2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ruttyj/Desktop/COMP354_1-master (1)/COMP354_1-master/JsonSimple/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="JsonSimple/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
