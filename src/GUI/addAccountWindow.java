@@ -7,8 +7,7 @@ import javax.swing.JTextField;
 
 public class addAccountWindow {
 	
-	private void addAccountWindow() {
-	}
+	private addAccountWindow() {}
 	
 	protected static void init() {
 		

@@ -12,8 +12,7 @@ import javax.swing.JTable;
 
 public class accountWindow {
 	
-	private accountWindow() {
-	}
+	private accountWindow() {}
 	
 	protected static void init() {
 		JPanel accountPanel = new JPanel();

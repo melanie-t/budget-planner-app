@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class initMethods {
+	
+	private initMethods() {}
 
 	protected static void initJFrame(String frameName, JPanel panel, int width, int height) {
 		JFrame frame = new JFrame(frameName);

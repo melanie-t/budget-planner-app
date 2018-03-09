@@ -7,8 +7,7 @@ import javax.swing.JTextField;
 
 public class addTransactionWindow {
 
-	private addTransactionWindow() {
-	}
+	private addTransactionWindow() {}
 	
 	protected static void initialize() {
 		JPanel transactionPanel = new JPanel();

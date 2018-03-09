@@ -3,7 +3,8 @@ package GUI;
 public class mainWindow {
 
 	public mainWindow() {
-		accountWindow.init();
-		transactionWindow.init();
+		//accountWindow.init();
+		//transactionWindow.init();
+		budgetWindow.init();
 	}
 }

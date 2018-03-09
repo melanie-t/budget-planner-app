@@ -12,8 +12,7 @@ import javax.swing.JTable;
 
 public class transactionWindow {
 
-	private transactionWindow() {
-	}
+	private transactionWindow() {}
 	
 	protected static void init () {
 		
