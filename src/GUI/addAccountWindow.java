@@ -1,5 +1,8 @@
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,10 +37,31 @@ public class addAccountWindow {
 		addAccountPanel.add(submit);
 		addAccountPanel.add(reset);
 		
-		initMethods.initSubmitButton(submit, accountTextfield);
+		// Submit button
+		// Textfield[0] = Bank
+		// Textfield[1] = Nickname
+		// Textfield[2] = Balance
+		
+		// Add controller to here
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					for (int i = 0; i < accountTextfield.length; i++)
+					{
+						// Returns the value in textfield upon submitting
+						System.out.println(accountTextfield[i].getText());
+					}
+				}
+				
+				catch(Exception e) {
+					System.out.println("Error in submitting");
+				}
+			}
+		});
+		
 		initMethods.initResetButton(reset, accountTextfield);
 		
 		initMethods.initJFrame("Add Account", addAccountPanel, 330, 200);
+		
 	}
-
 }

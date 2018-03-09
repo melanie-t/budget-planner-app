@@ -29,7 +29,7 @@ public class transactionWindow {
 		// Adding button action listener and button to panel
 		for (int i = 0; i < transactionButtons.length; i++) {
 			//transactionButtons[i].addActionListener(this);
-		    transactionPanel.add(transactionButtons[i]);
+			transactionPanel.add(transactionButtons[i]);
 		}
 
 		String columnName[] = {
@@ -69,6 +69,7 @@ public class transactionWindow {
    				}
    			}
    		});
+   		
 		initMethods.initJFrame("Transactions", transactionPanel, 400, 200);
 	}
 }

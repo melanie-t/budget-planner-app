@@ -1,5 +1,8 @@
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,6 +13,7 @@ public class addTransactionWindow {
 	private addTransactionWindow() {}
 	
 	protected static void initialize() {
+		
 		JPanel transactionPanel = new JPanel();
 		
 		JLabel transactionLabel[] = {
@@ -36,8 +40,26 @@ public class addTransactionWindow {
 		transactionPanel.add(submit);
 		transactionPanel.add(reset);
 		
-		initMethods.initSubmitButton (submit, transactionTextfield);
+		// Add controller to here
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				try {
+					for (int i = 0; i < transactionTextfield.length; i++)
+					{
+						// Returns the value in textfield upon submitting
+						System.out.println(transactionTextfield[i].getText());
+					}
+				}
+				
+				catch(Exception e) {
+					System.out.println("Error in submitting");
+				}
+			}
+		});
+		
+		
 		initMethods.initResetButton (reset, transactionTextfield);
+		
 		initMethods.initJFrame("Add Transaction", transactionPanel, 330, 200);
 	}
 }

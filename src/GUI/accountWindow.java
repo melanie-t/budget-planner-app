@@ -15,6 +15,7 @@ public class accountWindow {
 	private accountWindow() {}
 	
 	protected static void init() {
+		
 		JPanel accountPanel = new JPanel();
 		
 		JLabel accountLabel = new JLabel("Accounts");
@@ -54,7 +55,7 @@ public class accountWindow {
 	
 	    //Add the scroll pane to this panel.
 	    accountPanel.add(scrollPane);
-	    
+
 	    // Initializes add button when clicked, opens addAccountWindow
 		accountButtons[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
