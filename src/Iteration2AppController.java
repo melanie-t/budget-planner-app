@@ -36,7 +36,6 @@ public class Iteration2AppController extends AppController {
 		public void run() {
 			System.out.println("Running Iteration 2 app");
 			
-					
 			UserModel currentUser = new UserModel();
 			
 			//Create view
@@ -44,17 +43,15 @@ public class Iteration2AppController extends AppController {
 			//Attach model
 			accountMainView.setModel(currentUser);
 			
-			
-			
 			//Add account controls -----------------------------
-			AddAccountController addAccountControl = new AddAccountController();
+			AddAccountWindowController addAccountControl = new AddAccountWindowController();
 			addAccountControl.setView(accountMainView);
-			accountMainView.setController("add", addAccountControl);
+			accountMainView.setControl("add", addAccountControl);
 		
 			DeleteAccountController deleteAccountControl =  new DeleteAccountController();
 			deleteAccountControl.setUser(currentUser);
 			deleteAccountControl.setView(accountMainView);
-			accountMainView.setController("delete", deleteAccountControl);
+			accountMainView.setControl("delete", deleteAccountControl);
 			//__________________________________________________
 			
 			

@@ -12,7 +12,6 @@ public class Database
 	private String m_driver = ""; // Driver should always be the same
 	private String m_dbName = "";
 	private Connection m_connection = null;
-	private HashSet<View> m_views = new HashSet<View>();
 	// ______________________________________________________________
 	
 	
@@ -63,7 +62,6 @@ public class Database
 			Statement statement = m_connection.createStatement();
 			statement.executeUpdate(sqlString);
 			statement.close();
-			notifyViews();
 		}
 		catch (SQLException e) 
 		{ 
@@ -74,28 +72,7 @@ public class Database
 	// ______________________________________________________________
 	
 
-	/////////////////////////////////////////////////////////////////
-	// --- Observer pattern things ----------------------------------
-	public void attach(View view)
-	{
-		m_views.add(view);
-	}
-	
-	
-	public void detach(View view)
-	{
-		m_views.remove(view);
-	}
-	
-	private void notifyViews()
-	{
-		for (View view : m_views)
-		{
-			view.update();
-		}
-	}
-	// ______________________________________________________________
-	
+
 	
 	/////////////////////////////////////////////////////////////////
 	// --- CleanUp -------------------------------------------------

@@ -37,22 +37,19 @@ public class AccountsMainView extends AbstractView{
 		accountPanel.add(accountLabel);
 	}
 	
-	public void setLabel(String label ) {
-		this.label = label;
-	}
 	
-
+	//DEPRECATED - exploritory method
 	public void setTableModel(DefaultTableModel model) {
 		this.tableModel = model;
 	}
 	
-	//could be aliased to add controller
-	public void setController(AccountController controller) {
-		this.controller = controller;
-	}
+	//=============================
 	
-	public void setActionController(AccountController controller) {
-		
+	// 			MODEL
+	
+	//=============================
+	public void setLabel(String label ) {
+		this.label = label;
 	}
 	
 	public void setModel(UserModel model) {
@@ -68,16 +65,21 @@ public class AccountsMainView extends AbstractView{
 	}
 	
 	
+	
+	//=============================
+	
+	// 			DISPLAY
+	
+	//=============================
 	public void display() {
 		
-		
 		JButton addButton = new JButton("Add");
-		ActionListener addAccountController = getController("add");
+		ActionListener addAccountController = getControl("add");
 			if(addAccountController != null)
 		    	addButton.addActionListener(addAccountController);
 			
 		JButton deleteButton = new JButton("Delete");
-		ActionListener deleteAccountController = getController("delete");
+		ActionListener deleteAccountController = getControl("delete");
 	    if(deleteAccountController != null)
 	    	deleteButton.addActionListener(deleteAccountController);
 		    
