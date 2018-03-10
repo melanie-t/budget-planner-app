@@ -3,16 +3,21 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException
     {
-		//*// Run Dummy App
-		runDummyApp();
-		/*/// Run Main App
-		runMainApp();
-		//*/
+		runIteration2App();
     }
 	
 	
-	public static void runMainApp() {
+	public static void runIteration1App() {
 		Iteration1AppController App = new Iteration1AppController();
+		App.start();
+		App.run();
+		App.shutdown();
+	}
+	
+	
+	public static void runIteration2App() {
+		//Can run code here when doing R&D
+		Iteration2AppController App = new Iteration2AppController();
 		App.start();
 		App.run();
 		App.shutdown();

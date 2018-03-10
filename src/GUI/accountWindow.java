@@ -10,11 +10,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+
 public class accountWindow {
 	
-	private accountWindow() {}
+	public accountWindow() {
+		//AccountModel account;
+		
+	}
 	
-	protected static void init() {
+	
+	public void display() {
 		
 		JPanel accountPanel = new JPanel();
 		

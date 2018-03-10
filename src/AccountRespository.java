@@ -13,6 +13,8 @@ public class AccountRespository {
 	public AccountRespository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
+		
+		itemMap = new HashMap<Integer, AccountModel>();
 	}
 	
 		

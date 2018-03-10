@@ -12,7 +12,7 @@ public class addAccountWindow {
 	
 	private addAccountWindow() {}
 	
-	protected static void init() {
+	public static void init() {
 		
 		JPanel addAccountPanel = new JPanel();
 		

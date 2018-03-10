@@ -1,45 +1,43 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.table.DefaultTableModel;
+
+import GUI.accountWindow;
+import GUI.addAccountWindow;
 
 public class DummyAppController extends AppController {
 	
 		Database myDatabase;
 		SQLStringFactory sql;
+		ViewController theViewController;
 		
-		
-		AccountRespository theAccountRespository;
-		TransactionRepository theTransactionRepository;
-		
-		View accountsView;
-		View transactionsView;
-		
-		public DummyAppController() {}
-		
-		
-		
-		public void start() {
+
+		public DummyAppController() {
 			myDatabase = new Database("MyDB");
 			this.sql = SQLStringFactory.getInstance();
-			
-			theAccountRespository = new AccountRespository(myDatabase);
-			//theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
-			
-			
-			theTransactionRepository = new TransactionRepository(myDatabase);
-			//theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			theViewController = new ViewController();
+		}
+		
+				
+		public void start() {
 			
 		}
 		
-		public void shutdown() {
 		
-		}
 		
 		public void run() {
+			/*
+				SQLValueMap where = new SQLValueMap();
+				where.put("accountId", 1);
+				System.out.println(sql.selectEntryUsingMap("account", where));
+			*/
 			
-			SQLValueMap where = new SQLValueMap();
-			where.put("accountId", 1);
 			
-			System.out.println(sql.selectEntryUsingMap("account", where));
+			/*
+			 * This is an attempt to build the MVC with the new windows
+			 * */
 			
-			//myDatabase.fetchSQL @TODO make this function
 			
 		}
 		

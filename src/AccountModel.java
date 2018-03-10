@@ -5,6 +5,7 @@ public class AccountModel extends AbstractModel {
 	String bankName;
 	String nickname;
 	int balance;
+
 	
 	public AccountModel() {
 		super();

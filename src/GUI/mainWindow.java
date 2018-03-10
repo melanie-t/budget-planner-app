@@ -1,5 +1,6 @@
 package GUI;
 
+
 import javax.swing.*;
 
 public class mainWindow {
@@ -8,7 +9,7 @@ public class mainWindow {
 	
 	public mainWindow() {
 		
-		accountWindow.init();
+		//accountWindow.init();
 		transactionWindow.init();
 		budgetWindow.init();
 		

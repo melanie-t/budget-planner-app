@@ -12,7 +12,7 @@ public class initMethods {
 	
 	private initMethods() {}
 
-	protected static void initJFrame(String frameName, JPanel panel, int width, int height) {
+	public static void initJFrame(String frameName, JPanel panel, int width, int height) {
 		JFrame frame = new JFrame(frameName);
 		frame.add(panel);
 		frame.setSize(width, height);
