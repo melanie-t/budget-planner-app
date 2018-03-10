@@ -35,10 +35,15 @@ public class AccountsMainView extends AbstractView{
 		accountPanel = new JPanel();
 		accountLabel = new JLabel(label);
 		accountPanel.add(accountLabel);
+		
+		
+		TodoController todoController = new TodoController();
+		todoController.setView(this);
+		this.setControl("@TODO", todoController);
 	}
 	
 	
-	//DEPRECATED - exploritory method
+	//DEPRECATED - exploratory method
 	public void setTableModel(DefaultTableModel model) {
 		this.tableModel = model;
 	}
@@ -50,6 +55,10 @@ public class AccountsMainView extends AbstractView{
 	//=============================
 	public void setLabel(String label ) {
 		this.label = label;
+	}
+	
+	public String getLabel() {
+		return label;
 	}
 	
 	public void setModel(UserModel model) {
@@ -72,7 +81,7 @@ public class AccountsMainView extends AbstractView{
 	
 	//=============================
 	public void display() {
-		
+		//Place holder controller
 		
 		//@TODO replace with map of some sort
 		JButton addButton = new JButton("Add");
@@ -80,7 +89,7 @@ public class AccountsMainView extends AbstractView{
 		if(addAccountController != null)
 	    	addButton.addActionListener(addAccountController);
 		else 
-			addButton.addActionListener(new TodoController());
+			addButton.addActionListener(getControl("@TODO"));
 			
 			
 		JButton deleteButton = new JButton("Delete");
@@ -88,14 +97,14 @@ public class AccountsMainView extends AbstractView{
 	    if(deleteAccountController != null)
 	    	deleteButton.addActionListener(deleteAccountController);
 	    else 
-			addButton.addActionListener(new TodoController());
+	    	deleteButton.addActionListener(getControl("@TODO"));
 	    
 	    JButton editButton = new JButton("Edit");
 		ActionListener editAccountController = getControl("edit");
 	    if(editAccountController != null)
 	    	editButton.addActionListener(editAccountController);
 	    else 
-			addButton.addActionListener(new TodoController());
+	    	editButton.addActionListener(getControl("@TODO"));
 		    
 		    
 		
@@ -137,8 +146,9 @@ public class AccountsMainView extends AbstractView{
 	    //Add the scroll pane to this panel.
 	    accountPanel.add(scrollPane);
 
-	    
-		initMethods.initJFrame(label, accountPanel, 400, 200);
+	    UserModel user = getUser();
+	    String username = user.getName();
+		initMethods.initJFrame(username+": "+label, accountPanel, 400, 200);
 	
 	}
 }

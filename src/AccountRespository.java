@@ -19,7 +19,6 @@ public class AccountRespository {
 	
 		
 	public void saveItem(AccountModel objAccount) {
-		
 		if(objAccount.isNew()) {
 			//Insert into database
 			myDatabase.updateSQL(sql.addEntry("account", "NULL", objAccount.getBankName(), objAccount.getNickName(), Integer.toString(objAccount.getBalance()) ));
@@ -42,6 +41,8 @@ public class AccountRespository {
 	
 	protected void loadItem(Integer itemID) {
 		//@TODO make selectEntryUsingMap and fetchSQL
+		
+		
 	}
 	
 	/*

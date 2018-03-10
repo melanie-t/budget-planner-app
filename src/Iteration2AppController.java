@@ -37,17 +37,16 @@ public class Iteration2AppController extends AbstractAppController {
 			
 			//Create view
 			AccountsMainView accountMainView = new AccountsMainView();
+			
 			//Attach model
 			accountMainView.setModel(currentUser);
 			
-			//Add account controls -----------------------------
+			//Add controls -------------------------------------
 			AddAccountWindowController addAccountControl = new AddAccountWindowController();
-			addAccountControl.setView(accountMainView);
 			accountMainView.setControl("add", addAccountControl);
 		
 			DeleteAccountController deleteAccountControl =  new DeleteAccountController();
 			deleteAccountControl.setUser(currentUser);
-			deleteAccountControl.setView(accountMainView);
 			accountMainView.setControl("delete", deleteAccountControl);
 			//__________________________________________________
 			

@@ -53,7 +53,6 @@ public class Database
 	/////////////////////////////////////////////////////////////////
 	// --- Setters --------------------------------------------------
 	// This is the "lowest" we go in terms of abstraction for our db, this is where are modifications one the db are done
-	// Comment: suggest rename executeSQL(String sqlString) - Jordan
 	public void updateSQL(String sqlString)
 	{
 		// PreparedStatement not supported yet, not sure we need them anyway with the SQLStringFactory
@@ -62,6 +61,7 @@ public class Database
 			Statement statement = m_connection.createStatement();
 			statement.executeUpdate(sqlString);
 			statement.close();
+		
 		}
 		catch (SQLException e) 
 		{ 
