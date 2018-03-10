@@ -1,7 +1,8 @@
+
 import java.util.HashMap;
 
 //The User object will likely have one of these
-public class AccountRespository { 
+public class AccountRepository { 
 	
 	//Database manipulation
 	Database myDatabase;
@@ -10,7 +11,7 @@ public class AccountRespository {
 	HashMap<Integer, AccountModel> itemMap; // loaded account models live here
 	
 
-	public AccountRespository(Database myDatabase) {
+	public AccountRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
 		

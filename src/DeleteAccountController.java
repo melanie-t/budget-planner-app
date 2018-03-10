@@ -5,10 +5,10 @@ import GUI.addAccountWindow;
 
 public class DeleteAccountController extends AccountController{
 	
-	AccountRespository accountRepo;
+	AccountRepository accountRepo;
 	UserModel user;
 	
-	public void setAccountRepository(AccountRespository accountRepo) {
+	public void setAccountRepository(AccountRepository accountRepo) {
 		this.accountRepo = accountRepo;
 	}
 	

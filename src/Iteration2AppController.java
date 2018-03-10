@@ -17,8 +17,8 @@ public class Iteration2AppController extends AbstractAppController {
 		}
 				
 		public void start() {
-			AccountRespository theAccountRespository;
-			theAccountRespository = new AccountRespository(myDatabase);
+			AccountRepository theAccountRespository;
+			theAccountRespository = new AccountRepository(myDatabase);
 			//theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
 			
 			TransactionRepository theTransactionRepository;

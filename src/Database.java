@@ -1,5 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
@@ -72,6 +74,20 @@ public class Database
 	// ______________________________________________________________
 	
 
+	
+	public ResultSet fetchSQL(String sqlString) {
+		try 
+		{ 
+			PreparedStatement st = m_connection.prepareStatement(sqlString);
+		    ResultSet r1 = st.executeQuery();
+		    return r1;
+		}
+		catch (SQLException e) 
+		{ 
+			System.err.println(e.getMessage()); 
+		} 
+		return null;
+	}
 
 	
 	/////////////////////////////////////////////////////////////////
