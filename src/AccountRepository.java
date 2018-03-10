@@ -14,7 +14,6 @@ public class AccountRepository {
 	Boolean boolAllLoaded;
 	HashMap<Integer, AccountModel> itemMap; // loaded account models live here
 	
-
 	public AccountRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
@@ -22,7 +21,6 @@ public class AccountRepository {
 		
 		itemMap = new HashMap<Integer, AccountModel>();
 	}
-	
 		
 	public void saveItem(AccountModel account) {
 		if(account.isNew()) {
@@ -40,7 +38,6 @@ public class AccountRepository {
 			
 			SQLValueMap where = new SQLValueMap();
 			where.put("accountId", Integer.toString(account.getId()));
-			
 			
 			myDatabase.updateSQL( sql.updateEntryUsingMap("account", values, where) );
 		}
@@ -76,7 +73,7 @@ public class AccountRepository {
 			while(result.next())
 				setItemFromResult(result);
 			
-			boolAllLoaded = true;
+			
 		} catch (SQLException e){ 
 			System.err.println(e.getMessage());
 		}
@@ -88,6 +85,8 @@ public class AccountRepository {
 		try {
 			while(result.next())
 				setItemFromResult(result);
+			
+			boolAllLoaded = true;
 		} catch (SQLException e){ 
 			System.err.println(e.getMessage());
 		}
@@ -112,18 +111,6 @@ public class AccountRepository {
 			itemMap.put(account.getId(), account);
 		}
 	}
-	/*
-	 * // check to see if more that just the primary key is loaded form DB
-	protected boolean isItemLoaded(Integer itemID) { 
-		if(hasItem(itemID)) {		
-			AccountModel objItem = itemMap.get(itemID);
-			return true; // currently not checking any type of boolLoaded value
-		}
-		return false;
-	}
-	*/
-	
-	
 	
 	
 	

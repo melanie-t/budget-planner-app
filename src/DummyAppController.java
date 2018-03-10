@@ -41,6 +41,11 @@ public class DummyAppController extends AbstractAppController {
 			newAccount.setBankName("TD");
 			accountRepo.saveItem(newAccount);
 			
+			AccountModel newAccount2 = new AccountModel();
+			newAccount2.setBankName("National");
+			newAccount2.setBalance(200);
+			accountRepo.saveItem(newAccount2);
+			
 			
 			//Use a new repo without items loaded to test if the fetching works
 			AccountRepository blankAccountRepo = new AccountRepository(myDatabase);
@@ -51,7 +56,7 @@ public class DummyAppController extends AbstractAppController {
 		        HashMap.Entry pair = (HashMap.Entry)it.next();
 		        
 		        AccountModel account = (AccountModel) pair.getValue(); 
-		        System.out.println(pair.getKey() + account.getBankName());
+		        System.out.println(account.getId() + " " + account.getBankName());
 		        it.remove(); // avoids a ConcurrentModificationException
 		    }
 			
