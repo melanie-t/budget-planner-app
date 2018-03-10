@@ -19,7 +19,7 @@ public class AccountModel extends AbstractModel {
 	// ID
 	public boolean hasId(){return accountId != 0;}
 	public int getId() {return accountId;}
-	public void SetId(int accountId) {
+	public void setId(int accountId) {
 		setIsNewModel(accountId == 0); // ID of 0 is considered new (not saved in DB)
 		this.accountId = accountId;
 	}

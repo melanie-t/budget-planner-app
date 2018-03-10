@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
@@ -55,21 +56,28 @@ public class Database
 	/////////////////////////////////////////////////////////////////
 	// --- Setters --------------------------------------------------
 	// This is the "lowest" we go in terms of abstraction for our db, this is where are modifications one the db are done
-	public void updateSQL(String sqlString)
+	public Integer updateSQL(String sqlString)
 	{
+		int newId = 0;
 		// PreparedStatement not supported yet, not sure we need them anyway with the SQLStringFactory
 		try 
 		{ 
 			Statement statement = m_connection.createStatement();
 			statement.executeUpdate(sqlString);
+			
+			//Get the auto-inc id of row if any 
+			ResultSet keyset = statement.getGeneratedKeys();
+			while (keyset.next()) {
+				newId = keyset.getInt("last_insert_rowid()");
+			}
+			
 			statement.close();
-		
 		}
 		catch (SQLException e) 
 		{ 
 			System.err.println(e.getMessage()); 
 		} 
-
+		return newId;
 	}
 	// ______________________________________________________________
 	
