@@ -1,5 +1,5 @@
 
-public class AbstractModel {
+public abstract class AbstractModel {
 	boolean boolNew;
 	
 	

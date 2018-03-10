@@ -1,6 +1,6 @@
 import java.awt.event.ActionEvent;
 
-public class AbstractViewController implements java.awt.event.ActionListener{
+public abstract class AbstractViewController implements java.awt.event.ActionListener{
 	
 	AbstractModel model;
 	AbstractView view;

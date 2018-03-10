@@ -73,15 +73,29 @@ public class AccountsMainView extends AbstractView{
 	//=============================
 	public void display() {
 		
+		
+		//@TODO replace with map of some sort
 		JButton addButton = new JButton("Add");
 		ActionListener addAccountController = getControl("add");
-			if(addAccountController != null)
-		    	addButton.addActionListener(addAccountController);
+		if(addAccountController != null)
+	    	addButton.addActionListener(addAccountController);
+		else 
+			addButton.addActionListener(new TodoController());
+			
 			
 		JButton deleteButton = new JButton("Delete");
 		ActionListener deleteAccountController = getControl("delete");
 	    if(deleteAccountController != null)
 	    	deleteButton.addActionListener(deleteAccountController);
+	    else 
+			addButton.addActionListener(new TodoController());
+	    
+	    JButton editButton = new JButton("Edit");
+		ActionListener editAccountController = getControl("edit");
+	    if(editAccountController != null)
+	    	editButton.addActionListener(editAccountController);
+	    else 
+			addButton.addActionListener(new TodoController());
 		    
 		    
 		

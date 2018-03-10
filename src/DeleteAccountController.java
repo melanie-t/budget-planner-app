@@ -25,7 +25,7 @@ public class DeleteAccountController extends AccountController{
 			AccountsMainView view = (AccountsMainView) getView();
 			
 			Integer accountId = view.getSelectedAccount();
-			System.out.println("@TODO Delete account ID " + accountId + ".... ");
+			System.out.println("Delete account ID " + accountId + ".... @TODO find which account is actually selected in UI");
 			
 		}
 		catch(Exception e) {

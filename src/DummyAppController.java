@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import GUI.accountWindow;
 import GUI.addAccountWindow;
 
-public class DummyAppController extends AppController {
+public class DummyAppController extends AbstractAppController {
 	
 		Database myDatabase;
 		SQLStringFactory sql;

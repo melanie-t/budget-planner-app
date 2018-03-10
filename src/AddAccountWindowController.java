@@ -8,7 +8,7 @@ public class AddAccountWindowController extends AccountController{
 		//still need a way of updating the model here
 		try {
 			System.out.println("addAccountWindow opened");
-			addAccountWindow.init();
+			addAccountWindow.init(); // <-- @TODO Replace this
 		}
 		catch(Exception e) {
 			System.out.println("Error in opening add window");

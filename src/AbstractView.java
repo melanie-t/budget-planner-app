@@ -3,7 +3,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class AbstractView {
+public abstract class AbstractView {
 	
 	private HashMap<String, AbstractViewController> controlMap;
 		

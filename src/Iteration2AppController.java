@@ -6,18 +6,15 @@ import javax.swing.table.DefaultTableModel;
 import GUI.accountWindow;
 import GUI.addAccountWindow;
 
-public class Iteration2AppController extends AppController {
+public class Iteration2AppController extends AbstractAppController {
 	
 		Database myDatabase;
 		SQLStringFactory sql;
 		
-		
 		public Iteration2AppController() {
 			myDatabase = new Database("MyDB");
 			this.sql = SQLStringFactory.getInstance();
-			
 		}
-		
 				
 		public void start() {
 			AccountRespository theAccountRespository;
