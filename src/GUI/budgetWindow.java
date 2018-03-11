@@ -5,44 +5,55 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class budgetWindow {
 
-	private budgetWindow(){}
+	public budgetWindow(){}
 	
-	protected static void init() {
-		JPanel budgetPanel = new JPanel();
-		
+	protected JPanel budgetPanel = new JPanel();
+	
+	private JButton addBudget = new JButton("Add");
+	private JButton deleteBudget = new JButton("Delete");
+	private JButton saveBudget = new JButton("Save changes");
+	private JButton submitBudget = new JButton("Submit");
+	private JButton resetBudget = new JButton("Reset");
+	
+	private JTextField categoryInput = new JTextField(15);
+	private JTextField amountInput = new JTextField(15);
+	private JTextField balanceInput = new JTextField(15);
+	private JTextField timeInput = new JTextField(15);
+
+	public JButton getAddBudgetButton() {return addBudget;}
+	public JButton getDeleteBudgetButton() {return deleteBudget;}
+	public JButton getSaveBudgetButton() {return saveBudget;}
+	public JButton getSubmitBudgetButton() {return submitBudget;}
+	public JButton getResetBudgetButton() {return resetBudget;}
+	
+	public String getCategory() { return categoryInput.getText();}
+	public String getAmount() { return amountInput.getText();}
+	public String getBalance() { return balanceInput.getText();}
+	public String getTime() { return timeInput.getText();}
+	
+	public void display() {
 		JLabel budgetLabel = new JLabel("Budget");
-		budgetPanel.add(budgetLabel);
-	
-		JButton budgetButtons[] = {
-				new JButton("Add"), 
-				new JButton("Delete"), 
-				new JButton("Edit")};
 		
-		// Adding button action listener and button to panel
-		for (int i = 0; i < budgetButtons.length; i++) {
-			//accountButtons[i].addActionListener(this);
-			budgetPanel.add(budgetButtons[i]);
-		}
+		//Start test data
+		Object[][] data = {{"Grocery", new Integer(800), new Integer(500), new Integer(20)},
+				{"Restaurant", new Integer(300), new Integer(100), new Integer(20)},
+				{"Fun", new Integer(150), new Integer(80), new Integer(20)}};
+		//End test data
 		
 		String columnName[] = {
 				"Category",
 				"Amount",
 				"Balance", 
 				"Time frame (days)"};
-	
-		//Start test data
-		Object[][] data = {{"Grocery", new Integer(800), new Integer(500), new Integer(20)},
-				{"Restaurant", new Integer(300), new Integer(100), new Integer(20)},
-				{"Fun", new Integer(150), new Integer(80), new Integer(20)}
-		};
-		//End test data
 		
 		JTable budgetTable = new JTable(data, columnName);
 		budgetTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
@@ -50,24 +61,54 @@ public class budgetWindow {
 	
 	    //Create the scroll pane and add the table to it.
 	    JScrollPane scrollPane = new JScrollPane(budgetTable);
-	
-	    //Add the scroll pane to this panel.
-	    budgetPanel.add(scrollPane);
-	    
-	    // Initializes add button when clicked, opens addAccountWindow
-		budgetButtons[0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent a) {
-				try {
-					addBudgetWindow.init();
-				}
-				
-				catch(Exception e) {
-					System.out.println("Error in opening add window");
-				}
-			}
-		});
 		
-		initMethods.initJFrame("Budget", budgetPanel, 400, 200);
+		// Adding all components to the panel
+		budgetPanel.add(budgetLabel);
+		budgetPanel.add(addBudget);
+		budgetPanel.add(deleteBudget);
+		budgetPanel.add(saveBudget);
+		budgetPanel.add(scrollPane);
+		
+		//initMethods.initJFrame("Budget", budgetPanel, 400, 200);
+	}
 	
+	public void addBudget() {
+		JPanel addBudgetPanel = new JPanel();
+		
+		// Creating labels
+		JLabel addLabel = new JLabel("[         ADD A BUDGET         ]");
+		JLabel categoryLabel = new JLabel("Category");
+		JLabel amountLabel = new JLabel("Amount");
+		JLabel balanceLabel = new JLabel("Balance");
+		JLabel timeLabel = new JLabel("Time frame (days)");
+		
+		categoryLabel.setLabelFor(categoryInput);
+		amountLabel.setLabelFor(amountInput);
+		balanceLabel.setLabelFor(balanceInput);
+		timeLabel.setLabelFor(timeInput);
+		
+		// Adding all components to the panel
+		addBudgetPanel.add(addLabel);
+		
+		addBudgetPanel.add(categoryLabel);
+		addBudgetPanel.add(categoryInput);
+		
+		addBudgetPanel.add(amountLabel);
+		addBudgetPanel.add(amountInput);
+		
+		addBudgetPanel.add(balanceLabel);
+		addBudgetPanel.add(balanceInput);
+		
+		addBudgetPanel.add(timeLabel);
+		addBudgetPanel.add(timeInput);
+		
+		addBudgetPanel.add(submitBudget);
+		addBudgetPanel.add(resetBudget);
+
+		JFrame addBudgetFrame = new JFrame("Add Budget");
+		addBudgetFrame.add(addBudgetPanel);
+		addBudgetFrame.setSize(220, 290);
+		addBudgetFrame.setVisible(true);
+		addBudgetFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
 	}
 }
