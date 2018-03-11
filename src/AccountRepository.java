@@ -37,8 +37,9 @@ public class AccountRepository {
 	//				CHECKING
 	
 	//========================================
-	public boolean hasItem(Integer itemID) {
-		return itemMap.get(itemID) != null;
+	protected boolean hasItemCached(Integer itemID) { // check the map not the database
+		Boolean hasItemCachedCached = itemMap.get(itemID) != null;
+		return hasItemCachedCached;
 	}
 	
 	
@@ -48,28 +49,21 @@ public class AccountRepository {
 	
 	//========================================
 	public void saveItem(AccountModel account) {
+	
+		SQLValueMap values = new SQLValueMap();
+		values.put("bankName", account.getBankName());
+		values.put("nickName", account.getNickName());
+		values.put("balance", account.getBalance());
+			
 		if(account.isNew()) {
-			
-			SQLValueMap values = new SQLValueMap();
-			values.put("bankName", account.getBankName());
-			values.put("nickName", account.getNickName());
-			values.put("balance", Integer.toString(account.getBalance()));
-			
 			//Insert into database
 			Integer newId = myDatabase.updateSQL(sql.addEntryUsingMap("account", values));
 			account.setId(newId);
 			addItemToMap(account);
-			//NOTE: currently no way of getting id of newly inserted row. Should update the model with this.	
 		} else {
-			//Update ALL account values
-			SQLValueMap values = new SQLValueMap();
-			values.put("bankName", account.getBankName());
-			values.put("nickname", account.getNickName());
-			values.put("bankName", account.getBalance());
-			
+			//Update item in database
 			SQLValueMap where = new SQLValueMap();
 			where.put("accountId", Integer.toString(account.getId()));
-			
 			myDatabase.updateSQL( sql.updateEntryUsingMap("account", values, where) );
 		}
 	}
@@ -87,11 +81,11 @@ public class AccountRepository {
 	//========================================
 	public AccountModel getItem(Integer itemID) {
 		//Attempt to load from DB if not present
-		if(hasItem(itemID))
+		if(hasItemCached(itemID))
 			loadItem(itemID);
 		
 		//Return if found
-		if(hasItem(itemID))
+		if(hasItemCached(itemID))
 			return itemMap.get(itemID);
 		return null;
 	}
