@@ -129,6 +129,7 @@ public class AccountsMainView extends AbstractView{
 			
 		//Delete
 		JButton deleteButton = new JButton("Delete");
+		deleteButton.putClientProperty("view", this);
 		ActionListener deleteAccountController = getControl("delete");
 	    if(deleteAccountController != null)
 	    	deleteButton.addActionListener(deleteAccountController);

@@ -34,9 +34,7 @@ public class Iteration2AppController extends AbstractAppController {
 		
 		//Production Mode
 		protected void productionStart() {
-			
 			Boolean isSQLStructureInitialized = true; //@TODO make check function for this
-			
 			if(isSQLStructureInitialized) {
 				theAccountRespository.initSQLStructure(); // will whipe and reinstall sql tables
 				theTransactionRepository.initSQLStructure(); // will whipe and reinstall sql tables
@@ -65,6 +63,9 @@ public class Iteration2AppController extends AbstractAppController {
 			UserModel currentUser = new UserModel();
 			currentUser.SetAccountRepository(theAccountRespository);
 			
+			
+			AccountsMainController accountMainController = new AccountsMainController();
+			
 			//Create view
 			AccountsMainView accountMainView = new AccountsMainView();
 			
@@ -74,12 +75,8 @@ public class Iteration2AppController extends AbstractAppController {
 			//-------------------------------------------------------------
 			// Add controls 
 			// would be nice if these didn't have to be in separate classes / files
-			AddAccountWindowController addAccountControl = new AddAccountWindowController();
-			accountMainView.setControl("add", addAccountControl);
-		
-			DeleteAccountController deleteAccountControl =  new DeleteAccountController();
-			deleteAccountControl.setUser(currentUser);
-			accountMainView.setControl("delete", deleteAccountControl);
+			accountMainView.setControl("add", accountMainController.openAddAccountListener()); // this will also set the view on the controller
+			accountMainView.setControl("delete", accountMainController.deleteAccountListener(theAccountRespository));
 			//__________________________________________________
 			
 			accountMainView.update();
