@@ -39,4 +39,16 @@ public class AccountModel extends AbstractModel {
 	public int getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
 	public void setBalance(int balance) {this.balance = balance;}
 	
+	
+	
+	// This is what does the "viewing"
+	public String toString(){
+		String output = "";
+		output += "\n-------------------\n";
+		output += "ID"+" -> " + this.getId() + "\n";
+		output += "BankName"+" -> " + this.getBankName() + "\n";
+		output += "NickName"+" -> " + this.getNickName() + "\n";
+		output += "Balance"+" -> " + this.getBalance() + "\n";
+		return output;
+	}
 }

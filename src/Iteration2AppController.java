@@ -57,7 +57,7 @@ public class Iteration2AppController extends AbstractAppController {
 		}
 		
 		
-		public void run() {
+		public void run() {	
 			System.out.println("Running Iteration 2 app");
 			
 			UserModel currentUser = new UserModel();
@@ -65,6 +65,7 @@ public class Iteration2AppController extends AbstractAppController {
 			
 			
 			AccountsMainController accountMainController = new AccountsMainController();
+			accountMainController.setUser(currentUser);
 			
 			//Create view
 			AccountsMainView accountMainView = new AccountsMainView();
