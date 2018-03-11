@@ -16,41 +16,68 @@ public class Iteration2AppController extends AbstractAppController {
 			this.sql = SQLStringFactory.getInstance();
 		}
 				
+		AccountRepository theAccountRespository;
+		TransactionRepository theTransactionRepository;
 		public void start() {
-			AccountRepository theAccountRespository;
 			theAccountRespository = new AccountRepository(myDatabase);
-			//theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
-			
-			TransactionRepository theTransactionRepository;
 			theTransactionRepository = new TransactionRepository(myDatabase);
-			//theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			devStart();
+			//productionStart();
 		}
 		
-		public void shutdown() {
-		
+		// Development Mode
+		protected void devStart() {
+			theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			InsertFakeAccounts();
 		}
+		
+		//Production Mode
+		protected void productionStart() {
+			Boolean isSQLStructureInitialized = true; //@TODO make check function for this
+			if(isSQLStructureInitialized) {
+				theAccountRespository.initSQLStructure(); // will whipe and reinstall sql tables
+				theTransactionRepository.initSQLStructure(); // will whipe and reinstall sql tables
+			}
+		}
+		
+		
+		
+		
+		protected void InsertFakeAccounts() {
+			AccountModel newAccount = new AccountModel();
+			newAccount.setBankName("TD");
+			theAccountRespository.saveItem(newAccount);
+			
+			AccountModel newAccount2 = new AccountModel();
+			newAccount2.setBankName("National");
+			newAccount2.setBalance(200);
+			theAccountRespository.saveItem(newAccount2);
+			
+		}
+		
 		
 		public void run() {
 			System.out.println("Running Iteration 2 app");
 			
 			UserModel currentUser = new UserModel();
+			currentUser.setAccountRepository(theAccountRespository);
+			
+			
+			AccountsMainController accountMainController = new AccountsMainController();
 			
 			//Create view
 			AccountsMainView accountMainView = new AccountsMainView();
 			
-			//Attach model
-			accountMainView.setModel(currentUser);
+			//Attach models
+			accountMainView.setUser(currentUser);
 			
-			//Add controls -------------------------------------
-			AddAccountWindowController addAccountControl = new AddAccountWindowController();
-			accountMainView.setControl("add", addAccountControl);
-		
-			DeleteAccountController deleteAccountControl =  new DeleteAccountController();
-			deleteAccountControl.setUser(currentUser);
-			accountMainView.setControl("delete", deleteAccountControl);
+			//-------------------------------------------------------------
+			// Add controls 
+			// would be nice if these didn't have to be in separate classes / files
+			accountMainView.setListener("add", accountMainController.openAddAccountListener()); // this will also set the view on the controller
+			accountMainView.setListener("delete", accountMainController.deleteAccountListener(theAccountRespository));
 			//__________________________________________________
-			
-			
 			
 			accountMainView.update();
 			accountMainView.display();

@@ -16,123 +16,144 @@ import GUI.initMethods;
 
 public class AccountsMainView extends AbstractView{
 	
-	//AccountModel account;
-	DefaultTableModel tableModel;
-	
-	JPanel accountPanel;
+	JPanel viewPanel;
 	String label;
 	JLabel accountLabel;
 	
-	
-	UserModel model;
-	AccountController controller;
+	UserModel user;
+	DefaultTableModel tableModel;
 	
 	public AccountsMainView() {
 		super();
 		//AccountModel account;
 		
 		label = "Accounts";
-		accountPanel = new JPanel();
-		accountLabel = new JLabel(label);
-		accountPanel.add(accountLabel);
+		viewPanel = new JPanel();
+		accountLabel = new JLabel();
+		viewPanel.add(accountLabel);
 		
-		
-		TodoController todoController = new TodoController();
-		todoController.setView(this);
-		this.setControl("@TODO", todoController);
 	}
 	
 	
-	//DEPRECATED - exploratory method
-	public void setTableModel(DefaultTableModel model) {
-		this.tableModel = model;
-	}
+	//=====================================
 	
-	//=============================
+	// 				MODEL
 	
-	// 			MODEL
+	//=====================================
+	//-------------------------------------
+	// Label 
+	//-------------------------------------
+	public void setLabel(String label ) {this.label = label;}
+	public String getLabel() {return label;}
 	
-	//=============================
-	public void setLabel(String label ) {
-		this.label = label;
-	}
 	
-	public String getLabel() {
-		return label;
-	}
+	//-------------------------------------
+	//	User 
+	//-------------------------------------
+	public UserModel getUser() {return user;}
+	public void setUser(UserModel user) {this.user = user;}
 	
-	public void setModel(UserModel model) {
-		this.model = model;
-	}
 	
-	public UserModel getUser() {
-		return model;
-	}
 	
-	public Integer getSelectedAccount() {
+	
+	//=====================================
+	
+	// 				UI GETTERS
+	
+	//=====================================
+	protected Integer getSelectedAccount() {
+		//Used by DeleteAccountController
 		return 1; // @TODO check interface
 	}
 	
+	protected String getFrameTitle() {
+		UserModel user = getUser();
+	    String username = user.getName();
+		return username+": "+label;
+	}
 	
 	
-	//=============================
 	
-	// 			DISPLAY
+	//=====================================
 	
-	//=============================
+	// 				UPDATE
+	
+	//=====================================
+	public void update() {
+	
+		accountLabel.setText(label);
+		
+		DefaultTableModel model = new DefaultTableModel();
+		
+		//get account list
+		UserModel user = this.getUser();
+		AccountList accounts = user.getListOfAllAccounts();
+		//set columns
+		model.addColumn("Bank");
+		model.addColumn("Nickname");
+		model.addColumn("Balance");
+		
+		//add rows
+		for(AccountModel account : accounts) 
+			model.addRow(new Object[]{account.getBankName(), account.getNickName(), account.getBalance()});
+		
+		this.setTableModel(model);
+	}
+
+	public void setTableModel(DefaultTableModel model) {
+		this.tableModel = model;
+	}
+		
+	
+	//=====================================
+	
+	// 				DISPLAY
+	
+	//=====================================
 	public void display() {
 		//Place holder controller
 		
 		//@TODO replace with map of some sort
+		
+		//Add
 		JButton addButton = new JButton("Add");
-		ActionListener addAccountController = getControl("add");
+		ActionListener addAccountController = getListener("add");
 		if(addAccountController != null)
 	    	addButton.addActionListener(addAccountController);
 		else 
-			addButton.addActionListener(getControl("@TODO"));
+			addButton.addActionListener(todoListener());
 			
-			
+		//Delete
 		JButton deleteButton = new JButton("Delete");
-		ActionListener deleteAccountController = getControl("delete");
+		ActionListener deleteAccountController = getListener("delete");
 	    if(deleteAccountController != null)
 	    	deleteButton.addActionListener(deleteAccountController);
 	    else 
-	    	deleteButton.addActionListener(getControl("@TODO"));
+	    	deleteButton.addActionListener(todoListener());
 	    
+	    //Edit
 	    JButton editButton = new JButton("Edit");
-		ActionListener editAccountController = getControl("edit");
+		ActionListener editAccountController = getListener("edit");
 	    if(editAccountController != null)
 	    	editButton.addActionListener(editAccountController);
 	    else 
-	    	editButton.addActionListener(getControl("@TODO"));
+	    	editButton.addActionListener(todoListener());
 		    
 		    
 		
 		JButton accountButtons[] = {
 				addButton, 
 				deleteButton, 
-				new JButton("Edit")};
+				editButton};
 		
 		// Adding button action listener and button to panel
 		for (int i = 0; i < accountButtons.length; i++) {
 			//accountButtons[i].addActionListener(this);
-			accountPanel.add(accountButtons[i]);
+			viewPanel.add(accountButtons[i]);
 		}
 			
 		
-		// Model Data -----------------------------------------------
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Bank");
-		model.addColumn("Nickname");
-		model.addColumn("Balance");
 		
-		model.addRow(new Object[]{"Bank of Sweeden", "Sweed", new Integer(1000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(2000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(3000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(4000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(5000)});
-		this.setTableModel(model);
-		//___________________________________________________________
 		
 		
 		JTable accountTable = new JTable(tableModel);
@@ -144,11 +165,9 @@ public class AccountsMainView extends AbstractView{
 	    JScrollPane scrollPane = new JScrollPane(accountTable);
 	
 	    //Add the scroll pane to this panel.
-	    accountPanel.add(scrollPane);
+	    viewPanel.add(scrollPane);
 
-	    UserModel user = getUser();
-	    String username = user.getName();
-		initMethods.initJFrame(username+": "+label, accountPanel, 400, 200);
+		initMethods.initJFrame(this.getFrameTitle(), viewPanel, 400, 200);
 	
 	}
 }

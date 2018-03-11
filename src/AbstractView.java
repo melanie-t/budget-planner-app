@@ -1,16 +1,18 @@
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+
 public abstract class AbstractView {
 	
-	private HashMap<String, AbstractViewController> controlMap;
+	private HashMap<String, AbstractEventListener> listenerMap;
 	private HashMap<String, AbstractModel> modelMap;
 	
 		
 	AbstractView(){
-		controlMap = new HashMap<String, AbstractViewController>();
+		listenerMap = new HashMap<String, AbstractEventListener>();
 	}
 	
 	
@@ -20,17 +22,28 @@ public abstract class AbstractView {
 	// 			CONTROLS
 	
 	//=============================
-	public void setControl(String key, AbstractViewController control) {
-		control.setView(this); //Link the controller back to the view
-		controlMap.put(key, control);
+	public void setListener(String key, AbstractEventListener listener) {
+		listener.setView(this); //Link the controller back to the view
+		listenerMap.put(key, listener);
 	}
 	
-	public ActionListener getControl(String key) {
-		if(controlMap.containsKey(key))
-			return controlMap.get(key);
+	public ActionListener getListener(String key) {
+		if(listenerMap.containsKey(key))
+			return listenerMap.get(key);
 	
 		//should probably throw exception
 		return null;
+	}
+	
+	//------------------------------------------
+	// TODO LISTENER - for things left to be done
+	public TodoListener todoListener() {
+		return new TodoListener();
+	}
+	public class TodoListener extends AbstractEventListener{
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println("TODO");
+		}
 	}
 	
 	
@@ -60,7 +73,6 @@ public abstract class AbstractView {
 
 	public void display() {}
 	
-	private void detach(){}
 	
 	
 }

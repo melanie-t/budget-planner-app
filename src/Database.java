@@ -50,6 +50,19 @@ public class Database
 	{
 		return m_connection;
 	}
+	public ResultSet fetchSQL(String sqlString) {
+		try 
+		{ 
+			PreparedStatement st = m_connection.prepareStatement(sqlString);
+		    ResultSet r1 = st.executeQuery();
+		    return r1;
+		}
+		catch (SQLException e) 
+		{ 
+			System.err.println(e.getMessage()); 
+		} 
+		return null;
+	}
 	// ______________________________________________________________
 	
 
@@ -82,22 +95,6 @@ public class Database
 	// ______________________________________________________________
 	
 
-	
-	public ResultSet fetchSQL(String sqlString) {
-		try 
-		{ 
-			PreparedStatement st = m_connection.prepareStatement(sqlString);
-		    ResultSet r1 = st.executeQuery();
-		    return r1;
-		}
-		catch (SQLException e) 
-		{ 
-			System.err.println(e.getMessage()); 
-		} 
-		return null;
-	}
-
-	
 	/////////////////////////////////////////////////////////////////
 	// --- CleanUp -------------------------------------------------
 	public void shutdown()

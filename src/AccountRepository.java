@@ -1,7 +1,9 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 //The User object will likely have one of these
 public class AccountRepository { 
@@ -12,16 +14,34 @@ public class AccountRepository {
 	
 	
 	Boolean boolAllLoaded;
-	HashMap<Integer, AccountModel> itemMap; // loaded account models live here
+	AccountMap itemMap; // loaded account models live here
+	
 	
 	public AccountRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
 		boolAllLoaded = false;
 		
-		itemMap = new HashMap<Integer, AccountModel>();
+		itemMap = new AccountMap();
 	}
 		
+	
+
+	//========================================
+	
+	//				CHECKING
+	
+	//========================================
+	public boolean hasItem(Integer itemID) {
+		return itemMap.get(itemID) != null;
+	}
+	
+	
+	//========================================
+
+	//				SAVING
+	
+	//========================================
 	public void saveItem(AccountModel account) {
 		if(account.isNew()) {
 			//Insert into database
@@ -43,10 +63,13 @@ public class AccountRepository {
 		}
 	}
 	
-	public boolean hasItem(Integer itemID) {
-		return itemMap.get(itemID) != null;
-	}
 	
+	
+	//========================================
+	
+	//				GETTING
+	
+	//========================================
 	public AccountModel getItem(Integer itemID) {
 		//Attempt to load from DB if not present
 		if(hasItem(itemID))
@@ -58,12 +81,44 @@ public class AccountRepository {
 		return null;
 	}
 	
-	public HashMap GetAllItems() {
+	//DEPRECATED
+	
+	//will return map off all items in database
+	public AccountMap getMapOfAllItems() {
 		if(!boolAllLoaded)
 			loadAll();
-		return itemMap;
+		return (AccountMap)itemMap;
 	}
 	
+	public AccountList getListOfAllItems() {
+		
+		//Load Accounts if not listed
+		if(!boolAllLoaded)
+			loadAll();
+		
+		//Initialze Account
+		AccountList anAccountList = new AccountList();
+		
+		//Loop over hash map
+		Iterator it = getMapOfAllItems().entrySet().iterator();
+	    while (it.hasNext()) {
+	    	//Get map pairs
+	        HashMap.Entry pair = (HashMap.Entry)it.next();
+	        
+	        //Add AccountModel to list
+	        anAccountList.add((AccountModel) pair.getValue());
+	    }
+	    
+		return anAccountList;
+	}
+	
+	
+	
+	//========================================
+	
+	//				LOADING
+	
+	//========================================
 	protected void loadItem(Integer itemID) {
 		SQLValueMap where = new SQLValueMap();
 		where.put("accountId", itemID);
@@ -79,6 +134,7 @@ public class AccountRepository {
 		}
 	}
 	
+	//Loads all accounts in database
 	protected void loadAll() {
 		System.out.println("loadAll");
 		ResultSet result = myDatabase.fetchSQL("SELECT * FROM account");

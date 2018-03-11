@@ -49,7 +49,7 @@ public class DummyAppController extends AbstractAppController {
 			
 			//Use a new repo without items loaded to test if the fetching works
 			AccountRepository blankAccountRepo = new AccountRepository(myDatabase);
-			HashMap<Integer, AccountModel> allAccounts = blankAccountRepo.GetAllItems();
+			HashMap<Integer, AccountModel> allAccounts = blankAccountRepo.getMapOfAllItems();
 			
 			Iterator it = allAccounts.entrySet().iterator();
 		    while (it.hasNext()) {

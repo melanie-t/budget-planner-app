@@ -7,21 +7,10 @@ public abstract class AbstractViewController implements java.awt.event.ActionLis
 	
 	public AbstractViewController(){}
 		
-	public void setModel(AbstractModel model) {
-		this.model = model;
-	}
 	
-	public void setView(AbstractView view) {
-		this.view = view;
-	}
+	public void setView(AbstractView view) {this.view = view;}
+	public AbstractView getView() {return view;}
 	
-	public AbstractModel getModel() {
-		return model;
-	}
-	
-	public AbstractView getView() {
-		return view;
-	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
