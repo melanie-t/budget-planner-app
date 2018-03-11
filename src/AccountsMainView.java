@@ -61,18 +61,42 @@ public class AccountsMainView extends AbstractView{
 		return label;
 	}
 	
-	public void setModel(UserModel model) {
-		this.model = model;
-	}
-	
 	public UserModel getUser() {
 		return model;
 	}
 	
-	public Integer getSelectedAccount() {
+	public void setUser(UserModel model) {
+		this.model = model;
+	}
+	
+	
+	
+	protected Integer getSelectedAccount() {
 		return 1; // @TODO check interface
 	}
 	
+	//=============================
+	
+	// 			UPDATE
+	
+	//=============================
+	public void update() {
+		// Model Data -----------------------------------------------
+		DefaultTableModel model = new DefaultTableModel();
+		
+		UserModel user = this.getUser();
+		
+		AccountList accounts = user.getListOfAllAccounts();
+		
+		
+		model.addColumn("Bank");
+		model.addColumn("Nickname");
+		model.addColumn("Balance");
+		for(AccountModel account : accounts) 
+			model.addRow(new Object[]{account.getBankName(), account.getNickName(), account.getBalance()});
+		this.setTableModel(model);
+		//___________________________________________________________
+	}
 	
 	
 	//=============================
@@ -120,19 +144,7 @@ public class AccountsMainView extends AbstractView{
 		}
 			
 		
-		// Model Data -----------------------------------------------
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Bank");
-		model.addColumn("Nickname");
-		model.addColumn("Balance");
 		
-		model.addRow(new Object[]{"Bank of Sweeden", "Sweed", new Integer(1000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(2000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(3000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(4000)});
-		model.addRow(new Object[]{"Bank of Montreal", "BMO", new Integer(5000)});
-		this.setTableModel(model);
-		//___________________________________________________________
 		
 		
 		JTable accountTable = new JTable(tableModel);

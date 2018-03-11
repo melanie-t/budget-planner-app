@@ -16,32 +16,36 @@ public class Iteration2AppController extends AbstractAppController {
 			this.sql = SQLStringFactory.getInstance();
 		}
 				
+		AccountRepository theAccountRespository;
+		TransactionRepository theTransactionRepository;
 		public void start() {
-			AccountRepository theAccountRespository;
-			theAccountRespository = new AccountRepository(myDatabase);
-			//theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			//-------------------------------------------------------------
+			// Reset the Database
 			
-			TransactionRepository theTransactionRepository;
+			theAccountRespository = new AccountRepository(myDatabase);
+			theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			
 			theTransactionRepository = new TransactionRepository(myDatabase);
-			//theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
+			//_____________________________________________________________
 		}
 		
-		public void shutdown() {
-		
-		}
 		
 		public void run() {
 			System.out.println("Running Iteration 2 app");
 			
 			UserModel currentUser = new UserModel();
+			currentUser.SetAccountRepository(theAccountRespository);
 			
 			//Create view
 			AccountsMainView accountMainView = new AccountsMainView();
 			
-			//Attach model
-			accountMainView.setModel(currentUser);
+			//Attach models
+			accountMainView.setUser(currentUser);
 			
-			//Add controls -------------------------------------
+			//-------------------------------------------------------------
+			// Add controls 
+			// would be nice if these didn't have to be in separate classes / files
 			AddAccountWindowController addAccountControl = new AddAccountWindowController();
 			accountMainView.setControl("add", addAccountControl);
 		
@@ -49,8 +53,6 @@ public class Iteration2AppController extends AbstractAppController {
 			deleteAccountControl.setUser(currentUser);
 			accountMainView.setControl("delete", deleteAccountControl);
 			//__________________________________________________
-			
-			
 			
 			accountMainView.update();
 			accountMainView.display();

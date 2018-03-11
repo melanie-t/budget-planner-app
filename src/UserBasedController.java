@@ -8,4 +8,6 @@ public class UserBasedController extends AbstractViewController{
 	public UserModel getUser() {
 		return user;
 	}
+	
+	
 }

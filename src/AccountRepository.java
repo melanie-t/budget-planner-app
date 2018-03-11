@@ -1,7 +1,9 @@
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 //The User object will likely have one of these
 public class AccountRepository { 
@@ -12,14 +14,15 @@ public class AccountRepository {
 	
 	
 	Boolean boolAllLoaded;
-	HashMap<Integer, AccountModel> itemMap; // loaded account models live here
+	AccountMap itemMap; // loaded account models live here
+	
 	
 	public AccountRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		this.sql = SQLStringFactory.getInstance();
 		boolAllLoaded = false;
 		
-		itemMap = new HashMap<Integer, AccountModel>();
+		itemMap = new AccountMap();
 	}
 		
 	public void saveItem(AccountModel account) {
@@ -58,10 +61,34 @@ public class AccountRepository {
 		return null;
 	}
 	
-	public HashMap GetAllItems() {
+	//DEPRECATED
+	
+	public AccountMap getMapOfAllItems() {
 		if(!boolAllLoaded)
 			loadAll();
-		return itemMap;
+		return (AccountMap)itemMap;
+	}
+	
+	public AccountList getListOfAllItems() {
+		
+		//Load Accounts if not listed
+		if(!boolAllLoaded)
+			loadAll();
+		
+		//Initialze Account
+		AccountList anAccountList = new AccountList();
+		
+		//Loop over hash map
+		Iterator it = getMapOfAllItems().entrySet().iterator();
+	    while (it.hasNext()) {
+	    	//Get map pairs
+	        HashMap.Entry pair = (HashMap.Entry)it.next();
+	        
+	        //Add AccountModel to list
+	        anAccountList.add((AccountModel) pair.getValue());
+	    }
+	    
+		return anAccountList;
 	}
 	
 	protected void loadItem(Integer itemID) {

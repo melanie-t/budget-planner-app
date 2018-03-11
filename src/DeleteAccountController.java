@@ -3,25 +3,20 @@ import java.awt.event.ActionEvent;
 
 import GUI.addAccountWindow;
 
-public class DeleteAccountController extends AccountController{
+public class DeleteAccountController extends UserBasedController{
 	
 	AccountRepository accountRepo;
-	UserModel user;
 	
 	public void setAccountRepository(AccountRepository accountRepo) {
 		this.accountRepo = accountRepo;
 	}
 	
-	public void setUser(UserModel user) {
-		this.user = user;
-	}
 		
 	public void actionPerformed(ActionEvent arg0) {
 		//still need a way of updating the model here
 		try {
 			
 			//getSelectedAccount
-			
 			AccountsMainView view = (AccountsMainView) getView();
 			
 			Integer accountId = view.getSelectedAccount();
