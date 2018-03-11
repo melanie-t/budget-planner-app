@@ -60,7 +60,6 @@ public abstract class AbstractView {
 
 	public void display() {}
 	
-	private void detach(){}
 	
 	
 }

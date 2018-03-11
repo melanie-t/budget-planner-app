@@ -19,15 +19,43 @@ public class Iteration2AppController extends AbstractAppController {
 		AccountRepository theAccountRespository;
 		TransactionRepository theTransactionRepository;
 		public void start() {
-			//-------------------------------------------------------------
-			// Reset the Database
-			
 			theAccountRespository = new AccountRepository(myDatabase);
-			theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
-			
 			theTransactionRepository = new TransactionRepository(myDatabase);
+			devStart();
+			//productionStart();
+		}
+		
+		// Development Mode
+		protected void devStart() {
+			theAccountRespository.reinitSQLStructure(); // will whipe and reinstall sql tables
 			theTransactionRepository.reinitSQLStructure(); // will whipe and reinstall sql tables
-			//_____________________________________________________________
+			InsertFakeAccounts();
+		}
+		
+		//Production Mode
+		protected void productionStart() {
+			
+			Boolean isSQLStructureInitialized = true; //@TODO make check function for this
+			
+			if(isSQLStructureInitialized) {
+				theAccountRespository.initSQLStructure(); // will whipe and reinstall sql tables
+				theTransactionRepository.initSQLStructure(); // will whipe and reinstall sql tables
+			}
+		}
+		
+		
+		
+		
+		protected void InsertFakeAccounts() {
+			AccountModel newAccount = new AccountModel();
+			newAccount.setBankName("TD");
+			theAccountRespository.saveItem(newAccount);
+			
+			AccountModel newAccount2 = new AccountModel();
+			newAccount2.setBankName("National");
+			newAccount2.setBalance(200);
+			theAccountRespository.saveItem(newAccount2);
+			
 		}
 		
 		
