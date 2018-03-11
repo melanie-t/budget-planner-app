@@ -74,7 +74,7 @@ public class AccountRepository {
 		}
 	}
 	
-	public void deleteItem(Integer itemID) {// @TODO @UNTESTED
+	public void deleteItem(Integer itemID) {
 		if(itemMap.containsKey(itemID)) 
 			itemMap.remove(itemMap.get(itemID));
 		myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
@@ -95,8 +95,6 @@ public class AccountRepository {
 			return itemMap.get(itemID);
 		return null;
 	}
-	
-	//DEPRECATED
 	
 	//will return map off all items in database
 	public AccountMap getMapOfAllItems() {

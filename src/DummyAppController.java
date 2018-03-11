@@ -14,13 +14,10 @@ public class DummyAppController extends AbstractAppController {
 	
 		Database myDatabase;
 		SQLStringFactory sql;
-		ViewController theViewController;
-		
 
 		public DummyAppController() {
 			myDatabase = new Database("MyDB");
 			this.sql = SQLStringFactory.getInstance();
-			theViewController = new ViewController();
 		}
 		
 				

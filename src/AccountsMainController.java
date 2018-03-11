@@ -44,7 +44,6 @@ public class AccountsMainController extends AbstractViewController{
 		return l;
 	}
 	public class DeleteAccountListener extends AbstractEventListener{
-		
 		public void actionPerformed(ActionEvent arg0) {
 			try {
 				
