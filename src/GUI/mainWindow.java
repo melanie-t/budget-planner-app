@@ -8,7 +8,6 @@ import javax.swing.*;
 public class mainWindow {
 	
 	private JPanel mainPanel = new JPanel();
-	private JPanel accountPanel = new JPanel();
 	
 	public mainWindow() {
 		createAndShowGUI();
