@@ -11,8 +11,13 @@ public class UserModel {
 		accountsRepo = null;
 	}
 	
-	public void SetAccountRepository(AccountRepository accountsRepo) {
+	public void setAccountRepository(AccountRepository accountsRepo) {
 		this.accountsRepo = accountsRepo;
+	}
+	
+	
+	public AccountRepository getAccountRepository() {
+		return this.accountsRepo;
 	}
 	
 	public String getName() {

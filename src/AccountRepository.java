@@ -25,6 +25,23 @@ public class AccountRepository {
 		itemMap = new AccountMap();
 	}
 		
+	
+
+	//========================================
+	
+	//				CHECKING
+	
+	//========================================
+	public boolean hasItem(Integer itemID) {
+		return itemMap.get(itemID) != null;
+	}
+	
+	
+	//========================================
+
+	//				SAVING
+	
+	//========================================
 	public void saveItem(AccountModel account) {
 		if(account.isNew()) {
 			//Insert into database
@@ -46,10 +63,13 @@ public class AccountRepository {
 		}
 	}
 	
-	public boolean hasItem(Integer itemID) {
-		return itemMap.get(itemID) != null;
-	}
 	
+	
+	//========================================
+	
+	//				GETTING
+	
+	//========================================
 	public AccountModel getItem(Integer itemID) {
 		//Attempt to load from DB if not present
 		if(hasItem(itemID))
@@ -63,6 +83,7 @@ public class AccountRepository {
 	
 	//DEPRECATED
 	
+	//will return map off all items in database
 	public AccountMap getMapOfAllItems() {
 		if(!boolAllLoaded)
 			loadAll();
@@ -91,6 +112,13 @@ public class AccountRepository {
 		return anAccountList;
 	}
 	
+	
+	
+	//========================================
+	
+	//				LOADING
+	
+	//========================================
 	protected void loadItem(Integer itemID) {
 		SQLValueMap where = new SQLValueMap();
 		where.put("accountId", itemID);
@@ -106,6 +134,7 @@ public class AccountRepository {
 		}
 	}
 	
+	//Loads all accounts in database
 	protected void loadAll() {
 		System.out.println("loadAll");
 		ResultSet result = myDatabase.fetchSQL("SELECT * FROM account");

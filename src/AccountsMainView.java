@@ -32,10 +32,6 @@ public class AccountsMainView extends AbstractView{
 		accountLabel = new JLabel();
 		viewPanel.add(accountLabel);
 		
-		
-		TodoController todoController = new TodoController();
-		todoController.setView(this);
-		this.setControl("@TODO", todoController);
 	}
 	
 	
@@ -121,28 +117,27 @@ public class AccountsMainView extends AbstractView{
 		
 		//Add
 		JButton addButton = new JButton("Add");
-		ActionListener addAccountController = getControl("add");
+		ActionListener addAccountController = getListener("add");
 		if(addAccountController != null)
 	    	addButton.addActionListener(addAccountController);
 		else 
-			addButton.addActionListener(getControl("@TODO"));
+			addButton.addActionListener(todoListener());
 			
 		//Delete
 		JButton deleteButton = new JButton("Delete");
-		deleteButton.putClientProperty("view", this);
-		ActionListener deleteAccountController = getControl("delete");
+		ActionListener deleteAccountController = getListener("delete");
 	    if(deleteAccountController != null)
 	    	deleteButton.addActionListener(deleteAccountController);
 	    else 
-	    	deleteButton.addActionListener(getControl("@TODO"));
+	    	deleteButton.addActionListener(todoListener());
 	    
 	    //Edit
 	    JButton editButton = new JButton("Edit");
-		ActionListener editAccountController = getControl("edit");
+		ActionListener editAccountController = getListener("edit");
 	    if(editAccountController != null)
 	    	editButton.addActionListener(editAccountController);
 	    else 
-	    	editButton.addActionListener(getControl("@TODO"));
+	    	editButton.addActionListener(todoListener());
 		    
 		    
 		

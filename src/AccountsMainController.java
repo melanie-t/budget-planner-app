@@ -17,9 +17,11 @@ public class AccountsMainController extends AbstractViewController{
 	// OpenAddAccountListener
 	//-----------------------------------
 	public OpenAddAccountListener openAddAccountListener() {
-		return new OpenAddAccountListener();
+		OpenAddAccountListener l = new OpenAddAccountListener();
+		l.setController(this);
+		return l;
 	}
-	public class OpenAddAccountListener extends AccountController{
+	public class OpenAddAccountListener extends AbstractEventListener{
 		public void actionPerformed(ActionEvent arg0) {
 			//still need a way of updating the model here
 			try {
@@ -39,7 +41,7 @@ public class AccountsMainController extends AbstractViewController{
 	public DeleteAccountListener deleteAccountListener(AccountRepository accountRepo) {
 		return new DeleteAccountListener(accountRepo);
 	}
-	public class DeleteAccountListener extends UserBasedController{
+	public class DeleteAccountListener extends AbstractEventListener{
 		DeleteAccountListener(AccountRepository accountRepo){
 			setAccountRepository(accountRepo);
 		}
@@ -55,10 +57,22 @@ public class AccountsMainController extends AbstractViewController{
 			//still need a way of updating the model here
 			try {
 				
+				//Access the controller
+				AccountsMainController controller = (AccountsMainController) getController();
+				UserModel user = controller.getUser();
+			
+				user.getMapOfAllAccounts();
+				AccountRepository accountRepo = user.getAccountRepository();
+				
+				
+				
+				//Access the view
 				//getSelectedAccount
 				AccountsMainView view = (AccountsMainView) getView();
-				
+				//get selected items
 				Integer accountId = view.getSelectedAccount();
+				
+				
 				System.out.println("Delete account ID " + accountId + ".... @TODO find which account is actually selected in UI");
 				
 			}
@@ -68,9 +82,5 @@ public class AccountsMainController extends AbstractViewController{
 		}
 	}
 
-	
-	
-	
-	
 	
 }

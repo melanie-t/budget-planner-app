@@ -61,7 +61,7 @@ public class Iteration2AppController extends AbstractAppController {
 			System.out.println("Running Iteration 2 app");
 			
 			UserModel currentUser = new UserModel();
-			currentUser.SetAccountRepository(theAccountRespository);
+			currentUser.setAccountRepository(theAccountRespository);
 			
 			
 			AccountsMainController accountMainController = new AccountsMainController();
@@ -75,8 +75,8 @@ public class Iteration2AppController extends AbstractAppController {
 			//-------------------------------------------------------------
 			// Add controls 
 			// would be nice if these didn't have to be in separate classes / files
-			accountMainView.setControl("add", accountMainController.openAddAccountListener()); // this will also set the view on the controller
-			accountMainView.setControl("delete", accountMainController.deleteAccountListener(theAccountRespository));
+			accountMainView.setListener("add", accountMainController.openAddAccountListener()); // this will also set the view on the controller
+			accountMainView.setListener("delete", accountMainController.deleteAccountListener(theAccountRespository));
 			//__________________________________________________
 			
 			accountMainView.update();
