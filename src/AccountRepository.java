@@ -77,7 +77,7 @@ public class AccountRepository {
 	public void deleteItem(Integer itemID) {// @TODO @UNTESTED
 		if(itemMap.containsKey(itemID)) 
 			itemMap.remove(itemMap.get(itemID));
-		myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"' LIMIT 1");
+		myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
 	}
 	
 	//========================================
