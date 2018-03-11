@@ -39,29 +39,19 @@ public class AccountsMainController extends AbstractViewController{
 	// DeleteAccountListener
 	//-----------------------------------
 	public DeleteAccountListener deleteAccountListener(AccountRepository accountRepo) {
-		return new DeleteAccountListener(accountRepo);
+		DeleteAccountListener l = new DeleteAccountListener();
+		l.setController(this);
+		return l;
 	}
 	public class DeleteAccountListener extends AbstractEventListener{
-		DeleteAccountListener(AccountRepository accountRepo){
-			setAccountRepository(accountRepo);
-		}
 		
-		AccountRepository accountRepo;
-		
-		public void setAccountRepository(AccountRepository accountRepo) {
-			this.accountRepo = accountRepo;
-		}
-		
-			
 		public void actionPerformed(ActionEvent arg0) {
-			//still need a way of updating the model here
 			try {
 				
 				//Access the controller
 				AccountsMainController controller = (AccountsMainController) getController();
 				UserModel user = controller.getUser();
 			
-				user.getMapOfAllAccounts();
 				AccountRepository accountRepo = user.getAccountRepository();
 				
 				
@@ -72,12 +62,27 @@ public class AccountsMainController extends AbstractViewController{
 				//get selected items
 				Integer accountId = view.getSelectedAccount();
 				
+				//delete item
+				accountRepo.deleteItem(accountId);
+				
+				//---------------------------------------------
+				// DEV PURPOSES 
+				//Create a new repo to check if delete worked
+				AccountRepository testRepo = new AccountRepository(new Database("MyDB"));
+				AccountList accountList = testRepo.getListOfAllItems();
+				for(AccountModel a : accountList) {
+					System.out.println(a.toString());
+				}
+				//____________________________________________
+				
+				
+				view.update();
 				
 				System.out.println("Delete account ID " + accountId + ".... @TODO find which account is actually selected in UI");
 				
 			}
 			catch(Exception e) {
-				System.out.println("Error when deleting account");
+				System.out.println("Error when deleting account: "+e.getMessage());
 			}
 		}
 	}

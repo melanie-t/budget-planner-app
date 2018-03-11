@@ -81,6 +81,41 @@ public class SQLStringFactory
 		return sql;
 	}
 	
+	
+	public String addEntryUsingMap(String tableName, SQLValueMap values)
+	{
+		String strColumns = "";
+		String strValues = "";
+		String glue = ", ";
+		
+		if(values.size() > 0) {
+			int i=0;
+			for (Entry<String, String> entry : values.entrySet()) {
+				++i; // current position on scale between 1 and n
+				String key = entry.getKey();
+				String value = entry.getValue();
+				
+				// apply glue
+				if(i != 1) {// will only apply glue in-between entries
+					strColumns += glue;
+					strValues += glue;
+				}
+				
+				// Add next column and value to sequence
+				strColumns += key;
+				
+				if (value == "NULL") 
+					strValues += "NULL";
+				 else 
+					strValues += "'" + EscapeSQLValue(value) + "'"; // prevent sql injection
+			}
+		}
+		
+		String sql = "INSERT INTO " + tableName + " ("+strColumns+") VALUES ("+strValues+");";
+		
+		return sql;
+	}
+	
 	//This function updates the data
 	public String updateEntryUsingMap(String tableName, SQLValueMap values, SQLValueMap where)
 	{

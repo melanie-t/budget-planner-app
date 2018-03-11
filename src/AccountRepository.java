@@ -12,6 +12,9 @@ public class AccountRepository {
 	Database myDatabase;
 	SQLStringFactory sql;
 	
+	String tableName;
+	String primaryKey;
+	
 	
 	Boolean boolAllLoaded;
 	AccountMap itemMap; // loaded account models live here
@@ -19,6 +22,8 @@ public class AccountRepository {
 	
 	public AccountRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
+		tableName = "account";
+		primaryKey = "accountId";
 		this.sql = SQLStringFactory.getInstance();
 		boolAllLoaded = false;
 		
@@ -44,8 +49,14 @@ public class AccountRepository {
 	//========================================
 	public void saveItem(AccountModel account) {
 		if(account.isNew()) {
+			
+			SQLValueMap values = new SQLValueMap();
+			values.put("bankName", account.getBankName());
+			values.put("nickName", account.getNickName());
+			values.put("balance", Integer.toString(account.getBalance()));
+			
 			//Insert into database
-			Integer newId = myDatabase.updateSQL(sql.addEntry("account", "NULL", account.getBankName(), account.getNickName(), Integer.toString(account.getBalance()) ));
+			Integer newId = myDatabase.updateSQL(sql.addEntryUsingMap("account", values));
 			account.setId(newId);
 			addItemToMap(account);
 			//NOTE: currently no way of getting id of newly inserted row. Should update the model with this.	
@@ -63,7 +74,11 @@ public class AccountRepository {
 		}
 	}
 	
-	
+	public void deleteItem(Integer itemID) {// @TODO @UNTESTED
+		if(itemMap.containsKey(itemID)) 
+			itemMap.remove(itemMap.get(itemID));
+		myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
+	}
 	
 	//========================================
 	
@@ -137,7 +152,9 @@ public class AccountRepository {
 	//Loads all accounts in database
 	protected void loadAll() {
 		System.out.println("loadAll");
-		ResultSet result = myDatabase.fetchSQL("SELECT * FROM account");
+		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
+		
+		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("account", where));
 		try {
 			while(result.next())
 				setItemFromResult(result);
