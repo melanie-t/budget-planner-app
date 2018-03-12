@@ -7,8 +7,8 @@ import java.util.Iterator;
 
 import javax.swing.table.DefaultTableModel;
 
-import GUI.accountWindow;
-import GUI.addAccountWindow;
+import GUI.AbstractAppController;
+import GUI.AccountModel;
 
 public class DummyAppController extends AbstractAppController {
 	

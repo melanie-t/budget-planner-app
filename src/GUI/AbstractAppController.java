@@ -1,3 +1,4 @@
+package GUI;
 
 public abstract class AbstractAppController {
 	public AbstractAppController() {}

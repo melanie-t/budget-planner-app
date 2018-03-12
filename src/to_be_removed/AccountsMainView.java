@@ -1,3 +1,4 @@
+package to_be_removed;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import GUI.addAccountWindow;
+import AccountList;
+import UserModel;
+import GUI.AbstractView;
+import GUI.AccountModel;
 import GUI.initMethods;
 
 

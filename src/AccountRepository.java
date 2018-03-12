@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import GUI.AccountModel;
+
 //The User object will likely have one of these
 public class AccountRepository { 
 	
@@ -52,7 +54,7 @@ public class AccountRepository {
 	
 		SQLValueMap values = new SQLValueMap();
 		values.put("bankName", account.getBankName());
-		values.put("nickName", account.getNickName());
+		values.put("nickName", account.getNickname());
 		values.put("balance", account.getBalance());
 			
 		if(account.isNew()) {
@@ -163,7 +165,7 @@ public class AccountRepository {
 			AccountModel account =  new AccountModel();
 			account.setId(result.getInt("accountId"));
 			account.setBalance(result.getInt("balance"));
-			account.setNickName(result.getString("nickname"));
+			account.setNickname(result.getString("nickname"));
 			account.setBankName(result.getString("bankName"));
 			addItemToMap(account);
 		} catch (SQLException e){ 

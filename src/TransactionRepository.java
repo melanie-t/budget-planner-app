@@ -1,5 +1,7 @@
 import java.util.HashMap;
 
+import GUI.TransactionModel;
+
 /*
  * Transaction Repository
  * Contains access to all of the transactions on the system

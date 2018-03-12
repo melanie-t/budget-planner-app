@@ -1,10 +1,10 @@
-
+package GUI;
 public class AccountModel extends AbstractModel {
 	
-	int accountId;
-	String bankName;
-	String nickname;
-	int balance;
+	private int accountId;
+	private String bankName;
+	private String nickname;
+	private int balance;
 
 	
 	public AccountModel() {
@@ -14,6 +14,15 @@ public class AccountModel extends AbstractModel {
 		bankName = "";
 		nickname = "";
 		balance = 0;
+	}
+
+	public AccountModel(int accountId, String bankName, String nickname, int balance) {
+		super();
+		
+		this.accountId = accountId;
+		this.bankName = bankName;
+		this.nickname = nickname;
+		this.balance = balance;
 	}
 	
 	// ID
@@ -30,16 +39,14 @@ public class AccountModel extends AbstractModel {
 	public void setBankName(String bankName) {this.bankName = bankName;}
 	
 	// Nick Name
-	public boolean hasNickName(){return nickname != "";}
-	public String getNickName() {return nickname;}
-	public void setNickName(String nickname) {this.nickname = nickname;}
+	public boolean hasNickname(){return nickname != "";}
+	public String getNickname() {return nickname;}
+	public void setNickname(String nickname) {this.nickname = nickname;}
 	
 	// Balance
 	public boolean hasBalance(){return balance != 0;}
 	public int getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
 	public void setBalance(int balance) {this.balance = balance;}
-	
-	
 	
 	// This is what does the "viewing"
 	public String toString(){
@@ -47,7 +54,7 @@ public class AccountModel extends AbstractModel {
 		output += "\n-------------------\n";
 		output += "ID"+" -> " + this.getId() + "\n";
 		output += "BankName"+" -> " + this.getBankName() + "\n";
-		output += "NickName"+" -> " + this.getNickName() + "\n";
+		output += "NickName"+" -> " + this.getNickname() + "\n";
 		output += "Balance"+" -> " + this.getBalance() + "\n";
 		return output;
 	}

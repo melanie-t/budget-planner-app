@@ -3,8 +3,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.table.DefaultTableModel;
 
-import GUI.accountWindow;
-import GUI.addAccountWindow;
+import GUI.AbstractAppController;
+import GUI.AccountModel;
+import to_be_removed.AccountsMainController;
+import to_be_removed.AccountsMainView;
 
 public class Iteration2AppController extends AbstractAppController {
 	

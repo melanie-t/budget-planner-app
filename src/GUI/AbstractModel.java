@@ -1,3 +1,4 @@
+package GUI;
 import java.util.HashSet;
 
 public abstract class AbstractModel {

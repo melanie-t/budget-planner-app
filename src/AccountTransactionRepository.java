@@ -1,3 +1,6 @@
+import GUI.AccountModel;
+import GUI.TransactionModel;
+
 /*
  * AccountTransaction Repository
  * Contains access to all of the transactions for an account

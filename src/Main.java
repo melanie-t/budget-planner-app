@@ -1,13 +1,18 @@
+import GUI.View;
+import GUI.MainController;
 
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException
     {
 		//*
-		runIteration2App();
+		//runIteration2App();
 		/*/
 		runDummyApp();
 		//*/
+		
+		View v = new View("My Money Manager");
+		MainController mainController = new MainController(v);
     }
 	
 	

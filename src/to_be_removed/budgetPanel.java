@@ -1,4 +1,4 @@
-package GUI;
+package to_be_removed;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class budgetWindow {
+public class budgetPanel {
 
-	public budgetWindow(){}
+	public budgetPanel() { display(); } // This class should not be instantiated
 	
-	protected JPanel budgetPanel = new JPanel();
+	private JPanel budgetPanel = new JPanel();
 	
 	private JButton addBudget = new JButton("Add");
 	private JButton deleteBudget = new JButton("Delete");
@@ -29,6 +29,7 @@ public class budgetWindow {
 	private JTextField balanceInput = new JTextField(15);
 	private JTextField timeInput = new JTextField(15);
 
+	public JPanel getPanel() { return budgetPanel; }
 	public JButton getAddBudgetButton() {return addBudget;}
 	public JButton getDeleteBudgetButton() {return deleteBudget;}
 	public JButton getSaveBudgetButton() {return saveBudget;}

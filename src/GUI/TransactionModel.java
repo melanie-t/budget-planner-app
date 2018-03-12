@@ -1,4 +1,4 @@
-
+package GUI;
 public class TransactionModel extends AbstractModel{
 	Integer	transactionId;
 	Integer accountId;

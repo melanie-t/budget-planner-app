@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.event.ActionEvent;
 
 public abstract class AbstractViewController implements java.awt.event.ActionListener{
@@ -7,10 +8,8 @@ public abstract class AbstractViewController implements java.awt.event.ActionLis
 	
 	public AbstractViewController(){}
 		
-	
 	public void setView(AbstractView view) {this.view = view;}
 	public AbstractView getView() {return view;}
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

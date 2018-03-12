@@ -1,4 +1,4 @@
-package GUI;
+package to_be_removed;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class transactionWindow {
+public class transactionPanel {
 
-	public transactionWindow() {}
+	public transactionPanel() { display(); } // This class should not be instantiated
 	
-	protected JPanel transactionPanel = new JPanel();
+	private JPanel transactionPanel = new JPanel();
 	private JButton addTransaction = new JButton("Add");
 	private JButton deleteTransaction = new JButton("Delete");
 	private JButton saveTransaction = new JButton("Save changes");
@@ -27,6 +27,7 @@ public class transactionWindow {
 	private JTextField amountInput = new JTextField(15);
 	private JTextField categoryInput = new JTextField(15);
 	
+	public JPanel getPanel() {return transactionPanel;}
 	public JButton getAddTransactionButton() {return addTransaction;}
 	public JButton getDeleteTransactionButton() {return deleteTransaction;}
 	public JButton getSaveTransactionButton() {return saveTransaction;}
@@ -69,8 +70,6 @@ public class transactionWindow {
    		transactionPanel.add(deleteTransaction);
    		transactionPanel.add(saveTransaction);
         transactionPanel.add(scrollPane);
-   		
-		//initMethods.initJFrame("Transactions", transactionPanel, 400, 200);
 	}
 	
 	private void addTransaction() {

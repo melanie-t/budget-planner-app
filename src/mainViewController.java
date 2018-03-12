@@ -1,8 +1,12 @@
 import java.awt.event.ActionEvent;
 
-import GUI.addAccountWindow;
+import GUI.AbstractEventListener;
+import GUI.AbstractViewController;
+import GUI.AccountModel;
+import to_be_removed.AccountsMainController;
+import to_be_removed.AccountsMainView;
 
-public class AccountsMainController extends AbstractViewController{
+public class mainViewController extends AbstractViewController{
 	UserModel user;
 	public void setUser(UserModel user) {
 		this.user = user;
@@ -11,7 +15,6 @@ public class AccountsMainController extends AbstractViewController{
 	public UserModel getUser() {
 		return user;
 	}
-	
 	
 	//-----------------------------------
 	// OpenAddAccountListener
@@ -26,7 +29,7 @@ public class AccountsMainController extends AbstractViewController{
 			//still need a way of updating the model here
 			try {
 				System.out.println("addAccountWindow opened");
-				addAccountWindow.init(); // <-- @TODO Replace this
+				 // <-- @TODO Replace this
 			}
 			catch(Exception e) {
 				System.out.println("Error in opening add window");
@@ -44,6 +47,7 @@ public class AccountsMainController extends AbstractViewController{
 		return l;
 	}
 	public class DeleteAccountListener extends AbstractEventListener{
+		
 		public void actionPerformed(ActionEvent arg0) {
 			try {
 				
@@ -52,8 +56,6 @@ public class AccountsMainController extends AbstractViewController{
 				UserModel user = controller.getUser();
 			
 				AccountRepository accountRepo = user.getAccountRepository();
-				
-				
 				
 				//Access the view
 				//getSelectedAccount
