@@ -45,7 +45,7 @@ public class TransactionRepository {
 	public void initSQLStructure() {
 		myDatabase.updateSQL(sql.createTable("transactions", "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
 		myDatabase.updateSQL(sql.addColumn("transactions", "date", "VARCHAR"));
-		myDatabase.updateSQL(sql.addColumn("transactions", "amount", "FLOAT")); //Integer originally
+		myDatabase.updateSQL(sql.addColumn("transactions", "amount", "INTEGER"));
 		myDatabase.updateSQL(sql.addColumn("transactions", "description", "VARCHAR"));
 	}
 	
