@@ -65,7 +65,7 @@ public class ImportTransactionTest {
 		testAcc.setId(1);
 		testAcc.setBalance(0);
 		testAcc.setBankName("Fort Knox");
-		testAcc.setNickName("Oddjob");
+		testAcc.setNickname("Oddjob");
 		
 		/* Expected transaction tuple */
 		Integer accountID = 1;
