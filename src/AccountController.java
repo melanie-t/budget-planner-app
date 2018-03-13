@@ -1,14 +1,15 @@
-package GUI;
+
+
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AccountController extends AbstractViewController {
+public class AccountController {
 
 	private AccountModel model;
-	private View view;
+	private AccountView view;
 	
-	protected AccountController(AccountModel m, View v) {
+	protected AccountController(AccountModel m, AccountView v) {
 		model = m;
 		view = v;
 		initView();
@@ -60,6 +61,10 @@ public class AccountController extends AbstractViewController {
 			view.getAccModel().setValueAt(view.getAccBankTextfield().getText(), i, 0);
 			view.getAccModel().setValueAt(view.getAccNicknameTextfield().getText(), i, 1);
 			view.getAccModel().setValueAt(view.getAccBalanceTextfield().getText(), i, 2);
+			
+			view.getAccBankTextfield().setText("");
+			view.getAccNicknameTextfield().setText("");
+			view.getAccBalanceTextfield().setText("");
 		}
 		
 		else

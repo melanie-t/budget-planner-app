@@ -1,4 +1,4 @@
-package GUI;
+package to_be_removed;
 
 public abstract class AbstractAppController {
 	public AbstractAppController() {}

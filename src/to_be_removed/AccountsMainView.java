@@ -12,9 +12,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import AccountList;
+import AccountModel;
 import UserModel;
-import GUI.AbstractView;
-import GUI.AccountModel;
 import GUI.initMethods;
 
 

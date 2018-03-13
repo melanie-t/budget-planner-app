@@ -1,5 +1,7 @@
-package GUI;
+
 import java.util.HashSet;
+
+import to_be_removed.AbstractView;
 
 public abstract class AbstractModel {
 		

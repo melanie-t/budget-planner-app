@@ -7,8 +7,7 @@ import java.util.Iterator;
 
 import javax.swing.table.DefaultTableModel;
 
-import GUI.AbstractAppController;
-import GUI.AccountModel;
+import to_be_removed.AbstractAppController;
 
 public class DummyAppController extends AbstractAppController {
 	

@@ -1,14 +1,13 @@
-package GUI;
+
+
+import to_be_removed.AbstractAppController;
 
 public class TransactionController extends AbstractAppController{
 	
 	private TransactionModel model;
-	private View view;
+	private MainView view;
 	
-	protected TransactionController(TransactionModel model, View view) {
-		this.model = model;
-		this.view = view;
-		initView();
+	protected TransactionController() {
 	}
 	
 	private void initView() {

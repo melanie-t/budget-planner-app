@@ -3,8 +3,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.table.DefaultTableModel;
 
-import GUI.AbstractAppController;
-import GUI.AccountModel;
+import to_be_removed.AbstractAppController;
 import to_be_removed.AccountsMainController;
 import to_be_removed.AccountsMainView;
 

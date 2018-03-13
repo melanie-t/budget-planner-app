@@ -1,4 +1,4 @@
-package GUI;
+
 public class AccountModel extends AbstractModel {
 	
 	private int accountId;

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import GUI.AccountModel;
-
 //The User object will likely have one of these
 public class AccountRepository { 
 	
