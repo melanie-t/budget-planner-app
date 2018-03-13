@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class ImportTransactionTest {
 	
 	@Test
-	public void testImportTransaction() {
+	public void testAddTransaction() {
 		/* Test Account */
 		AccountModel testAcc = new AccountModel();
 		testAcc.setId(1);
