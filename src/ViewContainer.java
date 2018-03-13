@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import GUI.AbstractView;
 
 public class ViewContainer {
 	private HashSet<AbstractView> m_views = new HashSet<AbstractView>();
