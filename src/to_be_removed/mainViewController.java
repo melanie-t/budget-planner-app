@@ -1,11 +1,14 @@
+package to_be_removed;
 
 import java.awt.event.ActionEvent;
 
+import AccountList;
+import AccountRepository;
+import Database;
+import UserModel;
 import GUI.AbstractEventListener;
 import GUI.AbstractViewController;
 import GUI.AccountModel;
-import to_be_removed.AccountsMainController;
-import to_be_removed.AccountsMainView;
 
 public class mainViewController extends AbstractViewController{
 	UserModel user;

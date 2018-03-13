@@ -20,9 +20,10 @@ public class View extends AbstractView {
 	// View uses Swing framework to display UI to user
 	private JFrame frame;
 	private String title;
-	
+
 	// Account UI elements
 	private JPanel accPanel;
+	private DefaultTableModel accModel;
 	private JLabel accLabel;
 	private JLabel accBankLabel;
 	private JLabel accNicknameLabel;
@@ -46,6 +47,9 @@ public class View extends AbstractView {
 	
 	public JPanel getAccPanel() {return accPanel;}
 	public void setAccPanel(JPanel accPanel) {this.accPanel = accPanel;}
+	
+	public DefaultTableModel getAccModel() {return accModel;}
+	public void setAccModel(DefaultTableModel accModel) {this.accModel = accModel;}
 	
 	public JLabel getAccLabel() {return accLabel;}
 	public void setAccLabel(JLabel accLabel) {this.accLabel = accLabel;}
@@ -82,19 +86,20 @@ public class View extends AbstractView {
 	
 	public void update() {
 		// Updates JTable
+		accModel.fireTableDataChanged();
 	}
 	
 	public void display() {
 		// Create principal frame
 		frame = new JFrame(title);
-		addAccPanel();
+		createAccPanel();
 		frame.setSize(500, 500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
 	//	frame.getContentPane().setLayout(new SpringLayout());
 	}
 	
-	private void addAccPanel() {
+	private void createAccPanel() {
 		// Create Account UI elements
 		accPanel = new JPanel();
 		accLabel = new JLabel("Accounts");
@@ -114,6 +119,17 @@ public class View extends AbstractView {
 		accNicknameLabel.setLabelFor(accNicknameTextfield);
 		accBalanceLabel.setLabelFor(accBalanceTextfield);
 		
+		// Loading JTable
+		Object[] columns = {"Bank", "Nickname", "Balance"};
+		accModel = new DefaultTableModel();
+		accModel.setColumnIdentifiers(columns);
+		accTable.setModel(accModel);
+		accTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
+		accTable.setFillsViewportHeight(true);
+	
+	    //Create the scroll pane and add the table to it.
+	    JScrollPane scrollPane = new JScrollPane(accTable);
+		
 		// Add Account UI elements to Panel
 		accPanel.add(accLabel);
 		accPanel.add(accBankLabel);
@@ -125,7 +141,7 @@ public class View extends AbstractView {
 		accPanel.add(accAddButton);
 		accPanel.add(accUpdateButton);
 		accPanel.add(accDeleteButton);
-		accPanel.add(accTable);
+		accPanel.add(scrollPane);
 
 		frame.add(accPanel);
 		
