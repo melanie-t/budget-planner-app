@@ -1,14 +1,22 @@
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import java.sql.SQLException;
 import static org.junit.Assert.*;
-
+import java.io.File;
 
 public class ImportTransactionTest {
 	
-	@Test
-	public void testAddTransaction() {
+	private static AccountTransactionRepository testAccTransacRepo;
+	private static ImportTransaction transaction;
+	private static Database testDatabase;
+	private static AccountModel testAcc;
+	private static TransactionModel expected;
+	
+	@BeforeClass 
+	public static void setUpClass() {
 		/* Test Account */
-		AccountModel testAcc = new AccountModel();
+		testAcc = new AccountModel();
 		testAcc.setId(1);
 		testAcc.setBalance(0);
 		testAcc.setBankName("Fort Knox");
@@ -19,17 +27,23 @@ public class ImportTransactionTest {
 		String type = "deposit";
 		String date = "09-09-1999";
 		Float amount = 100.0f;
-		TransactionModel expected = new TransactionModel();
+		expected = new TransactionModel();
 		expected.setAccountId(accountID);
 		expected.setType(type);
 		expected.setDate(date);
 		expected.setAmount(amount);
 		
 		/* Test database for the transaction */
-		Database testDatabase = new Database("transactions");
-		AccountTransactionRepository testAccTransacRepo = new AccountTransactionRepository(testDatabase, testAcc);
+		testDatabase = new Database("transactions");
+	}
+	
+	
+	@Test
+	public void testAddTransaction() {
+
+		testAccTransacRepo = new AccountTransactionRepository(testDatabase, testAcc);
 		
-		ImportTransaction transaction = new ImportTransaction();
+		transaction = new ImportTransaction();
 		transaction.setAccountTransactionRepository(testAccTransacRepo);
 		transaction.addTransaction("tst/spread_sheet_test_case.csv");
 		
@@ -61,5 +75,12 @@ public class ImportTransactionTest {
 		assertEquals(expected.getAmount(), actualAmount);
 		assertEquals(expected.getDate(), actualDate);
 		assertEquals(expected.getType(), actualType);
+	}
+	
+	@AfterClass
+	
+	public static void tearDown() {
+		File f = new File("transactions");
+		f.delete();
 	}
 }
