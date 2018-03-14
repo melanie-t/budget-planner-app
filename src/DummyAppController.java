@@ -7,8 +7,6 @@ import java.util.Iterator;
 
 import javax.swing.table.DefaultTableModel;
 
-import to_be_removed.AbstractAppController;
-
 public class DummyAppController extends AbstractAppController {
 	
 		Database myDatabase;

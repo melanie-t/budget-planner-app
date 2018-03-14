@@ -15,8 +15,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import to_be_removed.AbstractView;
-
 public class MainView {
 	
 	// View uses Swing framework to display UI to user

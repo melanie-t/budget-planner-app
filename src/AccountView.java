@@ -98,14 +98,6 @@ public class AccountView {
 		accNicknameTextfield = new JTextField(15);
 		accBalanceTextfield = new JTextField(15);
 		accTable = new JTable();
-		
-		// Settings labels to textfields
-		accBankLabel.setLabelFor(accBankTextfield);
-		accNicknameLabel.setLabelFor(accNicknameTextfield);
-		accBalanceLabel.setLabelFor(accBalanceTextfield);
-		
-		// Loading JTable
-		Object[] columns = {"Bank", "Nickname", "Balance"};
 		accModel = new DefaultTableModel() {
 
 		    @Override
@@ -114,6 +106,15 @@ public class AccountView {
 		       return false;
 		    }
 		};
+		
+		// Settings labels to textfields
+		accBankLabel.setLabelFor(accBankTextfield);
+		accNicknameLabel.setLabelFor(accNicknameTextfield);
+		accBalanceLabel.setLabelFor(accBalanceTextfield);
+		
+		// Loading JTable
+		Object[] columns = {"Bank", "Nickname", "Balance"};
+
 		accModel.setColumnIdentifiers(columns);
 		accTable.setModel(accModel);
 		accTable.setPreferredScrollableViewportSize(new Dimension(300, 80));

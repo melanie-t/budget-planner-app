@@ -1,5 +1,3 @@
-package to_be_removed;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,30 +9,29 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import AccountList;
-import AccountModel;
-import UserModel;
-import GUI.initMethods;
-
-
 public class AccountsMainView extends AbstractView{
 	
 	JPanel viewPanel;
 	String label;
 	JLabel accountLabel;
+	MainView mainView;
 	
 	UserModel user;
 	DefaultTableModel tableModel;
 	
 	public AccountsMainView() {
 		super();
+	}
+	
+	public AccountsMainView(MainView v) {
+		super();
 		//AccountModel account;
 		
+		mainView = v;
 		label = "Accounts";
 		viewPanel = new JPanel();
 		accountLabel = new JLabel();
 		viewPanel.add(accountLabel);
-		
 	}
 	
 	
@@ -57,16 +54,13 @@ public class AccountsMainView extends AbstractView{
 	public void setUser(UserModel user) {this.user = user;}
 	
 	
-	
-	
 	//=====================================
 	
 	// 				UI GETTERS
 	
 	//=====================================
 	protected Integer getSelectedAccount() {
-		//Used by DeleteAccountController
-		return 1; // @TODO check interface
+		return 1;
 	}
 	
 	protected String getFrameTitle() {
@@ -83,7 +77,14 @@ public class AccountsMainView extends AbstractView{
 	
 	//=====================================
 	public void update() {
+		this.tableModel.fireTableDataChanged();
+	}
+
+	public void setTableModel(DefaultTableModel model) {
+		this.tableModel = model;
+	}
 	
+	public void loadData() {
 		accountLabel.setText(label);
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -98,13 +99,9 @@ public class AccountsMainView extends AbstractView{
 		
 		//add rows
 		for(AccountModel account : accounts) 
-			model.addRow(new Object[]{account.getBankName(), account.getNickName(), account.getBalance()});
+			model.addRow(new Object[]{account.getBankName(), account.getNickname(), account.getBalance()});
 		
 		this.setTableModel(model);
-	}
-
-	public void setTableModel(DefaultTableModel model) {
-		this.tableModel = model;
 	}
 		
 	
@@ -114,8 +111,7 @@ public class AccountsMainView extends AbstractView{
 	
 	//=====================================
 	public void display() {
-		//Place holder controller
-		
+		//Place holder controller		
 		//@TODO replace with map of some sort
 		
 		//Add
@@ -125,7 +121,15 @@ public class AccountsMainView extends AbstractView{
 	    	addButton.addActionListener(addAccountController);
 		else 
 			addButton.addActionListener(todoListener());
-			
+	    
+	    //Update
+	    JButton updateButton = new JButton("Update");
+		ActionListener updateAccountController = getListener("update");
+	    if(updateAccountController != null)
+	    	updateButton.addActionListener(updateAccountController);
+	    else 
+	    	updateButton.addActionListener(todoListener());
+	    
 		//Delete
 		JButton deleteButton = new JButton("Delete");
 		ActionListener deleteAccountController = getListener("delete");
@@ -133,31 +137,19 @@ public class AccountsMainView extends AbstractView{
 	    	deleteButton.addActionListener(deleteAccountController);
 	    else 
 	    	deleteButton.addActionListener(todoListener());
-	    
-	    //Edit
-	    JButton editButton = new JButton("Edit");
-		ActionListener editAccountController = getListener("edit");
-	    if(editAccountController != null)
-	    	editButton.addActionListener(editAccountController);
-	    else 
-	    	editButton.addActionListener(todoListener());
-		    
-		    
-		
+
 		JButton accountButtons[] = {
 				addButton, 
-				deleteButton, 
-				editButton};
+				updateButton, 
+				deleteButton};
 		
-		// Adding button action listener and button to panel
+		// Adding button to panel
 		for (int i = 0; i < accountButtons.length; i++) {
-			//accountButtons[i].addActionListener(this);
 			viewPanel.add(accountButtons[i]);
 		}
-			
 		
-		
-		
+		// Loads data into the model
+		loadData();
 		
 		JTable accountTable = new JTable(tableModel);
 		
@@ -169,8 +161,6 @@ public class AccountsMainView extends AbstractView{
 	
 	    //Add the scroll pane to this panel.
 	    viewPanel.add(scrollPane);
-
-		initMethods.initJFrame(this.getFrameTitle(), viewPanel, 400, 200);
 	
 	}
 }

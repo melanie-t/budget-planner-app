@@ -3,10 +3,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.table.DefaultTableModel;
 
-import to_be_removed.AbstractAppController;
-import to_be_removed.AccountsMainController;
-import to_be_removed.AccountsMainView;
-
 public class Iteration2AppController extends AbstractAppController {
 	
 		Database myDatabase;
@@ -77,7 +73,6 @@ public class Iteration2AppController extends AbstractAppController {
 			//-------------------------------------------------------------
 			// Add controls 
 			// would be nice if these didn't have to be in separate classes / files
-			accountMainView.setListener("add", accountMainController.openAddAccountListener()); // this will also set the view on the controller
 			accountMainView.setListener("delete", accountMainController.deleteAccountListener(theAccountRespository));
 			//__________________________________________________
 			

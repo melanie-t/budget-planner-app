@@ -1,12 +1,10 @@
-package to_be_removed;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-
-import AbstractModel;
 
 
 public abstract class AbstractView {
