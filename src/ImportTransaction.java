@@ -25,20 +25,19 @@ public class ImportTransaction {
 			while((line = br.readLine()) != null) {
 				/*
 				 * tokenList maps the tokens as
-				 * tokenList[0]: accountID
-				 * tokenList[1]: type
-				 * tokenList[2]: date
-				 * tokenList[3]: amount
+				 * tokenList[0]: type
+				 * tokenList[1]: date
+				 * tokenList[2]: amount
 				 */
 				tokenList = line.split(",");
 				
-				Integer accountID = Integer.parseInt(tokenList[0]);
-				Float amount = Float.parseFloat(tokenList[3]);
+				Integer accountID = accountTransactionRepository.getAccount().getId();
+				Float amount = Float.parseFloat(tokenList[2]);
 				
 				TransactionModel transacMod = new TransactionModel();
 				transacMod.setAccountId(accountID);
-				transacMod.setType(tokenList[1]);
-				transacMod.setDate(tokenList[2]);
+				transacMod.setType(tokenList[0]);
+				transacMod.setDate(tokenList[1]);
 				transacMod.setAmount(amount);
 				
 				accountTransactionRepository.initSQLStructure();
