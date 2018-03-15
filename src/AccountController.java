@@ -111,20 +111,23 @@ public class AccountController extends AbstractViewController {
 	private void updateButton() {
 		AccountView accView = (AccountView) getView();
 		int i = accView.getTable().getSelectedRow();
-		if (i >= 0)
+		if (i >= 0) 
 		{
-			
 			AccountModel getInitialAccountData = getAccountDataFromRow(i);
 			Integer AccountId = getInitialAccountData.getId();
 			
 			//Get data from input - excludes ID
 			AccountModel tmpAccountModel = getAccountDataFromAddAccountInput();
 			tmpAccountModel.setId(AccountId); // set the ID
-			updateDataRowFromModel(i, tmpAccountModel);
+			System.out.println(AccountId);
+			//updateDataRowFromModel(i, tmpAccountModel);
 			
 			//save to database
 			user.getAccountRepository().saveItem(tmpAccountModel);
 			
+			
+			update();
+			// WARNING THIS WILL CAUSE THE DATATO BE REPLACED WITH BLANK DATA IF DOUBLE CLICKED!!!!
 			resetAddAccountInput();
 		}
 		
@@ -135,15 +138,17 @@ public class AccountController extends AbstractViewController {
 	private void deleteButton() {
 		AccountView accView = (AccountView) getView();
 		int i = accView.getTable().getSelectedRow();
-		if (i>=0) 
+		if (i >=0) 
 		{
 			// Remove from database
+			AccountModel accountToDelete = getAccountDataFromRow(i);
+			user.getAccountRepository().deleteItem(accountToDelete.getId());
 			
 			// Remove from model
-			accView.getTableModel().removeRow(i);
-			accView.getBankTextfield().setText("");
-			accView.getNicknameTextfield().setText("");
-			accView.getBalanceTextfield().setText("");
+			resetAddAccountInput();
+			
+			//Update GUI
+			update();
 		}
 		else
 			System.out.println("Delete error");
@@ -157,19 +162,11 @@ public class AccountController extends AbstractViewController {
 	}
 
 	
-	
 	//====================================
 	
-	//			MODEL MANIPULATION
+	// 		TABLE DATA MANIPULATION
 	
 	//====================================
-	
-	//------------------------------------
-	
-		// TABLE DATA MANIPULATION
-		
-		//------------------------------------
-	
 	//Add data inputs to account model
 	protected AccountModel getAccountDataFromAddAccountInput() {
 		AccountView accView = (AccountView) getView();
@@ -182,22 +179,21 @@ public class AccountController extends AbstractViewController {
 		return tmpAccount;
 	}
 	
-	
-
 	private void resetAddAccountInput() {
 		AccountView accView = (AccountView) getView();
-		AccountModel blankAccount = new AccountModel();
-		accView.getBankTextfield().setText(blankAccount.getBankName());
-		accView.getNicknameTextfield().setText(blankAccount.getNickname());
-		accView.getBalanceTextfield().setText(Integer.toString(blankAccount.getBalance()));
+		accView.getBankTextfield().setText("");
+		accView.getNicknameTextfield().setText("");
+		accView.getBalanceTextfield().setText("");
 	}
+	//____________________________________
 	
 	
-	//------------------------------------
 	
-	// TABLE DATA MANIPULATION
+	//====================================
 	
-	//------------------------------------
+	// 		TABLE DATA MANIPULATION
+	
+	//====================================
 	protected AccountModel getAccountDataFromRow(Integer i) {
 		AccountModel tmpAccount = new AccountModel();
 		
@@ -217,7 +213,7 @@ public class AccountController extends AbstractViewController {
 		accView.getTableModel().setValueAt(account.getNickname(), i, 2);
 		accView.getTableModel().setValueAt(account.getBalance(), i, 3);
 	}
-	
+	//_____________________________________
 	
 	
 	

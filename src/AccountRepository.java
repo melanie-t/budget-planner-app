@@ -16,7 +16,6 @@ public class AccountRepository {
 	String primaryKey;
 	
 	
-	Boolean boolAllLoaded;
 	AccountMap itemMap; // loaded account models live here
 	
 	
@@ -25,7 +24,6 @@ public class AccountRepository {
 		tableName = "account";
 		primaryKey = "accountId";
 		this.sql = SQLStringFactory.getInstance();
-		boolAllLoaded = false;
 		
 		itemMap = new AccountMap();
 	}
@@ -92,16 +90,14 @@ public class AccountRepository {
 	
 	//will return map off all items in database
 	public AccountMap getMapOfAllItems() {
-		if(!boolAllLoaded)
-			loadAll();
+		loadAll();
 		return (AccountMap)itemMap;
 	}
 	
 	public AccountList getListOfAllItems() {
 		
 		//Load Accounts if not listed
-		if(!boolAllLoaded)
-			loadAll();
+		loadAll();
 		
 		//Initialze Account
 		AccountList anAccountList = new AccountList();
@@ -143,6 +139,10 @@ public class AccountRepository {
 	
 	//Loads all accounts in database
 	protected void loadAll() {
+		
+		//get rid of old items - at least until caching can be properly done
+		itemMap.clear();
+		
 		System.out.println("loadAll");
 		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
 		
@@ -151,7 +151,6 @@ public class AccountRepository {
 			while(result.next())
 				setItemFromResult(result);
 			
-			boolAllLoaded = true;
 		} catch (SQLException e){ 
 			System.err.println(e.getMessage());
 		}
