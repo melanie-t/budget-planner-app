@@ -122,7 +122,7 @@ public class TransactionRepository {
 	/*
 	 * Helpers for loadAll() and loadItem()
 	 */
-	private void setFromResult(ResultSet result) {
+	protected void setFromResult(ResultSet result) {
 		try {
 			TransactionModel transacMod = new TransactionModel();
 			transacMod.setAccountId(result.getInt("accountId"));
