@@ -23,7 +23,7 @@ public class AccountTransactionRepository extends TransactionRepository{
 	
 	
 	public void loadAllItems() {
-		//@TODO restricted to account
+		super.loadAllItems();
 	}
 	
 	
