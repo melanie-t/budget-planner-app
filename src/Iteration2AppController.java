@@ -18,8 +18,8 @@ public class Iteration2AppController extends AbstractAppController {
 		public void start() {
 			theAccountRespository = new AccountRepository(myDatabase);
 			theTransactionRepository = new TransactionRepository(myDatabase);
-			devStart();
-			//productionStart();
+			//devStart();
+			productionStart();
 		}
 		
 		// Development Mode
@@ -32,7 +32,7 @@ public class Iteration2AppController extends AbstractAppController {
 		//Production Mode
 		protected void productionStart() {
 			Boolean isSQLStructureInitialized = true; //@TODO make check function for this
-			if(isSQLStructureInitialized) {
+			if(!isSQLStructureInitialized) {
 				theAccountRespository.initSQLStructure(); // will whipe and reinstall sql tables
 				theTransactionRepository.initSQLStructure(); // will whipe and reinstall sql tables
 			}

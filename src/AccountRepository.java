@@ -81,7 +81,7 @@ public class AccountRepository {
 	//========================================
 	public AccountModel getItem(Integer itemID) {
 		//Attempt to load from DB if not present
-		if(hasItemCached(itemID))
+		if(!hasItemCached(itemID))
 			loadItem(itemID);
 		
 		//Return if found

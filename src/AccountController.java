@@ -14,7 +14,7 @@ public class AccountController extends AbstractViewController {
 	protected AccountController(AccountModel m, AccountView v) {
 		model = m;
 		accView = v;
-		initView();
+		
 	}
 	
 	private void initView() {
@@ -80,8 +80,7 @@ public class AccountController extends AbstractViewController {
 			accountRepo.saveItem(newAccount);
 
 			//Update GUI - not complete
-			addAccountToList(newAccount);
-			ResetAddAccountInput();
+			update();
 		}
 		
 		else
@@ -132,13 +131,30 @@ public class AccountController extends AbstractViewController {
 	}
 
 	
-	public void setUser(UserModel user) {this.user = user;}
+	public void setUser(UserModel user) {
+		this.user = user; 
+		//update the tables when this changes
+		update();
+	}
+	public UserModel getUser() {return user;}
 	
-
-	private void addAccountToList(AccountModel account) {
-		// Add to model
-		accView.getTableModel().addRow(new Object[] {account.getBankName(), account.getNickname(), account.getBalance()});
+	//Update attached models
+	public void update() {
 		
+		
+		//reset table - since the ID is currently not stored in the table cannot make per row based changes...
+		accView.getTableModel().setRowCount(0);
+				
+		AccountRepository accountRepo = user.getAccountRepository();
+		if(user != null) {
+			AccountList accounts = accountRepo.getListOfAllItems();
+			//add rows to table
+			for(AccountModel account : accounts) {
+				accView.getTableModel().addRow(new Object[] {account.getBankName(), account.getNickname(), account.getBalance()});
+			}
+		} else {
+			System.out.println("No user was set for the AccountController");
+		}
 	}
 	
 	private void ResetAddAccountInput() {
