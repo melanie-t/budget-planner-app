@@ -15,7 +15,6 @@ public class AccountRepository {
 	String tableName;
 	String primaryKey;
 	
-	
 	AccountMap itemMap; // loaded account models live here
 	
 	
@@ -30,15 +29,6 @@ public class AccountRepository {
 		
 	
 
-	//========================================
-	
-	//				CHECKING
-	
-	//========================================
-	protected boolean hasItemCached(Integer itemID) { // check the map not the database
-		Boolean hasItemCachedCached = itemMap.get(itemID) != null;
-		return hasItemCachedCached;
-	}
 	
 	
 	//========================================
@@ -176,6 +166,10 @@ public class AccountRepository {
 		}
 	}
 	
+	protected boolean hasItemCached(Integer itemID) { // check the map not the database
+		Boolean hasItemCachedCached = itemMap.get(itemID) != null;
+		return hasItemCachedCached;
+	}
 	
 	
 	

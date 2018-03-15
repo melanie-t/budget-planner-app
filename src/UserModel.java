@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 public class UserModel {
 
-	AccountRepository accountsRepo;
-	
 	
 	public UserModel(){
 		accountsRepo = null;
@@ -21,6 +19,7 @@ public class UserModel {
 	//				USER HAS ACCOUNTS
 	
 	//=============================================
+	AccountRepository accountsRepo;
 	public void setAccountRepository(AccountRepository accountsRepo) {this.accountsRepo = accountsRepo;}
 	public AccountRepository getAccountRepository() {return this.accountsRepo;}
 	public AccountMap getMapOfAllAccounts() {

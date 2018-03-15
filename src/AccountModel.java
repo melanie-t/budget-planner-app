@@ -65,4 +65,39 @@ public class AccountModel extends AbstractModel {
 	//	  		ACCOUNT HAS TRANSACTIONS
 	
 	//=============================================
+	AccountTransactionRepository transactionsRepo;
+	public void setAccountTransactionRepository(AccountTransactionRepository accountsRepo) {this.transactionsRepo = transactionsRepo;}
+	public AccountTransactionRepository getAccountTransactionRepository() {return this.transactionsRepo;}
+	public TransactionMap getMapOfAllTransactions() {
+		if(transactionsRepo == null) {
+			System.out.println("transactionsRepo == null");
+			return null;
+		} else {
+			return transactionsRepo.getMapOfAllItems();
+		}
+	}
+	public TransactionList getListOfAllTransactions() {
+		if(transactionsRepo == null) {
+			System.out.println("transactionsRepo == null");
+			return null;
+		} else {
+			return transactionsRepo.getListOfAllItems();
+		}
+	}
+	public void saveAccount(TransactionModel transaction) {
+		if(transactionsRepo == null) {
+			System.out.println("transactionsRepo == null");
+		} else {
+			transactionsRepo.saveItem(transaction);
+		}
+	}
+	public void deleteAccount(TransactionModel transaction) {
+		if(transactionsRepo == null) {
+			System.out.println("transactionsRepo == null");
+		} else {
+			transactionsRepo.deleteItem(transaction.getId());
+		}
+	}
+		
+		
 }
