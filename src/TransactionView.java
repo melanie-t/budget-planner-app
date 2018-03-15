@@ -144,10 +144,12 @@ public class TransactionView extends AbstractView{
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton))
+								/*
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
 									.addComponent(updateButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(deleteButton))
+								*/
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										.addComponent(clearButton))))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -172,12 +174,12 @@ public class TransactionView extends AbstractView{
 									.addComponent(amountTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
-									.addComponent(updateButton)
-									.addComponent(deleteButton)	
+									//.addComponent(updateButton)
+									//.addComponent(deleteButton)	
 									.addComponent(clearButton)))))
 		);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel);
-		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
+		layout.linkSize(SwingConstants.HORIZONTAL, addButton, /*updateButton, deleteButton,*/ clearButton);	
 	}
 }

@@ -151,9 +151,10 @@ public class AccountView extends AbstractView{
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
 									.addComponent(updateButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(deleteButton))
+									.addComponent(clearButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(clearButton))))
+									.addComponent(deleteButton))
+								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(scrollPane))
 		);
@@ -176,9 +177,10 @@ public class AccountView extends AbstractView{
 									.addComponent(balanceTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
+									.addComponent(clearButton)
 									.addComponent(updateButton)
 									.addComponent(deleteButton)	
-									.addComponent(clearButton)))))
+									))))
 		);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, bankLabel, nicknameLabel, balanceLabel);
