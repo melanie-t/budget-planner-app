@@ -7,31 +7,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class AccountsMainView extends AbstractView{
 	
-	JPanel viewPanel;
-	String label;
+	JPanel panel;
+	DefaultTableModel model;
 	JLabel accountLabel;
-	MainView mainView;
+	JTextField bankTextfield;
+	JTextField nicknameTextfield;
+	JTextField balanceTextfield;
+	JTable table;
 	
 	UserModel user;
-	DefaultTableModel tableModel;
+	AccountList accountList;
 	
 	public AccountsMainView() {
 		super();
-	}
-	
-	public AccountsMainView(MainView v) {
-		super();
 		//AccountModel account;
 		
-		mainView = v;
-		label = "Accounts";
-		viewPanel = new JPanel();
-		accountLabel = new JLabel();
-		viewPanel.add(accountLabel);
+		panel = new JPanel();
+		model = new DefaultTableModel();
+		bankTextfield = new JTextField(15);
+		nicknameTextfield = new JTextField(15);
+		balanceTextfield = new JTextField(15);
 	}
 	
 	
@@ -43,16 +43,8 @@ public class AccountsMainView extends AbstractView{
 	//-------------------------------------
 	// Label 
 	//-------------------------------------
-	public void setLabel(String label ) {this.label = label;}
-	public String getLabel() {return label;}
-	
-	
-	//-------------------------------------
-	//	User 
-	//-------------------------------------
-	public UserModel getUser() {return user;}
-	public void setUser(UserModel user) {this.user = user;}
-	
+	public void setAccountLabel(JLabel label ) {this.accountLabel = label;}
+	public JLabel getAccountLabel() {return accountLabel;}
 	
 	//=====================================
 	
@@ -66,9 +58,32 @@ public class AccountsMainView extends AbstractView{
 	protected String getFrameTitle() {
 		UserModel user = getUser();
 	    String username = user.getName();
-		return username+": "+label;
+		return username+ " - " + accountLabel;
 	}
 	
+	//-------------------------------------
+	//	User 
+	//-------------------------------------
+	public UserModel getUser() {return user;}
+	public void setUser(UserModel user) {this.user = user;}
+	
+	//-------------------------------------
+	//	Bank 
+	//-------------------------------------
+	public JTextField getBankTextfield() {return this.bankTextfield;}
+	public void setBankTextfield(JTextField bank) {this.bankTextfield = bank;}
+	
+	//-------------------------------------
+	//	Nickname 
+	//-------------------------------------
+	public JTextField getNicknameTextfield() {return this.nicknameTextfield;}
+	public void setNicknameTextfield(JTextField nicknameTextfield) {this.nicknameTextfield = nicknameTextfield;}
+	
+	//-------------------------------------
+	//	Balance 
+	//-------------------------------------
+	public JTextField getBalanceTextfield() {return this.balanceTextfield;}
+	public void setBalanceTextfield(JTextField balanceTextfield) {this.balanceTextfield = balanceTextfield;}
 	
 	
 	//=====================================
@@ -77,20 +92,16 @@ public class AccountsMainView extends AbstractView{
 	
 	//=====================================
 	public void update() {
-		this.tableModel.fireTableDataChanged();
+		this.model.fireTableDataChanged();
 	}
 
 	public void setTableModel(DefaultTableModel model) {
-		this.tableModel = model;
+		this.model = model;
 	}
 	
 	public void loadData() {
-		accountLabel.setText(label);
-		
-		DefaultTableModel model = new DefaultTableModel();
-		
 		//get account list
-		UserModel user = this.getUser();
+		user = this.getUser();
 		AccountList accounts = user.getListOfAllAccounts();
 		//set columns
 		model.addColumn("Bank");
@@ -103,6 +114,14 @@ public class AccountsMainView extends AbstractView{
 		
 		this.setTableModel(model);
 	}
+	
+	public void addAccount() {
+		// Updates database
+		
+		// Adds to model
+		model.addRow(new Object[] {bankTextfield.getText(), nicknameTextfield.getText(), balanceTextfield.getText()});
+		update();
+	}
 		
 	
 	//=====================================
@@ -113,6 +132,12 @@ public class AccountsMainView extends AbstractView{
 	public void display() {
 		//Place holder controller		
 		//@TODO replace with map of some sort
+		
+		accountLabel = new JLabel("Accounts");
+		
+		JLabel bankLabel = new JLabel("Bank");
+		JLabel nicknameLabel = new JLabel("Nickname");
+		JLabel balanceLabel = new JLabel("Balance");
 		
 		//Add
 		JButton addButton = new JButton("Add");
@@ -145,22 +170,20 @@ public class AccountsMainView extends AbstractView{
 		
 		// Adding button to panel
 		for (int i = 0; i < accountButtons.length; i++) {
-			viewPanel.add(accountButtons[i]);
+			panel.add(accountButtons[i]);
 		}
 		
 		// Loads data into the model
 		loadData();
 		
-		JTable accountTable = new JTable(tableModel);
+		JTable accountTable = new JTable(model);
 		
 		accountTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
 		accountTable.setFillsViewportHeight(true);
 	
 	    //Create the scroll pane and add the table to it.
 	    JScrollPane scrollPane = new JScrollPane(accountTable);
-	
-	    //Add the scroll pane to this panel.
-	    viewPanel.add(scrollPane);
+
 	
 	}
 }

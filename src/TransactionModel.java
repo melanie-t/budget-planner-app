@@ -26,5 +26,4 @@ public class TransactionModel extends AbstractModel{
 	public String 	getDate() 		{return date;}
 	public Float 	getAmount()		{return amount;}
 	
-	
 }

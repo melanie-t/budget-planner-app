@@ -1,7 +1,5 @@
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -10,95 +8,101 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class AccountView {
-	
-	private AccountView() {}
-	
-	public AccountView(MainView v) { 
-		createAccPanel();
-		v.getFrame().add(accPanel);
-		v.update();
-	}
 
 	// Account UI elements
-	private JPanel accPanel;
-	private DefaultTableModel accModel;
+	private MainView mainView;
+	private JPanel panel;
+	private DefaultTableModel model;
 	private JLabel accLabel;
-	private JLabel accBankLabel;
-	private JLabel accNicknameLabel;
-	private JLabel accBalanceLabel;
-	private JButton accAddButton;
-	private JButton accUpdateButton;
-	private JButton accDeleteButton;
-	private JTextField accBankTextfield;
-	private JTextField accNicknameTextfield;
-	private JTextField accBalanceTextfield;
-	private JTable accTable;
+	private JLabel bankLabel;
+	private JLabel nicknameLabel;
+	private JLabel balanceLabel;
+	private JButton addButton;
+	private JButton updateButton;
+	private JButton deleteButton;
+	private JButton clearButton;
+	private JTextField bankTextfield;
+	private JTextField nicknameTextfield;
+	private JTextField balanceTextfield;
+	private JTable table;
+	private JScrollPane scrollPane;
+	
+	public AccountView() { 
+		createAccPanel();
+	}
 	
 	// Getters and setters
-	public JPanel getAccPanel() {return accPanel;}
-	public void setAccPanel(JPanel accPanel) {this.accPanel = accPanel;}
+	public JPanel getPanel() {return panel;}
+	public void setPanel(JPanel accPanel) {this.panel = accPanel;}
 	
-	public DefaultTableModel getAccModel() {return accModel;}
-	public void setAccModel(DefaultTableModel accModel) {this.accModel = accModel;}
+	public DefaultTableModel getModel() {return model;}
+	public void setModel(DefaultTableModel accModel) {this.model = accModel;}
 	
 	public JLabel getAccLabel() {return accLabel;}
 	public void setAccLabel(JLabel accLabel) {this.accLabel = accLabel;}
 	
-	public JLabel getAccBankLabel () {return accBankLabel;}
-	public void setAccBankLabel(JLabel accBankLabel) {this.accBankLabel = accBankLabel;}
+	public JLabel getBankLabel () {return bankLabel;}
+	public void setBankLabel(JLabel bankLabel) {this.bankLabel = bankLabel;}
 	
-	public JLabel getAccNicknameLabel() {return accNicknameLabel;}
-	public void setAccNicknameLabel(JLabel accNicknameLabel) {this.accNicknameLabel = accNicknameLabel;}
+	public JLabel getNicknameLabel() {return nicknameLabel;}
+	public void setNickname(JLabel nicknameLabel) {this.nicknameLabel = nicknameLabel;}
 	
-	public JLabel getAccBalanceLabel() {return accBalanceLabel;}
-	public void setAccBalanceLabel(JLabel accBalanceLabel) {this.accBalanceLabel = accBalanceLabel;}
+	public JLabel getBalanceLabel() {return balanceLabel;}
+	public void setBalanceLabel(JLabel BalanceLabel) {this.balanceLabel = BalanceLabel;}
 	
-	public JTextField getAccBankTextfield() {return accBankTextfield;}
-	public void setAccBankTextfield(JTextField accBankTextfield) {this.accBankTextfield = accBankTextfield;}
+	public JTextField getBankTextfield() {return bankTextfield;}
+	public void setBankTextfield(JTextField bankTextfield) {this.bankTextfield = bankTextfield;}
 	
-	public JTextField getAccNicknameTextfield() {return accNicknameTextfield;}
-	public void setAccNicknameTextfield(JTextField accNicknameTextfield) {this.accNicknameTextfield = accNicknameTextfield;}
+	public JTextField getNicknameTextfield() {return nicknameTextfield;}
+	public void setNicknameTextfield(JTextField nicknameTextfield) {this.nicknameTextfield = nicknameTextfield;}
 	
-	public JTextField getAccBalanceTextfield() {return accBalanceTextfield;}
-	public void setAccBalanceTextfield(JTextField accBalanceTextfield) {this.accBalanceTextfield = accBalanceTextfield;}
+	public JTextField getBalanceTextfield() {return balanceTextfield;}
+	public void setBalanceTextfield(JTextField balanceTextfield) {this.balanceTextfield = balanceTextfield;}
 
-	public JButton getAccAddButton() {return accAddButton;}
-	public void setAccAddButton(JButton accAddButton) {this.accAddButton = accAddButton;}
+	public JButton getAddButton() {return addButton;}
+	public void setAddButton(JButton addButton) {this.addButton = addButton;}
 
-	public JButton getAccUpdateButton() {return accUpdateButton;}
-	public void setAccUpdateButton(JButton accUpdateButton) {this.accUpdateButton = accUpdateButton;}
+	public JButton getUpdateButton() {return updateButton;}
+	public void setUpdateButton(JButton updateButton) {this.updateButton = updateButton;}
 
-	public JButton getAccDeleteButton() {return accDeleteButton;}
-	public void setAccDeleteButton(JButton accDeleteButton) {this.accDeleteButton = accDeleteButton;}
+	public JButton getDeleteButton() {return deleteButton;}
+	public void setDeleteButton(JButton deleteButton) {this.deleteButton = deleteButton;}
+	
+	public JButton getClearButton() {return clearButton;}
+	public void setClearButton(JButton clearButton) {this.clearButton = clearButton;}
 
-	public JTable getAccTable() {return accTable;}
-	public void setAccTable(JTable accTable) {this.accTable = accTable;}
+
+	public JTable getTable() {return table;}
+	public void setTable(JTable table) {this.table = table;}
+	
+	public JScrollPane getScrollPane() {return scrollPane;}
+	public void setScrollPane(JScrollPane scrollPane) {this.scrollPane = scrollPane;}
 	
 	public void update() {
 		// Updates JTable
-		accModel.fireTableDataChanged();
+		model.fireTableDataChanged();
 	}
 	
 	private void createAccPanel() {
 		// Create Account UI elements
-		accPanel = new JPanel();
+		panel = new JPanel();
 		accLabel = new JLabel("Accounts");
-		accBankLabel = new JLabel("Bank");
-		accNicknameLabel = new JLabel("Nickname");
-		accBalanceLabel = new JLabel("Balance");
-		accAddButton = new JButton("Add");
-		accUpdateButton = new JButton("Update");
-		accDeleteButton = new JButton("Delete");
-		accBankTextfield = new JTextField(15);
-		accNicknameTextfield = new JTextField(15);
-		accBalanceTextfield = new JTextField(15);
-		accTable = new JTable();
-		accModel = new DefaultTableModel() {
+		bankLabel = new JLabel("Bank");
+		nicknameLabel = new JLabel("Nickname");
+		balanceLabel = new JLabel("Balance");
+		addButton = new JButton("Add");
+		updateButton = new JButton("Update");
+		deleteButton = new JButton("Delete");
+		clearButton = new JButton("Clear");
+		bankTextfield = new JTextField(15);
+		nicknameTextfield = new JTextField(15);
+		balanceTextfield = new JTextField(15);
+		table = new JTable();
+		model = new DefaultTableModel() {
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -106,81 +110,79 @@ public class AccountView {
 		       return false;
 		    }
 		};
+		scrollPane = new JScrollPane(table);
 		
 		// Settings labels to textfields
-		accBankLabel.setLabelFor(accBankTextfield);
-		accNicknameLabel.setLabelFor(accNicknameTextfield);
-		accBalanceLabel.setLabelFor(accBalanceTextfield);
+		bankLabel.setLabelFor(bankTextfield);
+		nicknameLabel.setLabelFor(nicknameTextfield);
+		balanceLabel.setLabelFor(balanceTextfield);
 		
 		// Loading JTable
 		Object[] columns = {"Bank", "Nickname", "Balance"};
 
-		accModel.setColumnIdentifiers(columns);
-		accTable.setModel(accModel);
-		accTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
-		accTable.setFillsViewportHeight(true);
+		model.setColumnIdentifiers(columns);
+		table.setModel(model);
+		table.setPreferredScrollableViewportSize(new Dimension(300, 80));
+		table.setFillsViewportHeight(true);
+		
+		setLayout();
+	}
 	
-	    //Create the scroll pane and add the table to it.
-	    JScrollPane scrollPane = new JScrollPane(accTable);
-		
-		// Add Account UI elements to Panel
-		accPanel.add(accLabel);
-		accPanel.add(accBankLabel);
-		accPanel.add(accBankTextfield);
-		accPanel.add(accNicknameLabel);
-		accPanel.add(accNicknameTextfield);
-		accPanel.add(accBalanceLabel);
-		accPanel.add(accBalanceTextfield);
-		accPanel.add(accAddButton);
-		accPanel.add(accUpdateButton);
-		accPanel.add(accDeleteButton);
-		accPanel.add(scrollPane);
-		
-		/*
-		// Add Account UI elements to frame
-		GroupLayout layout = new GroupLayout(frame.getContentPane());
+	private void setLayout() {
+		GroupLayout layout = new GroupLayout(panel);
+		panel.setLayout(layout);	
 		layout.setAutoCreateGaps(true);
+		layout.setAutoCreateContainerGaps(true);
+		
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(accBankLabel))
+						.addComponent(accLabel)
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(bankLabel)
+									.addComponent(nicknameLabel)
+									.addComponent(balanceLabel))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)								
+									.addComponent(bankTextfield)
+									.addComponent(nicknameTextfield)
+									.addComponent(balanceTextfield)))
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(addButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
+									.addComponent(updateButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(deleteButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+										.addComponent(clearButton))))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(accBankLabel)
-						.addComponent(accBankTextfield)
-						.addComponent(accTable))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(accNicknameLabel)
-						.addComponent(accNicknameTextfield))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(accBankLabel)
-						.addComponent(accBalanceTextfield))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(accAddButton)
-						.addComponent(accUpdateButton)
-						.addComponent(accDeleteButton))
+						.addComponent(scrollPane))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(accBankLabel))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(accBankLabel)
-						.addComponent(accNicknameLabel)
-						.addComponent(accBalanceLabel)
-						.addComponent(accAddButton))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(accBankTextfield)
-						.addComponent(accNicknameTextfield)
-						.addComponent(accBalanceTextfield)
-						.addComponent(accUpdateButton))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(accDeleteButton))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(accTable))
+						.addComponent(accLabel))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(scrollPane, 50, 80, 105)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(bankLabel)
+									.addComponent(bankTextfield))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(nicknameLabel)
+									.addComponent(nicknameTextfield))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(balanceLabel)
+									.addComponent(balanceTextfield))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(addButton)
+									.addComponent(updateButton)
+									.addComponent(deleteButton)	
+									.addComponent(clearButton)))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, accBankLabel, accNicknameLabel, accBalanceLabel);
-		layout.linkSize(SwingConstants.HORIZONTAL, accAddButton, accUpdateButton, accDeleteButton);
-		frame.getContentPane().setLayout(layout);
-		*/
+		layout.linkSize(SwingConstants.HORIZONTAL, bankLabel, nicknameLabel, balanceLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
 	}
 }

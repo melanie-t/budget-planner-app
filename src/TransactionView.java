@@ -1,6 +1,4 @@
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -9,175 +7,177 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class TransactionView {
-	
-	private TransactionView() {}
-	
-	public TransactionView(MainView v) { 
-		createTransPanel();
-		v.getFrame().add(transPanel);
-		v.update();
-	}
 
 	// Transaction UI elements
-	private JPanel transPanel;
-	private DefaultTableModel transModel;
+	private JPanel panel;
+	private DefaultTableModel model;
 	private JLabel transLabel;
-	private JLabel transTypeLabel;
-	private JLabel transDateLabel;
-	private JLabel transAmountLabel;
-	private JButton transAddButton;
-	private JButton transUpdateButton;
-	private JButton transDeleteButton;
-	private JTextField transTypeTextfield;
-	private JTextField transDateTextfield;
-	private JTextField transAmountTextfield;
-	private JTable transTable;
+	private JLabel typeLabel;
+	private JLabel dateLabel;
+	private JLabel amountLabel;
+	private JButton addButton;
+	private JButton updateButton;
+	private JButton deleteButton;
+	private JButton clearButton;
+	private JTextField typeTextfield;
+	private JTextField dateTextfield;
+	private JTextField amountTextfield;
+	private JTable table;
+	private JScrollPane scrollPane;
+	
+	public TransactionView() { 
+		createTransPanel();
+	}
 	
 	// Getters and setters
-	public JPanel getTransPanel() {return transPanel;}
-	public void setTransPanel(JPanel transPanel) {this.transPanel = transPanel;}
+	public JPanel getPanel() {return panel;}
+	public void setPanel(JPanel panel) {this.panel = panel;}
 	
-	public DefaultTableModel getTransModel() {return transModel;}
-	public void setTransModel(DefaultTableModel transModel) {this.transModel = transModel;}
+	public DefaultTableModel getModel() {return model;}
+	public void setModel(DefaultTableModel model) {this.model = model;}
 	
 	public JLabel getTransLabel() {return transLabel;}
-	public void setTransLabel(JLabel transLabel) {this.transLabel = transLabel;}
+	public void setTransLabel(JLabel Label) {this.transLabel = Label;}
 	
-	public JLabel getTransTypeLabel () {return transTypeLabel;}
-	public void setTransTypeLabel(JLabel transTypeLabel) {this.transTypeLabel = transTypeLabel;}
+	public JLabel getTypeLabel () {return typeLabel;}
+	public void setTypeLabel(JLabel typeLabel) {this.typeLabel = typeLabel;}
 	
-	public JLabel getTransDateLabel() {return transDateLabel;}
-	public void setTransDateLabel(JLabel transDateLabel) {this.transDateLabel = transDateLabel;}
+	public JLabel getDateLabel() {return dateLabel;}
+	public void setDateLabel(JLabel dateLabel) {this.dateLabel = dateLabel;}
 	
-	public JLabel getTransAmountLabel() {return transAmountLabel;}
-	public void setTransAmountLabel(JLabel transAmountLabel) {this.transAmountLabel = transAmountLabel;}
+	public JLabel getAmountLabel() {return amountLabel;}
+	public void setAmountLabel(JLabel amountLabel) {this.amountLabel = amountLabel;}
 	
-	public JTextField getTransTypeTextfield() {return transTypeTextfield;}
-	public void setTransTypeTextfield(JTextField transTypeTextfield) {this.transTypeTextfield = transTypeTextfield;}
+	public JTextField getTypeTextfield() {return typeTextfield;}
+	public void setTypeTextfield(JTextField typeTextfield) {this.typeTextfield = typeTextfield;}
 	
-	public JTextField getTransDateTextfield() {return transDateTextfield;}
-	public void setTransDateTextfield(JTextField transDateTextfield) {this.transDateTextfield = transDateTextfield;}
+	public JTextField getDateTextfield() {return dateTextfield;}
+	public void setDateTextfield(JTextField dateTextfield) {this.dateTextfield = dateTextfield;}
 	
-	public JTextField getTransAmountTextfield() {return transAmountTextfield;}
-	public void setTransAmountTextfield(JTextField transAmountTextfield) {this.transAmountTextfield = transAmountTextfield;}
+	public JTextField getAmountTextfield() {return amountTextfield;}
+	public void setAmountTextfield(JTextField amountTextfield) {this.amountTextfield = amountTextfield;}
 
-	public JButton getTransAddButton() {return transAddButton;}
-	public void setTransAddButton(JButton transAddButton) {this.transAddButton = transAddButton;}
+	public JButton getAddButton() {return addButton;}
+	public void setAddButton(JButton addButton) {this.addButton = addButton;}
 
-	public JButton getTransUpdateButton() {return transUpdateButton;}
-	public void setTransUpdateButton(JButton transUpdateButton) {this.transUpdateButton = transUpdateButton;}
+	public JButton getUpdateButton() {return updateButton;}
+	public void setUpdateButton(JButton updateButton) {this.updateButton = updateButton;}
 
-	public JButton getTransDeleteButton() {return transDeleteButton;}
-	public void setTransDeleteButton(JButton transDeleteButton) {this.transDeleteButton = transDeleteButton;}
+	public JButton getDeleteButton() {return deleteButton;}
+	public void setDeleteButton(JButton deleteButton) {this.deleteButton = deleteButton;}
 
-	public JTable getTransTable() {return transTable;}
-	public void setTransTable(JTable transTable) {this.transTable = transTable;}
+	public JButton getClearButton() {return clearButton;}
+	public void setClearButton(JButton clearButton) {this.clearButton = clearButton;}
+	
+	public JTable getTable() {return table;}
+	public void setTable(JTable table) {this.table = table;}
+	
+	public JScrollPane getScrollPane() {return scrollPane;}
+	public void setScrollPane(JScrollPane scrollPane) {this.scrollPane = scrollPane;}
 	
 	public void update() {
 		// Updates JTable
-		transModel.fireTableDataChanged();
+		model.fireTableDataChanged();
 	}
 	
 	private void createTransPanel() {
 		// Create Transaction UI elements
-		transPanel = new JPanel();
+		panel = new JPanel();
 		transLabel = new JLabel("Transactions");
-		transTypeLabel = new JLabel("Type");
-		transDateLabel = new JLabel("Date");
-		transAmountLabel = new JLabel("Amount");
-		transAddButton = new JButton("Add");
-		transUpdateButton = new JButton("Update");
-		transDeleteButton = new JButton("Delete");
-		transTypeTextfield = new JTextField(15);
-		transDateTextfield = new JTextField(15);
-		transAmountTextfield = new JTextField(15);
-		transTable = new JTable();
+		typeLabel = new JLabel("Type");
+		dateLabel = new JLabel("Date");
+		amountLabel = new JLabel("Amount");
+		addButton = new JButton("Add");
+		updateButton = new JButton("Update");
+		deleteButton = new JButton("Delete");
+		clearButton = new JButton("Clear");
+		typeTextfield = new JTextField(15);
+		dateTextfield = new JTextField(15);
+		amountTextfield = new JTextField(15);
+		table = new JTable();
+		scrollPane = new JScrollPane(table);
 		
 		// Settings labels to textfields
-		transTypeLabel.setLabelFor(transTypeTextfield);
-		transDateLabel.setLabelFor(transDateTextfield);
-		transAmountLabel.setLabelFor(transAmountTextfield);
+		typeLabel.setLabelFor(typeTextfield);
+		dateLabel.setLabelFor(dateTextfield);
+		amountLabel.setLabelFor(amountTextfield);
 		
 		// Loading JTable
 		Object[] columns = {"Type", "Date", "Amount"};
-		transModel = new DefaultTableModel() {
+		model = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
 		    }
 		};
-		transModel.setColumnIdentifiers(columns);
-		transTable.setModel(transModel);
-		transTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
-		transTable.setFillsViewportHeight(true);
+		model.setColumnIdentifiers(columns);
+		table.setModel(model);
+		table.setPreferredScrollableViewportSize(new Dimension(300, 80));
+		table.setFillsViewportHeight(true);
 	
-	    //Create the scroll pane and add the table to it.
-	    JScrollPane scrollPane = new JScrollPane(transTable);
-		
-		// Add Transaction UI elements to Panel
-		transPanel.add(transLabel);
-		transPanel.add(transTypeLabel);
-		transPanel.add(transTypeTextfield);
-		transPanel.add(transDateLabel);
-		transPanel.add(transDateTextfield);
-		transPanel.add(transAmountLabel);
-		transPanel.add(transAmountTextfield);
-		transPanel.add(transAddButton);
-		transPanel.add(transUpdateButton);
-		transPanel.add(transDeleteButton);
-		transPanel.add(scrollPane);
-		
-		/*
-		// Add Transaction UI elements to frame
-		GroupLayout layout = new GroupLayout(frame.getContentPane());
+		setLayout();
+	}
+	
+	private void setLayout() {
+		GroupLayout layout = new GroupLayout(panel);
+		panel.setLayout(layout);	
 		layout.setAutoCreateGaps(true);
+		layout.setAutoCreateContainerGaps(true);
+		
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(transTypeLabel))
+						.addComponent(transLabel)
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(typeLabel)
+									.addComponent(dateLabel)
+									.addComponent(amountLabel))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)								
+									.addComponent(typeTextfield)
+									.addComponent(dateTextfield)
+									.addComponent(amountTextfield)))
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(addButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
+									.addComponent(updateButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(deleteButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+										.addComponent(clearButton))))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(transTypeLabel)
-						.addComponent(transTypeTextfield)
-						.addComponent(transTable))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(transDateLabel)
-						.addComponent(transDateTextfield))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(transTypeLabel)
-						.addComponent(transAmountTextfield))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(transAddButton)
-						.addComponent(transUpdateButton)
-						.addComponent(transDeleteButton))
+						.addComponent(scrollPane))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(transTypeLabel))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(transTypeLabel)
-						.addComponent(transDateLabel)
-						.addComponent(transAmountLabel)
-						.addComponent(transAddButton))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(transTypeTextfield)
-						.addComponent(transDateTextfield)
-						.addComponent(transAmountTextfield)
-						.addComponent(transUpdateButton))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(transDeleteButton))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(transTable))
+						.addComponent(transLabel))
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(scrollPane, 50, 80, 105)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
+						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(typeLabel)
+									.addComponent(typeTextfield))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(dateLabel)
+									.addComponent(dateTextfield))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(amountLabel)
+									.addComponent(amountTextfield))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(addButton)
+									.addComponent(updateButton)
+									.addComponent(deleteButton)	
+									.addComponent(clearButton)))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, transTypeLabel, transDateLabel, transAmountLabel);
-		layout.linkSize(SwingConstants.HORIZONTAL, transAddButton, transUpdateButton, transDeleteButton);
-		frame.getContentPane().setLayout(layout);
-		*/
+		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
 	}
 }
