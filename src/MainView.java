@@ -5,7 +5,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MainView {
+public class MainView extends AbstractView{
 	
 	// View uses Swing framework to display UI to user
 	protected JFrame mainFrame;

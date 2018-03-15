@@ -3,10 +3,10 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-public class AccountController {
+public class AccountController extends AbstractViewController {
 
 	private AccountList list;
-	private AccountRepository repo;
+	
 	private AccountModel model;
 	private AccountView accView;
 	private UserModel user;
@@ -17,14 +17,8 @@ public class AccountController {
 		initView();
 	}
 	
-	// Loads JTable with database
 	private void initView() {
-		// Get account list
-		//list = user.getListOfAllAccounts();
 		
-		// Add rows
-		//for (AccountModel account : list)
-		//	view.getAccModel().addRow(new Object[]{account.getBankName(), account.getNickname(), account.getBalance()});
 	}
 	
 	protected void initController() {
@@ -39,9 +33,9 @@ public class AccountController {
 				int i = accView.getTable().getSelectedRow();
 				if (i>=0) 
 				{
-					accView.getBankTextfield().setText(accView.getModel().getValueAt(i, 0).toString());
-					accView.getNicknameTextfield().setText(accView.getModel().getValueAt(i, 1).toString());
-					accView.getBalanceTextfield().setText(accView.getModel().getValueAt(i, 2).toString());
+					accView.getBankTextfield().setText(accView.getTableModel().getValueAt(i, 0).toString());
+					accView.getNicknameTextfield().setText(accView.getTableModel().getValueAt(i, 1).toString());
+					accView.getBalanceTextfield().setText(accView.getTableModel().getValueAt(i, 2).toString());
 				}
 			}
 		});
@@ -74,18 +68,20 @@ public class AccountController {
 		
 		else if (!(bank.isEmpty() && nickname.isEmpty() && balance.isEmpty()) && balance.matches("\\d+"))
 		{
-			// Add to database
-			model.setBankName(bank);
-			model.setNickname(nickname);
-			model.setBalance(Integer.parseInt(balance));
-			//repo.saveItem(model);
-			//System.out.println("Saved entry: " + bank + ", " + nickname + ", " + balance);
 			
-			// Add to model
-			accView.getModel().addRow(new Object[] {bank, nickname, balance});
-			accView.getBankTextfield().setText("");
-			accView.getNicknameTextfield().setText("");
-			accView.getBalanceTextfield().setText("");
+			//Create account
+			AccountModel newAccount = new AccountModel();
+			newAccount.setBankName(bank);
+			newAccount.setNickname(nickname);
+			newAccount.setBalance(Integer.parseInt(balance));
+			
+			//Save item to repo
+			AccountRepository accountRepo = user.getAccountRepository();
+			accountRepo.saveItem(newAccount);
+
+			//Update GUI - not complete
+			addAccountToList(newAccount);
+			ResetAddAccountInput();
 		}
 		
 		else
@@ -100,9 +96,9 @@ public class AccountController {
 			
 			
 			// Update model
-			accView.getModel().setValueAt(accView.getBankTextfield().getText(), i, 0);
-			accView.getModel().setValueAt(accView.getNicknameTextfield().getText(), i, 1);
-			accView.getModel().setValueAt(accView.getBalanceTextfield().getText(), i, 2);
+			accView.getTableModel().setValueAt(accView.getBankTextfield().getText(), i, 0);
+			accView.getTableModel().setValueAt(accView.getNicknameTextfield().getText(), i, 1);
+			accView.getTableModel().setValueAt(accView.getBalanceTextfield().getText(), i, 2);
 			
 			accView.getBankTextfield().setText("");
 			accView.getNicknameTextfield().setText("");
@@ -120,7 +116,7 @@ public class AccountController {
 			// Remove from database
 			
 			// Remove from model
-			accView.getModel().removeRow(i);
+			accView.getTableModel().removeRow(i);
 			accView.getBankTextfield().setText("");
 			accView.getNicknameTextfield().setText("");
 			accView.getBalanceTextfield().setText("");
@@ -134,4 +130,21 @@ public class AccountController {
 		accView.getNicknameTextfield().setText("");
 		accView.getBalanceTextfield().setText("");
 	}
+
+	
+	public void setUser(UserModel user) {this.user = user;}
+	
+
+	private void addAccountToList(AccountModel account) {
+		// Add to model
+		accView.getTableModel().addRow(new Object[] {account.getBankName(), account.getNickname(), account.getBalance()});
+		
+	}
+	
+	private void ResetAddAccountInput() {
+		accView.getBankTextfield().setText("");
+		accView.getNicknameTextfield().setText("");
+		accView.getBalanceTextfield().setText("");
+	}
+
 }

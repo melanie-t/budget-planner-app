@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class TransactionView {
+public class TransactionView extends AbstractView{
 
 	// Transaction UI elements
 	private JPanel panel;

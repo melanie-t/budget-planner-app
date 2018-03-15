@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class AccountView {
+public class AccountView extends AbstractView{
 
 	// Account UI elements
 	private MainView mainView;
@@ -39,8 +39,8 @@ public class AccountView {
 	public JPanel getPanel() {return panel;}
 	public void setPanel(JPanel accPanel) {this.panel = accPanel;}
 	
-	public DefaultTableModel getModel() {return model;}
-	public void setModel(DefaultTableModel accModel) {this.model = accModel;}
+	public DefaultTableModel getTableModel() {return model;}
+	public void setTableModel(DefaultTableModel accModel) {this.model = accModel;}
 	
 	public JLabel getAccLabel() {return accLabel;}
 	public void setAccLabel(JLabel accLabel) {this.accLabel = accLabel;}
@@ -103,7 +103,6 @@ public class AccountView {
 		balanceTextfield = new JTextField(15);
 		table = new JTable();
 		model = new DefaultTableModel() {
-
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false

@@ -2,15 +2,8 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException
     {
-		//*
-		//runIteration2App();
-		/*/
-		runDummyApp();
-		//*/
-			
-		// Opens GUI, which is not yet connected to the model
-		MainView v = new MainView("My Money Manager");
-		MainController mainController = new MainController(v);
+		runIteration2App();
+		//runDummyApp();
     }
 	
 	

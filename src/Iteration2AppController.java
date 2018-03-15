@@ -37,10 +37,7 @@ public class Iteration2AppController extends AbstractAppController {
 				theTransactionRepository.initSQLStructure(); // will whipe and reinstall sql tables
 			}
 		}
-		
-		
-		
-		
+	
 		protected void InsertFakeAccounts() {
 			AccountModel newAccount = new AccountModel();
 			newAccount.setBankName("TD");
@@ -55,6 +52,31 @@ public class Iteration2AppController extends AbstractAppController {
 		
 		
 		public void run() {	
+			
+			
+			// user using this app
+			UserModel currentUser = new UserModel();
+			currentUser.setAccountRepository(theAccountRespository);
+			
+			
+			MainView v = new MainView("My Money Manager");
+			MainController mainController = new MainController();
+			mainController.setView(v);
+			mainController.setUser(currentUser);
+			mainController.initController();
+			
+			
+			
+			/*
+			mainController.setAccountRepository(theAccountRespository);
+			mainController.setTransactionRepository(theTransactionRepository);
+			*/
+			
+			
+			
+			
+			/*
+			
 			System.out.println("Running Iteration 2 app");
 			
 			UserModel currentUser = new UserModel();
@@ -78,6 +100,7 @@ public class Iteration2AppController extends AbstractAppController {
 			
 			accountMainView.update();
 			accountMainView.display();
+			*/
 		}
 		
 	
