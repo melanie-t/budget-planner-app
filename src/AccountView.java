@@ -117,7 +117,7 @@ public class AccountView extends AbstractView{
 		balanceLabel.setLabelFor(balanceTextfield);
 		
 		// Loading JTable
-		Object[] columns = {"Bank", "Nickname", "Balance"};
+		Object[] columns = {"ID", "Bank", "Nickname", "Balance"};
 
 		model.setColumnIdentifiers(columns);
 		table.setModel(model);

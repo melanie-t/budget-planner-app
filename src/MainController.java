@@ -18,7 +18,8 @@ public class MainController extends AbstractViewController{
 		if(user != null) {	
 			AccountView accView = new AccountView();
 			AccountModel accModel = new AccountModel();
-			AccountController accController = new AccountController(accModel, accView);
+			AccountController accController = new AccountController();
+			accController.setView(accView);
 			accController.setUser(user);
 			accController.initController();
 			
