@@ -58,4 +58,11 @@ public class AccountModel extends AbstractModel {
 		output += "Balance"+" -> " + this.getBalance() + "\n";
 		return output;
 	}
+	
+	
+	//=============================================
+	
+	//	  		ACCOUNT HAS TRANSACTIONS
+	
+	//=============================================
 }

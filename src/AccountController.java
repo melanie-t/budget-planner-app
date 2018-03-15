@@ -97,8 +97,7 @@ public class AccountController extends AbstractViewController {
 			newAccount.setBalance(Integer.parseInt(balance));
 			
 			//Save item to repo
-			AccountRepository accountRepo = user.getAccountRepository();
-			accountRepo.saveItem(newAccount);
+			user.saveAccount(newAccount);
 
 			//Update GUI
 			update();
@@ -123,8 +122,7 @@ public class AccountController extends AbstractViewController {
 			//updateDataRowFromModel(i, tmpAccountModel);
 			
 			//save to database
-			user.getAccountRepository().saveItem(tmpAccountModel);
-			
+			user.saveAccount(tmpAccountModel);
 			
 			update();
 			// WARNING THIS WILL CAUSE THE DATATO BE REPLACED WITH BLANK DATA IF DOUBLE CLICKED!!!!
@@ -141,8 +139,7 @@ public class AccountController extends AbstractViewController {
 		if (i >=0) 
 		{
 			// Remove from database
-			AccountModel accountToDelete = getAccountDataFromRow(i);
-			user.getAccountRepository().deleteItem(accountToDelete.getId());
+			user.deleteAccount(getAccountDataFromRow(i));
 			
 			// Remove from model
 			resetAddAccountInput();

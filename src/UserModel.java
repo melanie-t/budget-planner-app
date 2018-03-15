@@ -24,14 +24,34 @@ public class UserModel {
 	public void setAccountRepository(AccountRepository accountsRepo) {this.accountsRepo = accountsRepo;}
 	public AccountRepository getAccountRepository() {return this.accountsRepo;}
 	public AccountMap getMapOfAllAccounts() {
-		if(accountsRepo == null)
+		if(accountsRepo == null) {
 			System.out.println("accountsRepo == null");
-		return accountsRepo.getMapOfAllItems();
+			return null;
+		} else {
+			return accountsRepo.getMapOfAllItems();
+		}
 	}
 	public AccountList getListOfAllAccounts() {
-		if(accountsRepo == null)
+		if(accountsRepo == null) {
 			System.out.println("accountsRepo == null");
-		return accountsRepo.getListOfAllItems();
+			return null;
+		} else {
+			return accountsRepo.getListOfAllItems();
+		}
+	}
+	public void saveAccount(AccountModel account) {
+		if(accountsRepo == null) {
+			System.out.println("accountsRepo == null");
+		} else {
+			accountsRepo.saveItem(account);
+		}
+	}
+	public void deleteAccount(AccountModel account) {
+		if(accountsRepo == null) {
+			System.out.println("accountsRepo == null");
+		} else {
+			accountsRepo.deleteItem(account.getId());
+		}
 	}
 	
 	
