@@ -25,10 +25,11 @@ public class TransactionController {
 	}
 	
 	protected void initController() {
-		transView.getAddButton().addActionListener(e->addButton());
-		transView.getUpdateButton().addActionListener(e->updateButton());
-		transView.getDeleteButton().addActionListener(e->deleteButton());
-		transView.getClearButton().addActionListener(e->clearButton());
+		transView.getAddButton().addActionListener(e->addTransaction());
+		//transView.getUpdateButton().addActionListener(e->updateButton());
+		transView.getDeleteButton().addActionListener(e->deleteTransaction());
+		transView.getClearButton().addActionListener(e->clearTransaction());
+		transView.getImportButton().addActionListener(e->importTransaction());
 		transView.getTable().addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e){ 
@@ -44,7 +45,7 @@ public class TransactionController {
 		});
 	}
 	
-	private void addButton() {
+	private void addTransaction() {
 		String type = transView.getTypeTextfield().getText();
 		String date = transView.getDateTextfield().getText();
 		String amount = transView.getAmountTextfield().getText();
@@ -89,6 +90,7 @@ public class TransactionController {
 			System.out.println("Add error");
 	}
 	
+	/*
 	private void updateButton() {
 		int i = transView.getTable().getSelectedRow();
 		if (i >= 0)
@@ -109,8 +111,9 @@ public class TransactionController {
 		else
 			System.out.println("Update error");
 	}
+	*/
 	
-	private void deleteButton() {
+	private void deleteTransaction() {
 		int i = transView.getTable().getSelectedRow();
 		if (i>=0) 
 		{
@@ -126,9 +129,13 @@ public class TransactionController {
 			System.out.println("Delete error");
 	}
 	
-	private void clearButton() {
+	private void clearTransaction() {
 		transView.getTypeTextfield().setText("");
 		transView.getDateTextfield().setText("");
 		transView.getAmountTextfield().setText("");
+	}
+	
+	private void importTransaction() {
+		// Import transactions
 	}
 }

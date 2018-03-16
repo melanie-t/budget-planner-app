@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +19,7 @@ public class AccountView extends AbstractView{
 	private JPanel panel;
 	private DefaultTableModel model;
 	private JLabel accLabel;
+	private JLabel accountIDLabel;
 	private JLabel bankLabel;
 	private JLabel nicknameLabel;
 	private JLabel balanceLabel;
@@ -25,6 +27,7 @@ public class AccountView extends AbstractView{
 	private JButton updateButton;
 	private JButton deleteButton;
 	private JButton clearButton;
+	private JTextField accountIDTextfield;
 	private JTextField bankTextfield;
 	private JTextField nicknameTextfield;
 	private JTextField balanceTextfield;
@@ -45,6 +48,9 @@ public class AccountView extends AbstractView{
 	public JLabel getAccLabel() {return accLabel;}
 	public void setAccLabel(JLabel accLabel) {this.accLabel = accLabel;}
 	
+	public JLabel getAccountIDLabel() {return accountIDLabel;}
+	public void setAccountIDLabel(JLabel accountIDLabel) {this.accountIDLabel = accountIDLabel;}
+	
 	public JLabel getBankLabel () {return bankLabel;}
 	public void setBankLabel(JLabel bankLabel) {this.bankLabel = bankLabel;}
 	
@@ -53,6 +59,9 @@ public class AccountView extends AbstractView{
 	
 	public JLabel getBalanceLabel() {return balanceLabel;}
 	public void setBalanceLabel(JLabel BalanceLabel) {this.balanceLabel = BalanceLabel;}
+	
+	public JTextField getAccountIDTextfield() {return accountIDTextfield;}
+	public void setAccountIDTextfield(JTextField accountID) {this.accountIDTextfield = accountID;}
 	
 	public JTextField getBankTextfield() {return bankTextfield;}
 	public void setBankTextfield(JTextField bankTextfield) {this.bankTextfield = bankTextfield;}
@@ -75,7 +84,6 @@ public class AccountView extends AbstractView{
 	public JButton getClearButton() {return clearButton;}
 	public void setClearButton(JButton clearButton) {this.clearButton = clearButton;}
 
-
 	public JTable getTable() {return table;}
 	public void setTable(JTable table) {this.table = table;}
 	
@@ -91,6 +99,7 @@ public class AccountView extends AbstractView{
 		// Create Account UI elements
 		panel = new JPanel();
 		accLabel = new JLabel("Accounts");
+		accountIDLabel = new JLabel("Account ID");
 		bankLabel = new JLabel("Bank");
 		nicknameLabel = new JLabel("Nickname");
 		balanceLabel = new JLabel("Balance");
@@ -98,6 +107,7 @@ public class AccountView extends AbstractView{
 		updateButton = new JButton("Update");
 		deleteButton = new JButton("Delete");
 		clearButton = new JButton("Clear");
+		accountIDTextfield = new JTextField(15);
 		bankTextfield = new JTextField(15);
 		nicknameTextfield = new JTextField(15);
 		balanceTextfield = new JTextField(15);
@@ -110,8 +120,10 @@ public class AccountView extends AbstractView{
 		    }
 		};
 		scrollPane = new JScrollPane(table);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		// Settings labels to textfields
+		accountIDLabel.setLabelFor(accountIDTextfield);
 		bankLabel.setLabelFor(bankTextfield);
 		nicknameLabel.setLabelFor(nicknameTextfield);
 		balanceLabel.setLabelFor(balanceTextfield);
@@ -138,10 +150,12 @@ public class AccountView extends AbstractView{
 						.addComponent(accLabel)
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(accountIDLabel)
 									.addComponent(bankLabel)
 									.addComponent(nicknameLabel)
 									.addComponent(balanceLabel))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)								
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
+									.addComponent(accountIDTextfield)
 									.addComponent(bankTextfield)
 									.addComponent(nicknameTextfield)
 									.addComponent(balanceTextfield)))
@@ -156,7 +170,7 @@ public class AccountView extends AbstractView{
 									.addComponent(deleteButton))
 								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane))
+						.addComponent(scrollPane, 550, 550, 550))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
@@ -166,6 +180,9 @@ public class AccountView extends AbstractView{
 						.addComponent(scrollPane, 50, 80, 105)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
 						.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(accountIDLabel)
+										.addComponent(accountIDTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(bankLabel)
 									.addComponent(bankTextfield))
@@ -183,7 +200,7 @@ public class AccountView extends AbstractView{
 									))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, bankLabel, nicknameLabel, balanceLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, accountIDLabel, bankLabel, nicknameLabel, balanceLabel);
 		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
 	}
 }

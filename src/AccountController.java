@@ -32,6 +32,7 @@ public class AccountController extends AbstractViewController {
 					if (i>=0) 
 					{
 						AccountModel tmpAccount = getAccountDataFromRow(i);
+						accView.getAccountIDTextfield().setText(Integer.toString(tmpAccount.getId()));
 						accView.getBankTextfield().setText(tmpAccount.getBankName());
 						accView.getNicknameTextfield().setText(tmpAccount.getNickname());
 						accView.getBalanceTextfield().setText(Integer.toString(tmpAccount.getBalance()));
@@ -153,6 +154,7 @@ public class AccountController extends AbstractViewController {
 	
 	private void clearButton() {
 		AccountView accView = (AccountView) getView();
+		accView.getAccountIDTextfield().setText("");
 		accView.getBankTextfield().setText("");
 		accView.getNicknameTextfield().setText("");
 		accView.getBalanceTextfield().setText("");

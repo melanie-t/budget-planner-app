@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class TransactionView extends AbstractView{
+public class TransactionView {
 
 	// Transaction UI elements
 	private JPanel panel;
@@ -23,6 +23,7 @@ public class TransactionView extends AbstractView{
 	private JButton updateButton;
 	private JButton deleteButton;
 	private JButton clearButton;
+	private JButton importButton;
 	private JTextField typeTextfield;
 	private JTextField dateTextfield;
 	private JTextField amountTextfield;
@@ -73,6 +74,9 @@ public class TransactionView extends AbstractView{
 	public JButton getClearButton() {return clearButton;}
 	public void setClearButton(JButton clearButton) {this.clearButton = clearButton;}
 	
+	public JButton getImportButton() {return importButton;}
+	public void setImportButton(JButton importButton) {this.importButton = importButton;}
+	
 	public JTable getTable() {return table;}
 	public void setTable(JTable table) {this.table = table;}
 	
@@ -92,9 +96,10 @@ public class TransactionView extends AbstractView{
 		dateLabel = new JLabel("Date");
 		amountLabel = new JLabel("Amount");
 		addButton = new JButton("Add");
-		updateButton = new JButton("Update");
+		//updateButton = new JButton("Update");
 		deleteButton = new JButton("Delete");
 		clearButton = new JButton("Clear");
+		importButton = new JButton("Import");
 		typeTextfield = new JTextField(15);
 		dateTextfield = new JTextField(15);
 		amountTextfield = new JTextField(15);
@@ -107,7 +112,7 @@ public class TransactionView extends AbstractView{
 		amountLabel.setLabelFor(amountTextfield);
 		
 		// Loading JTable
-		Object[] columns = {"Type", "Date", "Amount"};
+		Object[] columns = {"Account ID", "Transaction ID", "Type", "Date", "Amount"};
 		model = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -144,16 +149,16 @@ public class TransactionView extends AbstractView{
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton))
-								/*
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
-									.addComponent(updateButton))
+								//.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
+									//.addComponent(updateButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(deleteButton))
-								*/
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(clearButton))))
+										.addComponent(clearButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+										.addComponent(importButton))))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane))
+						.addComponent(scrollPane, 550, 550, 550))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
@@ -175,11 +180,12 @@ public class TransactionView extends AbstractView{
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
 									//.addComponent(updateButton)
-									//.addComponent(deleteButton)	
-									.addComponent(clearButton)))))
+									.addComponent(deleteButton)	
+									.addComponent(clearButton)
+									.addComponent(importButton)))))
 		);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel);
-		layout.linkSize(SwingConstants.HORIZONTAL, addButton, /*updateButton, deleteButton,*/ clearButton);	
+		layout.linkSize(SwingConstants.HORIZONTAL, addButton, deleteButton, importButton, clearButton);	
 	}
 }
