@@ -41,7 +41,7 @@ public class TransactionRepository {
 		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("transactions", where));
 		
 		try {
-			
+			System.out.println("Load all transactions");
 			while(result.next())
 				setFromResult(result);
 			
@@ -72,7 +72,7 @@ public class TransactionRepository {
 	
 	//========================================
 	public void saveItem(TransactionModel transaction) {
-	
+		System.out.println(transaction.toString());
 		SQLValueMap values = new SQLValueMap();
 		values.put("accountId", transaction.getAccountId());
 		values.put("type", transaction.getType());
@@ -97,6 +97,7 @@ public class TransactionRepository {
 		if(itemMap.containsKey(itemID)) 
 			itemMap.remove(itemMap.get(itemID));
 		myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
+		System.out.println("Delete Transaction "+itemID);
 	}
 	
 
@@ -111,6 +112,7 @@ public class TransactionRepository {
 	public void initSQLStructure() {
 		myDatabase.updateSQL(sql.createTable("transactions", "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
 		myDatabase.updateSQL(sql.addColumn("transactions", "date", "VARCHAR"));
+		myDatabase.updateSQL(sql.addColumn("transactions", "type", "VARCHAR"));
 		myDatabase.updateSQL(sql.addColumn("transactions", "amount", "INTEGER"));
 		myDatabase.updateSQL(sql.addColumn("transactions", "description", "VARCHAR"));
 	}
@@ -125,10 +127,13 @@ public class TransactionRepository {
 	protected void setFromResult(ResultSet result) {
 		try {
 			TransactionModel transacMod = new TransactionModel();
+			transacMod.setId(result.getInt("transactionId"));
 			transacMod.setAccountId(result.getInt("accountId"));
 			transacMod.setAmount(result.getInt("amount"));
 			transacMod.setDate(result.getString("date"));
 			transacMod.setType(result.getString("description"));
+			
+			System.out.println(result.getInt("amount"));
 			addItemToMap(transacMod);
 		}catch(SQLException sqle) {
 			System.err.println(sqle.getMessage());

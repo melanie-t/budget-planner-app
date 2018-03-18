@@ -35,4 +35,17 @@ public class TransactionModel extends AbstractModel{
 	public Integer 	getAmount()			{return amount;}
 	public String 	getDescription() 	{return description;}
 	
+	
+	// This is what does the "viewing"
+	public String toString(){
+		String output = "";
+		output += "\n-------------------\n";
+		output += "ID"+" -> " + this.getId() + "\n";
+		output += "AccountId"+" -> " + this.getAccountId() + "\n";
+		output += "Type"+" -> " + this.getType() + "\n";
+		output += "Date"+" -> " + this.getDate() + "\n";
+		output += "Amount"+" -> " + this.getAmount() + "\n";
+		output += "Description"+" -> " + this.getDescription() + "\n";
+		return output;
+	}
 }

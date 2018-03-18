@@ -133,7 +133,6 @@ public class AccountRepository {
 		//get rid of old items - at least until caching can be properly done
 		itemMap.clear();
 		
-		System.out.println("loadAll");
 		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
 		
 		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("account", where));
@@ -147,13 +146,16 @@ public class AccountRepository {
 	}
 	
 	protected void setItemFromResult(ResultSet result) {
-		System.out.println("setItemFromResult");
 		try {
 			AccountModel account =  new AccountModel();
 			account.setId(result.getInt("accountId"));
 			account.setBalance(result.getInt("balance"));
 			account.setNickname(result.getString("nickname"));
 			account.setBankName(result.getString("bankName"));
+			
+			AccountTransactionRepository accTransRepo = new AccountTransactionRepository(myDatabase, account);
+			account.setAccountTransactionRepository(accTransRepo);
+			
 			addItemToMap(account);
 		} catch (SQLException e){ 
 			System.err.println(e.getMessage());

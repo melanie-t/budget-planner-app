@@ -27,6 +27,7 @@ public class TransactionController extends AbstractViewController{
 				public void mouseClicked(MouseEvent e){ 
 			    // i = the index of the selected row in Accounts
 					accountIndex = accView.getTable().getSelectedRow();
+					
 					if (accountIndex >= 0) 
 					{
 						//Account currently selected
@@ -92,7 +93,8 @@ public class TransactionController extends AbstractViewController{
 			newTransaction.setDate(date);
 			newTransaction.setAmount(Integer.parseInt(amount));
 			newTransaction.setDescription(description);
-		
+
+			
 			//Save item to repo
 			user.getAccountAtIndex(accountIndex).saveTransaction(newTransaction);
 			
@@ -106,12 +108,15 @@ public class TransactionController extends AbstractViewController{
 	}
 	
 	private void deleteButton() {
-		AccountView transView = (AccountView) getView();
+		TransactionView transView = (TransactionView) getView();
 		int i = transView.getTable().getSelectedRow();
 		if (i >=0) 
 		{
+			TransactionModel selectedTransaction = getTransactionDataFromRow(i);
+			System.out.println(selectedTransaction.toString());
+			
 			// Remove from database
-			user.getAccountAtIndex(i).deleteTransaction(getTransactionDataFromRow(i));
+			user.getAccountAtIndex(accountIndex).deleteTransaction(selectedTransaction);
 			
 			// Remove from model
 			clearButton();
@@ -151,8 +156,9 @@ public class TransactionController extends AbstractViewController{
 	//Add data inputs to account model
 	protected TransactionModel getTransactionDataFromRow(Integer i) {
 		TransactionModel tmpTransaction = new TransactionModel();
-		
 		TransactionView transView = (TransactionView) getView();
+		
+		tmpTransaction.setId(Integer.parseInt(transView.getTableModel().getValueAt(i, 0).toString()));
 		tmpTransaction.setType(transView.getTableModel().getValueAt(i, 1).toString());
 		tmpTransaction.setDate(transView.getTableModel().getValueAt(i, 2).toString());
 		tmpTransaction.setAmount(Integer.parseInt(transView.getTableModel().getValueAt(i, 3).toString()));
@@ -171,7 +177,7 @@ public class TransactionController extends AbstractViewController{
 	}
 	
 	protected void updateDataRowFromModel(Integer i, TransactionModel transaction) {
-		AccountView accView = (AccountView) getView();
+		AccountView accView = (AccountView) getSecondaryView();
 		accView.getTableModel().setValueAt(transaction.getId(), i, 0);
 		accView.getTableModel().setValueAt(transaction.getType(), i, 1);
 		accView.getTableModel().setValueAt(transaction.getDate(), i, 2);

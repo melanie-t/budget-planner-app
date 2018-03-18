@@ -190,7 +190,7 @@ public class AccountController extends AbstractViewController {
 	// 		TABLE DATA MANIPULATION
 	
 	//====================================
-	protected AccountModel getAccountDataFromRow(Integer i) {
+	public AccountModel getAccountDataFromRow(Integer i) {
 		AccountModel tmpAccount = new AccountModel();
 		
 		AccountView accView = (AccountView) getView();

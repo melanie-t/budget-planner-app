@@ -12,12 +12,19 @@ public class AccountTransactionRepository extends TransactionRepository{
 	public AccountTransactionRepository(Database myDatabase, AccountModel account){
 		super(myDatabase);
 		setAccount(account);
+		init();
 	}
 	
 	
 	public AccountTransactionRepository(Database myDatabase){
 		super(myDatabase);
 		account = null;
+		init();
+	}
+	
+	
+	private void init() {
+		itemMap = new TransactionMap();
 	}
 	
 	public void 		setAccount(AccountModel account) 	{this.account = account;}
@@ -65,7 +72,10 @@ public class AccountTransactionRepository extends TransactionRepository{
 	public void saveItem(TransactionModel transaction) {
 		if(hasAccount() && !getAccount().isNew()) {
 			transaction.setAccountId(account.getId());
+			System.out.println(transaction.toString());
 			super.saveItem(transaction);
+		} else {
+			System.out.println("AccountTransactionRepository Account not linked");
 		}
 	}
 }
