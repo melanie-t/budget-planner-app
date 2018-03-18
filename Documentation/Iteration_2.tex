@@ -1,5 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage{float}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption}
+
 \pagestyle{empty}
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
@@ -254,6 +257,23 @@ public&getIsInitialized&boolean&getter for controllerInitialized
 
 \section{Dynamic Design Scenarios}
 
-\textit {From the template (delete me) --- Describe some (at least two) important execution scenarios of the system using UML sequence diagrams. These scenarios must demonstrate how the various subsystems and units are interacting to achieve a system-level service. Units and subsystems depicted here must be compatible with the descriptions provided in section \ref{sec:arch} and \ref{sec:detail}.}
+\subsubsection{Adding an account}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addAccount.png}
+\captionof{figure}{Adding an account}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/accRepoSaveItem.png}
+\captionof{figure}{AccountRepository saving an account}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addTransaction.png}
+\captionof{figure}{Adding a transaction}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction.png}
+\captionof{figure}{Importing a transaction}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction2.png}
+\captionof{figure}{Importing a transaction (cont.)}
+
+
 
 \end{document}
