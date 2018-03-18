@@ -25,7 +25,6 @@ public class TransactionRepository {
 		tableName = "transactions";
 		primaryKey = "transactionId";
 		this.sql = SQLStringFactory.getInstance();
-		
 	}
 	
 	
@@ -134,7 +133,6 @@ public class TransactionRepository {
 			transacMod.setType(result.getString("type"));
 			transacMod.setDescription(result.getString("description"));
 			
-			System.out.println(result.getInt("amount"));
 			addItemToMap(transacMod);
 		}catch(SQLException sqle) {
 			System.err.println(sqle.getMessage());

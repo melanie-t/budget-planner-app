@@ -58,7 +58,7 @@ public class SQLStringFactory
 		return sql;
 	} 
 	
-	public String addEntry(String tableName, String... values)
+	public String addEntry(String tableName, String... values) //@TODO change quotes ESCAPE value update TEST
 	{
 		String sql = "INSERT INTO " + tableName + " VALUES (";
 				

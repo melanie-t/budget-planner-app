@@ -23,19 +23,59 @@ public class SQLStringFactoryTest {
 		String value = "123";
 		String expected = "INSERT INTO " + tableName + " VALUES (\"" + value + "\");";
 		
-
 		assertEquals(expected, testFactory.addEntry(tableName, value));
 	}
 	
-	/* @TODO JORDAN - I know.... TDD
+
 	@Test
-	public void testUpdateEntry() {
+	public void updateEntryUsingMap() {
 		String tableName = "TESTTABLE";
-		String expected = "SELECT * from " + tableName;
+		SQLValueMap values = new SQLValueMap();
+		SQLValueMap where = new SQLValueMap();
 		
-		assertEquals(expected, testFactory.showAll(tableName));
+		values.put("strName", "bob");
+		values.put("strNasty", "bob's");
+		values.put("dtimeNotified", "NULL");
+		where.put("id", 1);
+		
+		String expected = "UPDATE " + tableName + " SET strName = 'bob', strNasty = 'bob\\'s', dtimeNotified = NULL WHERE id = '1';";
+		
+		
+		String generated = testFactory.updateEntryUsingMap(tableName, values, where);
+		
+		//Debugging
+		if(false) {
+			System.out.println("generated "+generated);
+			System.out.println("expected "+expected);
+		}
+		
+		assertEquals(expected, generated);
 	}
-	*/
+	
+	
+	
+	@Test
+	public void addEntryUsingMap() {
+		String tableName = "TESTTABLE";
+		SQLValueMap values = new SQLValueMap();
+		
+		values.put("strName", "bob");
+		values.put("strNasty", "bob's");
+		values.put("dtimeNotified", "NULL");
+		
+		String expected = "INSERT INTO " + tableName + " (strName, strNasty, dtimeNotified) VALUES ('bob', 'bob\\'s', NULL);";
+		
+		String generated = testFactory.addEntryUsingMap(tableName, values);
+		
+		//Debugging
+		if(false) {
+			System.out.println("generated "+generated);
+			System.out.println("expected "+expected);
+		}
+		
+		assertEquals(expected, generated);
+	}
+	
 	
 	@Test
 	public void testCreateTable() {

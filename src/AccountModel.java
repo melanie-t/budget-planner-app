@@ -45,7 +45,7 @@ public class AccountModel extends AbstractModel {
 	
 	// Balance
 	public boolean hasBalance(){return balance != 0;}
-	public int getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
+	public Integer getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
 	public void setBalance(int balance) {this.balance = balance;}
 	
 	// This is what does the "viewing"

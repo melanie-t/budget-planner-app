@@ -61,7 +61,7 @@ public class TransactionRepositoryTest {
 	@AfterClass
 	public static void tearDownclass() {
 		transacRepoTest = null;
-		File f = new File("transactions");
-		f.delete();
+		//File f = new File("transactions"); // delete test database file
+		//f.delete();
 	}
 }
