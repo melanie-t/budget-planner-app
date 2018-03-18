@@ -101,7 +101,7 @@ public class AccountView extends AbstractView{
 		accountIDLabel = new JLabel("Account ID");
 		bankLabel = new JLabel("Bank");
 		nicknameLabel = new JLabel("Nickname");
-		balanceLabel = new JLabel("Balance");
+		balanceLabel = new JLabel("Balance (cents)");
 		addButton = new JButton("Add");
 		updateButton = new JButton("Update");
 		deleteButton = new JButton("Delete");
@@ -123,7 +123,7 @@ public class AccountView extends AbstractView{
 		accountIDTextfield.setEditable(false);
 		
 		// Loading JTable
-		Object[] columns = {"ID", "Bank", "Nickname", "Balance"};
+		Object[] columns = {"ID", "Bank", "Nickname", "Balance (cents)"};
 
 		model.setColumnIdentifiers(columns);
 		table.setModel(model);
@@ -164,7 +164,7 @@ public class AccountView extends AbstractView{
 									.addComponent(deleteButton))
 								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane, 500, 500, 550))
+						.addComponent(scrollPane, 650, 650, 650))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()

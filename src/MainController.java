@@ -1,6 +1,5 @@
 public class MainController extends AbstractViewController{
 	
-		
 	public MainController() {
 		user = null;
 	}
@@ -11,13 +10,10 @@ public class MainController extends AbstractViewController{
 	UserModel user;
 	public void setUser(UserModel user) {this.user = user;}
 	public UserModel getUser() {return user;}
-	
-	
 
 	public void initController() {
 		if(user != null) {	
 			AccountView accView = new AccountView();
-			AccountModel accModel = new AccountModel();
 			AccountController accController = new AccountController();
 			accController.setView(accView);
 			accController.setUser(user);
@@ -25,8 +21,10 @@ public class MainController extends AbstractViewController{
 			
 	
 			TransactionView transView = new TransactionView();
-			TransactionModel transModel = new TransactionModel();
-			TransactionController transController = new TransactionController(transModel, transView);
+			TransactionController transController = new TransactionController();
+			transController.setSecondaryView(accView);
+			transController.setView(transView);
+			transController.setUser(user);
 			transController.initController();
 			
 			MainView v = (MainView) getView();

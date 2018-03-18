@@ -32,7 +32,7 @@ public class MainView extends AbstractView{
 	public void display() {
 		// Create principal frame
 		mainFrame = new JFrame(title);
-		mainFrame.setSize(910, 480);
+		mainFrame.setSize(1050, 480);
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
 	}
@@ -44,6 +44,8 @@ public class MainView extends AbstractView{
 
 		JPanel accountPanel = accView.getPanel();
 		JPanel transactionPanel = transView.getPanel();
+		accountPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		transactionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		mainPanel.add(accountPanel);
 		mainPanel.add(transactionPanel);

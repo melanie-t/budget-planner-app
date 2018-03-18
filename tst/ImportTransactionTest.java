@@ -26,7 +26,7 @@ public class ImportTransactionTest {
 		Integer accountID = 1;
 		String type = "deposit";
 		String date = "09-09-1999";
-		Float amount = 100.0f;
+		Integer amount = 100;
 		expected = new TransactionModel();
 		expected.setAccountId(accountID);
 		expected.setType(type);

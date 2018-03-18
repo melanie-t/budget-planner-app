@@ -11,8 +11,13 @@ public abstract class AbstractViewController{
 		
 	
 	AbstractView view;
+	AbstractView secondaryView;
+	
 	public void setView(AbstractView view) {this.view = view;}
 	public AbstractView getView() {return view;}
+	
+	public void setSecondaryView(AbstractView secondaryView) {this.secondaryView = secondaryView;}
+	public AbstractView getSecondaryView() {return secondaryView;}
 	
 	
 	private boolean controllerInitialized;
