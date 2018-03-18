@@ -144,7 +144,12 @@ public class TransactionController extends AbstractViewController{
 				"File path for .csv file","Import Transactions",JOptionPane.QUESTION_MESSAGE, null, null, "tst/spread_sheet_test_case.csv"); 
 		
 		//Import transaction function
-
+		AccountTransactionRepository accountTransRepo = user.getAccountAtIndex(accountIndex).getAccountTransactionRepository();
+		ImportTransaction importTransact = new ImportTransaction();
+		importTransact.setAccountTransactionRepository(accountTransRepo);
+		importTransact.addTransaction(filePath);
+		update();
+		
 	}
 	
 	

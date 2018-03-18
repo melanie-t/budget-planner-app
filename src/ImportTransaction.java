@@ -40,7 +40,8 @@ public class ImportTransaction {
 				transacMod.setDate(tokenList[1]);
 				transacMod.setAmount(amount);
 				
-				accountTransactionRepository.initSQLStructure();
+				System.out.println(transacMod.toString());
+				
 				accountTransactionRepository.saveItem(transacMod);
 				
 			}
