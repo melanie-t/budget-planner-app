@@ -53,5 +53,17 @@ public class UserModel {
 		}
 	}
 	
+	public AccountModel getAccountAtIndex(int i) {
+		AccountModel currentAccount;
+		
+		if(accountsRepo == null) {
+			System.out.println("accountsRepo == null");
+			return null;
+		} else {
+			currentAccount = getListOfAllAccounts().get(i);
+		}
+		return currentAccount;
+	}
+	
 	
 }
