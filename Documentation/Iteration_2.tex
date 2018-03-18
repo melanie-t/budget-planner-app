@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-
+\usepackage{float}
 \pagestyle{empty}
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
@@ -87,10 +87,146 @@ Description of the parameters to be passed into these function calls in order to
 
 
 \paragraph {AbstractAppController.java}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Class Name }   & {AbstractAppController.java} \\ \hline
+\textbf {Inherits from} & {~} \\ \hline
+\textbf {Description}   & {Abstract App Controller} \\ \hline
+\textbf {Attributes} & ~ \\ \hline
+\textbf {Methods} & 
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
+public &AbstractAppController &~&Constructor\\ \hline
+public &start &void &Abstract start class\\ \hline
+public &shutdown&void &Abstract shutdown class\\ \hline
+public &run &void &Abstract run class\\
+\end{tabular} \\ \hline
+
+\end{tabular}
+\end{center}
+
 \paragraph {AbstractEventListener.java}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf {Class Name} & {AbstractEventListener.java} \\ \hline 
+\textbf {Inherits from} & { java.awt.event.ActionListener} \\ \hline 
+\textbf {Description} & { Abstract Event Listener} \\ \hline 
+\textbf {Attributes} &
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
+package& AbstractView & view & ~  \\ \hline
+package & AbstractViewController & controller & ~
+\end{tabular} \\ \hline
+\textbf {Methods} &
+
+\footnotesize
+\begin{tabular}{l|l|l|p{3.0cm}}
+\vspace*{0.1cm}
+\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
+public &AbstractEventListener&~ &Constructor \\ \hline 
+public &setView &void&Setter for view \\ \hline 
+public &getView &AbstractView &Getter for view \\ \hline 
+public&setController &void&Setter for controller \\ \hline 
+public &getController&AbstractViewController&Getter for controller \\ \hline 
+public &actionPerformed&void&Default message to implement this method in the view controller
+
+\end{tabular} \\ \hline
+
+\end{tabular}
+\end{center}
+
 \paragraph {AbstractModel.java}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf {Class Name} & {AbstractModel.java} \\ \hline 
+\textbf {Inherits From} & {} \\ \hline 
+\textbf {Description} & { Abstract class for models} \\ \hline 
+\textbf {Attributes} &
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
+package&boolean &boolNew&used to determine if id has been set \\ \hline
+private & HashSet\textless AbstractView\textgreater & m\textunderscore views & stores the views \\
+\end{tabular} \\ \hline
+\textbf {Methods} &
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
+public &isNew&boolean &getter for boolNew \\ \hline 
+public &setIsNewModel&void&setter for boolNew \\ \hline 
+public &setView &void &setter for views \\ \hline 
+public &removeView &void &deletes views \\ \hline 
+public &notifyViews&void &calls for update on all views
+\end{tabular} \\ \hline
+
+\end{tabular}
+\end{center}
+
 \paragraph {AbstractView.java}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf {Class Name} & {AbstractView.java} \\ \hline 
+\textbf {Inherits From} & {} \\ \hline 
+\textbf {Description} & { Abstract view class} \\ \hline 
+\textbf {Attributes} & ~ \\ \hline
+\textbf {Methods} &
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
+package&AbstractView &Constructor \\ \hline 
+public&update &void&abstract update class
+\end{tabular} \\ \hline
+
+\end{tabular}
+\end{center}
 \paragraph {AbstractViewController.java}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf {Class Name} & {AbstractViewController.java} \\ \hline 
+\textbf {Inherits From} & {} \\ \hline 
+\textbf {Description} & { Abstract class for view controller} \\ \hline 
+\textbf {Attributes} &
+
+\footnotesize
+\begin{tabular}{l|l|l|p{5.8cm}}
+\textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
+package &AbstractView &view &primary view \\ \hline 
+package &AbstractView &secondaryView&secondary view \\ \hline 
+private &boolean &controllerInitialized&determines if the controller has been initialized
+\end{tabular} \\ \hline
+\textbf {Methods} &
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
+public&AbstractViewController&~&constructor \\ \hline 
+public&setView&void&Setter for view \\ \hline 
+public&getView&AbstractView &Getter for view \\ \hline 
+public&setSecondaryView&void&Setter for secondary view \\ \hline 
+public&getSecondaryView&AbstractView &Getter for secondary view \\ \hline 
+public&setIsInitialized&void&Setter for controllerInitialized \\ \hline 
+public&getIsInitialized&boolean&getter for controllerInitialized
+\end{tabular} \\ \hline
+
+\end{tabular}
+\end{center}
 \paragraph {AccountController.java}
 \paragraph {AccountList.java}
 \paragraph {AccountMap.java}
