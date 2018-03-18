@@ -65,6 +65,7 @@ public class AccountController extends AbstractViewController {
 	//====================================
 	private void addButton() {
 		AccountView accView = (AccountView) getView();
+		//String id = accView.getAccountIDTextfield().getText();
 		String bank = accView.getBankTextfield().getText();
 		String nickname = accView.getNicknameTextfield().getText();
 		String balance = accView.getBalanceTextfield().getText();
@@ -180,6 +181,7 @@ public class AccountController extends AbstractViewController {
 	
 	private void resetAddAccountInput() {
 		AccountView accView = (AccountView) getView();
+		accView.getAccountIDTextfield().setText("");
 		accView.getBankTextfield().setText("");
 		accView.getNicknameTextfield().setText("");
 		accView.getBalanceTextfield().setText("");
@@ -222,6 +224,7 @@ public class AccountController extends AbstractViewController {
 		boolean success = false;
 		AccountView accView = (AccountView) getView();
 		//reset table - since the ID is currently not stored in the table cannot make per row based changes...
+		
 		DefaultTableModel tableData = accView.getTableModel();
 		
 		

@@ -61,7 +61,7 @@ public class AccountView extends AbstractView{
 	public void setBalanceLabel(JLabel BalanceLabel) {this.balanceLabel = BalanceLabel;}
 	
 	public JTextField getAccountIDTextfield() {return accountIDTextfield;}
-	public void setAccountIDTextfield(JTextField accountID) {this.accountIDTextfield = accountID;}
+	public void setAccountIDTextfield(JTextField accountIDTextfield) {this.accountIDTextfield = accountIDTextfield;}
 	
 	public JTextField getBankTextfield() {return bankTextfield;}
 	public void setBankTextfield(JTextField bankTextfield) {this.bankTextfield = bankTextfield;}
@@ -119,14 +119,9 @@ public class AccountView extends AbstractView{
 		       return false;
 		    }
 		};
-		scrollPane = new JScrollPane(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		// Settings labels to textfields
-		accountIDLabel.setLabelFor(accountIDTextfield);
-		bankLabel.setLabelFor(bankTextfield);
-		nicknameLabel.setLabelFor(nicknameTextfield);
-		balanceLabel.setLabelFor(balanceTextfield);
+		scrollPane = new JScrollPane(table);
+		accountIDTextfield.setEditable(false);
 		
 		// Loading JTable
 		Object[] columns = {"ID", "Bank", "Nickname", "Balance"};
@@ -154,11 +149,11 @@ public class AccountView extends AbstractView{
 									.addComponent(bankLabel)
 									.addComponent(nicknameLabel)
 									.addComponent(balanceLabel))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
-									.addComponent(accountIDTextfield)
-									.addComponent(bankTextfield)
-									.addComponent(nicknameTextfield)
-									.addComponent(balanceTextfield)))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)		
+									.addComponent(accountIDTextfield, 200, 200, 250)
+									.addComponent(bankTextfield, 200, 200, 250)
+									.addComponent(nicknameTextfield, 200, 200, 250)
+									.addComponent(balanceTextfield, 200, 200, 250)))
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton))
@@ -170,7 +165,7 @@ public class AccountView extends AbstractView{
 									.addComponent(deleteButton))
 								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane, 550, 550, 550))
+						.addComponent(scrollPane, 500, 500, 550))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()
