@@ -6,15 +6,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class AccountController extends AbstractViewController {
 
-	private AccountList list;
 	private UserModel user;
 	
 	protected AccountController() {
 		super();
-	}
-	
-	private void initView() {
-		
 	}
 	
 	protected void initController() {

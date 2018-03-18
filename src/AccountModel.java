@@ -66,7 +66,7 @@ public class AccountModel extends AbstractModel {
 	
 	//=============================================
 	AccountTransactionRepository transactionsRepo;
-	public void setAccountTransactionRepository(AccountTransactionRepository accountsRepo) {this.transactionsRepo = transactionsRepo;}
+	public void setAccountTransactionRepository(AccountTransactionRepository transactionsRepo) {this.transactionsRepo = transactionsRepo;}
 	public AccountTransactionRepository getAccountTransactionRepository() {return this.transactionsRepo;}
 	public TransactionMap getMapOfAllTransactions() {
 		if(transactionsRepo == null) {
