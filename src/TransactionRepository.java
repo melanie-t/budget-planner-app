@@ -126,7 +126,7 @@ public class TransactionRepository {
 		try {
 			TransactionModel transacMod = new TransactionModel();
 			transacMod.setAccountId(result.getInt("accountId"));
-			transacMod.setAmount(result.getFloat("amount"));
+			transacMod.setAmount(result.getInt("amount"));
 			transacMod.setDate(result.getString("date"));
 			transacMod.setType(result.getString("description"));
 			addItemToMap(transacMod);

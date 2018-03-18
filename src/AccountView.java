@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 public class AccountView extends AbstractView{
 
 	// Account UI elements
-	private MainView mainView;
 	private JPanel panel;
 	private DefaultTableModel model;
 	private JLabel accLabel;
@@ -43,7 +42,7 @@ public class AccountView extends AbstractView{
 	public void setPanel(JPanel accPanel) {this.panel = accPanel;}
 	
 	public DefaultTableModel getTableModel() {return model;}
-	public void setTableModel(DefaultTableModel accModel) {this.model = accModel;}
+	public void setTableModel(DefaultTableModel model) {this.model = model;}
 	
 	public JLabel getAccLabel() {return accLabel;}
 	public void setAccLabel(JLabel accLabel) {this.accLabel = accLabel;}

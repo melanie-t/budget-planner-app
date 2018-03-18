@@ -1,3 +1,5 @@
+package unrelated;
+import AbstractModel;
 
 public class BudgetModel extends AbstractModel
 {

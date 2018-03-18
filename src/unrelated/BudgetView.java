@@ -1,3 +1,4 @@
+package unrelated;
 import java.awt.Dimension;
 
 import javax.swing.GroupLayout;
@@ -9,6 +10,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import AbstractView;
+import MainView;
 
 public class BudgetView extends AbstractView{
 	// Budount UI elements

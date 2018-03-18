@@ -32,7 +32,7 @@ public class MainView extends AbstractView{
 	public void display() {
 		// Create principal frame
 		mainFrame = new JFrame(title);
-		mainFrame.setSize(910, 450);
+		mainFrame.setSize(910, 480);
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
 	}

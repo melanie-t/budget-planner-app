@@ -1,4 +1,4 @@
-package to_be_removed;
+package unrelated;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

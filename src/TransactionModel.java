@@ -4,7 +4,7 @@ public class TransactionModel extends AbstractModel{
 	Integer accountId;
 	String 	type;
 	String 	date;
-	Float 	amount;
+	Integer amount;
 	String  description;
 	
 	public TransactionModel() 
@@ -14,7 +14,7 @@ public class TransactionModel extends AbstractModel{
 		accountId = 0;
 		type = "";
 		date = "0000-00-00";
-		amount = new Float(0);
+		amount = 0;
 		description = "";
 	}
 	
@@ -25,14 +25,14 @@ public class TransactionModel extends AbstractModel{
 	public void setAccountId(Integer accountId) {this.accountId = accountId;}
 	public void setType(String type) 			{this.type = type;}
 	public void setDate(String date) 			{this.date = date;}
-	public void setAmount(Float amount) 		{this.amount= amount;}
+	public void setAmount(Integer amount) 		{this.amount= amount;}
 	public void setDescription(String description) 		{this.description = description;}
 	
 	public Integer 	getId() 			{return transactionId;}
 	public Integer 	getAccountId() 		{return accountId;}
 	public String 	getType() 			{return type;}
 	public String 	getDate() 			{return date;}
-	public Float 	getAmount()			{return amount;}
+	public Integer 	getAmount()			{return amount;}
 	public String 	getDescription() 	{return description;}
 	
 }

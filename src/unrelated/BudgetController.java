@@ -1,9 +1,13 @@
+package unrelated;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import AbstractViewController;
+import UserModel;
 
 public class BudgetController extends AbstractViewController{
 

@@ -32,7 +32,7 @@ public class ImportTransaction {
 				tokenList = line.split(",");
 				
 				Integer accountID = accountTransactionRepository.getAccount().getId();
-				Float amount = Float.parseFloat(tokenList[2]);
+				Integer amount = Integer.parseInt(tokenList[2]);
 				
 				TransactionModel transacMod = new TransactionModel();
 				transacMod.setAccountId(accountID);
