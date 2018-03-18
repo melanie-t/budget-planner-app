@@ -18,8 +18,8 @@ public class Iteration2AppController extends AbstractAppController {
 		public void start() {
 			theAccountRespository = new AccountRepository(myDatabase);
 			theTransactionRepository = new TransactionRepository(myDatabase);
-			//devStart();
-			productionStart();
+			devStart();
+			//productionStart();
 		}
 		
 		// Development Mode
