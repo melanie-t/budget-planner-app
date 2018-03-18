@@ -84,14 +84,14 @@ public class AccountModel extends AbstractModel {
 			return transactionsRepo.getListOfAllItems();
 		}
 	}
-	public void saveAccount(TransactionModel transaction) {
+	public void saveTransaction(TransactionModel transaction) {
 		if(transactionsRepo == null) {
 			System.out.println("transactionsRepo == null");
 		} else {
 			transactionsRepo.saveItem(transaction);
 		}
 	}
-	public void deleteAccount(TransactionModel transaction) {
+	public void deleteTransaction(TransactionModel transaction) {
 		if(transactionsRepo == null) {
 			System.out.println("transactionsRepo == null");
 		} else {
