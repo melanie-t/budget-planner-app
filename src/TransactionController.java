@@ -162,6 +162,7 @@ public class TransactionController extends AbstractViewController{
 		tmpTransaction.setType(transView.getTableModel().getValueAt(i, 1).toString());
 		tmpTransaction.setDate(transView.getTableModel().getValueAt(i, 2).toString());
 		tmpTransaction.setAmount(Integer.parseInt(transView.getTableModel().getValueAt(i, 3).toString()));
+		tmpTransaction.setDescription(transView.getTableModel().getValueAt(i, 4).toString());
 			
 		return tmpTransaction;
 	}
@@ -172,7 +173,7 @@ public class TransactionController extends AbstractViewController{
 		tmpTransaction.setType(transView.getTypeTextfield().getText());
 		tmpTransaction.setDate(transView.getDateTextfield().getText());
 		tmpTransaction.setAmount(Integer.parseInt(transView.getAmountTextfield().getText()));
-		
+		tmpTransaction.setDescription(transView.getDescriptionTextArea().getText());
 		return tmpTransaction;
 	}
 	
@@ -182,6 +183,7 @@ public class TransactionController extends AbstractViewController{
 		accView.getTableModel().setValueAt(transaction.getType(), i, 1);
 		accView.getTableModel().setValueAt(transaction.getDate(), i, 2);
 		accView.getTableModel().setValueAt(transaction.getAmount(), i, 3);
+		accView.getTableModel().setValueAt(transaction.getDescription(), i, 4);
 	}
 	
 	//____________________________________
@@ -232,7 +234,7 @@ public class TransactionController extends AbstractViewController{
 				if (accountTransactions != null) {
 					//add rows to table
 					for(TransactionModel transaction : accountTransactions) {
-						transView.getTableModel().addRow(new Object[] {transaction.getId(), transaction.getType(), transaction.getDate(), transaction.getAmount()});
+						transView.getTableModel().addRow(new Object[] {transaction.getId(), transaction.getType(), transaction.getDate(), transaction.getAmount(), transaction.getDescription()});
 					}
 				}
 				success = true;

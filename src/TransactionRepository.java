@@ -131,7 +131,8 @@ public class TransactionRepository {
 			transacMod.setAccountId(result.getInt("accountId"));
 			transacMod.setAmount(result.getInt("amount"));
 			transacMod.setDate(result.getString("date"));
-			transacMod.setType(result.getString("description"));
+			transacMod.setType(result.getString("type"));
+			transacMod.setDescription(result.getString("description"));
 			
 			System.out.println(result.getInt("amount"));
 			addItemToMap(transacMod);
