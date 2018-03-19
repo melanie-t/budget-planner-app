@@ -21,6 +21,7 @@ public class TransactionView extends AbstractView implements ITransactionView {
 	private JButton deleteButton;
 	private JButton clearButton;
 	private JButton importButton;
+    private JButton updateButton;
 	private JTextField accountIDTextfield;
 	private JTextField transactionIDTextfield;
 	private JTextField typeTextfield;
@@ -76,6 +77,9 @@ public class TransactionView extends AbstractView implements ITransactionView {
     @Override
     public JButton  getImportButton()   {return importButton;}
     @Override
+    public JButton  getUpdateButton()   {return updateButton;}
+
+    @Override
     public void clearFields() {
         transactionIDTextfield.setText("");
         typeTextfield.setText("");
@@ -127,6 +131,7 @@ public class TransactionView extends AbstractView implements ITransactionView {
 		deleteButton = new JButton("Delete");
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
+        updateButton = new JButton("Update");
 		accountIDTextfield = new JTextField(15);
 		transactionIDTextfield = new JTextField(15);
 		typeTextfield = new JTextField(15);
@@ -200,14 +205,14 @@ public class TransactionView extends AbstractView implements ITransactionView {
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton))
-								//.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
-									//.addComponent(updateButton))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(updateButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(deleteButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(clearButton))
+                                    .addComponent(clearButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(importButton))))
+                                    .addComponent(importButton))))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(scrollPane, 650, 650, 650))
 		);
@@ -239,13 +244,13 @@ public class TransactionView extends AbstractView implements ITransactionView {
 										.addComponent(descriptionTextArea))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
-									//.addComponent(updateButton)
+									.addComponent(updateButton)
 									.addComponent(deleteButton)	
 									.addComponent(clearButton)
 									.addComponent(importButton)))))
 		);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, transactionIDLabel, accountIDLabel, typeLabel, dateLabel, amountLabel, descriptionLabel);
-		layout.linkSize(SwingConstants.HORIZONTAL, addButton, deleteButton, importButton, clearButton);	
+		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, importButton, clearButton);
 	}
 }

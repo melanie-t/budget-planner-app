@@ -6,6 +6,7 @@ public interface ITransactionView
     JButton getAddButton();
     JButton getDeleteButton();
     JButton getImportButton();
+    JButton getUpdateButton();
 
     // User input values
     String  getTypeInput();

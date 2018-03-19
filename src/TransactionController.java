@@ -11,17 +11,17 @@ public class TransactionController extends AbstractController<ITransactionView>{
         view.getAddButton().addActionListener(e->addButton());
         view.getDeleteButton().addActionListener(e->deleteButton());
         view.getImportButton().addActionListener(e->importTransactionButton());
+        view.getUpdateButton().addActionListener(e->updateButton());
 	}
 
-	private void addButton() {
-
+    private void handleAddOrUpdate(Integer transactionId)
+    {
         boolean success = true;
 
         String type = view.getTypeInput();
         String date = view.getDateInput();
         Integer amount = view.getAmountInput();
         String description = view.getDescriptionInput();
-        Integer transactionId = 0;  // TODO - if we wish to update transactions, see the account controller's implementation
         Integer accountId = view.getAccountId();
 
         if (type.isEmpty() || date.isEmpty() || amount == null)
@@ -44,19 +44,28 @@ public class TransactionController extends AbstractController<ITransactionView>{
         if (success)
         {
             Transaction transaction = new Transaction(
-                            transactionId,
-                            accountId,
-                            type,
-                            date,
-                            amount,
-                            description
+                    transactionId,
+                    accountId,
+                    type,
+                    date,
+                    amount,
+                    description
             );
             model.saveTransaction(transaction);
             view.clearFields();
         }
-		else
-			System.out.println("Add error");
+        else
+            System.out.println("Add error");
+    }
+
+	private void addButton() {
+        // Transactions with an ID of 0 are considered as "new"
+        handleAddOrUpdate(0);
 	}
+
+    private void updateButton() {
+        handleAddOrUpdate(view.getTransactionId());
+    }
 	
 	private void deleteButton() {
         model.deleteTransaction(view.getTransactionId());

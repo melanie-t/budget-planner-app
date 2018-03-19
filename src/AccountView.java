@@ -191,10 +191,11 @@ public class AccountView extends AbstractView implements IAccountView{
 									.addComponent(addButton))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
 									.addComponent(updateButton))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(deleteButton)).
+                                addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(clearButton))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(deleteButton))
+
 								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(scrollPane, 650, 650, 650))
