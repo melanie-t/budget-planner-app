@@ -117,7 +117,7 @@ public class BudgetRepository {
 		    	//Get map pairs
 		        HashMap.Entry pair = (HashMap.Entry)it.next();
 		        
-		        //Add AccountModel to list
+		        //Add Account to list
 		        aBudgetList.add((BudgetModel) pair.getValue());
 		    }
 		    

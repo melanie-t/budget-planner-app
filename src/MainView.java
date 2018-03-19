@@ -5,52 +5,40 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MainView extends AbstractView{
-	
+public class MainView
+{
 	// View uses Swing framework to display UI to user
-	protected JFrame mainFrame;
-	private String title;
-	
-	public MainView() {
-	}
-	
-	public MainView(String title) {	
-		this.title = title;
-		display();
-	}
-	
-	// Getters and setters
-	public JFrame getFrame() {return mainFrame;}
-	public void setFrame(JFrame frame) {this.mainFrame = frame;}
-	
-	public void update() {
-		// Repaints the main frame
-		mainFrame.validate();
-		mainFrame.repaint();
-	}
-	
-	public void display() {
-		// Create principal frame
-		mainFrame = new JFrame(title);
-		mainFrame.setSize(1050, 480);
-		mainFrame.setVisible(true);
-		mainFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
-	}
-	
-	public void setLayout(AccountView accView, TransactionView transView) {
-		// Add Account UI elements to frame
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+	private JFrame mainFrame;
+    IAccountView accountView;
+    ITransactionView transactionView;
 
-		JPanel accountPanel = accView.getPanel();
-		JPanel transactionPanel = transView.getPanel();
-		accountPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		transactionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		
-		mainPanel.add(accountPanel);
-		mainPanel.add(transactionPanel);
-		
-		mainFrame.add(mainPanel);
-		update();
+
+	public MainView(String title, IAccountView accountView, ITransactionView transactionView)
+    {
+        // Create main frame container
+        mainFrame = new JFrame(title);
+        mainFrame.setSize(1050, 480);
+        mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
+
+        // Create main panel
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
+        // Attach account panel
+        JPanel accountPanel = accountView.getPanel();
+        accountPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mainPanel.add(accountPanel);
+
+        // Attach transaction panel
+        JPanel transactionPanel = transactionView.getPanel();
+        transactionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mainPanel.add(transactionPanel);
+
+        // Attack main panel to frame
+        mainFrame.add(mainPanel);
+
+        mainFrame.validate();
+        mainFrame.repaint();
 	}
 }

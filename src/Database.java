@@ -10,16 +10,11 @@ import java.util.HashSet;
 
 public class Database 
 {
-	/////////////////////////////////////////////////////////////////
-	// --- Members --------------------------------------------------
-	private String m_driver = ""; // Driver should always be the same
-	private String m_dbName = "";
-	private Connection m_connection = null;
-	// ______________________________________________________________
+	private String m_driver; // Driver should always be the same
+	private String m_dbName;
+	private Connection m_connection ;
+
 	
-	
-	/////////////////////////////////////////////////////////////////
-	// --- Constructors ---------------------------------------------	
 	public Database(String dbName)
 	{
 		this("org.sqlite.JDBC", dbName);
@@ -41,21 +36,13 @@ public class Database
 			System.err.println(e.getMessage()); 
 		}
 	}
-	// ______________________________________________________________
+
 	
-	
-	/////////////////////////////////////////////////////////////////
-	// --- Getters --------------------------------------------------
-	public Connection getConnection()
-	{
-		return m_connection;
-	}
 	public ResultSet fetchSQL(String sqlString) {
 		try 
 		{ 
 			PreparedStatement st = m_connection.prepareStatement(sqlString);
-		    ResultSet r1 = st.executeQuery();
-		    return r1;
+		    return st.executeQuery();
 		}
 		catch (SQLException e) 
 		{ 
@@ -63,11 +50,8 @@ public class Database
 		} 
 		return null;
 	}
-	// ______________________________________________________________
-	
 
-	/////////////////////////////////////////////////////////////////
-	// --- Setters --------------------------------------------------
+
 	// This is the "lowest" we go in terms of abstraction for our db, this is where are modifications one the db are done
 	public Integer updateSQL(String sqlString)
 	{
@@ -92,11 +76,7 @@ public class Database
 		} 
 		return newId;
 	}
-	// ______________________________________________________________
-	
 
-	/////////////////////////////////////////////////////////////////
-	// --- CleanUp -------------------------------------------------
 	public void shutdown()
 	{
 		try
@@ -112,5 +92,4 @@ public class Database
 			System.err.println(e.getMessage()); 
 		}
 	}
-	// _____________________________________________________________
 }

@@ -1,77 +1,67 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.sql.Statement;
 
-/*
- * Transaction Repository
- * Contains access to all of the transactions on the system
- * */
 public class TransactionRepository {
-	//Database manipulation
-	Database myDatabase;
-	SQLStringFactory sql;
+
+	private Database myDatabase;
+	private SQLStringFactory sql;
 	
-	String tableName;
-	String primaryKey;
+	private String tableName;
+	private String primaryKey;
 	
-	TransactionMap itemMap; // loaded account models live here
-											   // If visibility becomes private make a getter method for itemMap size()
-											   // w/o that breaks tests for TransactionRepository and AccountTransactionRepository
-	
-	
+	private TransactionMap itemMap;
+
 	public TransactionRepository(Database myDatabase) {
 		this.myDatabase = myDatabase;
 		tableName = "transactions";
 		primaryKey = "transactionId";
 		this.sql = SQLStringFactory.getInstance();
-		
+        itemMap = new TransactionMap();
 	}
-	
-	
-	
-	
-	
-	
+
+    public void initSQLStructure() {
+        myDatabase.updateSQL(sql.createTable("transactions", "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
+        myDatabase.updateSQL(sql.addColumn("transactions", "date", "VARCHAR"));
+        myDatabase.updateSQL(sql.addColumn("transactions", "type", "VARCHAR"));
+        myDatabase.updateSQL(sql.addColumn("transactions", "amount", "INTEGER"));
+        myDatabase.updateSQL(sql.addColumn("transactions", "description", "VARCHAR"));
+    }
+
 	public void loadAllItems() {
-		//Load tuples from database.
-		//Put all tuples in itemMap.
-		itemMap.clear();
-		SQLValueMap where = new SQLValueMap();
+		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
 		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("transactions", where));
 		
 		try {
 			System.out.println("Load all transactions");
 			while(result.next())
-				setFromResult(result);
-			
+				setItemFromResult(result);
+
 		} catch (SQLException sqle){ 
 			System.err.println(sqle.getMessage());
 		}
 	}
-	
-	public void loadItem(Integer intItem) {
-		SQLValueMap where = new SQLValueMap();
-		where.put("transactionId", intItem);
-		
-		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("transactions", where));
 
-		try {
-			while(result.next())
-				setFromResult(result);
-		}catch(SQLException sqle) {
-			System.err.println(sqle.getMessage());
-		}
-	}
-	
-	
-	
-	//========================================
+    private void setItemFromResult(ResultSet result) {
+        try {
+            Transaction transaction = new Transaction();
+            transaction.setId(result.getInt("transactionId"));
+            transaction.setAccountId(result.getInt("accountId"));
+            transaction.setAmount(result.getInt("amount"));
+            transaction.setDate(result.getString("date"));
+            transaction.setType(result.getString("type"));
+            transaction.setDescription(result.getString("description"));
 
-	//				SAVING
+            System.out.println(result.getInt("amount"));
+            addItemToMap(transaction);
+        }catch(SQLException sqle) {
+            System.err.println(sqle.getMessage());
+        }
+    }
+
+    private void addItemToMap(Transaction transac)	{itemMap.put(transac.getId(), transac);}
 	
-	//========================================
-	public void saveItem(TransactionModel transaction) {
+	public void saveItem(Transaction transaction) {
 		System.out.println(transaction.toString());
 		SQLValueMap values = new SQLValueMap();
 		values.put("accountId", transaction.getAccountId());
@@ -80,123 +70,64 @@ public class TransactionRepository {
 		values.put("amount", transaction.getAmount());
 		values.put("description", transaction.getDescription());
 			
-		if(transaction.isNew()) {
-			//Insert into database
-			Integer newId = myDatabase.updateSQL(sql.addEntryUsingMap(tableName, values));
-			transaction.setId(newId);
+		if(transaction.getId() == 0) {
+            // Insert new item
+            transaction.setId(Transaction.getNextId());
 			addItemToMap(transaction);
-		} else {
-			//Update item in database
+            values.put("transactionId", transaction.getId());
+            myDatabase.updateSQL( sql.addEntryUsingMap(tableName, values) );
+        } else {
+			// Update item
 			SQLValueMap where = new SQLValueMap();
 			where.put(primaryKey, Integer.toString(transaction.getId()));
 			myDatabase.updateSQL( sql.updateEntryUsingMap(tableName, values, where) );
+            itemMap.get(transaction.getId()).updateWith(transaction);
 		}
 	}
 	
 	public void deleteItem(Integer itemID) {
-		if(itemMap.containsKey(itemID)) 
-			itemMap.remove(itemMap.get(itemID));
-		myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
-		System.out.println("Delete Transaction "+itemID);
+		if(itemMap.containsKey(itemID))
+        {
+            itemMap.remove(itemID);
+            myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
+            System.out.println("Delete Transaction "+itemID);
+        }
 	}
-	
 
-	
-	
-	
-	public void reinitSQLStructure() {
-		destroySQLStructure();	
-		initSQLStructure();
-	}
-	
-	public void initSQLStructure() {
-		myDatabase.updateSQL(sql.createTable("transactions", "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
-		myDatabase.updateSQL(sql.addColumn("transactions", "date", "VARCHAR"));
-		myDatabase.updateSQL(sql.addColumn("transactions", "type", "VARCHAR"));
-		myDatabase.updateSQL(sql.addColumn("transactions", "amount", "INTEGER"));
-		myDatabase.updateSQL(sql.addColumn("transactions", "description", "VARCHAR"));
-	}
-	
-	public void destroySQLStructure() {
-		myDatabase.updateSQL(sql.deleteTable("transactions"));	
-	}
-	
-	/*
-	 * Helpers for loadAll() and loadItem()
-	 */
-	protected void setFromResult(ResultSet result) {
-		try {
-			TransactionModel transacMod = new TransactionModel();
-			transacMod.setId(result.getInt("transactionId"));
-			transacMod.setAccountId(result.getInt("accountId"));
-			transacMod.setAmount(result.getInt("amount"));
-			transacMod.setDate(result.getString("date"));
-			transacMod.setType(result.getString("type"));
-			transacMod.setDescription(result.getString("description"));
-			
-			System.out.println(result.getInt("amount"));
-			addItemToMap(transacMod);
-		}catch(SQLException sqle) {
-			System.err.println(sqle.getMessage());
-		}
-	}
-	
-	private void addItemToMap(TransactionModel transac) {
-		itemMap.put(transac.getId(), transac);
-	}
-	
-	
-	
-	
-	//========================================
-	
-	//				GETTING
-	
-	//========================================
-	
-	protected boolean hasItemCached(Integer itemID) { // check the map not the database
-		Boolean hasItemCachedCached = itemMap.get(itemID) != null;
-		return hasItemCachedCached;
-	}
-	
-	public TransactionModel getItem(Integer itemID) {
-		//Attempt to load from DB if not present
-		if(!hasItemCached(itemID))
-			loadItem(itemID);
-		
-		//Return if found
-		if(hasItemCached(itemID))
-			return itemMap.get(itemID);
-		return null;
-	}
-	
-	//will return map off all items in database
-	public TransactionMap getMapOfAllItems() {
-		loadAllItems();
-		return (TransactionMap)itemMap;
-	}
-	
-	public TransactionList getListOfAllItems() {
-		
-		//Load Transaction if not listed
-		loadAllItems();
-		
-		//Initialze Transaction List
-		TransactionList aTransactionList = new TransactionList();
-		
-		//Loop over hash map
-		Iterator it = getMapOfAllItems().entrySet().iterator();
-	    while (it.hasNext()) {
-	    	//Get map pairs
-	        HashMap.Entry pair = (HashMap.Entry)it.next();
-	        
-	        //Add TransactionModel to list
-	        aTransactionList.add((TransactionModel) pair.getValue());
-	    }
-	    
-		return aTransactionList;
-	}
-	
-	
+    public void deleteAllItemsFromAccount(Integer accountId) {
+        for (Transaction transaction : itemMap.values())
+        {
+            if (transaction.getAccountId().equals(accountId))
+                deleteItem(transaction.getId());
+        }
+    }
+
+    public TransactionList getItems(Integer accountId) {
+        TransactionList aTransactionList = new TransactionList();
+        itemMap.forEach((k,v)->{
+            if (accountId == -1 || v.getAccountId().equals(accountId)) aTransactionList.add(v);
+        });
+        return aTransactionList;
+    }
+
+    public Integer getLargestIndex()
+    {
+        Integer largest = 0;
+        for (Integer key : itemMap.keySet())
+        {
+            if (key > largest)
+                largest = key;
+        }
+        return largest;
+    }
+
+    public void reinitSQLStructure() {
+        destroySQLStructure();
+        initSQLStructure();
+    }
+
+    public void destroySQLStructure() {
+        myDatabase.updateSQL(sql.deleteTable("transactions"));
+    }
 }
 

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import AbstractViewController;
-import UserModel;
+import User;
 
 public class BudgetController extends AbstractViewController{
 

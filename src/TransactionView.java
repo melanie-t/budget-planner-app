@@ -1,22 +1,15 @@
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class TransactionView extends AbstractView {
+public class TransactionView extends AbstractView implements ITransactionView {
 
 	// Transaction UI elements
 	private JPanel panel;
-	private DefaultTableModel model;
+	private DefaultTableModel tableModel;
 	private JLabel accountIDLabel;
 	private JLabel transactionIDLabel;
 	private JLabel transLabel;
@@ -25,7 +18,6 @@ public class TransactionView extends AbstractView {
 	private JLabel amountLabel;
 	private JLabel descriptionLabel;
 	private JButton addButton;
-	private JButton updateButton;
 	private JButton deleteButton;
 	private JButton clearButton;
 	private JButton importButton;
@@ -37,84 +29,91 @@ public class TransactionView extends AbstractView {
 	private JTextArea descriptionTextArea;
 	private JTable table;
 	private JScrollPane scrollPane;
-	
-	public TransactionView() { 
+
+    private IModelView model;
+
+	public TransactionView(IModelView model)
+	{
+        super();
+        this.model = model;
+        model.attachObserver(this);
 		createTransPanel();
+		setLayout();
+        // The clear button is handled directly by the view, no need for the controller here
+        clearButton.addActionListener(e->clearFields());
 	}
-	
-	// Getters and setters
-	public JPanel getPanel() {return panel;}
-	public void setPanel(JPanel panel) {this.panel = panel;}
-	
-	public DefaultTableModel getTableModel() {return model;}
-	public void setTableModel(DefaultTableModel model) {this.model = model;}
-	
-	public JLabel getAccountIDLabel() {return accountIDLabel;}
-	public void setAccountIDLabel(JLabel accountIDLabel) {this.accountIDLabel = accountIDLabel;}
-	
-	public JLabel getTransactionIDLabel() {return transactionIDLabel;}
-	public void setTransactionIDLabel(JLabel transactionIDLabel) {this.transactionIDLabel = transactionIDLabel;}
-	
-	public DefaultTableModel getModel() {return model;}
-	public void setModel(DefaultTableModel model) {this.model = model;}
-	
-	public JLabel getTransLabel() {return transLabel;}
-	public void setTransLabel(JLabel Label) {this.transLabel = Label;}
-	
-	public JLabel getTypeLabel () {return typeLabel;}
-	public void setTypeLabel(JLabel typeLabel) {this.typeLabel = typeLabel;}
-	
-	public JLabel getDateLabel() {return dateLabel;}
-	public void setDateLabel(JLabel dateLabel) {this.dateLabel = dateLabel;}
-	
-	public JLabel getAmountLabel() {return amountLabel;}
-	public void setAmountLabel(JLabel amountLabel) {this.amountLabel = amountLabel;}
-	
-	public JTextField getTypeTextfield() {return typeTextfield;}
-	public void setTypeTextfield(JTextField typeTextfield) {this.typeTextfield = typeTextfield;}
-	
-	public JTextField getDateTextfield() {return dateTextfield;}
-	public void setDateTextfield(JTextField dateTextfield) {this.dateTextfield = dateTextfield;}
-	
-	public JTextField getAmountTextfield() {return amountTextfield;}
-	public void setAmountTextfield(JTextField amountTextfield) {this.amountTextfield = amountTextfield;}
-	
-	public JTextField getAccountIDTextfield() {return accountIDTextfield;}
-	public void setAccountIDTextfield(JTextField accountIDTextfield) {this.accountIDTextfield = accountIDTextfield;}
+    @Override
+    public void update(){
+        // Do not show the transaction window if the user has not selected an account
+        if (getCurrentAccountView() == 0)
+        {
+            if (panel.isVisible())
+                panel.setVisible(false);
+            return;
+        }
+        else if (!panel.isVisible())
+            panel.setVisible(true);
 
-	public JTextField getTransactionIDTextfield() {return transactionIDTextfield;}
-	public void setTransactionIDTextfield(JTextField transactionIDTextfield) {this.transactionIDTextfield = transactionIDTextfield;}
+        // Clear table
+        tableModel.setRowCount(0);
 
-	public JTextArea getDescriptionTextArea() {return descriptionTextArea;}
-	public void setDescriptionTextArea(JTextArea descriptionTextArea) {this.descriptionTextArea = descriptionTextArea;}
-	
-	public JButton getAddButton() {return addButton;}
-	public void setAddButton(JButton addButton) {this.addButton = addButton;}
+        // Fetch transactions associated with account and display
+        TransactionList transactions = model.getTransactions(getCurrentAccountView());
+        if (transactions != null) {
+            //add rows to table
+            for(Transaction transaction : transactions) {
+                tableModel.addRow(new Object[] {transaction.getId(), transaction.getType(), transaction.getDate(), transaction.getAmount(), transaction.getDescription()});
+            }
+        }
+        tableModel.fireTableDataChanged();
+    }
+    @Override
+    public JPanel   getPanel()          {return panel;}
+    @Override
+    public JButton  getAddButton()      {return addButton;}
+    @Override
+    public JButton  getDeleteButton()   {return deleteButton;}
+    @Override
+    public JButton  getImportButton()   {return importButton;}
+    @Override
+    public void clearFields() {
+        transactionIDTextfield.setText("");
+        typeTextfield.setText("");
+        dateTextfield.setText("");
+        amountTextfield.setText("");
+        descriptionTextArea.setText("");
+        table.clearSelection();
+    }
 
-	public JButton getUpdateButton() {return updateButton;}
-	public void setUpdateButton(JButton updateButton) {this.updateButton = updateButton;}
+    @Override
+    public String getTypeInput() {return typeTextfield.getText();}
+    @Override
+    public String getDateInput() {return dateTextfield.getText();}
+    @Override
+    public Integer getAmountInput() {
+        String amount = amountTextfield.getText();
+        if (!amount.matches("\\d+") || amount.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            return Integer.parseInt(amount);
+        }
+    }
 
-	public JButton getDeleteButton() {return deleteButton;}
-	public void setDeleteButton(JButton deleteButton) {this.deleteButton = deleteButton;}
+    @Override
+    public String getDescriptionInput() {return descriptionTextArea.getText();}
+    @Override
+    public Integer getTransactionId() {return Integer.parseInt(transactionIDTextfield.getText());}
+    @Override
+    public Integer getAccountId() {return getCurrentAccountView();}
+    @Override
+    protected void handleAccountIdChange() {
+        update();
+    }
 
-	public JButton getClearButton() {return clearButton;}
-	public void setClearButton(JButton clearButton) {this.clearButton = clearButton;}
-	
-	public JButton getImportButton() {return importButton;}
-	public void setImportButton(JButton importButton) {this.importButton = importButton;}
-	
-	public JTable getTable() {return table;}
-	public void setTable(JTable table) {this.table = table;}
-	
-	public JScrollPane getScrollPane() {return scrollPane;}
-	public void setScrollPane(JScrollPane scrollPane) {this.scrollPane = scrollPane;}
-	
-	public void update() {
-		// Updates JTable
-		model.fireTableDataChanged();
-	}
-	
-	private void createTransPanel() {
+    private void createTransPanel() {
 		// Create Transaction UI elements
 		panel = new JPanel();
 		transLabel = new JLabel("Transactions");
@@ -125,7 +124,6 @@ public class TransactionView extends AbstractView {
 		amountLabel = new JLabel("Amount (cents)");
 		descriptionLabel = new JLabel("Description");
 		addButton = new JButton("Add");
-		//updateButton = new JButton("Update");
 		deleteButton = new JButton("Delete");
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
@@ -144,7 +142,7 @@ public class TransactionView extends AbstractView {
 		
 		// Loading JTable
 		Object[] columns = {"Transaction ID", "Type", "Date", "Amount (cents)", "Description"};
-		model = new DefaultTableModel() {
+		tableModel = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
@@ -152,12 +150,27 @@ public class TransactionView extends AbstractView {
 		    }
 		};
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		model.setColumnIdentifiers(columns);
-		table.setModel(model);
+		tableModel.setColumnIdentifiers(columns);
+		table.setModel(tableModel);
 		table.setPreferredScrollableViewportSize(new Dimension(300, 80));
 		table.setFillsViewportHeight(true);
-	
-		setLayout();
+
+        // Set mouse click to update values in field with currently selected row
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // i = the index of the selected row
+                int i = table.getSelectedRow();
+                if (i >= 0) {
+                    accountIDTextfield.setText(getCurrentAccountView() + "");
+                    transactionIDTextfield.setText(table.getValueAt(i, 0).toString());
+                    typeTextfield.setText(table.getValueAt(i, 1).toString());
+                    dateTextfield.setText(table.getValueAt(i, 2).toString());
+                    amountTextfield.setText(table.getValueAt(i, 3).toString());
+                    descriptionTextArea.setText(table.getValueAt(i, 4).toString());
+                }
+            }
+        });
 	}
 	
 	private void setLayout() {

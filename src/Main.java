@@ -16,11 +16,11 @@ public class Main {
 	}
 	
 	
-	public static void runDummyApp() {
-		//Can run code here when doing R&D
-		DummyAppController App = new DummyAppController();
-		App.start();
-		App.run();
-		App.shutdown();
-	}
+//	public static void runDummyApp() {
+//		//Can run code here when doing R&D
+//		DummyAppController App = new DummyAppController();
+//		App.start();
+//		App.run();
+//		App.shutdown();
+//	}
 }

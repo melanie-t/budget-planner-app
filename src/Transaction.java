@@ -1,26 +1,49 @@
 
-public class TransactionModel extends AbstractModel{
-	Integer	transactionId;
-	Integer accountId;
-	String 	type;
-	String 	date;
-	Integer amount;
-	String  description;
+public class Transaction {
+	private Integer	transactionId;
+	private Integer accountId;
+	private String 	type;
+	private String 	date;
+	private Integer amount;
+	private String  description;
+
+    private static int nextId;
+    public static void initNextId(Integer nextId) {Transaction.nextId = nextId;}
+    public static Integer getNextId() { return Transaction.nextId++; }
 	
-	public TransactionModel() 
+	public Transaction()
 	{
-		super();
-		transactionId = 0;
-		accountId = 0;
-		type = "";
-		date = "0000-00-00";
-		amount = 0;
-		description = "";
+        this(0,0,"","0000-00-00",0,"");
 	}
-	
+
+    public Transaction(
+            Integer transactionId,
+            Integer accountId,
+            String type,
+            String date,
+            Integer amount,
+            String description)
+    {
+        super();
+        this.transactionId = transactionId;
+        this.accountId = accountId;
+        this.type = type;
+        this.date = date;
+        this.amount = amount;
+        this.description = description;
+    }
+
+    public void updateWith(Transaction other)
+    {
+        accountId = other.getAccountId();
+        type = other.getType();
+        date = other.getDate();
+        amount = other.getAmount();
+        description = other.getDescription();
+    }
+
 	public void setId(Integer transactionId)	{
-		setIsNewModel(transactionId == 0); // ID of 0 is considered new (not saved in DB)
-		this.transactionId = transactionId;		
+		this.transactionId = transactionId;
 	}
 	public void setAccountId(Integer accountId) {this.accountId = accountId;}
 	public void setType(String type) 			{this.type = type;}
