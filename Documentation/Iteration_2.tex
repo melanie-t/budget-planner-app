@@ -976,9 +976,10 @@ public &isNumeric &boolean &Check if a string is numeric
 
 \section{Dynamic Design Scenarios}
 To illustrate the interactions between the difference classes of our system, we have drawn sequence diagrams for the main features of our program. For simplicity, the repositories are the lowest layer of abstraction in the diagrams. We have also included a sequence diagram of the AccountRespository saving an account to the database using the Database class (Figure 2).
+
 \newpage
 \subsection{Adding an account}
-After completing the text field and pressing the "add" button, the addButton method from the AccountController is triggered. The controller first gathers and validates the inputs. If the inputs are valid, the controller initializes an AccountModel object and constructs it using setters. The object is saved by calling the UserModel's saveAccount method, which in turn calls its AccountRepository's saveItem method. 
+After the user completes the text field and presses the "add" button, the addButton method from the AccountController is triggered. The controller first gathers and validates the inputs. If the inputs are valid, the controller initializes an AccountModel object and constructs it using setters. The object is saved by calling the UserModel's saveAccount method, which in turn calls its AccountRepository's saveItem method. 
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addAccount.png}
 \captionof{figure}{Adding an account}
 
@@ -986,20 +987,19 @@ After completing the text field and pressing the "add" button, the addButton met
 \subsubsection{AccountRepository saving an account to the database}
 When the saveItem method is called, the AccountRepository first creates an SQLValueMap (linked HashMap with keys and values of type String) to store the column-value mapping.
 
-If the account is new (does not exist in the system), then the repository use the SQLStringFactory to build an insert query using the SQLValueMap, and execute it using updateSQL() from the Database class. The repository then updates the account's ID using the accountId returned from updateSQL() and adds the accounts to the repository's AccountMap.
+If the account is new (does not exist in the system), then the repository use the SQLStringFactory to build an insert query using the SQLValueMap, and execute it using updateSQL from the Database class. The repository then updates the account's ID using the accountId returned from updateSQL and adds the accounts to the repository's AccountMap.
 
-If the account already exists, then the repository will construct a SQLValueMap for the where clause of the query using the account's ID. SQLStringFactory's is then used to generate a update query, which will be executed by calling the Database class's updateSQL() method. The returned accountId is unused.
+If the account already exists, then the repository will construct a SQLValueMap for the where clause of the query using the account's ID. SQLStringFactory's is then used to generate a update query, which will be executed by calling the Database class's updateSQL method. The returned accountId is unused.
 
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/accRepoSaveItem.png}
 \captionof{figure}{AccountRepository saving an account to the database}
 
 \subsection{Adding a transaction}
-After completing the text fields and pressing the "add" button, the addButton method from the TransactionController is triggered. The controller first gathers and validates the inputs. If the inputs are valid, the controller initializes an TransactionModel object and constructs it using setters. The controller then gets the AccountModel object from the UserModel, and uses its saveTransaction method. The AccountModel then calls its TransactionRepository's saveItem method.
+After the user completes the text fields and presses the "add" button, the addButton method from the TransactionController is triggered. The controller first gathers and validates the inputs. If the inputs are valid, the controller initializes an TransactionModel object and constructs it using setters. The controller then gets the AccountModel object from the UserModel, and uses its saveTransaction method. The AccountModel then calls its TransactionRepository's saveItem method.
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addTransaction.png}
 \captionof{figure}{Adding a transaction}
 
 \subsection{Importing a transaction}
-
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction.png}
 \captionof{figure}{Importing a transaction}
 
