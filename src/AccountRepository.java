@@ -63,10 +63,9 @@ public class AccountRepository {
 			
 		if(account.getId() == 0) {
             // Insert new item
-            account.setId(Account.getNextId());
-			addItemToMap(account);
-            values.put("accountId", account.getId());
-            myDatabase.updateSQL( sql.addEntryUsingMap(tableName, values) );
+            Integer generatedId = myDatabase.updateSQL( sql.addEntryUsingMap(tableName, values) );
+            account.setId(generatedId);
+            addItemToMap(account);
 		} else {
 			// Update item in database
 			SQLValueMap where = new SQLValueMap();

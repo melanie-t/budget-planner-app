@@ -22,8 +22,6 @@ public class RepositoryContainer implements IModelView, IModelController {
     public void loadFromDBOnStart() {
         transactionRepository.loadAllItems();
         accountRepository.loadAllItems();
-        Transaction.initNextId(transactionRepository.getLargestIndex() + 1);
-        Account.initNextId(accountRepository.getLargestIndex() + 1);
     }
 
     @Override
@@ -126,8 +124,6 @@ public class RepositoryContainer implements IModelView, IModelController {
     {
         accountRepository.reinitSQLStructure();
         transactionRepository.reinitSQLStructure();
-        Transaction.initNextId(1);
-        Account.initNextId(1);
     }
 
     // This will create tables
@@ -135,7 +131,5 @@ public class RepositoryContainer implements IModelView, IModelController {
     {
         accountRepository.initSQLStructure();
         transactionRepository.initSQLStructure();
-        Transaction.initNextId(1);
-        Account.initNextId(1);
     }
 }

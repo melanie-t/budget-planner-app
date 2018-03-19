@@ -61,7 +61,7 @@ public class Iteration2AppController implements IAppController {
 
 	@Override
 	public void shutdown() {
-		myDatabase.shutdown();
+//		myDatabase.shutdown();
 	}
 
 	public void run() {

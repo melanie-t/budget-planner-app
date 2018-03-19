@@ -7,10 +7,6 @@ public class Transaction {
 	private Integer amount;
 	private String  description;
 
-    private static int nextId;
-    public static void initNextId(Integer nextId) {Transaction.nextId = nextId;}
-    public static Integer getNextId() { return Transaction.nextId++; }
-	
 	public Transaction()
 	{
         this(0,0,"","0000-00-00",0,"");

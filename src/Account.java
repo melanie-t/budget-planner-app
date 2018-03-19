@@ -6,10 +6,6 @@ public class Account {
 	private String nickname;
 	private int balance;
 
-    private static int nextId;
-    public static void initNextId(Integer nextId) {Account.nextId = nextId;}
-    public static Integer getNextId() { return Account.nextId++; }
-
 	public Account() {
         this(0,"","",0);
 	}

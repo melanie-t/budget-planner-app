@@ -72,10 +72,9 @@ public class TransactionRepository {
 			
 		if(transaction.getId() == 0) {
             // Insert new item
-            transaction.setId(Transaction.getNextId());
-			addItemToMap(transaction);
-            values.put("transactionId", transaction.getId());
-            myDatabase.updateSQL( sql.addEntryUsingMap(tableName, values) );
+            Integer generatedId = myDatabase.updateSQL( sql.addEntryUsingMap(tableName, values) );
+            transaction.setId(generatedId);
+            addItemToMap(transaction);
         } else {
 			// Update item
 			SQLValueMap where = new SQLValueMap();
