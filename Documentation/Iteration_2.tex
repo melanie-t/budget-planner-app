@@ -1000,8 +1000,14 @@ After the user completes the text fields and presses the "add" button, the addBu
 \captionof{figure}{Adding a transaction}
 
 \subsection{Importing a transaction}
+When the user presses the "import" button, the TransactionController creates a window with a dialog box. The user then inputs the file path of the transaction csv file. The controller then gets the AccountTransactionRepository from the AccountModel. Using the AccountTransactionRepository, it creates an instance of ImportTransaction and calls its importTransaction method using the file path obtained from the user.
+
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction.png}
 \captionof{figure}{Importing a transaction}
+
+The importTransaction method first creates a BufferedReader using the file path. Then, it iterates over the file, line by line, using the BufferedReader's readLine method. 
+
+The line is split into tokens using Java.lang.String's split method. Using the array of token from the split method, a transaction object is constructred. The transaction object is then saved using the AccountTransactionRepository's saveItem method.
 
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction2.png}
 \captionof{figure}{Importing a transaction (cont.)}
