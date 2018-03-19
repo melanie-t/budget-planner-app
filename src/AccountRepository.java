@@ -90,17 +90,6 @@ public class AccountRepository {
         return anAccountList;
     }
 
-    public Integer getLargestIndex()
-    {
-        Integer largest = 0;
-        for (Integer key : itemMap.keySet())
-        {
-            if (key > largest)
-                largest = key;
-        }
-        return largest;
-    }
-
 	public void reinitSQLStructure() { // reinstall
 		destroySQLStructure();	
 		initSQLStructure();
