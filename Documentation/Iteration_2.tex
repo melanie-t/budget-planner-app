@@ -979,33 +979,33 @@ To illustrate the interactions between the difference classes of our system, we 
 
 \newpage
 \subsection{Adding an account}
-After the user completes the text field and presses the "add" button, the addButton method from the AccountController is triggered. The controller first gathers and validates the inputs. If the inputs are valid, the controller initializes an AccountModel object and constructs it using setters. The object is saved by calling the UserModel's saveAccount method, which in turn calls its AccountRepository's saveItem method. 
+The first scenario illustrates the addition of an account to the system. The user completes the required text fields and presses the "add" button, which triggers the addButton method from the AccountController. The controller then gathers and validates the inputs. If they are valid, the controller initializes an AccountModel object and constructs it using setters. Finally, the object is saved by calling the UserModel's saveAccount method, which in turn calls its AccountRepository's saveItem method.
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addAccount.png}
 \captionof{figure}{Adding an account}
 
 \newpage
 \subsubsection{AccountRepository saving an account to the database}
-When the saveItem method is called, the AccountRepository first creates an SQLValueMap (linked HashMap with keys and values of type String) to store the column-value mapping.
+When an account is added to the system, the following sequence of events occur. After the saveItem method is called, the AccountRepository creates an SQLValueMap (linked HashMap with keys and values of type String) to store the column-value mapping. \\
 
-If the account is new (does not exist in the system), then the repository use the SQLStringFactory to build an insert query using the SQLValueMap, and execute it using updateSQL from the Database class. The repository then updates the account's ID using the accountId returned from updateSQL and adds the accounts to the repository's AccountMap.
+If the account is new (does not exist in the system), then the repository uses the SQLStringFactory to build an insert query using the SQLValueMap. It executes the query using updateSQL from the Database class. The repository then updates the account's ID using the accountId value returned from updateSQL and proceeds to add the new account to the repository's AccountMap.\\
 
-If the account already exists, then the repository will construct a SQLValueMap for the where clause of the query using the account's ID. SQLStringFactory's is then used to generate a update query, which will be executed by calling the Database class's updateSQL method. The returned accountId is unused.
+If the account already exists, then the repository will construct a SQLValueMap for the where clause of the query using the account's ID. SQLStringFactory's is then used to generate an update query, which will be executed by calling the Database class's updateSQL method. The returned accountId is unused. 
 
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/accRepoSaveItem.png}
 \captionof{figure}{AccountRepository saving an account to the database}
 
 \subsection{Adding a transaction}
-After the user completes the text fields and presses the "add" button, the addButton method from the TransactionController is triggered. The controller first gathers and validates the inputs. If the inputs are valid, the controller initializes an TransactionModel object and constructs it using setters. The controller then gets the AccountModel object from the UserModel, and uses its saveTransaction method. The AccountModel then calls its TransactionRepository's saveItem method.
+In this scenario, the user adds a transaction to their account. After the user completes the text fields and presses the "add" button, the addButton method from the TransactionController is triggered. The controller gathers and validates the inputs. If the inputs are valid, the controller initializes an TransactionModel object and constructs it using setters. The controller then gets the AccountModel object from the UserModel, and uses its saveTransaction method. The AccountModel then calls its TransactionRepository's saveItem method.
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addTransaction.png}
 \captionof{figure}{Adding a transaction}
 
 \subsection{Importing a transaction}
-When the user presses the "import" button, the TransactionController creates a window with a dialog box. The user then inputs the file path of the transaction csv file. The controller then gets the AccountTransactionRepository from the AccountModel. Using the AccountTransactionRepository, it creates an instance of ImportTransaction and calls its importTransaction method using the file path obtained from the user.
+In this scenario, the users imports a transaction and adds it to their account. When the user clicks the "import button", the TransactionController creates a window with a dialog box. The user then inputs the file path of the transaction csv file. The controller then gets the AccountTransactionRepository from the AccountModel. Using the AccountTransactionRepository, it creates an instance of ImportTransaction and calls its importTransaction method using the file path obtained from the user.
 
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction.png}
 \captionof{figure}{Importing a transaction}
 
-The importTransaction method first creates a BufferedReader using the file path. Then, it iterates over the file, line by line, using the BufferedReader's readLine method. 
+The importTransaction method first creates a BufferedReader using the file path. Then, it iterates over the file, line by line, using the BufferedReader's readLine method. \\
 
 The line is split into tokens using Java.lang.String's split method. Using the array of token from the split method, a transaction object is constructred. The transaction object is then saved using the AccountTransactionRepository's saveItem method.
 
