@@ -109,17 +109,6 @@ public class TransactionRepository {
         return aTransactionList;
     }
 
-    public Integer getLargestIndex()
-    {
-        Integer largest = 0;
-        for (Integer key : itemMap.keySet())
-        {
-            if (key > largest)
-                largest = key;
-        }
-        return largest;
-    }
-
     public void reinitSQLStructure() {
         destroySQLStructure();
         initSQLStructure();
