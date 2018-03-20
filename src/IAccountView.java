@@ -13,6 +13,7 @@ public interface IAccountView
     Integer getBalanceInput();
     Integer getAccountId();
 
-    void    clearFields();
+    void setSelection(Integer id);
+
     JPanel  getPanel();
 }

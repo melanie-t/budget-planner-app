@@ -45,7 +45,7 @@ public class AccountController extends AbstractController<IAccountView> {
                     balance
             );
             model.saveAccount(account);
-            view.clearFields();
+            view.setSelection(account.getId());
         }
         else
             System.out.println("Add error");
@@ -62,6 +62,6 @@ public class AccountController extends AbstractController<IAccountView> {
 	
 	private void deleteButton() {
         model.deleteAcccount(view.getAccountId());
-        view.clearFields();
+        view.setSelection(0);
 	}
 }

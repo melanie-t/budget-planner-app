@@ -10,8 +10,6 @@ public class TransactionView extends AbstractView implements ITransactionView {
 	// Transaction UI elements
 	private JPanel panel;
 	private DefaultTableModel tableModel;
-	private JLabel accountIDLabel;
-	private JLabel transactionIDLabel;
 	private JLabel transLabel;
 	private JLabel typeLabel;
 	private JLabel dateLabel;
@@ -22,8 +20,6 @@ public class TransactionView extends AbstractView implements ITransactionView {
 	private JButton clearButton;
 	private JButton importButton;
     private JButton updateButton;
-	private JTextField accountIDTextfield;
-	private JTextField transactionIDTextfield;
 	private JTextField typeTextfield;
 	private JTextField dateTextfield;
 	private JTextField amountTextfield;
@@ -32,21 +28,25 @@ public class TransactionView extends AbstractView implements ITransactionView {
 	private JScrollPane scrollPane;
 
     private IModelView model;
+    private TransactionList items;
+    private int selectedRow;
 
 	public TransactionView(IModelView model)
 	{
         super();
         this.model = model;
+        items = new TransactionList();
+        selectedRow = -1;
         model.attachObserver(this);
 		createTransPanel();
 		setLayout();
         // The clear button is handled directly by the view, no need for the controller here
-        clearButton.addActionListener(e->clearFields());
+        clearButton.addActionListener(e->handleClear());
 	}
     @Override
     public void update(){
         // Do not show the transaction window if the user has not selected an account
-        if (getCurrentAccountView() == 0)
+        if (getCurrentAccountSelection() == 0)
         {
             if (panel.isVisible())
                 panel.setVisible(false);
@@ -55,18 +55,12 @@ public class TransactionView extends AbstractView implements ITransactionView {
         else if (!panel.isVisible())
             panel.setVisible(true);
 
-        // Clear table
-        tableModel.setRowCount(0);
+        items = model.getTransactions(getCurrentAccountSelection());
 
-        // Fetch transactions associated with account and display
-        TransactionList transactions = model.getTransactions(getCurrentAccountView());
-        if (transactions != null) {
-            //add rows to table
-            for(Transaction transaction : transactions) {
-                tableModel.addRow(new Object[] {transaction.getId(), transaction.getType(), transaction.getDate(), transaction.getAmount(), transaction.getDescription()});
-            }
-        }
-        tableModel.fireTableDataChanged();
+        // Also checks to see if previous selection is still there
+        fillTable();
+
+        highlightCurrentSelection();
     }
     @Override
     public JPanel   getPanel()          {return panel;}
@@ -78,17 +72,6 @@ public class TransactionView extends AbstractView implements ITransactionView {
     public JButton  getImportButton()   {return importButton;}
     @Override
     public JButton  getUpdateButton()   {return updateButton;}
-
-    @Override
-    public void clearFields() {
-        transactionIDTextfield.setText("");
-        typeTextfield.setText("");
-        dateTextfield.setText("");
-        amountTextfield.setText("");
-        descriptionTextArea.setText("");
-        table.clearSelection();
-    }
-
     @Override
     public String getTypeInput() {return typeTextfield.getText();}
     @Override
@@ -109,20 +92,109 @@ public class TransactionView extends AbstractView implements ITransactionView {
     @Override
     public String getDescriptionInput() {return descriptionTextArea.getText();}
     @Override
-    public Integer getTransactionId() {return Integer.parseInt(transactionIDTextfield.getText());}
+    public Integer getTransactionId()   {return items.get(selectedRow).getId();}
     @Override
-    public Integer getAccountId() {return getCurrentAccountView();}
+    public Integer getAccountId() {return getCurrentAccountSelection();}
+
     @Override
-    protected void handleAccountIdChange() {
+    public void setSelection(Integer id) {
+        setCurrentTransactionSelection(id);
+    }
+
+    @Override
+    protected void handleAccountSelectionChange() {
+        setCurrentTransactionSelection(0);
+        highlightCurrentSelection();
         update();
+    }
+
+    @Override
+    protected void handleTransactionSelectionChange() {
+        Transaction currentSelection = findTransaction(getCurrentTransactionSelection());
+        fillFieldsFromTransaction(currentSelection);
+        highlightCurrentSelection();
+    }
+
+    private void highlightCurrentSelection() {
+        if (getCurrentTransactionSelection() == 0)
+        {
+            fillFieldsFromTransaction(null);
+            return;
+        }
+
+        Transaction item = null;
+        for (int i = 0; i < items.size(); i++)
+        {
+            item = items.get(i);
+            if (item.getId().equals(getCurrentTransactionSelection()))
+            {
+                table.setRowSelectionInterval(i, i);
+                fillFieldsFromTransaction(item);
+                return;
+            }
+        }
+    }
+
+    private void handleClear()
+    {
+        setCurrentTransactionSelection(0);
+        update();
+    }
+
+    private Transaction findTransaction(Integer id)
+    {
+        for (Transaction transaction : items)
+        {
+            if (transaction.getId().equals(id))
+                return transaction;
+        }
+        return null;
+    }
+
+    private void fillFieldsFromTransaction(Transaction transaction)
+    {
+        if (transaction == null)
+        {
+            typeTextfield.setText("");
+            dateTextfield.setText("");
+            amountTextfield.setText("");
+            descriptionTextArea.setText("");
+        }
+        else
+        {
+            typeTextfield.setText(transaction.getType());
+            dateTextfield.setText(transaction.getDate());
+            amountTextfield.setText(transaction.getAmount().toString());
+            descriptionTextArea.setText(transaction.getDescription());
+        }
+    }
+
+    private void fillTable()
+    {
+        // Clear table
+        tableModel.setRowCount(0);
+
+        // Fetch transactions associated with account and display
+        boolean validSectionFound = false;
+        if (!items.isEmpty()) {
+            //add rows to table
+            for (Transaction item : items)
+            {
+                tableModel.addRow(new Object[] {item.getType(), item.getDate(), item.getAmount(), item.getDescription()});
+                if (!validSectionFound && item.getId().equals(getCurrentTransactionSelection()))
+                {
+                    validSectionFound = true;
+                }
+            }
+        }
+        if (!validSectionFound)
+            setCurrentTransactionSelection(0);
     }
 
     private void createTransPanel() {
 		// Create Transaction UI elements
 		panel = new JPanel();
 		transLabel = new JLabel("Transactions");
-		accountIDLabel = new JLabel("Account ID");
-		transactionIDLabel = new JLabel("Transaction ID");
 		typeLabel = new JLabel("Type");
 		dateLabel = new JLabel("Date");
 		amountLabel = new JLabel("Amount (cents)");
@@ -132,8 +204,6 @@ public class TransactionView extends AbstractView implements ITransactionView {
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
-		accountIDTextfield = new JTextField(15);
-		transactionIDTextfield = new JTextField(15);
 		typeTextfield = new JTextField(15);
 		dateTextfield = new JTextField(15);
 		amountTextfield = new JTextField(15);
@@ -141,12 +211,10 @@ public class TransactionView extends AbstractView implements ITransactionView {
 		table = new JTable();
 		scrollPane = new JScrollPane(table);
 		
-		accountIDTextfield.setEditable(false);
-		transactionIDTextfield.setEditable(false);
 		descriptionTextArea.setLineWrap(true);
 		
 		// Loading JTable
-		Object[] columns = {"Transaction ID", "Type", "Date", "Amount (cents)", "Description"};
+		Object[] columns = {"Type", "Date", "Amount (cents)", "Description"};
 		tableModel = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -165,14 +233,10 @@ public class TransactionView extends AbstractView implements ITransactionView {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // i = the index of the selected row
-                int i = table.getSelectedRow();
-                if (i >= 0) {
-                    accountIDTextfield.setText(getCurrentAccountView() + "");
-                    transactionIDTextfield.setText(table.getValueAt(i, 0).toString());
-                    typeTextfield.setText(table.getValueAt(i, 1).toString());
-                    dateTextfield.setText(table.getValueAt(i, 2).toString());
-                    amountTextfield.setText(table.getValueAt(i, 3).toString());
-                    descriptionTextArea.setText(table.getValueAt(i, 4).toString());
+                selectedRow = table.getSelectedRow();
+                if (selectedRow >= 0) {
+                    Transaction selectedItem = items.get(selectedRow);
+                    setCurrentTransactionSelection(selectedItem.getId());
                 }
             }
         });
@@ -189,15 +253,11 @@ public class TransactionView extends AbstractView implements ITransactionView {
 						.addComponent(transLabel)
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(accountIDLabel)
-									.addComponent(transactionIDLabel)
 									.addComponent(typeLabel)
 									.addComponent(dateLabel)
 									.addComponent(amountLabel)
 									.addComponent(descriptionLabel))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(accountIDTextfield, 250, 250, 250)
-									.addComponent(transactionIDTextfield, 250, 250, 250)
 									.addComponent(typeTextfield, 250, 250, 250)
 									.addComponent(dateTextfield, 250, 250, 250)
 									.addComponent(amountTextfield, 250, 250, 250)
@@ -225,12 +285,6 @@ public class TransactionView extends AbstractView implements ITransactionView {
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(accountIDLabel)
-										.addComponent(accountIDTextfield))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(transactionIDLabel)
-										.addComponent(transactionIDTextfield))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(typeLabel)
 									.addComponent(typeTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -250,7 +304,7 @@ public class TransactionView extends AbstractView implements ITransactionView {
 									.addComponent(importButton)))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, transactionIDLabel, accountIDLabel, typeLabel, dateLabel, amountLabel, descriptionLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel, descriptionLabel);
 		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, importButton, clearButton);
 	}
 }

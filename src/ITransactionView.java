@@ -16,6 +16,7 @@ public interface ITransactionView
     Integer getTransactionId();
     Integer getAccountId();
 
-    void    clearFields();
+    void setSelection(Integer id);
+
     JPanel  getPanel();
 }

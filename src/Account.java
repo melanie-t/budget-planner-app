@@ -26,7 +26,7 @@ public class Account {
     }
 
 	// ID
-	public int getId() {return accountId;}
+	public Integer getId() {return accountId;}
 	public void setId(int accountId) {
 		this.accountId = accountId;
 	}
@@ -37,7 +37,7 @@ public class Account {
 	public String getNickname() {return nickname;}
 	public void setNickname(String nickname) {this.nickname = nickname;}
 	
-	public int getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
+	public Integer getBalance() {return balance;} // this should probably be calculated from the transactions instead of being an attribute
 	public void setBalance(int balance) {this.balance = balance;}
 	
 	// This is what does the "viewing"

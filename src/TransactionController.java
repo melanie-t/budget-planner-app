@@ -52,7 +52,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
                     description
             );
             model.saveTransaction(transaction);
-            view.clearFields();
+            view.setSelection(transaction.getId());
         }
         else
             System.out.println("Add error");
@@ -69,7 +69,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
 	
 	private void deleteButton() {
         model.deleteTransaction(view.getTransactionId());
-        view.clearFields();
+        view.setSelection(0);
 	}
 	
 	private void importTransactionButton() {
@@ -77,5 +77,6 @@ public class TransactionController extends AbstractController<ITransactionView>{
 		String filePath = (String)JOptionPane.showInputDialog(null, 
 				"File path for .csv file","Import Transactions",JOptionPane.QUESTION_MESSAGE, null, null, "tst/spread_sheet_test_case.csv"); 
 		model.importTransactions(filePath, view.getAccountId());
+        view.setSelection(0);
 	}
 }

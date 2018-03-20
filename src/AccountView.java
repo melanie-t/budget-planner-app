@@ -20,7 +20,6 @@ public class AccountView extends AbstractView implements IAccountView{
 	private JPanel panel;
 	private DefaultTableModel tableModel;
 	private JLabel accLabel;
-	private JLabel accountIDLabel;
 	private JLabel bankLabel;
 	private JLabel nicknameLabel;
 	private JLabel balanceLabel;
@@ -28,7 +27,6 @@ public class AccountView extends AbstractView implements IAccountView{
 	private JButton updateButton;
 	private JButton deleteButton;
 	private JButton clearButton;
-	private JTextField accountIDTextfield;
 	private JTextField bankTextfield;
 	private JTextField nicknameTextfield;
 	private JTextField balanceTextfield;
@@ -36,31 +34,29 @@ public class AccountView extends AbstractView implements IAccountView{
 	private JScrollPane scrollPane;
 
     private IModelView model;
-	
+    private AccountList items;
+    private int selectedRow;
+
 	public AccountView(IModelView model)
 	{
         super();
         this.model = model;
+        items = new AccountList();
+        selectedRow = -1;
         model.attachObserver(this);
 		createAccPanel();
 		setLayout();
         // The clear button is handled directly by the view, no need for the controller here
-        clearButton.addActionListener(e->clearFields());
+        clearButton.addActionListener(e->handleClear());
 	}
 
     public void update() {
-        // Clear table
-        tableModel.setRowCount(0);
+        items = model.getAllAccounts();
 
-        // Fetch transactions associated with account and display
-        AccountList accounts = model.getAllAccounts();
-        if (accounts != null) {
-            //add rows to table
-            for(Account account : accounts) {
-                tableModel.addRow(new Object[] {account.getId(), account.getBankName(), account.getNickname(), account.getBalance()});
-            }
-        }
-        tableModel.fireTableDataChanged();
+        // Also checks to see if previous selection is still there
+        fillTable();
+
+        highlightCurrentSelection();
     }
 
     @Override
@@ -71,14 +67,6 @@ public class AccountView extends AbstractView implements IAccountView{
     public JButton getUpdateButton()    {return updateButton;}
     @Override
     public JButton getDeleteButton()    {return deleteButton;}
-    @Override
-    public void clearFields() {
-        accountIDTextfield.setText("");
-        bankTextfield.setText("");
-        nicknameTextfield.setText("");
-        balanceTextfield.setText("");
-        setCurrentAccountView(0);
-    }
     @Override
     public String getBankInput() {return bankTextfield.getText();}
     @Override
@@ -96,23 +84,100 @@ public class AccountView extends AbstractView implements IAccountView{
         }
     }
     @Override
-    public Integer getAccountId() {return getCurrentAccountView();}
+    public Integer getAccountId() {return getCurrentAccountSelection();}
+    @Override
+    public void setSelection(Integer id) {
+        setCurrentAccountSelection(id);
+    }
 
-    public DefaultTableModel getTableModel() {return tableModel;}
+    @Override
+    protected void handleAccountSelectionChange() {
+        Account currentSelection = findAccount(getCurrentAccountSelection());
+        fillFieldsFromAccount(currentSelection);
+        highlightCurrentSelection();
+    }
 
-	public JTextField getAccountIDTextfield() {return accountIDTextfield;}
+    @Override
+    protected void handleTransactionSelectionChange() {
+        // do nothing
+    }
 
-	public JTextField getBankTextfield() {return bankTextfield;}
+    private void highlightCurrentSelection() {
+        if (getCurrentAccountSelection() == 0)
+        {
+            fillFieldsFromAccount(null);
+            return;
+        }
+        Account item;
+        for (int i = 0; i < items.size(); i++)
+        {
+            item = items.get(i);
+            if (item.getId().equals(getCurrentAccountSelection()))
+            {
+                table.setRowSelectionInterval(i, i);
+                return;
+            }
+        }
+    }
+    private void handleClear()
+    {
+        setCurrentAccountSelection(0);
+        update();
+    }
 
-	public JTextField getNicknameTextfield() {return nicknameTextfield;}
+    private Account findAccount(Integer id)
+    {
+        for (Account account : items)
+        {
+            if (account.getId().equals(id))
+                return account;
+        }
+        return null;
+    }
 
-	public JTextField getBalanceTextfield() {return balanceTextfield;}
+    private void fillFieldsFromAccount(Account account)
+    {
+        if (account == null)
+        {
+            bankTextfield.setText("");
+            nicknameTextfield.setText("");
+            balanceTextfield.setText("");
+        }
+        else
+        {
+            bankTextfield.setText(account.getBankName());
+            nicknameTextfield.setText(account.getNickname());
+            balanceTextfield.setText(account.getBalance().toString());
+        }
 
-	private void createAccPanel() {
+    }
+
+    private void fillTable()
+    {
+        // Clear table
+        tableModel.setRowCount(0);
+
+        // Fetch transactions associated with account and display
+        boolean validSelectionFound = false;
+        if (!items.isEmpty()) {
+            //add rows to table
+            for (Account item : items)
+            {
+                tableModel.addRow(new Object[] {item.getBankName(), item.getNickname(), item.getBalance()});
+                if (!validSelectionFound && item.getId().equals(getCurrentAccountSelection()))
+                {
+                    validSelectionFound = true;
+                }
+            }
+        }
+        if (!validSelectionFound)
+            setCurrentAccountSelection(0);
+    }
+
+    private void createAccPanel() {
 		// Create Account UI elements
 		panel = new JPanel();
 		accLabel = new JLabel("Accounts");
-		accountIDLabel = new JLabel("Account ID");
 		bankLabel = new JLabel("Bank");
 		nicknameLabel = new JLabel("Nickname");
 		balanceLabel = new JLabel("Balance (cents)");
@@ -120,7 +185,6 @@ public class AccountView extends AbstractView implements IAccountView{
 		updateButton = new JButton("Update");
 		deleteButton = new JButton("Delete");
 		clearButton = new JButton("Clear");
-		accountIDTextfield = new JTextField(15);
 		bankTextfield = new JTextField(15);
 		nicknameTextfield = new JTextField(15);
 		balanceTextfield = new JTextField(15);
@@ -134,10 +198,9 @@ public class AccountView extends AbstractView implements IAccountView{
 		};
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane = new JScrollPane(table);
-		accountIDTextfield.setEditable(false);
-		
+
 		// Loading JTable
-		Object[] columns = {"ID", "Bank", "Nickname", "Balance (cents)"};
+		Object[] columns = {"Bank", "Nickname", "Balance (cents)"};
 
 		tableModel.setColumnIdentifiers(columns);
 		table.setModel(tableModel);
@@ -149,22 +212,15 @@ public class AccountView extends AbstractView implements IAccountView{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// i = the index of the selected row
-				int i = table.getSelectedRow();
-				if (i >= 0) {
-					accountIDTextfield.setText(table.getValueAt(i, 0).toString());
-					bankTextfield.setText(table.getValueAt(i, 1).toString());
-					nicknameTextfield.setText(table.getValueAt(i, 2).toString());
-					balanceTextfield.setText(table.getValueAt(i, 3).toString());
-                    setCurrentAccountView(i+1);
+				selectedRow = table.getSelectedRow();
+				if (selectedRow >= 0) {
+                    Account selectedItem = items.get(selectedRow);
+                    setCurrentAccountSelection(selectedItem.getId());
 				}
 			}
 		});
 	}
 
-    @Override
-    protected void handleAccountIdChange() {
-        // do nothing
-    }
 
     private void setLayout() {
 		GroupLayout layout = new GroupLayout(panel);
@@ -177,12 +233,10 @@ public class AccountView extends AbstractView implements IAccountView{
 						.addComponent(accLabel)
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(accountIDLabel)
 									.addComponent(bankLabel)
 									.addComponent(nicknameLabel)
 									.addComponent(balanceLabel))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)		
-									.addComponent(accountIDTextfield, 200, 200, 250)
 									.addComponent(bankTextfield, 200, 200, 250)
 									.addComponent(nicknameTextfield, 200, 200, 250)
 									.addComponent(balanceTextfield, 200, 200, 250)))
@@ -209,9 +263,6 @@ public class AccountView extends AbstractView implements IAccountView{
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(accountIDLabel)
-										.addComponent(accountIDTextfield))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(bankLabel)
 									.addComponent(bankTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -228,7 +279,7 @@ public class AccountView extends AbstractView implements IAccountView{
 									))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, accountIDLabel, bankLabel, nicknameLabel, balanceLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, bankLabel, nicknameLabel, balanceLabel);
 		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
 	}
 }

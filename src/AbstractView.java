@@ -1,27 +1,46 @@
-import javax.swing.*;
 import java.util.ArrayList;
 
 public abstract class AbstractView implements IObserver
 {
-    private static int currentAccountView;
+    private static Integer currentAccountSelection = 0;
+    private static Integer currentTransactionSelection = 0;
     private static ArrayList<AbstractView> instances = new ArrayList<>();
 
     public AbstractView()
     {
-        AbstractView.currentAccountView = 0;
         AbstractView.instances.add(this);
     }
 
-    protected void setCurrentAccountView(int accountId)
+    protected void setCurrentAccountSelection(int accountId)
     {
-        currentAccountView = accountId;
+        // User just clicked the same field twice, do nothing
+        if (currentAccountSelection == accountId)
+            return;
+
+        currentAccountSelection = accountId;
         for (AbstractView view : AbstractView.instances)
         {
-            view.handleAccountIdChange();
+            view.handleAccountSelectionChange();
         }
     }
 
-    protected int getCurrentAccountView() {return currentAccountView;}
+    protected void setCurrentTransactionSelection(int transactionId)
+    {
+        // User just clicked the same field twice, do nothing
+        if (currentTransactionSelection == transactionId)
+            return;
 
-    protected abstract void handleAccountIdChange();
+        currentTransactionSelection = transactionId;
+        for (AbstractView view : AbstractView.instances)
+        {
+            view.handleTransactionSelectionChange();
+        }
+    }
+
+
+    protected int getCurrentAccountSelection() {return currentAccountSelection;}
+    protected int getCurrentTransactionSelection() {return currentTransactionSelection;}
+
+    protected abstract void handleAccountSelectionChange();
+    protected abstract void handleTransactionSelectionChange();
 }
