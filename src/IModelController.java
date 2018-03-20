@@ -5,6 +5,4 @@ public interface IModelController {
     void deleteTransaction(Integer transactionId);
     void deleteAcccount(Integer accountId);
     void importTransactions(String path, Integer accountId);
-
-    void loadFromDBOnStart();
 }

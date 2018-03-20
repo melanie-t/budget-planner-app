@@ -19,12 +19,6 @@ public class RepositoryContainer implements IModelView, IModelController {
     }
 
     @Override
-    public void loadFromDBOnStart() {
-        transactionRepository.loadAllItems();
-        accountRepository.loadAllItems();
-    }
-
-    @Override
     public void attachObserver(IObserver o) {
         observers.add(o);
     }
