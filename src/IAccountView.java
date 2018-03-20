@@ -1,11 +1,12 @@
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public interface IAccountView
 {
     // Callbacks for event handlers
-    JButton getAddButton();
-    JButton getUpdateButton();
-    JButton getDeleteButton();
+    void registerAddActionCallback(ActionListener listener, String actionCommand);
+    void registerUpdateActionCallback(ActionListener listener, String actionCommand);
+    void registerDeleteActionCallback(ActionListener listener, String actionCommand);
 
     // User input values
     String getBankInput();

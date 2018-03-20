@@ -1,15 +1,33 @@
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
 
 public class AccountController extends AbstractController<IAccountView> {
 
 	public AccountController(IAccountView view, IModelController model)
     {
 		super(view, model);
-        view.getAddButton().addActionListener(e->addButton());
-        view.getUpdateButton().addActionListener(e->updateButton());
-        view.getDeleteButton().addActionListener(e->deleteButton());
+        view.registerAddActionCallback(this, "Add");
+        view.registerUpdateActionCallback(this, "Update");
+        view.registerDeleteActionCallback(this, "Delete");
 	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand())
+        {
+            case "Add":
+                handleAdd();
+                break;
+            case "Update":
+                handleUpdate();
+                break;
+            case "Delete":
+                handleDelete();
+                break;
+            default:
+                break;
+        }
+    }
 
     private void handleAddOrUpdate(Integer accountId)
     {
@@ -51,16 +69,16 @@ public class AccountController extends AbstractController<IAccountView> {
             System.out.println("Add error");
     }
 
-	private void addButton() {
+	private void handleAdd() {
         // Accounts with an ID of 0 are considered as "new"
         handleAddOrUpdate(0);
 	}
 	
-	private void updateButton() {
+	private void handleUpdate() {
         handleAddOrUpdate(view.getAccountId());
 	}
 	
-	private void deleteButton() {
+	private void handleDelete() {
         model.deleteAcccount(view.getAccountId());
         view.setSelection(0);
 	}

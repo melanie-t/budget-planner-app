@@ -1,12 +1,13 @@
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public interface ITransactionView
 {
     // Callbacks for event handlers
-    JButton getAddButton();
-    JButton getDeleteButton();
-    JButton getImportButton();
-    JButton getUpdateButton();
+    void registerAddActionCallback(ActionListener listener, String actionCommand);
+    void registerUpdateActionCallback(ActionListener listener, String actionCommand);
+    void registerDeleteActionCallback(ActionListener listener, String actionCommand);
+    void registerImportActionCallback(ActionListener listener, String actionCommand);
 
     // User input values
     String  getTypeInput();

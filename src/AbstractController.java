@@ -1,6 +1,7 @@
+import java.awt.event.ActionListener;
 import java.util.Observer;
 
-public abstract class AbstractController<T>
+public abstract class AbstractController<T> implements ActionListener
 {
     protected T view;
     protected IModelController model;

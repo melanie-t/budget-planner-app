@@ -1,18 +1,37 @@
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
 
 public class TransactionController extends AbstractController<ITransactionView>{
 
-	int accountIndex;
-	
 	public TransactionController(ITransactionView view, IModelController model)
 	{
 		super(view, model);
-        view.getAddButton().addActionListener(e->addButton());
-        view.getDeleteButton().addActionListener(e->deleteButton());
-        view.getImportButton().addActionListener(e->importTransactionButton());
-        view.getUpdateButton().addActionListener(e->updateButton());
+        view.registerAddActionCallback(this, "Add");
+        view.registerDeleteActionCallback(this, "Delete");
+        view.registerUpdateActionCallback(this, "Update");
+        view.registerImportActionCallback(this, "Import");
 	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand())
+        {
+            case "Add":
+                handleAdd();
+                break;
+            case "Update":
+                handleUpdate();
+                break;
+            case "Delete":
+                handleDelete();
+                break;
+            case "Import":
+                handleImport();
+                break;
+            default:
+                break;
+        }
+    }
 
     private void handleAddOrUpdate(Integer transactionId)
     {
@@ -58,21 +77,21 @@ public class TransactionController extends AbstractController<ITransactionView>{
             System.out.println("Add error");
     }
 
-	private void addButton() {
+	private void handleAdd() {
         // Transactions with an ID of 0 are considered as "new"
         handleAddOrUpdate(0);
 	}
 
-    private void updateButton() {
+    private void handleUpdate() {
         handleAddOrUpdate(view.getTransactionId());
     }
 	
-	private void deleteButton() {
+	private void handleDelete() {
         model.deleteTransaction(view.getTransactionId());
         view.setSelection(0);
 	}
 	
-	private void importTransactionButton() {
+	private void handleImport() {
 		// Import transaction with .csv file
 		String filePath = (String)JOptionPane.showInputDialog(null, 
 				"File path for .csv file","Import Transactions",JOptionPane.QUESTION_MESSAGE, null, null, "tst/spread_sheet_test_case.csv"); 

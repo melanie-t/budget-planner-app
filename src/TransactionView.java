@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -60,16 +61,33 @@ public class TransactionView extends AbstractView implements ITransactionView {
 
         highlightCurrentSelection();
     }
+
+    @Override
+    public void registerAddActionCallback(ActionListener listener, String actionCommand) {
+        addButton.setActionCommand(actionCommand);
+        addButton.addActionListener(listener);
+    }
+
+    @Override
+    public void registerUpdateActionCallback(ActionListener listener, String actionCommand) {
+        updateButton.setActionCommand(actionCommand);
+        updateButton.addActionListener(listener);
+    }
+
+    @Override
+    public void registerDeleteActionCallback(ActionListener listener, String actionCommand) {
+        deleteButton.setActionCommand(actionCommand);
+        deleteButton.addActionListener(listener);
+    }
+
+    @Override
+    public void registerImportActionCallback(ActionListener listener, String actionCommand) {
+        importButton.setActionCommand(actionCommand);
+        importButton.addActionListener(listener);
+    }
+
     @Override
     public JPanel   getPanel()          {return panel;}
-    @Override
-    public JButton  getAddButton()      {return addButton;}
-    @Override
-    public JButton  getDeleteButton()   {return deleteButton;}
-    @Override
-    public JButton  getImportButton()   {return importButton;}
-    @Override
-    public JButton  getUpdateButton()   {return updateButton;}
     @Override
     public String getTypeInput() {return typeTextfield.getText();}
     @Override
