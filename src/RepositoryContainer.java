@@ -40,12 +40,6 @@ public class RepositoryContainer implements IModelView, IModelController {
     }
 
     @Override
-    public TransactionList getTransactions() {
-        // Setting a value of -1 for the account ID will return all transactions
-        return getTransactions(-1);
-    }
-
-    @Override
     public TransactionList getTransactions(Integer fromAccount) {
         return transactionRepository.getItems(fromAccount);
     }
