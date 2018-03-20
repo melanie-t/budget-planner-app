@@ -15,6 +15,4 @@ public interface IAccountView
     Integer getAccountId();
 
     void setSelection(Integer id);
-
-    JPanel  getPanel();
 }

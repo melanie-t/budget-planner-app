@@ -18,6 +18,4 @@ public interface ITransactionView
     Integer getAccountId();
 
     void setSelection(Integer id);
-
-    JPanel  getPanel();
 }

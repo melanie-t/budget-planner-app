@@ -8,15 +8,11 @@ import javax.swing.JPanel;
 public class MainView
 {
 	// View uses Swing framework to display UI to user
-	private JFrame mainFrame;
-    IAccountView accountView;
-    ITransactionView transactionView;
 
-
-	public MainView(String title, IAccountView accountView, ITransactionView transactionView)
+	public MainView(String title, IViewGUI accountView, IViewGUI transactionView)
     {
         // Create main frame container
-        mainFrame = new JFrame(title);
+        JFrame mainFrame = new JFrame(title);
         mainFrame.setSize(1050, 480);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));

@@ -15,7 +15,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class AccountView extends AbstractView implements IAccountView{
+public class AccountView extends AbstractView implements IAccountView, IViewGUI {
 
 	// Account UI elements
 	private JPanel panel;

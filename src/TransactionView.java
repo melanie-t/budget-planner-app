@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class TransactionView extends AbstractView implements ITransactionView {
+public class TransactionView extends AbstractView implements ITransactionView, IViewGUI {
 
 	// Transaction UI elements
 	private JPanel panel;
