@@ -29,14 +29,12 @@ public class TransactionView extends AbstractView implements ITransactionView {
 
     private IModelView model;
     private TransactionList items;
-    private int selectedRow;
 
 	public TransactionView(IModelView model)
 	{
         super();
         this.model = model;
         items = new TransactionList();
-        selectedRow = -1;
         model.attachObserver(this);
 		createTransPanel();
 		setLayout();
@@ -92,7 +90,7 @@ public class TransactionView extends AbstractView implements ITransactionView {
     @Override
     public String getDescriptionInput() {return descriptionTextArea.getText();}
     @Override
-    public Integer getTransactionId()   {return items.get(selectedRow).getId();}
+    public Integer getTransactionId()   {return getCurrentTransactionSelection();}
     @Override
     public Integer getAccountId() {return getCurrentAccountSelection();}
 
@@ -233,7 +231,7 @@ public class TransactionView extends AbstractView implements ITransactionView {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // i = the index of the selected row
-                selectedRow = table.getSelectedRow();
+                int selectedRow = table.getSelectedRow();
                 if (selectedRow >= 0) {
                     Transaction selectedItem = items.get(selectedRow);
                     setCurrentTransactionSelection(selectedItem.getId());

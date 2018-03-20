@@ -35,14 +35,12 @@ public class AccountView extends AbstractView implements IAccountView{
 
     private IModelView model;
     private AccountList items;
-    private int selectedRow;
 
 	public AccountView(IModelView model)
 	{
         super();
         this.model = model;
         items = new AccountList();
-        selectedRow = -1;
         model.attachObserver(this);
 		createAccPanel();
 		setLayout();
@@ -212,7 +210,7 @@ public class AccountView extends AbstractView implements IAccountView{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// i = the index of the selected row
-				selectedRow = table.getSelectedRow();
+				int selectedRow = table.getSelectedRow();
 				if (selectedRow >= 0) {
                     Account selectedItem = items.get(selectedRow);
                     setCurrentAccountSelection(selectedItem.getId());
