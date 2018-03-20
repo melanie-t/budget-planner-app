@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public interface ITransactionView
+public interface ITransactionView extends IObserver
 {
     // Callbacks for event handlers
     void registerAddActionCallback(ActionListener listener, String actionCommand);

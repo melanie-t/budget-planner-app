@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public interface IAccountView
+public interface IAccountView extends IObserver
 {
     // Callbacks for event handlers
     void registerAddActionCallback(ActionListener listener, String actionCommand);

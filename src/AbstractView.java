@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class AbstractView implements IObserver
+public abstract class AbstractView
 {
     private static Integer currentAccountSelection = 0;
     private static Integer currentTransactionSelection = 0;
