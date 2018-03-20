@@ -2,6 +2,7 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage[font=small,labelfont=bf]{caption}
+\usepackage{xcolor}
 
 \pagestyle{empty}
 \setcounter{tocdepth}{4}
@@ -23,6 +24,9 @@
 \normalbaselines
 
 \begin{document}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 
 \vspace*{0.5in}
 \centerline{\bf\Large Design Document - Iteration 2}
@@ -61,20 +65,113 @@ Colin Greczkowski & 40001600 \\
 \clearpage
 
 \section{Introduction}
-\textit {From the template (delete me) --- The introduction of the document provides an overview of the entire document, briefly introducing what are its goals, and what information is to be found in it.}
+The purpose of this document is to describe and provide details for the design and
+implementation of the second iteration of the MyMoney application.\\
+
+The following pages will cover the rational of the architectural design as well as the
+subsystem interface specifications and details on their implementation. Finally, we will
+describe three dynamic design scenarios based on use cases specified in the documentation
+for iteration 1.
 
 \section{Architectural Design} \label{sec:arch}
-
-\textit {From the template (delete me) --- This section must give a high-level description of the system in terms of its modules and their respective purpose and exact interfaces.}
-
+The Mymoney application is implemented using a model-view-controller (MVC) architecture. this section will cover the architectural diagram for the MVC as well as the subsystem interface specifications.
+\newpage
 \subsection{Architectural Diagram}
 
-\textit {From the template (delete me) --- A UML class diagram or package diagram depicting the high-level structure of the system, accompanied by a one-paragraph text describing the rationale of this design. It is mandatory that the system be divided into at least two subsystems, and that the purpose of each of these subsystems be exposed here.}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/UML/MVC.png}
+\captionof{figure}{High level structure of MVC architecture}\bigskip
+The model contains all the information related to the transactions and the accounts that the user wishes to track. It consists of an SQL database used to serialize and deserialize   the information between user sessions and a repository with which the rest of the application interacts. Modifications to the repository are saved on-the-fly to the database while the program is running. The view displays the accounts and transactions loaded into the model (repository) and offers interactive elements that the user can interact with. In essence, it is a GUI. The controller handles user input from the view (GUI) and then acts on the model accordingly by adding, modifying or deleting transactions or accounts.\\
+
+The main advantage of using an MVC pattern is the separation of concerns. As will be demonstrated in the next section, by enforcing each subsystem to depend strictly on \code{Interface} types when communicating with each other, we can reduce dependencies and greatly increase modularity.
+
+
 
 \subsection{Subsystem Interface Specifications}
 
-\textit {From the template (delete me) --- Specification of the software interfaces between the subsystems, i.e. specific messages (or function calls) that are exchanged by the subsystems. These are also often called ``Module Interface Specifications''.
-Description of the parameters to be passed into these function calls in order to have a service fulfilled, including valid and invalid ranges of values. Each subsystem interface must be presented in a separate subsection.}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/UML/Subsystem.png}
+\captionof{figure}{Subsystem specification diagram}\bigskip
+
+\subsubsection{Model - View : Observer Pattern}
+The interfaces \code{IObservable} and \code{IObserver} form the observer pattern between the model and the view.\\
+
+\code{IObserver}
+\begin{itemize}
+	\item \code{update()} : Called by an \code{IObservable} object. This should trigger internal logic in the observer to allow it to update its view on the model.
+\end{itemize}\bigskip
+
+\code{IObservable}
+\begin{itemize}
+	\item \code{attachObserver(IObserver)} : Attach an observer to this object
+	\item \code{detachObserver(IObserver)} : Detach an observer from this object
+	\item \code{notifyObservers()} : Call the \code{update()} method on all attached observers. Whenever the state of the model changes, it should call this function to allow its attached observers to update their views.
+\end{itemize}\bigskip
+
+\subsubsection{Model : IModelView Interface}
+The \code{ImodelView} interface exposes methods to allow the view to fetch information from the the model.\\
+\begin{itemize}
+	\item \code{getTransactions(Integer accountId)} : Returns a list of \code{Transaction} objects belonging to the specified accountId. If there are no transactions for the account or the account does not exist, it will return an empty list.
+	\item \code{getAllAccounts()} : Returns a list of all the \code{Account} objects for the current user.
+\end{itemize}
+
+\subsubsection{Model : IModelController Interface}
+The \code{IModelController} interface exposes methods to allow the controller to modify the model.\\
+\begin{itemize}
+	\item \code{saveTransaction(Transaction)} : Save the given \code{Transaction} object to the repository and update the SQL database. If the ID of the transaction is 0, create a new entry. Otherwise update the existing one.
+	\item \code{saveAccount(Account)} : Save the given \code{Account} object to the repository and update the SQL database. If the ID of the account is 0, create a new entry. Otherwise update the existing one.
+	\item \code{deleteTransaction(Transaction)} : Delete the specified transaction from both the repository and the SQL database.
+	\item \code{deleteAccount(Account)} : Delete the specified account from both the repository and the SQL database.
+	\item \code{importTransactions(String path, Integer accountId)} : Construct and save \code{Transactions} objects to the repository and SQL databse from a .csv file located at the specified path. The format of the .csv file should be well defined.
+\end{itemize}
+
+\subsubsection{View : IAccountView}
+The \code{IAccountView} interface exposes methods to allow the controller to register event listeners for user actions (buttons clicks) and have access to the content of the form fields filled by the user.\\
+The callback system uses Java's \code{ActionEvent} class. 
+\begin{itemize}
+	\item \code{registerAddActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Add" action and set the event's action command to the specified string (should be "Add").
+	\item \code{registerUpdateActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Update" action and set the event's action command to the specified string (should be "Update").
+	\item \code{registerDeleteActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Delete" action and set the event's action command to the specified string (should be "Delete").
+	\item \code{getBankInput()} : Return a string consisting of the content of the BankName field in the GUI.
+	\item \code{getNicknameInput()} : Return a string consisting of the content of the Nickname field in the GUI.
+	\item \code{getBalanceInput()} : Return an Integer consisting of the content of the Balance field in the GUI.
+	\item \code{getAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
+	\item \code{setSelection(Integer)} : Overrides the user's current account selection. This method mostly improves user experience (for example, automatically selects a new account when it is created)
+\end{itemize}
+
+\subsubsection{View : ITransactionView}
+The \code{ITransactionView} interface exposes methods to allow the controller to register event listeners for user actions (buttons clicks) and have access to the content of the form fields filled by the user.\\
+The callback system uses Java's \code{ActionEvent} class.
+\begin{itemize}
+	\item \code{registerAddActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Add" action and set the event's action command to the specified string (should be "Add").
+	\item \code{registerUpdateActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Update" action and set the event's action command to the specified string (should be "Update").
+	\item \code{registerDeleteActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Delete" action and set the event's action command to the specified string (should be "Delete").
+		\item \code{registerImportActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Import" action and set the event's action command to the specified string (should be "Import").
+	\item \code{getTypeInput()} : Return a string consisting of the content of the Type field in the GUI.
+	\item \code{getDateInput()} : Return a string consisting of the content of the Date field in the GUI.
+	\item \code{getDescriptionInput()} : Return a string consisting of the content of the Description field in the GUI.
+	\item \code{getAmountInput()} : Return an Integer consisting of the content of the Amount field in the GUI.
+	\item \code{getAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
+	\item \code{getTransactionId()} : Return a Integer consisting of the id of the transaction currently selected by the user.
+	\item \code{setSelection(Integer)} : Overrides the user's current transaction selection. This method mostly improves user experience (for example, resetting the current selection when a transaction is deleted)
+\end{itemize}
+
+\subsubsection{View : IViewGUI}
+The \code{IViewGUI} interface exposes a single method that returns a \code{JPanel} object. It is only used by the main application window.
+\begin{itemize}
+	\item \code{getPanel()} : Returns the topmost parent \code{JPanel} of this view. It is meant to be used by the main application window to populate its frame.
+\end{itemize}
+
+\subsubsection{Controller : ActionListener}
+The controller only needs to listen to events triggered by the user's input. From the other subsystems' perspective, it implements a single interface with a single method.
+\begin{itemize}
+	\item \code{actionPerformed(ActionEvent)} : Event handler for \code{ActionEvent} events created by the view. The controller registers its handlers by using the \code{IAccountView} or \code{ITransactionView} interfaces provided by the view(s).
+\end{itemize}
+
+
+
+
+
+
+
 
 \section{Detailed Design} \label{sec:detail}
 
