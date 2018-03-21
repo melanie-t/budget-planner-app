@@ -73,7 +73,6 @@ public class RepositoryContainer implements IModelView, IModelController {
     public void importTransactions(String path, Integer accountId) {
         String [] tokenList = null;
         BufferedReader br;
-
         try {
             br = new BufferedReader(new FileReader(path));
             String line = null;

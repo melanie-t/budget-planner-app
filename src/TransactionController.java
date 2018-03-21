@@ -1,5 +1,6 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class TransactionController extends AbstractController<ITransactionView>{
 
@@ -92,9 +93,17 @@ public class TransactionController extends AbstractController<ITransactionView>{
 	}
 	
 	private void handleImport() {
-		// Import transaction with .csv file
-		String filePath = (String)JOptionPane.showInputDialog(null, 
-				"File path for .csv file","Import Transactions",JOptionPane.QUESTION_MESSAGE, null, null, "tst/spread_sheet_test_case.csv"); 
+        JFileChooser chooser = new JFileChooser();
+        File file = null;
+        int returnValue = chooser.showOpenDialog( null ) ;
+        if( returnValue == JFileChooser.APPROVE_OPTION ) {
+            file = chooser.getSelectedFile() ;
+        }
+        String filePath = "";
+        if(file != null)
+        {
+            filePath = file.getPath();
+        }
 		model.importTransactions(filePath, view.getSelectedAccountId());
         view.setSelection(0);
 	}
