@@ -75,11 +75,11 @@ public class AccountController extends AbstractController<IAccountView> {
 	}
 	
 	private void handleUpdate() {
-        handleAddOrUpdate(view.getAccountId());
+        handleAddOrUpdate(view.getSelectedAccountId());
 	}
 	
 	private void handleDelete() {
-        model.deleteAcccount(view.getAccountId());
+        model.deleteAcccount(view.getSelectedAccountId());
         view.setSelection(0);
 	}
 }

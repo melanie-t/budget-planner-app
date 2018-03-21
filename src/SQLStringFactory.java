@@ -80,6 +80,11 @@ public class SQLStringFactory
 		
 		return sql;
 	}
+
+	public String deleteEntry(String tableName, String primaryKey, Integer value)
+	{
+		return "DELETE FROM " + tableName + " WHERE " + primaryKey + "='" + value + "';";
+	}
 	
 	
 	public String addEntryUsingMap(String tableName, SQLValueMap values)

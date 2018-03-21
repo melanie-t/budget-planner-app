@@ -79,7 +79,7 @@ public class AccountRepository {
 		if(itemMap.containsKey(itemID))
         {
             itemMap.remove(itemID);
-            myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
+            myDatabase.updateSQL(sql.deleteEntry(tableName, primaryKey, itemID));
             System.out.println("Delete Account "+itemID);
         }
     }

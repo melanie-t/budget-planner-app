@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -76,7 +77,6 @@ public class RepositoryContainer implements IModelView, IModelController {
         try {
             br = new BufferedReader(new FileReader(path));
             String line = null;
-
             while((line = br.readLine()) != null) {
 				/*
 				 * tokenList maps the tokens as
@@ -88,22 +88,22 @@ public class RepositoryContainer implements IModelView, IModelController {
 
                 Integer amount = Integer.parseInt(tokenList[2]);
 
-                Transaction transacMod = new Transaction();
-                transacMod.setAccountId(accountId);
-                transacMod.setType(tokenList[0]);
-                transacMod.setDate(tokenList[1]);
-                transacMod.setAmount(amount);
+                Transaction transaction = new Transaction();
+                transaction.setAccountId(accountId);
+                transaction.setType(tokenList[0]);
+                transaction.setDate(tokenList[1]);
+                transaction.setAmount(amount);
 
-                System.out.println(transacMod.toString());
+                System.out.println(transaction.toString());
 
-                transactionRepository.saveItem(transacMod);
+                saveTransaction(transaction);
             }
             br.close();
 
         }catch(FileNotFoundException fnfe) {
-            System.err.println(fnfe.getMessage());
+            JOptionPane.showMessageDialog(null, fnfe.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch(IOException ioe) {
-            System.err.println(ioe.getMessage());
+            JOptionPane.showMessageDialog(null, ioe.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

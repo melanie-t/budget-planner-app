@@ -108,9 +108,9 @@ public class TransactionView extends AbstractView implements ITransactionView, I
     @Override
     public String getDescriptionInput() {return descriptionTextArea.getText();}
     @Override
-    public Integer getTransactionId()   {return getCurrentTransactionSelection();}
+    public Integer getSelectedTransactionId()   {return getCurrentTransactionSelection();}
     @Override
-    public Integer getAccountId() {return getCurrentAccountSelection();}
+    public Integer getSelectedAccountId() {return getCurrentAccountSelection();}
 
     @Override
     public void setSelection(Integer id) {

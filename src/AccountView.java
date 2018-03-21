@@ -77,7 +77,7 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
         }
     }
     @Override
-    public Integer getAccountId() {return getCurrentAccountSelection();}
+    public Integer getSelectedAccountId() {return getCurrentAccountSelection();}
     @Override
     public void setSelection(Integer id) {
         setCurrentAccountSelection(id);

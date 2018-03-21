@@ -41,7 +41,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
         String date = view.getDateInput();
         Integer amount = view.getAmountInput();
         String description = view.getDescriptionInput();
-        Integer accountId = view.getAccountId();
+        Integer accountId = view.getSelectedAccountId();
 
         if (type.isEmpty() || date.isEmpty() || amount == null)
         {
@@ -83,11 +83,11 @@ public class TransactionController extends AbstractController<ITransactionView>{
 	}
 
     private void handleUpdate() {
-        handleAddOrUpdate(view.getTransactionId());
+        handleAddOrUpdate(view.getSelectedTransactionId());
     }
 	
 	private void handleDelete() {
-        model.deleteTransaction(view.getTransactionId());
+        model.deleteTransaction(view.getSelectedTransactionId());
         view.setSelection(0);
 	}
 	
@@ -95,7 +95,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
 		// Import transaction with .csv file
 		String filePath = (String)JOptionPane.showInputDialog(null, 
 				"File path for .csv file","Import Transactions",JOptionPane.QUESTION_MESSAGE, null, null, "tst/spread_sheet_test_case.csv"); 
-		model.importTransactions(filePath, view.getAccountId());
+		model.importTransactions(filePath, view.getSelectedAccountId());
         view.setSelection(0);
 	}
 }

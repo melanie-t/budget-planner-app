@@ -14,8 +14,8 @@ public interface ITransactionView extends IObserver
     String  getDateInput();
     Integer getAmountInput();
     String  getDescriptionInput();
-    Integer getTransactionId();
-    Integer getAccountId();
+    Integer getSelectedTransactionId();
+    Integer getSelectedAccountId();
 
     void setSelection(Integer id);
 }
