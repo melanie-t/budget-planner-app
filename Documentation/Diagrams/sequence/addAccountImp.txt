@@ -1,0 +1,47 @@
+@startuml
+hide footbox
+database Database
+
+participant AccountController
+box "Model" #Lightblue
+participant RepositoryContainer
+participant AccountRepository
+database Database
+end box
+box "Types" #Lightgreen
+participant Account
+participant SQLValueMap
+end box
+box "Services" #Lightyellow
+participant SQLStringFactory
+end box
+
+
+AccountController -> RepositoryContainer : saveAccount(account)
+
+RepositoryContainer -> AccountRepository : saveItem(account)
+AccountRepository -> SQLValueMap : <<create>>
+AccountRepository <-- SQLValueMap : valueMap 
+
+alt account.getId( ) == 0
+    AccountRepository -> SQLStringFactory : addEntryUsingMap(TABLENAME, valueMap)
+    AccountRepository <-- SQLStringFactory : addEntryQuery
+
+    AccountRepository -> Database : updateSQL(addEntryQuery)
+    AccountRepository <-- Database : accountId
+
+    AccountRepository -> Account: account.setID(accountId)
+
+    AccountRepository -> AccountRepository: addItemToMap(account)
+
+else account.getId( ) != 0
+    AccountRepository -> SQLValueMap : <<create>>
+    AccountRepository <-- SQLValueMap : whereClauseMap
+
+    AccountRepository -> SQLStringFactory : updateEntryUsingMap(TABLENAME, valueMap, whereClauseMap)
+    AccountRepository <-- SQLStringFactory : updateEntryQuery
+
+    AccountRepository -> Database : updateSQL(updateEntryQuery)
+
+end
+@enduml

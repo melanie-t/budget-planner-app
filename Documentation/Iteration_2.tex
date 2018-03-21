@@ -61,7 +61,9 @@ Colin Greczkowski & 40001600 \\
 \clearpage
 
 \tableofcontents
+\clearpage
 
+\listoffigures
 \clearpage
 
 \section{Introduction}
@@ -133,7 +135,7 @@ The callback system uses Java's \code{ActionEvent} class.
 	\item \code{getBankInput()} : Return a string consisting of the content of the BankName field in the GUI.
 	\item \code{getNicknameInput()} : Return a string consisting of the content of the Nickname field in the GUI.
 	\item \code{getBalanceInput()} : Return an Integer consisting of the content of the Balance field in the GUI.
-	\item \code{getAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
+	\item \code{getSelectedAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
 	\item \code{setSelection(Integer)} : Overrides the user's current account selection. This method mostly improves user experience (for example, automatically selects a new account when it is created)
 \end{itemize}
 
@@ -149,8 +151,8 @@ The callback system uses Java's \code{ActionEvent} class.
 	\item \code{getDateInput()} : Return a string consisting of the content of the Date field in the GUI.
 	\item \code{getDescriptionInput()} : Return a string consisting of the content of the Description field in the GUI.
 	\item \code{getAmountInput()} : Return an Integer consisting of the content of the Amount field in the GUI.
-	\item \code{getAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
-	\item \code{getTransactionId()} : Return a Integer consisting of the id of the transaction currently selected by the user.
+	\item \code{getSelectedAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
+	\item \code{getSelectedTransactionId()} : Return a Integer consisting of the id of the transaction currently selected by the user.
 	\item \code{setSelection(Integer)} : Overrides the user's current transaction selection. This method mostly improves user experience (for example, resetting the current selection when a transaction is deleted)
 \end{itemize}
 
@@ -1072,43 +1074,63 @@ public &isNumeric &boolean &Check if a string is numeric
 \end{center}
 
 \section{Dynamic Design Scenarios}
-To illustrate the interactions between the difference classes of our system, we have drawn sequence diagrams for the main features of our program. For simplicity, the repositories are the lowest layer of abstraction in the diagrams. We have also included a sequence diagram of the AccountRespository saving an account to the database using the Database class (Figure 2).
+To illustrate the interactions between the difference classes of our system, we have drawn sequence diagrams for the main features of our program. For simplicity, the model interface is the lowest layer of abstraction in these diagrams. The final section illustrates the internal structure of the model to complement the higher level diagrams.
 
 \newpage
-\subsection{Adding an account}
-The first scenario illustrates the addition of an account to the system. The user completes the required text fields and presses the "add" button, which triggers the addButton method from the AccountController. The controller then gathers and validates the inputs. If they are valid, the controller initializes an AccountModel object and constructs it using setters. Finally, the object is saved by calling the UserModel's saveAccount method, which in turn calls its AccountRepository's saveItem method.
+\subsection{Add an account} \label{sec:addAccount}
+The first scenario illustrates the addition of an account to the system. The user completes the required text fields and presses the "Add" button, which sends an \code{ActionEvent} the \code{AccountController}. The controller then gathers and validates the inputs. If they are valid, the controller constructs an \code{Account} object and initializes it using the info gathered from the view. Finally, the object is saved by calling the model's \code{saveAccount()} method. See \ref{sec:modelSaveDetail} for the sequence diagram from the model's perspective once the call to \code{saveAccount()} is made. The sequence of calls for adding a \code{Transaction} is fundamentally the same.\\
+\\
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addAccount.png}
 \captionof{figure}{Adding an account}
+\bigskip
+
+\subsection{Update an account}
+Updating and existing \code{Account} is very similar to creating a new one. The one difference is that the user must first select an entry from the view. The fields will then update to show the selected \code{Account}'s information. The user can then modify the fields as desired and press the "Update" button when ready. The flow is then identical to \ref{sec:addAccount}, with the exception that the \code{AccountController} will set the created \code{Account} object's id from the one selected by the user. Again, the sequence of calls for updating a \code{Transaction} is fundamentally the same.\\
+\\
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/updateAccount.png}
+\captionof{figure}{Updating an account}
+\bigskip
+
+\subsection{Delete an account}
+To delete an account, the user selects an entry in the \code{AccountView}'s table and clicks the "Delete" button. This sends an \code{ActionEvent} to the \code{AccountController}. The registered listener for this event then calls the \code{deleteAccount()} on the model. \code{Transaction} deletion is handled similarly.\\
+\\
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/deleteAccount.png}
+\captionof{figure}{Deleting an account}
+\bigskip
 
 \newpage
-\subsubsection{AccountRepository saving an account to the database}
-When an account is added to the system, the following sequence of events occur. After the saveItem method is called, the AccountRepository creates an SQLValueMap (linked HashMap with keys and values of type String) to store the column-value mapping. \\
+\subsection{Import a transaction list}
+In this scenario, the users imports a list of transactions from a .csv file and adds them to the model. When the user clicks the "Import" button, the \code{TransactionController} creates a window with a dialog box. The user then inputs the file path of the transaction csv file. If the file path is valid, both the file path and the currently selected accountId is passed to the model with a call to \code{importTransactions()}. For details on how the model then handles the import, see \ref{sec:modelImportDetail}.\\
+\\
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importHighLevel.png}
+\captionof{figure}{Import a list of transactions from .csv file}
+\bigskip
 
-If the account is new (does not exist in the system), then the repository uses the SQLStringFactory to build an insert query using the SQLValueMap. It executes the query using updateSQL from the Database class. The repository then updates the account's ID using the accountId value returned from updateSQL and proceeds to add the new account to the repository's AccountMap.\\
+\subsection{Model implementation details}
+The next subsections offer a glimpse into the internal logic of the model and how it implements the methods of its interface.
 
-If the account already exists, then the repository will construct a SQLValueMap for the where clause of the query using the account's ID. SQLStringFactory's is then used to generate an update query, which will be executed by calling the Database class's updateSQL method. The returned accountId is unused. 
+\subsubsection{saveAccount()} \label{sec:modelSaveDetail}
+The \code{saveAccount(Account)} method provides a simple interface for adding new \code{Account} objects or updating existing ones. When the specified \code{Account} object's \code{accountId} member variable is 0, it is assumed that this is a new entry. Otherwise the call is treated as an update. \\ 
 
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/accRepoSaveItem.png}
-\captionof{figure}{AccountRepository saving an account to the database}
+After the \code{saveItem()} method is called, the \code{AccountRepository} creates an \code{SQLValueMap} object (linked HashMap with keys and values of type String) to store the column-value mapping. \\
 
-\subsection{Adding a transaction}
-In this scenario, the user adds a transaction to their account. After the user completes the text fields and presses the "add" button, the addButton method from the TransactionController is triggered. The controller gathers and validates the inputs. If the inputs are valid, the controller initializes an TransactionModel object and constructs it using setters. The controller then gets the AccountModel object from the UserModel, and uses its saveTransaction method. The AccountModel then calls its TransactionRepository's saveItem method.
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addTransaction.png}
-\captionof{figure}{Adding a transaction}
+If the account is new, then the repository uses the \code{SQLStringFactory} class to build a \code{String} insert query using the (key,value) pairs in the \code{SQLValueMap}. It executes the query by calling \code{updateSQL} from the Database class. The repository then updates the account's ID using the accountId value returned from updateSQL and proceeds to add the new account to the repository's \code{AccountMap}.\\
 
-\subsection{Importing a transaction}
-In this scenario, the users imports a transaction and adds it to their account. When the user clicks the "import button", the TransactionController creates a window with a dialog box. The user then inputs the file path of the transaction csv file. The controller then gets the AccountTransactionRepository from the AccountModel. Using the AccountTransactionRepository, it creates an instance of ImportTransaction and calls its importTransaction method using the file path obtained from the user.
+If the account already exists, then the repository will construct a \code{SQLValueMap} for the where clause of the query using the account's ID. \code{SQLStringFactory} is then used to generate an update query, which will be executed by calling the \code{Database} class's \code{updateSQL} method. The returned accountId is unused. \\
+\\
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addAccountImp.png}
+\captionof{figure}{Model - Saving an account}
+\bigskip
 
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction.png}
-\captionof{figure}{Importing a transaction}
+\newpage
+\subsubsection{importTransactions()} \label{sec:modelImportDetail}
+The \code{importTransaction()} method first creates a \code{BufferedReader} using the file path. Then, it iterates over the file, line by line, using the \code{BufferedReader}'s \code{readLine()} method. \\
 
-The importTransaction method first creates a BufferedReader using the file path. Then, it iterates over the file, line by line, using the BufferedReader's readLine method. \\
-
-The line is split into tokens using Java.lang.String's split method. Using the array of token from the split method, a transaction object is constructred. The transaction object is then saved using the AccountTransactionRepository's saveItem method.
-
-\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importTransaction2.png}
-\captionof{figure}{Importing a transaction (cont.)}
-
+The line is split into tokens using the \code{split()} method. Using the returned array of tokens, a \code{Transaction} object is constructed. The model then saves the new\code{Transaction} object by calling its own \code{saveTransaction()} method.\\
+\\
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importLowLevel.png}
+\captionof{figure}{Model - Import list of transactions from .csv file}
+\bigskip
 
 
 \end{document}

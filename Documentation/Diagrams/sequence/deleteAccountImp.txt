@@ -1,0 +1,40 @@
+@startuml
+hide footbox
+
+participant AccountController
+box "Model" #LightBlue
+participant RepositoryContainer
+participant AccountRepository
+participant TransactionRepository
+database Database
+end box
+box "Types" #LightGreen
+participant Transaction
+end box
+box "Services" #LightYellow
+participant SQLStringFactory
+end box
+
+AccountController -> RepositoryContainer : deleteAccount(accountId)
+
+group Model
+== Delete Account ==
+RepositoryContainer -> AccountRepository : deleteItem(accountId)
+AccountRepository -> AccountRepository : remove(accountId)
+AccountRepository -> SQLStringFactory : deleteEntry(TABLENAME, PRIMARYKEY, accountId)
+AccountRepository <-- SQLStringFactory : deleteEntryQuery
+AccountRepository -> Database : updateSQL(deleteEntryQuery)
+
+== Delete Transactions from Account ==
+RepositoryContainer -> TransactionRepository : deleteAllItemsFromAccount(accountId)
+loop foreach transaction
+alt transaction.getAccountId() == accountId
+TransactionRepository -> Transaction : getId( )
+TransactionRepository <-- Transaction : transactionId
+TransactionRepository -> TransactionRepository : remove(transactionId)
+TransactionRepository -> SQLStringFactory : deleteEntry(TABLENAME, PRIMARYKEY, transactionId)
+TransactionRepository <-- SQLStringFactory : deleteEntryQuery
+TransactionRepository -> Database : updateSQL(deleteEntryQuery)
+end
+end group
+@enduml
