@@ -2,7 +2,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Base class for controller objects.
- * Classes that inherit should specialize the template with the Interface type
+ * Classes that inherit from AbstractController should specialize the template with the Interface type
  * of the view it is associated with.
  * @param <T> Interface type of the associated view
  */

@@ -3,6 +3,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Base class for repository objects.
+ * Classes that inherit from AbstractController should specialize the template with the object
+ * type it is meant to hold.
+ * @param <T> type of objects contained in the repository
+ */
 public abstract class AbstractRepository<T extends AbstractUniqueId> {
 
     protected Database database;
@@ -13,6 +19,12 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
 
     protected HashMap<Integer, T> itemMap;
 
+    /**
+     * Constructor.
+     * @param database database this repository will write to
+     * @param tableName name of the table associated with this repository in the database
+     * @param primaryKey name of the primary key for the SQL table
+     */
     public AbstractRepository(Database database, String tableName, String primaryKey) {
         this.database = database;
         this.tableName = tableName;
@@ -21,10 +33,18 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
         itemMap = new HashMap<>();
     }
 
+    /**
+     * Return the item with the specified id.
+     * @param id id of the desired item
+     * @return item associated with id
+     */
     public T getItem(Integer id) {
         return itemMap.get(id);
     }
 
+    /**
+     * Initialize this repository will all the contents of its associated table in the database.
+     */
     public void loadAllItems() {
         SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
         ResultSet result = database.fetchSQL(sql.selectEntryUsingMap(tableName, where));
@@ -38,11 +58,18 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
         }
     }
 
-
+    /**
+     * Add the specified item to the repository.
+     * @param item item to add
+     */
     protected void addItemToMap(T item) {
         itemMap.put(item.getId(), item);
     }
 
+    /**
+     * Delete the item with the specified id from the repository and the database.
+     * @param id unique id of the item to remove
+     */
     public void deleteItem(Integer id) {
         if(itemMap.containsKey(id))
         {
@@ -51,22 +78,43 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
         }
     }
 
+    /**
+     * Get all items currently stored in the repository.
+     * @return all items in the repository
+     */
     public ArrayList<T> getItems() {
         return  new ArrayList<T>(itemMap.values());
     }
 
+    /**
+     * Deletes the associated table from the database and all its content and creates a new empty one.
+     */
     public void reinitSQLStructure() {
         destroySQLStructure();
         initSQLStructure();
     }
 
+    /**
+     * Delete associated table in the database.
+     */
     private void destroySQLStructure() {
         database.updateSQL(sql.deleteTable(tableName));
     }
 
+    /**
+     * Construct and save a new item to the repository from a result query to the database.
+     * @param result result query returned by the database
+     */
     abstract protected void setItemFromResult(ResultSet result);
 
+    /**
+     * Create a table and initialize its structure.
+     */
     abstract public void initSQLStructure();
 
+    /**
+     * Save the specified item to the repository and the database.
+     * @param item
+     */
     abstract public void saveItem(T item);
 }

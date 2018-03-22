@@ -1,8 +1,17 @@
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 
+/**
+ * Controller class for views that implement the IAccountView interface and models that implement
+ * the IModelController interface.
+ */
 public class AccountController extends AbstractController<IAccountView> {
 
+    /**
+     * Constructor.
+     * @param view associated view
+     * @param model associated model
+     */
 	public AccountController(IAccountView view, IModelController model)
     {
 		super(view, model);
@@ -11,6 +20,10 @@ public class AccountController extends AbstractController<IAccountView> {
         view.registerDeleteActionCallback(this, "Delete");
 	}
 
+    /**
+     * Event listener implementation for events created by the view
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand())
@@ -29,6 +42,12 @@ public class AccountController extends AbstractController<IAccountView> {
         }
     }
 
+    /**
+     * Creates a new account object and sends it to the model for saving.
+     * If the specified accountId is 0, then this is an "Add" operation. Otherwise we update
+     * the existing account with the specified id.
+     * @param accountId account id
+     */
     private void handleAddOrUpdate(Integer accountId)
     {
         boolean success = true;
@@ -69,14 +88,23 @@ public class AccountController extends AbstractController<IAccountView> {
             System.out.println("Add error");
     }
 
+    /**
+     * Event handler for "Add" actions from the user
+     */
 	private void handleAdd() {
         handleAddOrUpdate(0);
 	}
-	
+
+    /**
+     * Event handler for "Update" actions from the user
+     */
 	private void handleUpdate() {
         handleAddOrUpdate(view.getSelectedAccountId());
 	}
-	
+
+    /**
+     * Event handler for "Delete" actions from the user
+     */
 	private void handleDelete() {
         model.deleteAccount(view.getSelectedAccountId());
         view.setSelection(0);
