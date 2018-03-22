@@ -105,6 +105,7 @@ public class AccountRepositoryTest {
 
 		//check in fresh repo to check if delete worked
 		AccountRepository freshAccountRepo = new AccountRepository(testDatabase);
+		freshAccountRepo.loadAllItems();
 		assertEquals(freshAccountRepo.getItems().size(), 1);
 	}
 
