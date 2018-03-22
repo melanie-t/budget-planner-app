@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 public class AccountTest {
 
 	@Test
-	public void setupAccount() {
+	public void setUpClass() {
 
 		/* Test Account */
 		Integer id = 1;

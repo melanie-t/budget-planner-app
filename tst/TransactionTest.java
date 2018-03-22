@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TransactionTest {
 	
 	@Test
-	public void setUpTransaction() {
+	public void setUpClass() {
 		
 		/* Test Transaction Creation */
 		Integer transactionID = 1;
