@@ -71,11 +71,12 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
      * @param id unique id of the item to remove
      */
     public void deleteItem(Integer id) {
-        if(itemMap.containsKey(id))
-        {
-            itemMap.remove(id);
-            database.updateSQL(sql.deleteEntry(tableName, primaryKey, id));
+        if(itemMap.containsKey(id)) {
+        	itemMap.remove(id);
         }
+        
+        
+        database.updateSQL(sql.deleteEntry(tableName, primaryKey, id));
     }
 
     /**
