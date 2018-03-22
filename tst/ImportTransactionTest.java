@@ -42,7 +42,7 @@ public class ImportTransactionTest {
 
         model = new RepositoryContainer(new TransactionRepository(testDatabase), new AccountRepository(testDatabase));
 
-        model.importTransactions("../tst/spread_sheet_test_case.csv", 1);
+        model.importTransactions("tst/spread_sheet_test_case.csv", 1);
 
 		/*
 		 * Query transactions database to fetch accountID, type, date and amount.
@@ -51,23 +51,28 @@ public class ImportTransactionTest {
 		String dbAccountID = "select accountId from transactions;";
 		String dbAmount = "select amount from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
 		String dbDate = "select date from transactions where accountId = " + expected.getAssociatedAccountId() + ";";;
-		String dbType = "select description from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
+		String dbType = "select type from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
 
 		Integer actualAccountID = null;
-		Float actualAmount = null;
+		Integer actualAmount = null;
 		String actualType = null;
 		String actualDate = null;
 
 		try {
-		actualAccountID = testDatabase.fetchSQL(dbAccountID).getInt("accountId");
-		actualAmount = testDatabase.fetchSQL(dbAmount).getFloat("amount");
-		actualType = testDatabase.fetchSQL(dbType).getString("description");
-		actualDate = testDatabase.fetchSQL(dbDate).getString("date");
+			actualAccountID = testDatabase.fetchSQL(dbAccountID).getInt("accountId");
+			actualAmount = testDatabase.fetchSQL(dbAmount).getInt("amount");
+			actualType = testDatabase.fetchSQL(dbType).getString("type");
+			actualDate = testDatabase.fetchSQL(dbDate).getString("date");
 
 		}catch(SQLException sqle) {
 			System.err.println(sqle.getMessage());
 		}
 
+		System.out.println(expected.getDate());
+		System.out.println(actualDate);
+		
+		
+		
 		assertEquals(expected.getAssociatedAccountId(), actualAccountID);
 		assertEquals(expected.getAmount(), actualAmount);
 		assertEquals(expected.getDate(), actualDate);

@@ -36,6 +36,7 @@ public class Iteration2AppController implements IAppController, WindowListener{
 
 
 	public void start() {
+		
         if (user.getName() == "Jane_Doe")
         {
             devStart();

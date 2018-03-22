@@ -37,7 +37,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
 
             System.out.println(result.getInt(primaryKey));
             addItemToMap(transaction);
-        }catch(SQLException sqle) {
+        } catch(SQLException sqle) {
             System.err.println(sqle.getMessage());
         }
     }
@@ -61,7 +61,12 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
 			SQLValueMap where = new SQLValueMap();
 			where.put(primaryKey, Integer.toString(transaction.getId()));
             database.updateSQL( sql.updateEntryUsingMap(tableName, values, where) );
-            itemMap.get(transaction.getId()).updateWith(transaction);
+            
+            Transaction transInMap = itemMap.get(transaction.getId());
+            if(transInMap != null)
+            	transInMap.updateWith(transaction);
+            else 
+            	 addItemToMap(transaction);
 		}
 	}
 	

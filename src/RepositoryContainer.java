@@ -73,7 +73,9 @@ public class RepositoryContainer implements IModelView, IModelController {
     public void saveItem(Transaction transaction) {
         transactionRepository.saveItem(transaction);
         Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
-        associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
+        if(associatedAccount != null) {
+        	associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
+        }
         notifyObservers();
     }
 
@@ -107,7 +109,6 @@ public class RepositoryContainer implements IModelView, IModelController {
                 transaction.setDate(tokenList[1]);
                 transaction.setAmount(amount);
 
-                System.out.println(transaction.toString());
 
                 saveItem(transaction);
             }
