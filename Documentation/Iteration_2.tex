@@ -169,24 +169,97 @@ The controller only needs to listen to events triggered by the user's input. Fro
 \end{itemize}
 
 
-
-
-
-
-
-
+\newpage
 \section{Detailed Design} \label{sec:detail}
 
-\textit {From the template (delete me) --- Complete description of the system design, describing one subsystem separately in respective subsection. UML class diagrams are to be used, as well as a short textual description describing the purpose of each class.}
+This section will cover the implementation details for each subsystem. Before moving on, a quick overview of the basic types used by the system is in order.\\
+\\
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/Types.png}
+\captionof{figure}{Overview of basic types}\bigskip
 
-\subsection{Subsystem X}
+The \code{Transaction} and \code{Account} are nothing more than plain old data structures with public read and write access. The \code{SQLValueMap} is a helper class  that derives from Java's \code{HashMap} and overrides the \code{put()} method to quickly convert the \code{value} of the (key,value) pair into a string. \code{SQLValueMaps} instances are extensively used when building strings that are sent to the SQL database. The remaining \code{TransactionMap}, \code{AccountMap}, \code{TransactionList} and \code{AccountList} classes are all shorthand "typedef" classes for \code{HashMap} and \code{ArrayList} objects.\\
 
-\subsubsection{Detailed Design Diagram}
+In order to simplify the following class diagrams, dependencies on these types are to be assumed and have been omitted.
+
+\subsection{Model}
+
+\subsubsection{Design Diagram}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/Model.png}
+\captionof{figure}{Model subsystem class diagram}\bigskip
+
+The model subsystem consists of two main parts. The first is the \code{RepositoryContainer} that interfaces with the rest of the application. It owns the \code{TransactionRepository} and \code{AccountRepository} instances and passes read or write commands to each as they are received from the controllers. It also notifies the views of any CRUD operations using the observer pattern.\\
+
+The second part consists of the SQL database. This is where all information is serialized to allow access between user sessions. It is continuously updated by the repositories as modifications are made. SQL queries to the database can easily be created by using the singleton \code{SQLStringFactory}.\\
 
 \textit {From the template (delete me) --- UML class diagram depicting the internal structure of the subsystem, accompanied by a paragraph of text describing the rationale of this design.}
 
 \subsubsection{Units Description}
 
+\paragraph {SQLStringFactory.java}
+\begin{center}
+\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf {Class Name} & {SQLStringFactory.java} \\ \hline 
+\textbf {Inherits} & {} \\ \hline 
+\textbf {Description} & { Singleton for building formatted SQL statements for interaction with databases.} \\ \hline 
+\textbf {Attributes} &
+
+\footnotesize
+\begin{tabular}{l|l|l|l}
+\textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
+private &SQLStringFactory&m\textunderscore instance&holds the instance of the SQLStringFactory
+\end{tabular} \\ \hline
+\textbf {Methods} &
+
+\footnotesize
+\begin{tabular}{l|l|l|p{5cm}}
+\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
+public&getInstance&SQLStringFactory&getter for the instance of the SQLStringFactory\\ \hline 
+private&SQLStringFactory&~&constructor\\ \hline 
+public&deleteTable&String &Creates a drop table SQL statement\\ \hline 
+public&createTable&String &Creates a create table SQL statement\\ \hline 
+public&addColumn&String &Creates an alter table SQL statement\\ \hline 
+public &addEntry&String &Creates an insert into SQL statement\\ \hline
+public &deteleEntry&String &Creates a delete from SQL statement\\ \hline 
+public &addEntryUsingMap&String &Creates an insert into SQL statement using mapped values\\ \hline 
+public &updateEntryUsingMap&String &Creates an update SQL statement using mapped values\\ \hline 
+public &selectEntryUsingMap&String &Creates a select SQL statement using mapped values\\ \hline 
+protected &buildWhereCondition&String &Generates chunks of SQL where conditions\\ \hline 
+protected &EscapeSQLValue&String &"Cleans" SQL statements to prevent injection\\ \hline 
+public&showAll&String &Creates a basic select all SQL statement.
+\end{tabular} \\ \hline
+
+\end{tabular}
+\end{center}
+
+\subsection{View}
+
+\subsubsection{Design Diagram}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/View.png}
+\captionof{figure}{View subsystem class diagram}\bigskip
+
+TODO - Put words here
+
+\subsection{Units Description}
+
+TODO - Put all classes from the diagram here
+
+\subsection{Controller}
+
+\subsubsection{Design Diagram}
+
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/Controller.png}
+\captionof{figure}{Controller subsystem class diagram}\bigskip
+
+TODO - Put words here
+
+
+\subsubsection{Units Description}
+
+TODO - Put all classes from the diagram here
 
 \paragraph {AbstractAppController.java}
 \begin{center}
@@ -749,42 +822,7 @@ public&setLayout &void &populates the UI frame with various UI account elements
 
 \end{tabular}
 \end{center}
-\paragraph {SQLStringFactory.java}
-\begin{center}
-\footnotesize
-\begin{tabular}{|l|l|}
-\hline
-\textbf {Class Name} & {SQLStringFactory.java} \\ \hline 
-\textbf {Inherits} & {} \\ \hline 
-\textbf {Description} & { Builds formatted SQL statements for interaction with databases.} \\ \hline 
-\textbf {Attributes} &
 
-\footnotesize
-\begin{tabular}{l|l|l|l}
-\textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
-private &SQLStringFactory&m\textunderscore instance&holds the instance of the SQLStringFactory
-\end{tabular} \\ \hline
-\textbf {Methods} &
-
-\footnotesize
-\begin{tabular}{l|l|l|p{5cm}}
-\textbf{Visibility} & \textbf{Method Name} & \textbf{Return type} &\textbf{Description} \\ \hline
-public&getInstance&SQLStringFactory&getter for the instance of the SQLStringFactory\\ \hline 
-private&SQLStringFactory&~&constructor\\ \hline 
-public&deleteTable&String &Creates a drop table SQL statement\\ \hline 
-public&createTable&String &Creates a create table SQL statement\\ \hline 
-public&addColumn&String &Creates an alter table SQL statement\\ \hline 
-public &addEntry&String &Creates an insert into SQL statement\\ \hline 
-public &addEntryUsingMap&String &Creates an insert into SQL statement using mapped values\\ \hline 
-public &updateEntryUsingMap&String &Creates an update SQL statement using mapped values\\ \hline 
-public &selectEntryUsingMap&String &Creates a select SQL statement using mapped values\\ \hline 
-protected &buildWhereCondition&String &Generates chunks of SQL where conditions\\ \hline 
-protected &EscapeSQLValue&String &"Cleans" SQL statements to prevent injection\\ \hline 
-public&showAll&String &Creates a basic select all SQL statement.
-\end{tabular} \\ \hline
-
-\end{tabular}
-\end{center}
 \paragraph {SQLValueMap.java}
 \begin{center}
 \footnotesize

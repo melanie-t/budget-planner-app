@@ -1,9 +1,16 @@
 import java.util.Map.Entry;
 
+/**
+ * Singleton class used to generate String objects formatted for SQL queries.
+ */
 public class SQLStringFactory 
 {
 	private static SQLStringFactory m_instance = null;
-	
+
+	/**
+	 * Returns the instance of the singleton.
+	 * @return a reference to the instance
+	 */
 	public static SQLStringFactory getInstance()
 	{
 		if (m_instance == null)
@@ -12,19 +19,33 @@ public class SQLStringFactory
 		}
 		return m_instance;
 	}
-	
+
+	/**
+	 * Constructor.
+	 */
 	private SQLStringFactory()
 	{
-		
 	}
-	
+
+	/**
+	 * Generate a DROP TABLE statement.
+	 * @param tableName name of table
+	 * @return SQL query String
+	 */
 	public String deleteTable(String tableName)
 	{
 		String sql = "DROP TABLE IF EXISTS " + tableName;
 		
 		return sql;
 	}
-	
+
+	/**
+	 * Generate a CREATE TABLE statement.
+	 * @param tableName name of the table
+	 * @param primaryKeyName name of the primary key
+	 * @param primaryKeyType SQL type of the key
+	 * @return SQL query String
+	 */
 	public String createTable(String tableName, String primaryKeyName, String primaryKeyType)
 	{
 
@@ -34,6 +55,18 @@ public class SQLStringFactory
 		
 		return sql;
 	}
+
+	/**
+	 * Generate a CREATE TABLE statement with foreign key references.
+	 * @param tableName name of the table
+	 * @param primaryKeyName name of the primary key
+	 * @param primaryKeyType SQL type of the primary key
+	 * @param foreignKeyName name of the foreign key
+	 * @param foreignKeyType SQL type of the foreign
+	 * @param foreignKeyReferencesTable table associated with foreign key
+	 * @param foreignKeyReferencesColumn column in this table for foreign key
+	 * @return SQL query string
+	 */
 	public String createTable(String tableName, String primaryKeyName, String primaryKeyType, String foreignKeyName, String foreignKeyType, String foreignKeyReferencesTable, String foreignKeyReferencesColumn)
 	{
 
@@ -45,7 +78,14 @@ public class SQLStringFactory
 		
 		return sql;
 	}
-	
+
+	/**
+	 * Generate an ALTER TABLE ... ADD COLUMN statement.
+	 * @param tableName name of table
+	 * @param columnName name of column
+	 * @param columnType SQL type of column
+	 * @return SQL query string
+	 */
 	public String addColumn(String tableName, String columnName, String columnType/*, String... defaultValue*/)
 	{
 		// TODO - implement stuff for default value
@@ -58,35 +98,47 @@ public class SQLStringFactory
 		return sql;
 	} 
 	
-	public String addEntry(String tableName, String... values) //@TODO change quotes ESCAPE value update TEST
-	{
-		String sql = "INSERT INTO " + tableName + " VALUES (";
-				
-		for (String value : values)
-		{
-			if (value == "NULL")
-			{
-				sql += "NULL, ";
-			}
-			else
-			{
-				sql += "\"" + value + "\", ";	
-			}
-			
-		}
-		
-		sql = sql.substring(0, sql.length() - 2); // chop off the last ", " 
-		sql += ");";
-		
-		return sql;
-	}
+//	public String addEntry(String tableName, String... values) //@TODO change quotes ESCAPE value update TEST
+//	{
+//		String sql = "INSERT INTO " + tableName + " VALUES (";
+//
+//		for (String value : values)
+//		{
+//			if (value == "NULL")
+//			{
+//				sql += "NULL, ";
+//			}
+//			else
+//			{
+//				sql += "\"" + value + "\", ";
+//			}
+//
+//		}
+//
+//		sql = sql.substring(0, sql.length() - 2); // chop off the last ", "
+//		sql += ");";
+//
+//		return sql;
+//	}
 
+	/**
+	 * Generate DELETE FROM ... WHERE statement.
+	 * @param tableName table name
+	 * @param primaryKey name of the primary key
+	 * @param value primary key value
+	 * @return SQL query string
+	 */
 	public String deleteEntry(String tableName, String primaryKey, Integer value)
 	{
 		return "DELETE FROM " + tableName + " WHERE " + primaryKey + "='" + value + "';";
 	}
-	
-	
+
+	/**
+	 * Generate INSERT INTO ... VALUES statement.
+	 * @param tableName table name
+	 * @param values
+	 * @return
+	 */
 	public String addEntryUsingMap(String tableName, SQLValueMap values)
 	{
 		String strColumns = "";
