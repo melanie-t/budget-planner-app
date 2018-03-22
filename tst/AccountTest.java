@@ -7,32 +7,25 @@ public class AccountTest {
 	public void setupAccount() {
 
 		/* Test Account */
-		int id = 1;
-		int balance = 1000;
+		Integer id = 1;
+		Integer balance = 1000;
 		String bankName = "Bank of Montreal";
 		String nickname = "BMO";
 
 		Account testAccount = new Account(id, bankName, nickname, balance);
 		
-		/* Expected Account tuple */
-		Account expectedAccount = new Account();
-		expectedAccount.setId(id);
-		expectedAccount.setBalance(balance);
-		expectedAccount.setBankName(bankName);
-		expectedAccount.setNickname(nickname);
-		
-		assertEquals(testAccount.getBalance(), expectedAccount.getBalance());
-		assertEquals(testAccount.getId(), expectedAccount.getId());
-		assertEquals(testAccount.getBankName(), expectedAccount.getBankName());
-		assertEquals(testAccount.getNickname(), expectedAccount.getNickname());
+		assertEquals(testAccount.getBalance(), balance);
+		assertEquals(testAccount.getId(), id);
+		assertEquals(testAccount.getBankName(), bankName);
+		assertEquals(testAccount.getNickname(), nickname);
 	}
 	
 	@Test
-	public void testUpdateAccount() {
+	public void updateAccountTest() {
 		
 		/* Test Account */
-		int id = 1;
-		int balance = 1000;
+		Integer id = 1;
+		Integer balance = 1000;
 		String bankName = "Bank of Montreal";
 		String nickname = "BMO";
 
