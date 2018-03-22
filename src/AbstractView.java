@@ -7,17 +7,21 @@ import java.util.ArrayList;
  * Each time a new view is created, it adds itself to a private static array. Whenever modifications are
  * made to the current selection, each view in the array then updates itself accordingly.
  */
-public abstract class AbstractView
+public abstract class AbstractView<T extends AbstractUniqueId>
 {
     private static Integer currentAccountSelection = 0;
     private static Integer currentTransactionSelection = 0;
     private static ArrayList<AbstractView> instances = new ArrayList<>();
 
+    protected IModelView model;
+    protected ArrayList<T> items;
+
     /**
      * Constructor.
      */
-    public AbstractView()
+    public AbstractView(IModelView model)
     {
+        this.model = model;
         AbstractView.instances.add(this);
     }
 
@@ -48,6 +52,22 @@ public abstract class AbstractView
     }
 
     /**
+     * Find an item in the local list with specified it
+     * @param id item id
+     * @return the item if found, null otherwise
+     */
+    protected T findItem(Integer id)
+    {
+        for (T item : items)
+        {
+            if (item.getId().equals(id))
+                return item;
+        }
+        return null;
+    }
+
+
+    /**
      * Get the id of the currently selected account.
      * @return account id
      */
@@ -68,4 +88,24 @@ public abstract class AbstractView
      * Handler method called whenever changed are made to an active selection.
      */
     protected abstract void handleTransactionSelectionChange();
+
+    /**
+     * Highlights the entry in the table with the current selection id.
+     */
+    protected abstract void highlightCurrentSelection();
+
+    /**
+     * Clear current fields and reset current selection.
+     */
+    protected abstract void handleClear();
+
+    /**
+     * Fills the user fields with the info from the specified item.
+     */
+    protected abstract void fillFields(T item);
+
+    /**
+     * Refresh the table content with the latest information.
+     */
+    protected abstract void fillTable();
 }

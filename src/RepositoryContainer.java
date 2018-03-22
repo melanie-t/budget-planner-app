@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The RepositoryContainer provides a facade for the model and exposes the methods required by the view
+ * and the controller.
+ */
 public class RepositoryContainer implements IModelView, IModelController {
 
     private TransactionRepository transactionRepository;
@@ -12,6 +16,11 @@ public class RepositoryContainer implements IModelView, IModelController {
 
     private ArrayList<IObserver> observers;
 
+    /**
+     * Constructor.
+     * @param transactionRepository the transaction repository
+     * @param accountRepository the account repository
+     */
     public RepositoryContainer(TransactionRepository transactionRepository, AccountRepository accountRepository)
     {
         this.transactionRepository = transactionRepository;
@@ -111,13 +120,18 @@ public class RepositoryContainer implements IModelView, IModelController {
         }
     }
 
-    // This will delete the previous tables and create new ones
+    /**
+     * Delete tables in the database and create new ones.
+     */
     public void resetSQLStructure()
     {
         accountRepository.reinitSQLStructure();
         transactionRepository.reinitSQLStructure();
     }
 
+    /**
+     * Deserialize the content of the database and populate the repositories
+     */
     public void loadAllItems()
     {
         accountRepository.loadAllItems();
@@ -125,7 +139,9 @@ public class RepositoryContainer implements IModelView, IModelController {
         notifyObservers();
     }
 
-    // This will create tables
+    /**
+     * Create tables in the database and initialize their structure.
+     */
     public void initSQLStructure()
     {
         accountRepository.initSQLStructure();

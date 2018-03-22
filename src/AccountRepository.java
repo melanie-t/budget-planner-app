@@ -3,12 +3,18 @@ import com.sun.javafx.runtime.async.AbstractAsyncOperation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Repositoy class for Account objects.
+ */
 public class AccountRepository extends AbstractRepository<Account> {
-	
+
+    /**
+     * Constructor.
+     * @param database database associated with this repository
+     */
 	public AccountRepository(Database database) {
 	    super(database, "account", "accountId");
 	}
-
 
     public void initSQLStructure() {
         database.updateSQL(sql.createTable(tableName, primaryKey, "INTEGER"));	//pass "NULL" to auto-increment

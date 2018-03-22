@@ -16,7 +16,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class AccountView extends AbstractView implements IAccountView, IViewGUI {
+/**
+ * Implementation of the IAccountView interface. Requires a model that implements the IModelView
+ * interface.
+ */
+public class AccountView extends AbstractView<Account> implements IAccountView, IViewGUI {
 
 	// Account UI elements
 	private JPanel panel;
@@ -35,13 +39,13 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
 	private JTable table;
 	private JScrollPane scrollPane;
 
-    private IModelView model;
-    private ArrayList<Account> items;
-
+    /**
+     * Constructor.
+     * @param model model
+     */
 	public AccountView(IModelView model)
 	{
-        super();
-        this.model = model;
+        super(model);
         items = new ArrayList<>();
         model.attachObserver(this);
 		createAccPanel();
@@ -86,8 +90,8 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
 
     @Override
     protected void handleAccountSelectionChange() {
-        Account currentSelection = findAccount(getCurrentAccountSelection());
-        fillFieldsFromAccount(currentSelection);
+        Account currentSelection = findItem(getCurrentAccountSelection());
+        fillFields(currentSelection);
         highlightCurrentSelection();
     }
 
@@ -114,10 +118,10 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
         deleteButton.addActionListener(listener);
     }
 
-    private void highlightCurrentSelection() {
+    protected void highlightCurrentSelection() {
         if (getCurrentAccountSelection() == 0)
         {
-            fillFieldsFromAccount(null);
+            fillFields(null);
             return;
         }
         Account item;
@@ -127,28 +131,20 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
             if (item.getId().equals(getCurrentAccountSelection()))
             {
                 table.setRowSelectionInterval(i, i);
-                fillFieldsFromAccount(item);
+                fillFields(item);
                 return;
             }
         }
     }
-    private void handleClear()
+
+    protected void handleClear()
     {
         setCurrentAccountSelection(0);
         update();
     }
 
-    private Account findAccount(Integer id)
-    {
-        for (Account account : items)
-        {
-            if (account.getId().equals(id))
-                return account;
-        }
-        return null;
-    }
 
-    private void fillFieldsFromAccount(Account account)
+    protected void fillFields(Account account)
     {
         if (account == null)
         {
@@ -165,7 +161,7 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
 
     }
 
-    private void fillTable()
+    protected void fillTable()
     {
         // Clear table
         tableModel.setRowCount(0);
@@ -187,6 +183,9 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
             setCurrentAccountSelection(0);
     }
 
+    /**
+     * Create GUI elements
+     */
     private void createAccPanel() {
 		// Create Account UI elements
 		panel = new JPanel();
@@ -234,7 +233,9 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
 		});
 	}
 
-
+    /**
+     * Set layout for GUI elements
+     */
     private void setLayout() {
 		GroupLayout layout = new GroupLayout(panel);
 		panel.setLayout(layout);	

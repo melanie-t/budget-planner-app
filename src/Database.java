@@ -2,25 +2,34 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
 
-
+/**
+ * The Database class uses the SQLite.JDBC library to serialize the repositories between user sessions.
+ */
 public class Database 
 {
 	private String m_driver; // Driver should always be the same
 	private String m_dbName;
 	private Connection m_connection ;
 
-	
+	/**
+	 * Constructor.
+	 * This will construct a Database instance using the org.sqlite.JDBC driver
+	 * @param dbName name of the database that this class will connect to
+	 */
 	public Database(String dbName)
 	{
 		this("org.sqlite.JDBC", dbName);
 	}
-	
-	// In case we want to use a different driver, should never be the case though
+
+	/**
+	 * Constructor.
+	 * Allows to specify a different driver.
+	 * @param driver driver for the database
+	 * @param dbName name of the database that this class will connect to
+	 */
 	public Database(String driver, String dbName)
 	{
 		m_driver = driver;
@@ -37,7 +46,11 @@ public class Database
 		}
 	}
 
-	
+	/**
+	 * Execute a pull query on the database.
+	 * @param sqlString SQL string query
+	 * @return result of the query
+	 */
 	public ResultSet fetchSQL(String sqlString) {
 		try 
 		{ 
@@ -51,8 +64,11 @@ public class Database
 		return null;
 	}
 
-
-	// This is the "lowest" we go in terms of abstraction for our db, this is where are modifications one the db are done
+	/**
+	 * Execute a push query on the database. Should only insert one entry at a time.
+	 * @param sqlString SQL query string
+	 * @return generated id of the entry
+	 */
 	public Integer updateSQL(String sqlString)
 	{
 		int newId = 0;
@@ -77,6 +93,9 @@ public class Database
 		return newId;
 	}
 
+	/**
+	 * Disconnect from the database
+	 */
 	public void shutdown()
 	{
 		try

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class TransactionView extends AbstractView implements ITransactionView, IViewGUI {
+public class TransactionView extends AbstractView<Transaction> implements ITransactionView, IViewGUI {
 
 	// Transaction UI elements
 	private JPanel panel;
@@ -29,13 +29,10 @@ public class TransactionView extends AbstractView implements ITransactionView, I
 	private JTable table;
 	private JScrollPane scrollPane;
 
-    private IModelView model;
-    private ArrayList<Transaction> items;
 
 	public TransactionView(IModelView model)
 	{
-        super();
-        this.model = model;
+        super(model);
         items = new ArrayList<>();
         model.attachObserver(this);
 		createTransPanel();
@@ -121,21 +118,20 @@ public class TransactionView extends AbstractView implements ITransactionView, I
     @Override
     protected void handleAccountSelectionChange() {
         setCurrentTransactionSelection(0);
-        highlightCurrentSelection();
         update();
     }
 
     @Override
     protected void handleTransactionSelectionChange() {
-        Transaction currentSelection = findTransaction(getCurrentTransactionSelection());
-        fillFieldsFromTransaction(currentSelection);
+        Transaction currentSelection = findItem(getCurrentTransactionSelection());
+        fillFields(currentSelection);
         highlightCurrentSelection();
     }
 
-    private void highlightCurrentSelection() {
+    protected void highlightCurrentSelection() {
         if (getCurrentTransactionSelection() == 0)
         {
-            fillFieldsFromTransaction(null);
+            fillFields(null);
             return;
         }
 
@@ -146,29 +142,19 @@ public class TransactionView extends AbstractView implements ITransactionView, I
             if (item.getId().equals(getCurrentTransactionSelection()))
             {
                 table.setRowSelectionInterval(i, i);
-                fillFieldsFromTransaction(item);
+                fillFields(item);
                 return;
             }
         }
     }
 
-    private void handleClear()
+    protected void handleClear()
     {
         setCurrentTransactionSelection(0);
         update();
     }
 
-    private Transaction findTransaction(Integer id)
-    {
-        for (Transaction transaction : items)
-        {
-            if (transaction.getId().equals(id))
-                return transaction;
-        }
-        return null;
-    }
-
-    private void fillFieldsFromTransaction(Transaction transaction)
+    protected void fillFields(Transaction transaction)
     {
         if (transaction == null)
         {
@@ -186,7 +172,7 @@ public class TransactionView extends AbstractView implements ITransactionView, I
         }
     }
 
-    private void fillTable()
+    protected void fillTable()
     {
         // Clear table
         tableModel.setRowCount(0);
@@ -208,6 +194,9 @@ public class TransactionView extends AbstractView implements ITransactionView, I
             setCurrentTransactionSelection(0);
     }
 
+    /**
+     * C
+     */
     private void createTransPanel() {
 		// Create Transaction UI elements
 		panel = new JPanel();

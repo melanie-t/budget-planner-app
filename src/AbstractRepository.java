@@ -102,7 +102,7 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
     }
 
     /**
-     * Construct and save a new item to the repository from a result query to the database.
+     * Deserialize an entry from the database and create and save a new item to the repository.
      * @param result result query returned by the database
      */
     abstract protected void setItemFromResult(ResultSet result);
