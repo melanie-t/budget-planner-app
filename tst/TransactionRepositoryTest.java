@@ -1,67 +1,30 @@
-//import org.junit.Test;
-//import java.io.File;
-//import static org.junit.Assert.*;
-//import java.util.HashMap;
-//import org.junit.BeforeClass;
-//import org.junit.AfterClass;
-//
-//public class TransactionRepositoryTest {
-//
-//	private static TransactionRepository transacRepoTest;
-//
-//	@BeforeClass
-//
-//	public static void setUpClass() {
-//		/* Test Account */
-//		AccountModel testAcc = new AccountModel();
-//		testAcc.setId(1);
-//		testAcc.setBalance(0);
-//		testAcc.setBankName("Fort Knox");
-//		testAcc.setNickname("Oddjob");
-//
-//		/* Expected transaction tuple */
-//		Integer accountID = 1;
-//		String type = "deposit";
-//		String date = "09-09-1999";
-//		Integer amount = 100;
-//		TransactionModel expected = new TransactionModel();
-//		expected.setAssociatedAccountId(accountID);
-//		expected.setType(type);
-//		expected.setDate(date);
-//		expected.setAmount(amount);
-//
-//		/* Test database for the transaction */
-//		Database testDatabase = new Database("transactions");
-//		AccountTransactionRepository testAccTransacRepo = new AccountTransactionRepository(testDatabase, testAcc);
-//
-//		ImportTransaction transaction = new ImportTransaction();
-//		transaction.setAccountTransactionRepository(testAccTransacRepo);
-//		transaction.addTransaction("tst/spread_sheet_test_case.csv");
-//
-//		transacRepoTest = new TransactionRepository(testDatabase);
-//	}
-//
-//	@Test
-//	public void loadItemTest() {
-//		Integer itemID = new Integer(1);
-//		transacRepoTest.loadItem(itemID);
-//
-//		int expectedNumAccount = 1;
-//		assertEquals(transacRepoTest.itemMap.size(), expectedNumAccount);
-//	}
-//
-//	@Test
-//	public void loadAllTest() {
-//		transacRepoTest.itemMap.clear(); //Clear ItemMap to test loadItem() and loadAll() successively.
-//		transacRepoTest.loadAllItems();
-//		int expectedNumAccount = 1;
-//		assertEquals(transacRepoTest.itemMap.size(), expectedNumAccount);
-//	}
-//
-//	@AfterClass
-//	public static void tearDownclass() {
-//		transacRepoTest = null;
-//		//File f = new File("transactions"); // delete test database file
-//		//f.delete();
-//	}
-//}
+import org.junit.Test;
+import java.io.File;
+import static org.junit.Assert.*;
+import java.util.HashMap;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+
+public class TransactionRepositoryTest {
+
+	private static TransactionRepository transacRepoTest;
+
+	@BeforeClass
+
+	public static void setUpClass() {
+
+	    Transaction newTransaction = new Transaction(1, 1, "Type", "Date", 1000, "Description");
+	    transacRepoTest = new TransactionRepository(new Database("TransactionTest"));
+	    transacRepoTest.reinitSQLStructure();
+	    transacRepoTest.saveItem(newTransaction);
+	}
+
+	@Test
+	public void loadAllTest() {
+        assertEquals(transacRepoTest.itemMap.size(), 1);
+		transacRepoTest.itemMap.clear(); //Clear ItemMap to test loadItem() and loadAll() successively.
+        assertEquals(transacRepoTest.itemMap.size(), 0);
+        transacRepoTest.loadAllItems();
+		assertEquals(transacRepoTest.itemMap.size(), 1);
+	}
+}
