@@ -81,7 +81,7 @@ public class SQLStringFactory
 
 	/**
 	 * Generate an ALTER TABLE ... ADD COLUMN statement.
-	 * @param tableName name of table
+	 * @param tableName name of the table
 	 * @param columnName name of column
 	 * @param columnType SQL type of column
 	 * @return SQL query string
@@ -123,7 +123,7 @@ public class SQLStringFactory
 
 	/**
 	 * Generate DELETE FROM ... WHERE statement.
-	 * @param tableName table name
+	 * @param tableName name of the table
 	 * @param primaryKey name of the primary key
 	 * @param value primary key value
 	 * @return SQL query string
@@ -135,9 +135,9 @@ public class SQLStringFactory
 
 	/**
 	 * Generate INSERT INTO ... VALUES statement.
-	 * @param tableName table name
-	 * @param values
-	 * @return
+	 * @param tableName name of the table
+	 * @param values (column, value) pairs to insert
+	 * @return SQL query string
 	 */
 	public String addEntryUsingMap(String tableName, SQLValueMap values)
 	{
@@ -172,8 +172,14 @@ public class SQLStringFactory
 		
 		return sql;
 	}
-	
-	//This function updates the data
+
+	/**
+	 * Generate UPDATE ... WHERE statement.
+	 * @param tableName name of the table
+	 * @param values (column, value) pairs to update
+	 * @param where (column, value) tested values
+	 * @return SQL query string
+	 */
 	public String updateEntryUsingMap(String tableName, SQLValueMap values, SQLValueMap where)
 	{
 		String conditionOp = "AND"; // condition operator used to join where conditions
@@ -204,9 +210,14 @@ public class SQLStringFactory
 		
 		return sql;
 	}
-	
-	
-	//This function updates the data
+
+
+	/**
+	 * Generate SELECT * FROM ... WHERE statement
+	 * @param tableName name of table
+	 * @param where (column, value) tested values
+	 * @return SQL query string
+	 */
 	public String selectEntryUsingMap(String tableName, SQLValueMap where)
 	{
 		String conditionOp = "AND"; // condition operator used to join where conditions
@@ -222,8 +233,13 @@ public class SQLStringFactory
 		
 		return sql;
 	}
-	
-	//Build Where condition
+
+	/**
+	 * Generate content of the WHERE portion of a statement
+	 * @param where (column, value) tested values
+	 * @param conditionOp condition operator
+	 * @return SQL query string
+	 */
 	protected String buildWhereCondition(SQLValueMap where, String conditionOp) { 
 		//This function may be used to create chunks of conditions
 				
@@ -253,24 +269,21 @@ public class SQLStringFactory
 		}
 		return whereCondition;
 	}
-	
+
+	/**
+	 * Helper to generate escape character sequences
+	 * @param value string to "escape"
+	 * @return SQL escape character sequence
+	 */
 	protected String EscapeSQLValue(String value) {
 		// Credit: https://stackoverflow.com/questions/1812891/java-escape-string-to-prevent-sql-injection
 		value = value.replace("\\", "\\\\");
-	    value = value.replace("'", "\\'");
-	    value = value.replace("\0", "\\0");
-	    value = value.replace("\n", "\\n");
-	    value = value.replace("\r", "\\r");
-	    value = value.replace("\"", "\\\"");
-	    value = value.replace("\\x1a", "\\Z");
+		value = value.replace("'", "\\'");
+		value = value.replace("\0", "\\0");
+		value = value.replace("\n", "\\n");
+		value = value.replace("\r", "\\r");
+		value = value.replace("\"", "\\\"");
+		value = value.replace("\\x1a", "\\Z");
 		return value;
 	}
-	
-	public String showAll(String tableName)
-	{
-		String sql = "SELECT * from " + tableName;
-		
-		return sql;
-	}
-	
 }
