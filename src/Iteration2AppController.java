@@ -1,4 +1,7 @@
-public class Iteration2AppController implements IAppController {
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+public class Iteration2AppController implements IAppController, WindowListener{
 
 	Database myDatabase;
 	SQLStringFactory sql;
@@ -59,9 +62,8 @@ public class Iteration2AppController implements IAppController {
 	}
 
 
-	@Override
-	public void shutdown() {
-//		myDatabase.shutdown();
+	private void shutdown() {
+		myDatabase.shutdown();
 	}
 
 	public void run() {
@@ -70,7 +72,8 @@ public class Iteration2AppController implements IAppController {
 		User currentUser = new User();
 
 		// Create window
-		MainView v = new MainView("My Money Manager", accountView, transactionView);
+		MainView v = new MainView("My Money Manager", accountView, transactionView, this);
+
 
 		/*
 		mainController.setAccountRepository(theAccountRespository);
@@ -108,6 +111,39 @@ public class Iteration2AppController implements IAppController {
 		*/
 	}
 
+	@Override
+	public void windowOpened(WindowEvent e) {
 
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		shutdown();
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+
+	}
 }
 

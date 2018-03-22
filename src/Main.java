@@ -12,7 +12,6 @@ public class Main {
 		Iteration2AppController App = new Iteration2AppController();
 		App.start();
 		App.run();
-		App.shutdown();
 	}
 	
 	

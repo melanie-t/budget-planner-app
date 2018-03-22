@@ -1,5 +1,6 @@
 
 import java.awt.Component;
+import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -8,11 +9,15 @@ import javax.swing.JPanel;
 public class MainView
 {
 	// View uses Swing framework to display UI to user
+    private JFrame mainFrame;
 
-	public MainView(String title, IViewGUI accountView, IViewGUI transactionView)
+	public MainView(String title,
+                    IViewGUI accountView,
+                    IViewGUI transactionView,
+                    WindowListener listener)
     {
         // Create main frame container
-        JFrame mainFrame = new JFrame(title);
+        mainFrame = new JFrame(title);
         mainFrame.setSize(1050, 480);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation((JFrame.DISPOSE_ON_CLOSE));
@@ -33,6 +38,8 @@ public class MainView
 
         // Attack main panel to frame
         mainFrame.add(mainPanel);
+
+        mainFrame.addWindowListener(listener);
 
         mainFrame.validate();
         mainFrame.repaint();
