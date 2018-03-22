@@ -1,0 +1,49 @@
+@startuml
+hide footbox
+
+participant TransactionController
+box "Model" #LightBlue
+participant RepositoryContainer
+end box
+box "Types" #LightGreen
+participant BufferedReader
+participant Transaction
+end box
+box "Services" #LightYellow
+participant Java.lang.String
+end box
+
+TransactionController -> RepositoryContainer : importTransactions(filePath, accountId)
+
+group Model
+    RepositoryContainer -> BufferedReader : <<create>> from filePath
+    RepositoryContainer <-- BufferedReader : bufferedReader
+alt Exception caught
+    RepositoryContainer --> RepositoryContainer : error popup
+else else
+    loop (bufferedReader.readLine()) != null
+        RepositoryContainer -> BufferedReader : bufferedReader.readLine()
+        RepositoryContainer <-- BufferedReader : line
+        RepositoryContainer -> Java.lang.String : line.split(",")
+        note right
+            CSV file structure:
+            tokenList[0]: type
+            tokenList[1]: date
+            tokenList[2]: amount
+        end note
+        RepositoryContainer <-- Java.lang.String : tokenList
+    
+        group Construct Transaction Object
+            RepositoryContainer -> Transaction : <<create>>
+            RepositoryContainer <-- Transaction : newTransaction
+
+            RepositoryContainer -> Transaction : newTransaction.setAccountId(accountId)
+            RepositoryContainer -> Transaction : newTransaction.setType(tokenList[0])
+            RepositoryContainer -> Transaction : newTransaction.setDate(tokenList[1])
+            RepositoryContainer -> Transaction : newTransaction.setAccountId(tokenList[2])
+        end group
+
+        RepositoryContainer -> RepositoryContainer : saveTransaction(newTransaction)
+    end loop
+end group
+@enduml

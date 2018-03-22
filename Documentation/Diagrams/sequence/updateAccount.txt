@@ -1,0 +1,38 @@
+@startuml
+hide footbox
+actor User
+
+box "MVC" #LightBlue
+participant AccountView
+participant AccountController
+participant RepositoryContainer
+end box
+box "Types" #LightGreen
+participant Account
+end box
+
+User -> AccountView : Select an item from the table
+User -> AccountView : Fill fields
+User -> AccountView : Press "Update" button
+AccountView -> AccountController : actionPerformed()
+
+== Fetch user input from fields == 
+AccountController -> AccountView : getSelectedAccountId( )
+AccountController <-- AccountView : accountId
+AccountController -> AccountView : getBankInput( )
+AccountController <-- AccountView : bankName
+AccountController -> AccountView : getNicknameInput( )
+AccountController <-- AccountView : accountNickname
+AccountController -> AccountView : getBalanceInput( )
+AccountController <-- AccountView : balance
+
+== Update account ==
+
+alt valid input
+    AccountController -> Account : <<create>>
+    AccountController <-- Account : account
+    AccountController -> RepositoryContainer : saveAccount(account)
+else invalid input
+    AccountController <-- AccountController : error popup
+end
+@enduml

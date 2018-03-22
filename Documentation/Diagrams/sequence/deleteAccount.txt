@@ -1,0 +1,17 @@
+@startuml
+hide footbox
+actor User
+
+box "MVC" #LightBlue
+participant AccountView
+participant AccountController
+participant RepositoryContainer
+end box
+
+User -> AccountView : Select item from table
+User -> AccountView : Press "Delete" button
+AccountView -> AccountController : actionPerformed( )
+AccountView <- AccountController : getSelectedAccountId( )
+AccountView --> AccountController : accountId( )
+AccountController -> RepositoryContainer : deleteAccount(accountId)
+@enduml

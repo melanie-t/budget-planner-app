@@ -1,0 +1,47 @@
+\contentsline {section}{\numberline {1}Introduction}{5}
+\contentsline {section}{\numberline {2}Architectural Design}{5}
+\contentsline {subsection}{\numberline {2.1}Architectural Diagram}{6}
+\contentsline {subsection}{\numberline {2.2}Subsystem Interface Specifications}{7}
+\contentsline {subsubsection}{\numberline {2.2.1}Model - View : Observer Pattern}{7}
+\contentsline {subsubsection}{\numberline {2.2.2}Model : IModelView Interface}{8}
+\contentsline {subsubsection}{\numberline {2.2.3}Model : IModelController Interface}{8}
+\contentsline {subsubsection}{\numberline {2.2.4}View : IAccountView}{8}
+\contentsline {subsubsection}{\numberline {2.2.5}View : ITransactionView}{9}
+\contentsline {subsubsection}{\numberline {2.2.6}View : IViewGUI}{10}
+\contentsline {subsubsection}{\numberline {2.2.7}Controller : ActionListener}{10}
+\contentsline {section}{\numberline {3}Detailed Design}{10}
+\contentsline {subsection}{\numberline {3.1}Subsystem X}{11}
+\contentsline {subsubsection}{\numberline {3.1.1}Detailed Design Diagram}{11}
+\contentsline {subsubsection}{\numberline {3.1.2}Units Description}{11}
+\contentsline {paragraph}{\numberline {3.1.2.1}AbstractAppController.java}{11}
+\contentsline {paragraph}{\numberline {3.1.2.2}AbstractEventListener.java}{11}
+\contentsline {paragraph}{\numberline {3.1.2.3}AbstractModel.java}{11}
+\contentsline {paragraph}{\numberline {3.1.2.4}AbstractView.java}{12}
+\contentsline {paragraph}{\numberline {3.1.2.5}AbstractViewController.java}{12}
+\contentsline {paragraph}{\numberline {3.1.2.6}AccountController.java}{12}
+\contentsline {paragraph}{\numberline {3.1.2.7}AccountModel.java}{13}
+\contentsline {paragraph}{\numberline {3.1.2.8}AccountRepository.java}{14}
+\contentsline {paragraph}{\numberline {3.1.2.9}AccountTransactionRepository.java}{15}
+\contentsline {paragraph}{\numberline {3.1.2.10}AccountView.java}{15}
+\contentsline {paragraph}{\numberline {3.1.2.11}Database.java}{17}
+\contentsline {paragraph}{\numberline {3.1.2.12}DummyAppController.java}{18}
+\contentsline {paragraph}{\numberline {3.1.2.13}ImportTransaction.java}{18}
+\contentsline {paragraph}{\numberline {3.1.2.14}Iteration2AppController.java}{18}
+\contentsline {paragraph}{\numberline {3.1.2.15}MainController.java}{19}
+\contentsline {paragraph}{\numberline {3.1.2.16}MainView.java}{19}
+\contentsline {paragraph}{\numberline {3.1.2.17}SQLStringFactory.java}{20}
+\contentsline {paragraph}{\numberline {3.1.2.18}SQLValueMap.java}{20}
+\contentsline {paragraph}{\numberline {3.1.2.19}TransactionController.java}{20}
+\contentsline {paragraph}{\numberline {3.1.2.20}TransactionModel.java}{21}
+\contentsline {paragraph}{\numberline {3.1.2.21}TransactionRepository.java}{22}
+\contentsline {paragraph}{\numberline {3.1.2.22}TransactionView.java}{22}
+\contentsline {paragraph}{\numberline {3.1.2.23}UserModel.java}{25}
+\contentsline {paragraph}{\numberline {3.1.2.24}Util.java}{25}
+\contentsline {section}{\numberline {4}Dynamic Design Scenarios}{25}
+\contentsline {subsection}{\numberline {4.1}Add an account}{26}
+\contentsline {subsection}{\numberline {4.2}Update an account}{27}
+\contentsline {subsection}{\numberline {4.3}Delete an account}{28}
+\contentsline {subsection}{\numberline {4.4}Import a transaction list}{29}
+\contentsline {subsection}{\numberline {4.5}Model implementation details}{29}
+\contentsline {subsubsection}{\numberline {4.5.1}saveAccount()}{29}
+\contentsline {subsubsection}{\numberline {4.5.2}importTransactions()}{31}

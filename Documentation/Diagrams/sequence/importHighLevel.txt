@@ -1,0 +1,17 @@
+@startuml
+hide footbox
+actor User
+
+box "Model" #LightBlue
+participant TransactionView
+participant TransactionController
+participant RepositoryContainer
+end box
+
+User -> TransactionView : Press "Import" button
+TransactionView -> TransactionController : actionPerformed( )
+TransactionController -> TransactionView : getSelectedAccountId( )
+TransactionController <-- TransactionView : accountId
+TransactionController --> TransactionController : prompt user for filePath
+TransactionController -> RepositoryContainer : importTransactions(filePath, accountId)
+@enduml

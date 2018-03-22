@@ -1,0 +1,645 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.15)  20 MAR 2018 23:59
+entering extended mode
+**./Iteration_2.tex
+(Iteration_2.tex
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 75 language(s) loaded.
+("e:\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("e:\MiKTeX 2.9\tex\latex\base\size12.clo"
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("e:\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count87
+\float@exts=\toks14
+\float@box=\box26
+\@float@everytoks=\toks15
+\@floatcapt=\box27
+)
+("e:\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("e:\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+("e:\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+("e:\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("e:\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("e:\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("E:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+("E:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen105
+\captionmargin@=\dimen106
+\captionwidth=\dimen107
+\caption@tempdima=\dimen108
+\caption@indent=\dimen109
+\caption@parindent=\dimen110
+\caption@hangindent=\dimen111
+)
+\c@ContinuedFloat=\count88
+Package caption Info: float package is loaded.
+)
+("E:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+("e:\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (Iteration_2.aux)
+\openout1 = `Iteration_2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+
+("E:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count89
+\scratchdimen=\dimen112
+\scratchbox=\box28
+\nofMPsegments=\count90
+\nofMParguments=\count91
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count92
+\MPscratchDim=\dimen113
+\MPnumerator=\count93
+\makeMPintoPDFobject=\count94
+\everyMPtoPDFconversion=\toks18
+) ("e:\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("e:\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+("e:\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+("e:\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("e:\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 44.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 44.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 44.
+ [1
+
+{C:/Users/Pierre-André/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (It
+eration_2.toc [2
+
+])
+\tf@toc=\write3
+\openout3 = `Iteration_2.toc'.
+
+
+[3] (Iteration_2.lof)
+\tf@lof=\write4
+\openout4 = `Iteration_2.lof'.
+
+ [4
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 70--72
+
+ []
+
+[5
+
+]
+<diagrams/UML/MVC.png, id=21, 763.85374pt x 583.17876pt>
+File: diagrams/UML/MVC.png Graphic file (type png)
+<use diagrams/UML/MVC.png>
+Package pdftex.def Info: diagrams/UML/MVC.png  used on input line 83.
+(pdftex.def)             Requested size: 455.23874pt x 347.56073pt.
+
+
+Package caption Warning: \captionsetup{type*=...} or \captionof
+(caption)                outside box or environment on input line 84.
+See the caption package documentation for explanation.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
+
+ []
+
+<diagrams/UML/Subsystem.png, id=23, 496.85625pt x 347.79938pt>
+File: diagrams/UML/Subsystem.png Graphic file (type png)
+<use diagrams/UML/Subsystem.png>
+Package pdftex.def Info: diagrams/UML/Subsystem.png  used on input line 93.
+(pdftex.def)             Requested size: 455.24826pt x 318.67378pt.
+[6 <./diagrams/UML/MVC.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 101.
+
+("e:\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
+ [7 <./diagrams/UML/Subsystem.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
+
+ []
+
+[8] [9] [10]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 194.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 194.
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--240
+[]\OT1/cmr/m/n/10 Getter for con-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 241--242
+[]\OT1/cmr/m/n/10 Default mes-sage
+ []
+
+
+Underfull \hbox (badness 1281) in paragraph at lines 241--242
+\OT1/cmr/m/n/10 to im-ple-ment this
+ []
+
+
+Overfull \hbox (10.6112pt too wide) in paragraph at lines 217--246
+ [] 
+ []
+
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 262.
+
+("e:\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 262.
+
+Overfull \hbox (28.0587pt too wide) in paragraph at lines 251--277
+ [] 
+ []
+
+[11]
+Overfull \hbox (32.33447pt too wide) in paragraph at lines 302--331
+ [] 
+ []
+
+
+Underfull \hbox (badness 1226) in paragraph at lines 353--353
+\OT1/cmr/m/n/10 ers/controls to all
+ []
+
+
+Underfull \hbox (badness 2990) in paragraph at lines 353--353
+\OT1/cmr/m/n/10 ac-count view el-e-
+ []
+
+
+Underfull \hbox (badness 4001) in paragraph at lines 353--353
+\OT1/cmr/m/n/10 ments and pop-u-
+ []
+
+
+Underfull \hbox (badness 5161) in paragraph at lines 356--356
+[]\OT1/cmr/m/n/10 Behaviour of the
+ []
+
+
+Underfull \hbox (badness 5161) in paragraph at lines 357--357
+[]\OT1/cmr/m/n/10 Behaviour of the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--357
+\OT1/cmr/m/n/10 "up-date ac-count"
+ []
+
+
+Underfull \hbox (badness 5161) in paragraph at lines 358--358
+[]\OT1/cmr/m/n/10 Behaviour of the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--358
+\OT1/cmr/m/n/10 "delete ac-count"
+ []
+
+
+Underfull \hbox (badness 5161) in paragraph at lines 359--359
+[]\OT1/cmr/m/n/10 Behaviour of the
+ []
+
+
+Underfull \hbox (badness 3919) in paragraph at lines 361--361
+[]\OT1/cmr/m/n/10 clear the UI ac-
+ []
+
+
+Underfull \hbox (badness 6110) in paragraph at lines 362--362
+\OT1/cmr/m/n/10 ber, get ac-count
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 363--363
+[]\OT1/cmr/m/n/10 modify ac-count
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 364--365
+[]\OT1/cmr/m/n/10 Update the at-
+ []
+
+
+Overfull \hbox (43.66692pt too wide) in paragraph at lines 335--368
+ [] 
+ []
+
+[12]
+Overfull \hbox (5.55856pt too wide) in paragraph at lines 388--388
+[]\OT1/cmr/m/n/10 AccountTransaction-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 388--388
+
+ []
+
+
+Overfull \hbox (53.79973pt too wide) in paragraph at lines 374--418
+ [] 
+ []
+
+[13]
+Overfull \hbox (67.97557pt too wide) in paragraph at lines 422--458
+ [] 
+ []
+
+[14]
+Overfull \hbox (46.73593pt too wide) in paragraph at lines 462--488
+ [] 
+ []
+
+
+Overfull \hbox (14.25311pt too wide) in paragraph at lines 492--522
+ [] 
+ []
+
+[15]
+Overfull \hbox (31.81409pt too wide) in paragraph at lines 525--572
+ [] 
+ []
+
+[16] [17]
+Overfull \hbox (29.58618pt too wide) in paragraph at lines 607--631
+ [] 
+ []
+
+
+Overfull \hbox (1.11417pt too wide) in paragraph at lines 645--645
+[]\OT1/cmr/m/n/10 transactionFilePath| 
+ []
+
+
+Overfull \hbox (5.55856pt too wide) in paragraph at lines 646--646
+[]\OT1/cmr/m/n/10 AccountTransaction-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 646--646
+
+ []
+
+
+Overfull \hbox (3.05856pt too wide) in paragraph at lines 646--646
+[]\OT1/cmr/m/n/10 accountTransaction-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 646--646
+
+ []
+
+
+Overfull \hbox (54.38676pt too wide) in paragraph at lines 635--658
+ [] 
+ []
+
+
+Underfull \hbox (badness 5460) in paragraph at lines 675--676
+[]\OT1/cmr/m/n/10 the repos-i-tory that holds
+ []
+
+
+Overfull \hbox (61.9293pt too wide) in paragraph at lines 662--691
+ [] 
+ []
+
+[18]
+Overfull \hbox (27.58647pt too wide) in paragraph at lines 696--720
+ [] 
+ []
+
+
+Overfull \hbox (27.982pt too wide) in paragraph at lines 724--751
+ [] 
+ []
+
+[19]
+Overfull \hbox (43.87794pt too wide) in paragraph at lines 755--787
+ [] 
+ []
+
+
+Overfull \hbox (19.02983pt too wide) in paragraph at lines 791--806
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 829--829
+[]\OT1/cmr/m/n/10 binds event lis-ten-
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 832--832
+[]\OT1/cmr/m/n/10 Behaviour of the "add
+ []
+
+
+Underfull \hbox (badness 3219) in paragraph at lines 838--838
+[]\OT1/cmr/m/n/10 Updates a row in the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 840--841
+[]\OT1/cmr/m/n/10 Updates the at-tached
+ []
+
+
+Overfull \hbox (48.11963pt too wide) in paragraph at lines 810--844
+ [] 
+ []
+
+[20]
+Overfull \hbox (33.49675pt too wide) in paragraph at lines 849--888
+ [] 
+ []
+
+[21]
+Overfull \hbox (60.50246pt too wide) in paragraph at lines 892--921
+ [] 
+ []
+
+
+Overfull \hbox (29.61427pt too wide) in paragraph at lines 925--960
+ [] 
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 996--996
+[]\OT1/cmr/m/n/10 getter for Trans-ac-tion-ID-
+ []
+
+
+Overfull \hbox (47.17523pt too wide) in paragraph at lines 963--1022
+ [] 
+ []
+
+[23]
+Overfull \vbox (12.03908pt too high) has occurred while \output is active []
+
+
+[24]
+Underfull \hbox (badness 3148) in paragraph at lines 1050--1050
+[]\OT1/cmr/m/n/10 deletes an ac-count from the
+ []
+
+
+Overfull \hbox (44.98897pt too wide) in paragraph at lines 1026--1055
+ [] 
+ []
+
+[25]
+<diagrams/sequence/addAccount.png, id=93, 716.6775pt x 643.40375pt>
+File: diagrams/sequence/addAccount.png Graphic file (type png)
+<use diagrams/sequence/addAccount.png>
+Package pdftex.def Info: diagrams/sequence/addAccount.png  used on input line 1
+083.
+(pdftex.def)             Requested size: 455.2492pt x 408.7041pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1081--1084
+
+ []
+
+<diagrams/sequence/updateAccount.png, id=94, 781.92125pt x 730.73pt>
+File: diagrams/sequence/updateAccount.png Graphic file (type png)
+<use diagrams/sequence/updateAccount.png>
+Package pdftex.def Info: diagrams/sequence/updateAccount.png  used on input lin
+e 1090.
+(pdftex.def)             Requested size: 455.24466pt x 425.44044pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1088--1091
+
+ []
+
+[26 <./diagrams/sequence/addAccount.png (PNG copy)>]
+<diagrams/sequence/deleteAccount.png, id=98, 655.44875pt x 293.095pt>
+File: diagrams/sequence/deleteAccount.png Graphic file (type png)
+<use diagrams/sequence/deleteAccount.png>
+Package pdftex.def Info: diagrams/sequence/deleteAccount.png  used on input lin
+e 1097.
+(pdftex.def)             Requested size: 455.25052pt x 203.57297pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1095--1098
+
+ []
+
+[27 <./diagrams/sequence/updateAccount.png (PNG copy)>] [28 <./diagrams/sequenc
+e/deleteAccount.png (PNG copy)>]
+<diagrams/sequence/importHighLevel.png, id=105, 735.74875pt x 306.14375pt>
+File: diagrams/sequence/importHighLevel.png Graphic file (type png)
+<use diagrams/sequence/importHighLevel.png>
+Package pdftex.def Info: diagrams/sequence/importHighLevel.png  used on input l
+ine 1105.
+(pdftex.def)             Requested size: 455.26138pt x 189.43344pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1113--1114
+
+ []
+
+
+Underfull \hbox (badness 2762) in paragraph at lines 1115--1116
+[]\OT1/cmr/m/n/12 After the [][][][][][] method is called, the [][][][][][] cre
+-ates an
+ []
+
+
+Underfull \hbox (badness 1189) in paragraph at lines 1115--1116
+[][][][][][] \OT1/cmr/m/n/12 ob-ject (linked HashMap with keys and val-ues of t
+ype String) to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1115--1116
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1117--1118
+
+ []
+
+[29 <./diagrams/sequence/importHighLevel.png (PNG copy)>]
+<diagrams/sequence/addAccountImp.png, id=109, 1043.9pt x 614.295pt>
+File: diagrams/sequence/addAccountImp.png Graphic file (type png)
+<use diagrams/sequence/addAccountImp.png>
+Package pdftex.def Info: diagrams/sequence/addAccountImp.png  used on input lin
+e 1121.
+(pdftex.def)             Requested size: 455.23969pt x 267.89104pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1119--1122
+
+ []
+
+[30 <./diagrams/sequence/addAccountImp.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 1127--1128
+
+ []
+
+<diagrams/sequence/importLowLevel.png, id=113, 1038.88126pt x 742.775pt>
+File: diagrams/sequence/importLowLevel.png Graphic file (type png)
+<use diagrams/sequence/importLowLevel.png>
+Package pdftex.def Info: diagrams/sequence/importLowLevel.png  used on input li
+ne 1131.
+(pdftex.def)             Requested size: 455.23863pt x 325.48462pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1129--1132
+
+ []
+
+[31 <./diagrams/sequence/importLowLevel.png (PNG copy)>] (Iteration_2.aux) ) 
+Here is how much of TeX's memory you used:
+ 3124 strings out of 493305
+ 47379 string characters out of 3141010
+ 128515 words of memory out of 3000000
+ 6645 multiletter control sequences out of 15000+200000
+ 9326 words of font info for 33 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,14n,39p,733b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
+<e:
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><e:/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmbx12.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><e:/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><
+e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on Iteration_2.pdf (31 pages, 397529 bytes).
+PDF statistics:
+ 144 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+
