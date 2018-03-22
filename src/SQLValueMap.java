@@ -19,6 +19,7 @@ public class SQLValueMap extends LinkedHashMap<String, String>{ // likely to cha
 		put(key, Float.toString(value));
 	}
 	
+
 	
 }
 
