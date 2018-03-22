@@ -46,7 +46,10 @@ public class RepositoryContainer implements IModelView, IModelController {
 
     @Override
     public void deleteTransaction(Integer transactionId) {
+        Transaction transactionToDelete = transactionRepository.getTransaction(transactionId);
         transactionRepository.deleteItem(transactionId);
+        Account associatedAccount = accountRepository.getAccount(transactionToDelete.getAccountId());
+        associatedAccount.setBalance(associatedAccount.getBalance() - transactionToDelete.getAmount());
         notifyObservers();
     }
 
@@ -60,6 +63,8 @@ public class RepositoryContainer implements IModelView, IModelController {
     @Override
     public void saveTransaction(Transaction transaction) {
         transactionRepository.saveItem(transaction);
+        Account associatedAccount = accountRepository.getAccount(transaction.getAccountId());
+        associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
         notifyObservers();
     }
 

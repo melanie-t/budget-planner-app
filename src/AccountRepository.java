@@ -19,6 +19,11 @@ public class AccountRepository {
         itemMap = new AccountMap();
 	}
 
+    public Account getAccount(Integer id)
+    {
+        return itemMap.get(id);
+    }
+
     public void initSQLStructure() {
         myDatabase.updateSQL(sql.createTable(tableName, primaryKey, "INTEGER"));	//pass "NULL" to auto-increment
         myDatabase.updateSQL(sql.addColumn(tableName, "bankName", "VARCHAR"));

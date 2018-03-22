@@ -28,6 +28,11 @@ public class TransactionRepository {
         myDatabase.updateSQL(sql.addColumn(tableName, "description", "VARCHAR"));
     }
 
+    public Transaction getTransaction(Integer id)
+    {
+        return itemMap.get(id);
+    }
+
 	public void loadAllItems() {
 		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
 		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap(tableName, where));
