@@ -62,7 +62,7 @@ public class AccountController extends AbstractController<IAccountView> {
                     nickname,
                     balance
             );
-            model.saveAccount(account);
+            model.saveItem(account);
             view.setSelection(account.getId());
         }
         else
@@ -70,7 +70,6 @@ public class AccountController extends AbstractController<IAccountView> {
     }
 
 	private void handleAdd() {
-        // Accounts with an ID of 0 are considered as "new"
         handleAddOrUpdate(0);
 	}
 	
@@ -79,7 +78,7 @@ public class AccountController extends AbstractController<IAccountView> {
 	}
 	
 	private void handleDelete() {
-        model.deleteAcccount(view.getSelectedAccountId());
+        model.deleteAccount(view.getSelectedAccountId());
         view.setSelection(0);
 	}
 }

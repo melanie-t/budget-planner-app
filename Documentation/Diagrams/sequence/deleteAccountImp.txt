@@ -15,20 +15,20 @@ box "Services" #LightYellow
 participant SQLStringFactory
 end box
 
-AccountController -> RepositoryContainer : deleteAccount(accountId)
+AccountController -> RepositoryContainer : deleteAccount(associatedAccountId)
 
 group Model
 == Delete Account ==
-RepositoryContainer -> AccountRepository : deleteItem(accountId)
-AccountRepository -> AccountRepository : remove(accountId)
-AccountRepository -> SQLStringFactory : deleteEntry(TABLENAME, PRIMARYKEY, accountId)
+RepositoryContainer -> AccountRepository : deleteItem(associatedAccountId)
+AccountRepository -> AccountRepository : remove(associatedAccountId)
+AccountRepository -> SQLStringFactory : deleteEntry(TABLENAME, PRIMARYKEY, associatedAccountId)
 AccountRepository <-- SQLStringFactory : deleteEntryQuery
 AccountRepository -> Database : updateSQL(deleteEntryQuery)
 
 == Delete Transactions from Account ==
-RepositoryContainer -> TransactionRepository : deleteAllItemsFromAccount(accountId)
+RepositoryContainer -> TransactionRepository : deleteAllItemsFromAccount(associatedAccountId)
 loop foreach transaction
-alt transaction.getAccountId() == accountId
+alt transaction.getAccountId() == associatedAccountId
 TransactionRepository -> Transaction : getId( )
 TransactionRepository <-- Transaction : transactionId
 TransactionRepository -> TransactionRepository : remove(transactionId)

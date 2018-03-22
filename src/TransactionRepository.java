@@ -1,57 +1,28 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-public class TransactionRepository {
+public class TransactionRepository extends AbstractRepository<Transaction>{
 
-	private Database myDatabase;
-	private SQLStringFactory sql;
-	
-	private String tableName;
-	private String primaryKey;
-	
-	private TransactionMap itemMap;
-
-	public TransactionRepository(Database myDatabase) {
-		this.myDatabase = myDatabase;
-		tableName = "transactions";
-		primaryKey = "transactionId";
-		this.sql = SQLStringFactory.getInstance();
-        itemMap = new TransactionMap();
+	public TransactionRepository(Database database) {
+	    super(database, "transactions", "transactionId");
 	}
 
     public void initSQLStructure() {
-        myDatabase.updateSQL(sql.createTable(tableName, "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
-        myDatabase.updateSQL(sql.addColumn(tableName, "date", "VARCHAR"));
-        myDatabase.updateSQL(sql.addColumn(tableName, "type", "VARCHAR"));
-        myDatabase.updateSQL(sql.addColumn(tableName, "amount", "INTEGER"));
-        myDatabase.updateSQL(sql.addColumn(tableName, "description", "VARCHAR"));
+        database.updateSQL(sql.createTable(tableName, "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
+        database.updateSQL(sql.addColumn(tableName, "date", "VARCHAR"));
+        database.updateSQL(sql.addColumn(tableName, "type", "VARCHAR"));
+        database.updateSQL(sql.addColumn(tableName, "amount", "INTEGER"));
+        database.updateSQL(sql.addColumn(tableName, "description", "VARCHAR"));
     }
 
-    public Transaction getTransaction(Integer id)
-    {
-        return itemMap.get(id);
-    }
-
-	public void loadAllItems() {
-		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
-		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap(tableName, where));
-		
-		try {
-            System.out.println("Load all transactions");
-			while(result.next())
-				setItemFromResult(result);
-
-		} catch (SQLException sqle){ 
-			System.err.println(sqle.getMessage());
-		}
-	}
-
-    private void setItemFromResult(ResultSet result) {
+    protected void setItemFromResult(ResultSet result) {
         try {
             Transaction transaction = new Transaction();
             transaction.setId(result.getInt("transactionId"));
-            transaction.setAccountId(result.getInt("accountId"));
+            transaction.setAssociatedAccountId(result.getInt("accountId"));
             transaction.setAmount(result.getInt("amount"));
             transaction.setDate(result.getString("date"));
             transaction.setType(result.getString("type"));
@@ -64,12 +35,10 @@ public class TransactionRepository {
         }
     }
 
-    private void addItemToMap(Transaction transac)	{itemMap.put(transac.getId(), transac);}
-	
 	public void saveItem(Transaction transaction) {
 		System.out.println(transaction.toString());
 		SQLValueMap values = new SQLValueMap();
-		values.put("accountId", transaction.getAccountId());
+		values.put("accountId", transaction.getAssociatedAccountId());
 		values.put("type", transaction.getType());
 		values.put("date", transaction.getDate());
 		values.put("amount", transaction.getAmount());
@@ -77,14 +46,14 @@ public class TransactionRepository {
 			
 		if(transaction.getId() == 0) {
             // Insert new item
-            Integer generatedId = myDatabase.updateSQL( sql.addEntryUsingMap(tableName, values) );
+            Integer generatedId = database.updateSQL( sql.addEntryUsingMap(tableName, values) );
             transaction.setId(generatedId);
             addItemToMap(transaction);
         } else {
 			// Update item
 			SQLValueMap where = new SQLValueMap();
 			where.put(primaryKey, Integer.toString(transaction.getId()));
-			myDatabase.updateSQL( sql.updateEntryUsingMap(tableName, values, where) );
+            database.updateSQL( sql.updateEntryUsingMap(tableName, values, where) );
             itemMap.get(transaction.getId()).updateWith(transaction);
 		}
 	}
@@ -93,7 +62,7 @@ public class TransactionRepository {
 		if(itemMap.containsKey(itemID))
         {
             itemMap.remove(itemID);
-            myDatabase.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
+            database.updateSQL("DELETE FROM "+tableName+" WHERE "+primaryKey+"='"+itemID+"';");
             System.out.println("Delete Transaction "+itemID);
         }
 	}
@@ -101,26 +70,19 @@ public class TransactionRepository {
     public void deleteAllItemsFromAccount(Integer accountId) {
         for (Transaction transaction : itemMap.values())
         {
-            if (transaction.getAccountId().equals(accountId))
+            if (transaction.getAssociatedAccountId().equals(accountId))
                 deleteItem(transaction.getId());
         }
     }
 
-    public TransactionList getItems(Integer accountId) {
-        TransactionList aTransactionList = new TransactionList();
-        itemMap.forEach((k,v)->{
-            if (accountId == -1 || v.getAccountId().equals(accountId)) aTransactionList.add(v);
-        });
-        return aTransactionList;
-    }
-
-    public void reinitSQLStructure() {
-        destroySQLStructure();
-        initSQLStructure();
-    }
-
-    public void destroySQLStructure() {
-        myDatabase.updateSQL(sql.deleteTable(tableName));
+    public ArrayList<Transaction> getItems(Integer accountId) {
+	    ArrayList<Transaction> itemsToFilter = getItems();
+        Iterator<Transaction> it = itemsToFilter.iterator();
+        while (it.hasNext()) {
+            if (it.next().getAssociatedAccountId() != accountId)
+                it.remove();
+        }
+        return itemsToFilter;
     }
 }
 

@@ -35,41 +35,41 @@ public class RepositoryContainer implements IModelView, IModelController {
     }
 
     @Override
-    public TransactionList getTransactions(Integer fromAccount) {
+    public ArrayList<Transaction> getTransactions(Integer fromAccount) {
         return transactionRepository.getItems(fromAccount);
     }
 
     @Override
-    public AccountList getAllAccounts() {
+    public ArrayList<Account> getAllAccounts() {
         return accountRepository.getItems();
     }
 
     @Override
     public void deleteTransaction(Integer transactionId) {
-        Transaction transactionToDelete = transactionRepository.getTransaction(transactionId);
+        Transaction transactionToDelete = transactionRepository.getItem(transactionId);
         transactionRepository.deleteItem(transactionId);
-        Account associatedAccount = accountRepository.getAccount(transactionToDelete.getAccountId());
+        Account associatedAccount = accountRepository.getItem(transactionToDelete.getAssociatedAccountId());
         associatedAccount.setBalance(associatedAccount.getBalance() - transactionToDelete.getAmount());
         notifyObservers();
     }
 
     @Override
-    public void deleteAcccount(Integer accountId) {
+    public void deleteAccount(Integer accountId) {
         accountRepository.deleteItem(accountId);
         transactionRepository.deleteAllItemsFromAccount(accountId);
         notifyObservers();
     }
 
     @Override
-    public void saveTransaction(Transaction transaction) {
+    public void saveItem(Transaction transaction) {
         transactionRepository.saveItem(transaction);
-        Account associatedAccount = accountRepository.getAccount(transaction.getAccountId());
+        Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
         associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
         notifyObservers();
     }
 
     @Override
-    public void saveAccount(Account account) {
+    public void saveItem(Account account) {
         accountRepository.saveItem(account);
         notifyObservers();
     }
@@ -93,14 +93,14 @@ public class RepositoryContainer implements IModelView, IModelController {
                 Integer amount = Integer.parseInt(tokenList[2]);
 
                 Transaction transaction = new Transaction();
-                transaction.setAccountId(accountId);
+                transaction.setAssociatedAccountId(accountId);
                 transaction.setType(tokenList[0]);
                 transaction.setDate(tokenList[1]);
                 transaction.setAmount(amount);
 
                 System.out.println(transaction.toString());
 
-                saveTransaction(transaction);
+                saveItem(transaction);
             }
             br.close();
 

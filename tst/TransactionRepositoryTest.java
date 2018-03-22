@@ -25,7 +25,7 @@
 //		String date = "09-09-1999";
 //		Integer amount = 100;
 //		TransactionModel expected = new TransactionModel();
-//		expected.setAccountId(accountID);
+//		expected.setAssociatedAccountId(accountID);
 //		expected.setType(type);
 //		expected.setDate(date);
 //		expected.setAmount(amount);

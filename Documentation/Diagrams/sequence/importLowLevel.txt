@@ -13,7 +13,7 @@ box "Services" #LightYellow
 participant Java.lang.String
 end box
 
-TransactionController -> RepositoryContainer : importTransactions(filePath, accountId)
+TransactionController -> RepositoryContainer : importTransactions(filePath, associatedAccountId)
 
 group Model
     RepositoryContainer -> BufferedReader : <<create>> from filePath
@@ -37,7 +37,7 @@ else else
             RepositoryContainer -> Transaction : <<create>>
             RepositoryContainer <-- Transaction : newTransaction
 
-            RepositoryContainer -> Transaction : newTransaction.setAccountId(accountId)
+            RepositoryContainer -> Transaction : newTransaction.setAccountId(associatedAccountId)
             RepositoryContainer -> Transaction : newTransaction.setType(tokenList[0])
             RepositoryContainer -> Transaction : newTransaction.setDate(tokenList[1])
             RepositoryContainer -> Transaction : newTransaction.setAccountId(tokenList[2])

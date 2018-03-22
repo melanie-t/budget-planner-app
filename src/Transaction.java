@@ -1,7 +1,6 @@
 
-public class Transaction {
-	private Integer	transactionId;
-	private Integer accountId;
+public class Transaction extends AbstractUniqueId{
+	private Integer associatedAccountId;
 	private String 	type;
 	private String 	date;
 	private Integer amount;
@@ -14,15 +13,14 @@ public class Transaction {
 
     public Transaction(
             Integer transactionId,
-            Integer accountId,
+            Integer associatedAccountId,
             String type,
             String date,
             Integer amount,
             String description)
     {
-        super();
-        this.transactionId = transactionId;
-        this.accountId = accountId;
+        super(transactionId);
+        this.associatedAccountId = associatedAccountId;
         this.type = type;
         this.date = date;
         this.amount = amount;
@@ -31,24 +29,21 @@ public class Transaction {
 
     public void updateWith(Transaction other)
     {
-        accountId = other.getAccountId();
+    	setId(other.getId());
+        associatedAccountId = other.getAssociatedAccountId();
         type = other.getType();
         date = other.getDate();
         amount = other.getAmount();
         description = other.getDescription();
     }
 
-	public void setId(Integer transactionId)	{
-		this.transactionId = transactionId;
-	}
-	public void setAccountId(Integer accountId) {this.accountId = accountId;}
+	public void setAssociatedAccountId(Integer associatedAccountId) {this.associatedAccountId = associatedAccountId;}
 	public void setType(String type) 			{this.type = type;}
 	public void setDate(String date) 			{this.date = date;}
 	public void setAmount(Integer amount) 		{this.amount= amount;}
 	public void setDescription(String description) 		{this.description = description;}
 	
-	public Integer 	getId() 			{return transactionId;}
-	public Integer 	getAccountId() 		{return accountId;}
+	public Integer getAssociatedAccountId() 		{return associatedAccountId;}
 	public String 	getType() 			{return type;}
 	public String 	getDate() 			{return date;}
 	public Integer 	getAmount()			{return amount;}
@@ -60,7 +55,7 @@ public class Transaction {
 		String output = "";
 		output += "\n-------------------\n";
 		output += "ID"+" -> " + this.getId() + "\n";
-		output += "AccountId"+" -> " + this.getAccountId() + "\n";
+		output += "AccountId"+" -> " + this.getAssociatedAccountId() + "\n";
 		output += "Type"+" -> " + this.getType() + "\n";
 		output += "Date"+" -> " + this.getDate() + "\n";
 		output += "Amount"+" -> " + this.getAmount() + "\n";

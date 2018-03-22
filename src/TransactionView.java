@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -29,13 +30,13 @@ public class TransactionView extends AbstractView implements ITransactionView, I
 	private JScrollPane scrollPane;
 
     private IModelView model;
-    private TransactionList items;
+    private ArrayList<Transaction> items;
 
 	public TransactionView(IModelView model)
 	{
         super();
         this.model = model;
-        items = new TransactionList();
+        items = new ArrayList<>();
         model.attachObserver(this);
 		createTransPanel();
 		setLayout();

@@ -12,6 +12,6 @@ User -> AccountView : Select item from table
 User -> AccountView : Press "Delete" button
 AccountView -> AccountController : actionPerformed( )
 AccountView <- AccountController : getSelectedAccountId( )
-AccountView --> AccountController : accountId( )
-AccountController -> RepositoryContainer : deleteAccount(accountId)
+AccountView --> AccountController : associatedAccountId( )
+AccountController -> RepositoryContainer : deleteAccount(associatedAccountId)
 @enduml

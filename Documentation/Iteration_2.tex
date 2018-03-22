@@ -111,7 +111,7 @@ The interfaces \code{IObservable} and \code{IObserver} form the observer pattern
 \subsubsection{Model : IModelView Interface}
 The \code{ImodelView} interface exposes methods to allow the view to fetch information from the the model.\\
 \begin{itemize}
-	\item \code{getTransactions(Integer accountId)} : Returns a list of \code{Transaction} objects belonging to the specified accountId. If there are no transactions for the account or the account does not exist, it will return an empty list.
+	\item \code{getTransactions(Integer associatedAccountId)} : Returns a list of \code{Transaction} objects belonging to the specified associatedAccountId. If there are no transactions for the account or the account does not exist, it will return an empty list.
 	\item \code{getAllAccounts()} : Returns a list of all the \code{Account} objects for the current user.
 \end{itemize}
 
@@ -122,7 +122,7 @@ The \code{IModelController} interface exposes methods to allow the controller to
 	\item \code{saveAccount(Account)} : Save the given \code{Account} object to the repository and update the SQL database. If the ID of the account is 0, create a new entry. Otherwise update the existing one.
 	\item \code{deleteTransaction(Transaction)} : Delete the specified transaction from both the repository and the SQL database.
 	\item \code{deleteAccount(Account)} : Delete the specified account from both the repository and the SQL database.
-	\item \code{importTransactions(String path, Integer accountId)} : Construct and save \code{Transactions} objects to the repository and SQL databse from a .csv file located at the specified path. The format of the .csv file should be well defined.
+	\item \code{importTransactions(String path, Integer associatedAccountId)} : Construct and save \code{Transactions} objects to the repository and SQL databse from a .csv file located at the specified path. The format of the .csv file should be well defined.
 \end{itemize}
 
 \subsubsection{View : IAccountView}
@@ -454,7 +454,7 @@ public &update &void &Update the attached models
 \footnotesize
 \begin{tabular}{l|p{3cm}|l|p{6cm}}
 \textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
-private&int &accountId &the Id of the account \\ \hline 
+private&int &associatedAccountId &the Id of the account \\ \hline
 private&String &bankName &the name of the bank the account is held with \\ \hline 
 private&String &nickName &the nickname for the account \\ \hline 
 private&int &balance &the dollar balance of the account \\ \hline 
@@ -895,7 +895,7 @@ public&update &void &Updates the attached models.
 \begin{tabular}{l|l|l|l}
 \textbf{Visibility} & \textbf{Data type} & \textbf{Name} & \textbf{Description} \\ \hline
 package &Integer&transactionId&id of a transaction\\ \hline 
-package &Integer &accountId&id of an account\\ \hline 
+package &Integer &associatedAccountId&id of an account\\ \hline
 package &String &type&type of transaction\\ \hline 
 package &String &date&date of transaction\\ \hline 
 package &Integer &amount&dollar amount of a transaction\\ \hline 
@@ -909,8 +909,8 @@ package &String  &description&text description of a transaction
 public &TransactionModel&~&Constructor\\ \hline 
 public &setId &void &setter for transactionId\\ \hline 
 public &getId &Integer&getter for transactionId\\ \hline 
-public &setAccountId &void &setter for accountId\\ \hline 
-public &getAccountId &Integer&getter for accountId\\ \hline 
+public &setAccountId &void &setter for associatedAccountId\\ \hline
+public &getAccountId &Integer&getter for associatedAccountId\\ \hline
 public &setType &void &setter for type\\ \hline 
 public &getType &String &getter for type\\ \hline 
 public &setDate &void &setter for date\\ \hline 
@@ -1138,7 +1138,7 @@ To delete an account, the user selects an entry in the \code{AccountView}'s tabl
 
 \newpage
 \subsection{Import a transaction list}
-In this scenario, the users imports a list of transactions from a .csv file and adds them to the model. When the user clicks the "Import" button, the \code{TransactionController} creates a window with a dialog box. The user then inputs the file path of the transaction csv file. If the file path is valid, both the file path and the currently selected accountId is passed to the model with a call to \code{importTransactions()}. For details on how the model then handles the import, see \ref{sec:modelImportDetail}.\\
+In this scenario, the users imports a list of transactions from a .csv file and adds them to the model. When the user clicks the "Import" button, the \code{TransactionController} creates a window with a dialog box. The user then inputs the file path of the transaction csv file. If the file path is valid, both the file path and the currently selected associatedAccountId is passed to the model with a call to \code{importTransactions()}. For details on how the model then handles the import, see \ref{sec:modelImportDetail}.\\
 \\
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/importHighLevel.png}
 \captionof{figure}{Import a list of transactions from .csv file}
@@ -1148,13 +1148,13 @@ In this scenario, the users imports a list of transactions from a .csv file and 
 The next subsections offer a glimpse into the internal logic of the model and how it implements the methods of its interface.
 
 \subsubsection{saveAccount()} \label{sec:modelSaveDetail}
-The \code{saveAccount(Account)} method provides a simple interface for adding new \code{Account} objects or updating existing ones. When the specified \code{Account} object's \code{accountId} member variable is 0, it is assumed that this is a new entry. Otherwise the call is treated as an update. \\ 
+The \code{saveAccount(Account)} method provides a simple interface for adding new \code{Account} objects or updating existing ones. When the specified \code{Account} object's \code{associatedAccountId} member variable is 0, it is assumed that this is a new entry. Otherwise the call is treated as an update. \\
 
 After the \code{saveItem()} method is called, the \code{AccountRepository} creates an \code{SQLValueMap} object (linked HashMap with keys and values of type String) to store the column-value mapping. \\
 
-If the account is new, then the repository uses the \code{SQLStringFactory} class to build a \code{String} insert query using the (key,value) pairs in the \code{SQLValueMap}. It executes the query by calling \code{updateSQL} from the Database class. The repository then updates the account's ID using the accountId value returned from updateSQL and proceeds to add the new account to the repository's \code{AccountMap}.\\
+If the account is new, then the repository uses the \code{SQLStringFactory} class to build a \code{String} insert query using the (key,value) pairs in the \code{SQLValueMap}. It executes the query by calling \code{updateSQL} from the Database class. The repository then updates the account's ID using the associatedAccountId value returned from updateSQL and proceeds to add the new account to the repository's \code{AccountMap}.\\
 
-If the account already exists, then the repository will construct a \code{SQLValueMap} for the where clause of the query using the account's ID. \code{SQLStringFactory} is then used to generate an update query, which will be executed by calling the \code{Database} class's \code{updateSQL} method. The returned accountId is unused. \\
+If the account already exists, then the repository will construct a \code{SQLValueMap} for the where clause of the query using the account's ID. \code{SQLStringFactory} is then used to generate an update query, which will be executed by calling the \code{Database} class's \code{updateSQL} method. The returned associatedAccountId is unused. \\
 \\
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/addAccountImp.png}
 \captionof{figure}{Model - Saving an account}

@@ -67,12 +67,12 @@ public class Iteration2AppController implements IAppController, WindowListener{
 	protected void InsertFakeAccounts() {
 		Account newAccount = new Account();
 		newAccount.setBankName("TD");
-		model.saveAccount(newAccount);
+		model.saveItem(newAccount);
 
 		Account newAccount2 = new Account();
 		newAccount2.setBankName("National");
 		newAccount2.setBalance(200);
-		model.saveAccount(newAccount2);
+		model.saveItem(newAccount2);
 	}
 
 

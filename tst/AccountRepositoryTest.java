@@ -95,7 +95,7 @@
 //
 //	@Test
 //	public void DeleteItemTest() {
-//		accoutRepo.deleteItem(1);
+//		accoutRepo.deleteTransaction(1);
 //
 //		//check in current repo if delete worked
 //		assertEquals(accoutRepo.getListOfAllItems().size(), 1);

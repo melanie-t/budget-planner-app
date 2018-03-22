@@ -2,8 +2,7 @@ import java.util.ArrayList;
 
 public interface IModelView extends IObservable{
 
-    TransactionList getTransactions(Integer fromAccount);
+    ArrayList<Transaction> getTransactions(Integer fromAccount);
 
-    AccountList getAllAccounts();
-
+    ArrayList<Account> getAllAccounts();
 }

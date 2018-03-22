@@ -72,7 +72,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
                     amount,
                     description
             );
-            model.saveTransaction(transaction);
+            model.saveItem(transaction);
             view.setSelection(transaction.getId());
         }
         else

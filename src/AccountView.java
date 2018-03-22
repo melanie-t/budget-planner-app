@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -35,13 +36,13 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
 	private JScrollPane scrollPane;
 
     private IModelView model;
-    private AccountList items;
+    private ArrayList<Account> items;
 
 	public AccountView(IModelView model)
 	{
         super();
         this.model = model;
-        items = new AccountList();
+        items = new ArrayList<>();
         model.attachObserver(this);
 		createAccPanel();
 		setLayout();

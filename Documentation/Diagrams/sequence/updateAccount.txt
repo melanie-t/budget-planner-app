@@ -18,7 +18,7 @@ AccountView -> AccountController : actionPerformed()
 
 == Fetch user input from fields == 
 AccountController -> AccountView : getSelectedAccountId( )
-AccountController <-- AccountView : accountId
+AccountController <-- AccountView : associatedAccountId
 AccountController -> AccountView : getBankInput( )
 AccountController <-- AccountView : bankName
 AccountController -> AccountView : getNicknameInput( )

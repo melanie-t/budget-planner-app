@@ -11,7 +11,7 @@ end box
 User -> TransactionView : Press "Import" button
 TransactionView -> TransactionController : actionPerformed( )
 TransactionController -> TransactionView : getSelectedAccountId( )
-TransactionController <-- TransactionView : accountId
+TransactionController <-- TransactionView : associatedAccountId
 TransactionController --> TransactionController : prompt user for filePath
-TransactionController -> RepositoryContainer : importTransactions(filePath, accountId)
+TransactionController -> RepositoryContainer : importTransactions(filePath, associatedAccountId)
 @enduml

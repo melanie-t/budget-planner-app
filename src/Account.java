@@ -1,7 +1,6 @@
 
-public class Account {
+public class Account extends  AbstractUniqueId {
 	
-	private int accountId;
 	private String bankName;
 	private String nickname;
 	private int balance;
@@ -10,9 +9,8 @@ public class Account {
         this(0,"","",0);
 	}
 
-	public Account(int accountId, String bankName, String nickname, int balance) {
-		super();
-		this.accountId = accountId;
+	public Account(Integer accountId, String bankName, String nickname, int balance) {
+		super(accountId);
 		this.bankName = bankName;
 		this.nickname = nickname;
 		this.balance = balance;
@@ -25,12 +23,7 @@ public class Account {
         balance = other.getBalance();
     }
 
-	// ID
-	public Integer getId() {return accountId;}
-	public void setId(int accountId) {
-		this.accountId = accountId;
-	}
-	
+
 	public String getBankName() {return bankName;}
 	public void setBankName(String bankName) {this.bankName = bankName;}
 	

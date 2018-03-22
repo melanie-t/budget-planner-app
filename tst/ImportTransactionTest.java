@@ -27,7 +27,7 @@
 //		String date = "09-09-1999";
 //		Integer amount = 100;
 //		expected = new Transaction();
-//		expected.setAccountId(accountID);
+//		expected.setAssociatedAccountId(accountID);
 //		expected.setType(type);
 //		expected.setDate(date);
 //		expected.setAmount(amount);
@@ -49,9 +49,9 @@
 //		 * The values obtained are stored in actualATTRIBUTE where ATTRIBUTE is either accountID, type, date or amount.
 //		 **/
 //		String dbAccountID = "select accountId from transactions;";
-//		String dbAmount = "select amount from transactions where accountId = " + expected.getAccountId() + ";";
-//		String dbDate = "select date from transactions where accountId = " + expected.getAccountId() + ";";;
-//		String dbType = "select description from transactions where accountId = " + expected.getAccountId() + ";";
+//		String dbAmount = "select amount from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
+//		String dbDate = "select date from transactions where accountId = " + expected.getAssociatedAccountId() + ";";;
+//		String dbType = "select description from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
 //
 //		Integer actualAccountID = null;
 //		Float actualAmount = null;
@@ -68,7 +68,7 @@
 //			System.err.println(sqle.getMessage());
 //		}
 //
-//		assertEquals(expected.getAccountId(), actualAccountID);
+//		assertEquals(expected.getAssociatedAccountId(), actualAccountID);
 //		assertEquals(expected.getAmount(), actualAmount);
 //		assertEquals(expected.getDate(), actualDate);
 //		assertEquals(expected.getType(), actualType);

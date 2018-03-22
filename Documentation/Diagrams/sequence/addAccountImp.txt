@@ -28,9 +28,9 @@ alt account.getId( ) == 0
     AccountRepository <-- SQLStringFactory : addEntryQuery
 
     AccountRepository -> Database : updateSQL(addEntryQuery)
-    AccountRepository <-- Database : accountId
+    AccountRepository <-- Database : associatedAccountId
 
-    AccountRepository -> Account: account.setID(accountId)
+    AccountRepository -> Account: account.setID(associatedAccountId)
 
     AccountRepository -> AccountRepository: addItemToMap(account)
 
