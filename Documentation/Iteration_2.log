@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.15)  22 MAR 2018 04:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.15)  22 MAR 2018 08:58
 entering extended mode
 **./Iteration_2.tex
 (Iteration_2.tex
@@ -178,28 +178,28 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 {C:/Users/Pierre-André/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (It
-eration_2.toc [2
-
-])
+eration_2.toc)
 \tf@toc=\write3
 \openout3 = `Iteration_2.toc'.
 
+ [2
 
-[3] (Iteration_2.lof)
+]
+(Iteration_2.lof)
 \tf@lof=\write4
 \openout4 = `Iteration_2.lof'.
 
- [4
+ [3
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 70--72
 
  []
 
-[5
+[4
 
 ]
-<diagrams/UML/MVC.png, id=21, 763.85374pt x 583.17876pt>
+<diagrams/UML/MVC.png, id=18, 763.85374pt x 583.17876pt>
 File: diagrams/UML/MVC.png Graphic file (type png)
 <use diagrams/UML/MVC.png>
 Package pdftex.def Info: diagrams/UML/MVC.png  used on input line 83.
@@ -215,12 +215,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 85--86
 
  []
 
-<diagrams/UML/Subsystem.png, id=23, 496.85625pt x 347.79938pt>
+<diagrams/UML/Subsystem.png, id=20, 496.85625pt x 347.79938pt>
 File: diagrams/UML/Subsystem.png Graphic file (type png)
 <use diagrams/UML/Subsystem.png>
 Package pdftex.def Info: diagrams/UML/Subsystem.png  used on input line 93.
 (pdftex.def)             Requested size: 455.24826pt x 318.67378pt.
-[6 <./diagrams/UML/MVC.png>]
+[5 <./diagrams/UML/MVC.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
@@ -232,7 +232,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
- [7 <./diagrams/UML/Subsystem.png>]
+ [6 <./diagrams/UML/Subsystem.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
@@ -242,12 +242,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
-[8] [9] [10]
-<Diagrams/UML/Types.png, id=43, 717.68124pt x 757.83125pt>
+[7] [8] [9]
+<Diagrams/UML/Types.png, id=40, 698.61pt x 781.92125pt>
 File: Diagrams/UML/Types.png Graphic file (type png)
 <use Diagrams/UML/Types.png>
 Package pdftex.def Info: Diagrams/UML/Types.png  used on input line 177.
-(pdftex.def)             Requested size: 455.25163pt x 480.72028pt.
+(pdftex.def)             Requested size: 455.25305pt x 509.54329pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 175--178
 
@@ -258,432 +258,157 @@ Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
 
-[11 <./Diagrams/UML/Types.png (PNG copy)>]
-<Diagrams/UML/Model.png, id=47, 1323.94624pt x 1339.0025pt>
+[10 <./Diagrams/UML/Types.png (PNG copy)>]
+<Diagrams/UML/Model.png, id=44, 1342.01375pt x 1518.67375pt>
 File: Diagrams/UML/Model.png Graphic file (type png)
 <use Diagrams/UML/Model.png>
 Package pdftex.def Info: Diagrams/UML/Model.png  used on input line 188.
-(pdftex.def)             Requested size: 455.22662pt x 460.40358pt.
- [12]
+(pdftex.def)             Requested size: 455.2343pt x 515.16042pt.
+ [11]
 Underfull \hbox (badness 10000) in paragraph at lines 191--192
 
  []
 
-
+[12 <./Diagrams/UML/Model.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 193--194
 
  []
 
-[13 <./Diagrams/UML/Model.png (PNG copy)>]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 202.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 202.
-
-Overfull \hbox (43.87794pt too wide) in paragraph at lines 202--234
- [] 
- []
-
-<Diagrams/UML/View.png, id=55, 1470.49374pt x 1454.43375pt>
+<Diagrams/UML/View.png, id=51, 1347.0325pt x 1593.955pt>
 File: Diagrams/UML/View.png Graphic file (type png)
 <use Diagrams/UML/View.png>
-Package pdftex.def Info: Diagrams/UML/View.png  used on input line 240.
-(pdftex.def)             Requested size: 455.24254pt x 450.2706pt.
-[14]
-<Diagrams/UML/Controller.png, id=60, 794.97pt x 556.0775pt>
+Package pdftex.def Info: Diagrams/UML/View.png  used on input line 203.
+(pdftex.def)             Requested size: 455.25131pt x 538.70274pt.
+[13] [14 <./Diagrams/UML/View.png (PNG copy)>]
+<Diagrams/UML/Controller.png, id=59, 794.97pt x 556.0775pt>
 File: Diagrams/UML/Controller.png Graphic file (type png)
 <use Diagrams/UML/Controller.png>
-Package pdftex.def Info: Diagrams/UML/Controller.png  used on input line 253.
+Package pdftex.def Info: Diagrams/UML/Controller.png  used on input line 216.
 (pdftex.def)             Requested size: 455.2604pt x 318.45235pt.
- [15 <./Diagrams/UML/View.png (PNG copy)>] [16 <./Diagrams/UML/Controller.png (
-PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 312--312
-[]\OT1/cmr/m/n/10 Getter for con-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 313--314
-[]\OT1/cmr/m/n/10 Default mes-sage
- []
-
-
-Underfull \hbox (badness 1281) in paragraph at lines 313--314
-\OT1/cmr/m/n/10 to im-ple-ment this
- []
-
-
-Overfull \hbox (10.6112pt too wide) in paragraph at lines 289--318
- [] 
- []
-
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 334.
-
-("e:\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 334.
-
-Overfull \hbox (28.0587pt too wide) in paragraph at lines 323--349
- [] 
- []
-
-
-Overfull \hbox (32.33447pt too wide) in paragraph at lines 374--403
- [] 
- []
-
-[17]
-Underfull \hbox (badness 1226) in paragraph at lines 425--425
-\OT1/cmr/m/n/10 ers/controls to all
- []
-
-
-Underfull \hbox (badness 2990) in paragraph at lines 425--425
-\OT1/cmr/m/n/10 ac-count view el-e-
- []
-
-
-Underfull \hbox (badness 4001) in paragraph at lines 425--425
-\OT1/cmr/m/n/10 ments and pop-u-
- []
-
-
-Underfull \hbox (badness 5161) in paragraph at lines 428--428
-[]\OT1/cmr/m/n/10 Behaviour of the
- []
-
-
-Underfull \hbox (badness 5161) in paragraph at lines 429--429
-[]\OT1/cmr/m/n/10 Behaviour of the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 429--429
-\OT1/cmr/m/n/10 "up-date ac-count"
- []
-
-
-Underfull \hbox (badness 5161) in paragraph at lines 430--430
-[]\OT1/cmr/m/n/10 Behaviour of the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--430
-\OT1/cmr/m/n/10 "delete ac-count"
- []
-
-
-Underfull \hbox (badness 5161) in paragraph at lines 431--431
-[]\OT1/cmr/m/n/10 Behaviour of the
- []
-
-
-Underfull \hbox (badness 3919) in paragraph at lines 433--433
-[]\OT1/cmr/m/n/10 clear the UI ac-
- []
-
-
-Underfull \hbox (badness 6110) in paragraph at lines 434--434
-\OT1/cmr/m/n/10 ber, get ac-count
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--435
-[]\OT1/cmr/m/n/10 modify ac-count
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 436--437
-[]\OT1/cmr/m/n/10 Update the at-
- []
-
-
-Overfull \hbox (43.66692pt too wide) in paragraph at lines 407--440
- [] 
- []
-
-[18]
-Overfull \hbox (5.55856pt too wide) in paragraph at lines 460--460
-[]\OT1/cmr/m/n/10 AccountTransaction-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 460--460
-
- []
-
-
-Overfull \hbox (53.79973pt too wide) in paragraph at lines 446--490
- [] 
- []
-
-[19]
-Overfull \hbox (67.97557pt too wide) in paragraph at lines 494--530
- [] 
- []
-
-[20]
-Overfull \hbox (46.73593pt too wide) in paragraph at lines 534--560
- [] 
- []
-
-
-Overfull \hbox (14.25311pt too wide) in paragraph at lines 564--594
- [] 
- []
-
-[21]
-Overfull \hbox (31.81409pt too wide) in paragraph at lines 597--644
- [] 
- []
-
-[22] [23]
-Overfull \hbox (29.58618pt too wide) in paragraph at lines 679--703
- [] 
- []
-
-
-Overfull \hbox (1.11417pt too wide) in paragraph at lines 717--717
-[]\OT1/cmr/m/n/10 transactionFilePath| 
- []
-
-
-Overfull \hbox (5.55856pt too wide) in paragraph at lines 718--718
-[]\OT1/cmr/m/n/10 AccountTransaction-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 718--718
-
- []
-
-
-Overfull \hbox (3.05856pt too wide) in paragraph at lines 718--718
-[]\OT1/cmr/m/n/10 accountTransaction-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 718--718
-
- []
-
-
-Overfull \hbox (54.38676pt too wide) in paragraph at lines 707--730
- [] 
- []
-
-
-Underfull \hbox (badness 5460) in paragraph at lines 747--748
-[]\OT1/cmr/m/n/10 the repos-i-tory that holds
- []
-
-
-Overfull \hbox (61.9293pt too wide) in paragraph at lines 734--763
- [] 
- []
-
-[24]
-Overfull \hbox (27.58647pt too wide) in paragraph at lines 768--792
- [] 
- []
-
-
-Overfull \hbox (27.982pt too wide) in paragraph at lines 796--823
- [] 
- []
-
-[25]
-Overfull \hbox (19.02983pt too wide) in paragraph at lines 828--843
- [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 866--866
-[]\OT1/cmr/m/n/10 binds event lis-ten-
- []
-
-
-Underfull \hbox (badness 3536) in paragraph at lines 869--869
-[]\OT1/cmr/m/n/10 Behaviour of the "add
- []
-
-
-Underfull \hbox (badness 3219) in paragraph at lines 875--875
-[]\OT1/cmr/m/n/10 Updates a row in the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 877--878
-[]\OT1/cmr/m/n/10 Updates the at-tached
- []
-
-
-Overfull \hbox (48.11963pt too wide) in paragraph at lines 847--881
- [] 
- []
-
-
-Overfull \hbox (33.49675pt too wide) in paragraph at lines 886--925
- [] 
- []
-
-[26]
-Overfull \hbox (60.50246pt too wide) in paragraph at lines 929--958
- [] 
- []
-
-
-Overfull \hbox (29.61427pt too wide) in paragraph at lines 962--997
- [] 
- []
-
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 1033--1033
-[]\OT1/cmr/m/n/10 getter for Trans-ac-tion-ID-
- []
-
-
-Overfull \hbox (47.17523pt too wide) in paragraph at lines 1000--1059
- [] 
- []
-
-[28]
-Overfull \vbox (12.03908pt too high) has occurred while \output is active []
-
-
-[29]
-Underfull \hbox (badness 3148) in paragraph at lines 1087--1087
-[]\OT1/cmr/m/n/10 deletes an ac-count from the
- []
-
-
-Overfull \hbox (44.98897pt too wide) in paragraph at lines 1063--1092
- [] 
- []
-
-[30]
-<diagrams/sequence/addAccount.png, id=112, 716.6775pt x 643.40375pt>
+ [15 <./Diagrams/UML/Controller.png (PNG copy)>]
+<diagrams/sequence/addAccount.png, id=63, 716.6775pt x 643.40375pt>
 File: diagrams/sequence/addAccount.png Graphic file (type png)
 <use diagrams/sequence/addAccount.png>
-Package pdftex.def Info: diagrams/sequence/addAccount.png  used on input line 1
-120.
+Package pdftex.def Info: diagrams/sequence/addAccount.png  used on input line 2
+32.
 (pdftex.def)             Requested size: 455.2492pt x 408.7041pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1118--1121
+Underfull \hbox (badness 10000) in paragraph at lines 230--233
 
  []
 
-<diagrams/sequence/updateAccount.png, id=113, 781.92125pt x 730.73pt>
+<diagrams/sequence/updateAccount.png, id=64, 717.68124pt x 756.8275pt>
 File: diagrams/sequence/updateAccount.png Graphic file (type png)
 <use diagrams/sequence/updateAccount.png>
 Package pdftex.def Info: diagrams/sequence/updateAccount.png  used on input lin
-e 1127.
-(pdftex.def)             Requested size: 455.24466pt x 425.44044pt.
+e 239.
+(pdftex.def)             Requested size: 455.25163pt x 480.08356pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1125--1128
+Underfull \hbox (badness 10000) in paragraph at lines 237--240
 
  []
 
-[31 <./diagrams/sequence/addAccount.png (PNG copy)>]
-<diagrams/sequence/deleteAccount.png, id=118, 655.44875pt x 293.095pt>
+[16 <./diagrams/sequence/addAccount.png (PNG copy)>] [17 <./diagrams/sequence/u
+pdateAccount.png (PNG copy)>]
+<diagrams/sequence/deleteAccount.png, id=71, 665.48625pt x 301.125pt>
 File: diagrams/sequence/deleteAccount.png Graphic file (type png)
 <use diagrams/sequence/deleteAccount.png>
 Package pdftex.def Info: diagrams/sequence/deleteAccount.png  used on input lin
-e 1134.
-(pdftex.def)             Requested size: 455.25052pt x 203.57297pt.
+e 246.
+(pdftex.def)             Requested size: 455.24606pt x 205.99368pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1132--1135
+Underfull \hbox (badness 10000) in paragraph at lines 244--247
 
  []
 
-[32 <./diagrams/sequence/updateAccount.png (PNG copy)>] [33 <./diagrams/sequenc
-e/deleteAccount.png (PNG copy)>]
-<diagrams/sequence/importHighLevel.png, id=125, 735.74875pt x 306.14375pt>
+[18 <./diagrams/sequence/deleteAccount.png (PNG copy)>]
+<diagrams/sequence/importHighLevel.png, id=75, 740.7675pt x 314.17375pt>
 File: diagrams/sequence/importHighLevel.png Graphic file (type png)
 <use diagrams/sequence/importHighLevel.png>
 Package pdftex.def Info: diagrams/sequence/importHighLevel.png  used on input l
-ine 1142.
-(pdftex.def)             Requested size: 455.26138pt x 189.43344pt.
+ine 254.
+(pdftex.def)             Requested size: 455.24716pt x 193.07907pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1140--1143
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1150--1151
+Underfull \hbox (badness 10000) in paragraph at lines 252--255
 
  []
 
 
-Underfull \hbox (badness 2762) in paragraph at lines 1152--1153
+Underfull \hbox (badness 10000) in paragraph at lines 262--263
+
+ []
+
+
+Underfull \hbox (badness 2762) in paragraph at lines 264--265
 []\OT1/cmr/m/n/12 After the [][][][][][] method is called, the [][][][][][] cre
 -ates an
  []
 
 
-Underfull \hbox (badness 1189) in paragraph at lines 1152--1153
+Underfull \hbox (badness 1189) in paragraph at lines 264--265
 [][][][][][] \OT1/cmr/m/n/12 ob-ject (linked HashMap with keys and val-ues of t
 ype String) to
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1152--1153
+Underfull \hbox (badness 10000) in paragraph at lines 264--265
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1154--1155
+Underfull \hbox (badness 10000) in paragraph at lines 266--267
 
  []
 
-[34 <./diagrams/sequence/importHighLevel.png (PNG copy)>]
-<diagrams/sequence/addAccountImp.png, id=129, 1043.9pt x 614.295pt>
+[19 <./diagrams/sequence/importHighLevel.png (PNG copy)>]
+<diagrams/sequence/addAccountImp.png, id=80, 976.64874pt x 637.38126pt>
 File: diagrams/sequence/addAccountImp.png Graphic file (type png)
 <use diagrams/sequence/addAccountImp.png>
 Package pdftex.def Info: diagrams/sequence/addAccountImp.png  used on input lin
-e 1158.
-(pdftex.def)             Requested size: 455.23969pt x 267.89104pt.
+e 270.
+(pdftex.def)             Requested size: 455.23976pt x 297.09892pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1156--1159
-
- []
-
-[35 <./diagrams/sequence/addAccountImp.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 1164--1165
+Underfull \hbox (badness 10000) in paragraph at lines 268--271
 
  []
 
-<diagrams/sequence/importLowLevel.png, id=133, 1038.88126pt x 742.775pt>
+[20 <./diagrams/sequence/addAccountImp.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+
+ []
+
+<diagrams/sequence/importLowLevel.png, id=84, 1026.83624pt x 772.8875pt>
 File: diagrams/sequence/importLowLevel.png Graphic file (type png)
 <use diagrams/sequence/importLowLevel.png>
 Package pdftex.def Info: diagrams/sequence/importLowLevel.png  used on input li
-ne 1168.
-(pdftex.def)             Requested size: 455.23863pt x 325.48462pt.
+ne 280.
+(pdftex.def)             Requested size: 455.24069pt x 342.65428pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1166--1169
+Underfull \hbox (badness 10000) in paragraph at lines 278--281
 
  []
 
-[36 <./diagrams/sequence/importLowLevel.png (PNG copy)>] (Iteration_2.aux) ) 
+[21 <./diagrams/sequence/importLowLevel.png (PNG copy)>] (Iteration_2.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 3145 strings out of 493305
- 47834 string characters out of 3141010
- 128515 words of memory out of 3000000
- 6661 multiletter control sequences out of 15000+200000
- 9326 words of font info for 33 fonts, out of 3000000 for 9000
+ 3122 strings out of 493305
+ 47495 string characters out of 3141010
+ 110515 words of memory out of 3000000
+ 6642 multiletter control sequences out of 15000+200000
+ 8671 words of font info for 31 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,14n,39p,733b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
-<e:
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><e:/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmbx12.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mmi10.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><e:/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><
-e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Iteration_2.pdf (36 pages, 637989 bytes).
+ 41i,8n,39p,733b,325s stack positions out of 5000i,500n,10000p,200000b,50000s
+<e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><e:/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmbx12.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><e:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><e:/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><e:/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmtt12.pfb>
+Output written on Iteration_2.pdf (21 pages, 580267 bytes).
 PDF statistics:
- 163 PDF objects out of 1000 (max. 8388607)
+ 108 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 
