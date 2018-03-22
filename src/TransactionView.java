@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Implementation of the ITransactionView interface. Requires a model that implements the IModelView
+ * interface.
+ */
 public class TransactionView extends AbstractView<Transaction> implements ITransactionView, IViewGUI {
 
 	// Transaction UI elements
@@ -30,6 +34,10 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JScrollPane scrollPane;
 
 
+    /**
+     * Cosntructor.
+     * @param model model
+     */
 	public TransactionView(IModelView model)
 	{
         super(model);
@@ -195,7 +203,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     }
 
     /**
-     * C
+     * Create GUI elements
      */
     private void createTransPanel() {
 		// Create Transaction UI elements
@@ -247,7 +255,10 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
             }
         });
 	}
-	
+
+    /**
+     * Set layout for GUI elements
+     */
 	private void setLayout() {
 		GroupLayout layout = new GroupLayout(panel);
 		panel.setLayout(layout);	

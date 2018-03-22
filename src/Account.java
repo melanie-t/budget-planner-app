@@ -75,7 +75,7 @@ public class Account extends  AbstractUniqueId {
 
     /**
      * Set the current balance of this account.
-     * @param balance current balance
+     * @param balance balance
      */
 	public void setBalance(int balance) {this.balance = balance;}
 

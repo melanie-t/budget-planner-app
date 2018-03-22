@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Repository class for Transaction objects
+ */
 public class TransactionRepository extends AbstractRepository<Transaction>{
 
+    /**
+     * Constructor.
+     * @param database database associated with this repository
+     */
 	public TransactionRepository(Database database) {
 	    super(database, "transactions", "transactionId");
 	}
@@ -67,6 +74,10 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
         }
 	}
 
+    /**
+     * Deletes all transactions associated with the specified account id
+     * @param accountId accound id
+     */
     public void deleteAllItemsFromAccount(Integer accountId) {
         for (Transaction transaction : itemMap.values())
         {
@@ -75,6 +86,11 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
         }
     }
 
+    /**
+     * Returns a list of all transactions associated with the specified account id
+     * @param accountId account id
+     * @return list of Transactions
+     */
     public ArrayList<Transaction> getItems(Integer accountId) {
 	    ArrayList<Transaction> itemsToFilter = getItems();
         Iterator<Transaction> it = itemsToFilter.iterator();

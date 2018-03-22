@@ -3,8 +3,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+/**
+ * Controller class for views that implement ITransactionView interface and models that implement
+ * the IModelController interface.
+ */
 public class TransactionController extends AbstractController<ITransactionView>{
 
+    /**
+     * Constructor.
+     * @param view associated view
+     * @param model associated model
+     */
 	public TransactionController(ITransactionView view, IModelController model)
 	{
 		super(view, model);
@@ -34,7 +43,12 @@ public class TransactionController extends AbstractController<ITransactionView>{
                 break;
         }
     }
-
+    /**
+     * Creates a new transaction object and sends it to the model for saving.
+     * If the specified transactionId is 0, then this is an "Add" operation. Otherwise we update
+     * the existing transaction with the specified id.
+     * @param transactionId account id
+     */
     private void handleAddOrUpdate(Integer transactionId)
     {
         boolean success = true;
@@ -79,20 +93,32 @@ public class TransactionController extends AbstractController<ITransactionView>{
             System.out.println("Add error");
     }
 
+    /**
+     * Event handler for "Add" actions from the user
+     */
 	private void handleAdd() {
         // Transactions with an ID of 0 are considered as "new"
         handleAddOrUpdate(0);
 	}
 
+    /**
+     * Event handler for "Update" actions from the user
+     */
     private void handleUpdate() {
         handleAddOrUpdate(view.getSelectedTransactionId());
     }
-	
+
+    /**
+     * Event handler for "Delete" actions from the user
+     */
 	private void handleDelete() {
         model.deleteTransaction(view.getSelectedTransactionId());
         view.setSelection(0);
 	}
-	
+
+    /**
+     * Event handler for "Import" actions from the user
+     */
 	private void handleImport() {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
