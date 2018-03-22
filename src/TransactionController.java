@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -94,6 +95,10 @@ public class TransactionController extends AbstractController<ITransactionView>{
 	
 	private void handleImport() {
         JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "CSV file", "csv"
+        );
+        chooser.setFileFilter(filter);
         File file = null;
         int returnValue = chooser.showOpenDialog( null ) ;
         if( returnValue == JFileChooser.APPROVE_OPTION ) {

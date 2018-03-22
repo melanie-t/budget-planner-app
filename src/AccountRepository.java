@@ -20,17 +20,18 @@ public class AccountRepository {
 	}
 
     public void initSQLStructure() {
-        myDatabase.updateSQL(sql.createTable("account", "accountId", "INTEGER"));	//pass "NULL" to auto-increment
-        myDatabase.updateSQL(sql.addColumn("account", "bankName", "VARCHAR"));
-        myDatabase.updateSQL(sql.addColumn("account", "nickname", "VARCHAR"));
-        myDatabase.updateSQL(sql.addColumn("account", "balance", "INTEGER"));
+        myDatabase.updateSQL(sql.createTable(tableName, primaryKey, "INTEGER"));	//pass "NULL" to auto-increment
+        myDatabase.updateSQL(sql.addColumn(tableName, "bankName", "VARCHAR"));
+        myDatabase.updateSQL(sql.addColumn(tableName, "nickname", "VARCHAR"));
+        myDatabase.updateSQL(sql.addColumn(tableName, "balance", "INTEGER"));
     }
 
     public void loadAllItems() {
         SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
-        ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("account", where));
+        ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap(tableName, where));
 
         try {
+            System.out.println("Load all accounts");
             while(result.next())
                 setItemFromResult(result);
 
@@ -47,6 +48,7 @@ public class AccountRepository {
             account.setNickname(result.getString("nickname"));
             account.setBankName(result.getString("bankName"));
 
+            System.out.println(result.getInt(primaryKey));
             addItemToMap(account);
         } catch (SQLException e){
             System.err.println(e.getMessage());

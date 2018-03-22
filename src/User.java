@@ -7,18 +7,27 @@ public class User {
 	 *
 	 * This way we do not need to have a User reference everywhere in our classes
 	 * We could probably have a UserRepository that loads up the same way the other
-	 * model are created.
+	 * models are created.
 	 */
 	private String name;
 	private String password;
+	private Integer userId;
 
 	public User()
 	{
-		name = "Jane Doe";
-		password = "";
+		this("Jane_Doe", "", 9000);
+	}
+
+	public User(String name, String password, Integer userId)
+	{
+		this.name = name;
+		this.password = password;
+		this.userId = userId;
 	}
 
 	public String getName() {return name;}
-	public boolean isValidPasswork(String password) {return this.password == password;}
+	public boolean isNew() {return userId == 0;}
+	public void setId(Integer userId) {this.userId = userId;}
+	public boolean isValidPassword(String password) {return this.password == password;}
 
 }

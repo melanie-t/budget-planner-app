@@ -10,10 +10,14 @@ public class Iteration2AppController implements IAppController, WindowListener{
 	TransactionView transactionView;
 	AccountController accountController;
 	TransactionController transactionController;
+
+    User user;
+
 	MainView window;
 
-	public Iteration2AppController() {
-		myDatabase = new Database("MyDB");
+	public Iteration2AppController(User user) {
+        this.user = user;
+		myDatabase = new Database(user.getName());
 		sql = SQLStringFactory.getInstance();
 
 		// Create model
@@ -32,8 +36,14 @@ public class Iteration2AppController implements IAppController, WindowListener{
 
 
 	public void start() {
-		devStart();
-		//productionStart();
+        if (user.getName() == "Jane_Doe")
+        {
+            devStart();
+        }
+        else
+        {
+            productionStart();
+        }
 	}
 
 	// Development Mode
@@ -44,10 +54,14 @@ public class Iteration2AppController implements IAppController, WindowListener{
 
 	//Production Mode
 	protected void productionStart() {
-		Boolean isSQLStructureInitialized = true; //@TODO make check function for this
-		if(!isSQLStructureInitialized) {
-			model.initSQLStructure();
-		}
+        if (user.isNew())
+        {
+            model.initSQLStructure();
+        }
+        else
+        {
+            model.loadAllItems();
+        }
 	}
 
 	protected void InsertFakeAccounts() {
@@ -68,11 +82,8 @@ public class Iteration2AppController implements IAppController, WindowListener{
 
 	public void run() {
 
-		// user using this app - does nothing for now
-		User currentUser = new User();
-
 		// Create window
-		MainView v = new MainView("My Money Manager", accountView, transactionView, this);
+		window = new MainView("My Money Manager - " + "User : " + user.getName(), accountView, transactionView, this);
 
 
 		/*

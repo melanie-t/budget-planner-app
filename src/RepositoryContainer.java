@@ -113,6 +113,13 @@ public class RepositoryContainer implements IModelView, IModelController {
         transactionRepository.reinitSQLStructure();
     }
 
+    public void loadAllItems()
+    {
+        accountRepository.loadAllItems();
+        transactionRepository.loadAllItems();
+        notifyObservers();
+    }
+
     // This will create tables
     public void initSQLStructure()
     {

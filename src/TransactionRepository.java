@@ -21,19 +21,19 @@ public class TransactionRepository {
 	}
 
     public void initSQLStructure() {
-        myDatabase.updateSQL(sql.createTable("transactions", "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
-        myDatabase.updateSQL(sql.addColumn("transactions", "date", "VARCHAR"));
-        myDatabase.updateSQL(sql.addColumn("transactions", "type", "VARCHAR"));
-        myDatabase.updateSQL(sql.addColumn("transactions", "amount", "INTEGER"));
-        myDatabase.updateSQL(sql.addColumn("transactions", "description", "VARCHAR"));
+        myDatabase.updateSQL(sql.createTable(tableName, "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
+        myDatabase.updateSQL(sql.addColumn(tableName, "date", "VARCHAR"));
+        myDatabase.updateSQL(sql.addColumn(tableName, "type", "VARCHAR"));
+        myDatabase.updateSQL(sql.addColumn(tableName, "amount", "INTEGER"));
+        myDatabase.updateSQL(sql.addColumn(tableName, "description", "VARCHAR"));
     }
 
 	public void loadAllItems() {
 		SQLValueMap where = new SQLValueMap(); // left blank so where is omitted
-		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap("transactions", where));
+		ResultSet result = myDatabase.fetchSQL(sql.selectEntryUsingMap(tableName, where));
 		
 		try {
-			System.out.println("Load all transactions");
+            System.out.println("Load all transactions");
 			while(result.next())
 				setItemFromResult(result);
 
@@ -52,7 +52,7 @@ public class TransactionRepository {
             transaction.setType(result.getString("type"));
             transaction.setDescription(result.getString("description"));
 
-            System.out.println(result.getInt("amount"));
+            System.out.println(result.getInt(primaryKey));
             addItemToMap(transaction);
         }catch(SQLException sqle) {
             System.err.println(sqle.getMessage());
@@ -115,7 +115,7 @@ public class TransactionRepository {
     }
 
     public void destroySQLStructure() {
-        myDatabase.updateSQL(sql.deleteTable("transactions"));
+        myDatabase.updateSQL(sql.deleteTable(tableName));
     }
 }
 
