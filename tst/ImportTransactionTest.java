@@ -68,10 +68,6 @@ public class ImportTransactionTest {
 			System.err.println(sqle.getMessage());
 		}
 
-		System.out.println(expected.getDate());
-		System.out.println(actualDate);
-		
-		
 		
 		assertEquals(expected.getAssociatedAccountId(), actualAccountID);
 		assertEquals(expected.getAmount(), actualAmount);
