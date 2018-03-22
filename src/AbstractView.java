@@ -13,10 +13,6 @@ public abstract class AbstractView
 
     protected void setCurrentAccountSelection(int accountId)
     {
-        // User just clicked the same field twice, do nothing
-        if (currentAccountSelection == accountId)
-            return;
-
         currentAccountSelection = accountId;
         for (AbstractView view : AbstractView.instances)
         {
@@ -26,10 +22,6 @@ public abstract class AbstractView
 
     protected void setCurrentTransactionSelection(int transactionId)
     {
-        // User just clicked the same field twice, do nothing
-        if (currentTransactionSelection == transactionId)
-            return;
-
         currentTransactionSelection = transactionId;
         for (AbstractView view : AbstractView.instances)
         {

@@ -126,6 +126,7 @@ public class AccountView extends AbstractView implements IAccountView, IViewGUI 
             if (item.getId().equals(getCurrentAccountSelection()))
             {
                 table.setRowSelectionInterval(i, i);
+                fillFieldsFromAccount(item);
                 return;
             }
         }
