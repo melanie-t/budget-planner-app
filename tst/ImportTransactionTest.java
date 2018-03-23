@@ -1,3 +1,4 @@
+import com.sun.org.omg.CORBA.Repository;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class ImportTransactionTest {
 	public void testAddTransaction() {
 
         model = new RepositoryContainer(new TransactionRepository(testDatabase), new AccountRepository(testDatabase));
-
+		((RepositoryContainer) model).initSQLStructure();
         model.importTransactions("tst/spread_sheet_test_case.csv", 1);
 
 		/*
