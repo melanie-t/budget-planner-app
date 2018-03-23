@@ -75,8 +75,8 @@ public class RepositoryContainer implements IModelView, IModelController {
         Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
         if(associatedAccount != null) {
         	associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
+        	accountRepository.saveItem(associatedAccount);
         }
-        accountRepository.saveItem(associatedAccount);
         notifyObservers();
     }
 
