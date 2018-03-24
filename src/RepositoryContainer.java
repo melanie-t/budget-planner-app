@@ -58,7 +58,10 @@ public class RepositoryContainer implements IModelView, IModelController {
         Transaction transactionToDelete = transactionRepository.getItem(transactionId);
         transactionRepository.deleteItem(transactionId);
         Account associatedAccount = accountRepository.getItem(transactionToDelete.getAssociatedAccountId());
-        associatedAccount.setBalance(associatedAccount.getBalance() - transactionToDelete.getAmount());
+        if(associatedAccount != null) {
+        	associatedAccount.setBalance(associatedAccount.getBalance() - transactionToDelete.getAmount());
+        	accountRepository.saveItem(associatedAccount);
+        }
         notifyObservers();
     }
 
