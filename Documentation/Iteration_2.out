@@ -1,0 +1,29 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Architectural Design}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Architectural Diagram}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Subsystem Interface Specifications}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Model - View : Observer Pattern}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Model : IModelView Interface}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Model : IModelController Interface}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.4}{View : IAccountView}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.5}{View : ITransactionView}{subsection.2.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.2.6}{View : IViewGUI}{subsection.2.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.2.7}{Controller : ActionListener}{subsection.2.2}% 11
+\BOOKMARK [1][-]{section.3}{Detailed Design}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Model}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Design Diagram}{subsection.3.1}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Units Description}{subsection.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.2}{View}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Design Diagram}{subsection.3.2}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Units Description}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.4}{Controller}{section.3}% 19
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Design Diagram}{subsection.3.4}% 20
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Units Description}{subsection.3.4}% 21
+\BOOKMARK [1][-]{section.4}{Dynamic Design Scenarios}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Add an account}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.2}{Update an account}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.3}{Delete an account}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.4}{Import a transaction list}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.5}{Model implementation details}{section.4}% 27
+\BOOKMARK [3][-]{subsubsection.4.5.1}{saveAccount\(\)}{subsection.4.5}% 28
+\BOOKMARK [3][-]{subsubsection.4.5.2}{importTransactions\(\)}{subsection.4.5}% 29

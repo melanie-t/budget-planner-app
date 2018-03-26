@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{xcolor}
+\usepackage{hyperref}
 
 \pagestyle{empty}
 \setcounter{tocdepth}{4}
@@ -177,9 +178,16 @@ This section will cover the implementation details for each subsystem. Before mo
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/Types.png}
 \captionof{figure}{Overview of basic types}\bigskip
 
+\newpage
 The \code{Transaction} and \code{Account} are nothing more than plain old data structures with public read and write access. They both inherit from the \code{AbstractUniqueId} class which holds the id that will be used as primary key for the database. The \code{SQLValueMap} is a helper class  that derives from Java's \code{HashMap} and overrides the \code{put()} method to quickly convert the \code{value} of the (key,value) pair into a string. \code{SQLValueMaps} instances are extensively used when building strings that are sent to the SQL database.\\
 
-In order to simplify the following class diagrams, dependencies on these types are to be assumed and have been omitted.
+In order to simplify the following class diagrams, dependencies on these types are to be assumed and have been omitted.\\
+
+Links to javadoc generated documentation:\\
+\href{run:javadoc/AbstractUniqueId.html}{AbstractUniqueId abstract class}\\
+\href{run:javadoc/Account.html}{Account class}\\
+\href{run:javadoc/Transaction.html}{Transaction class}\\
+\href{run:javadoc/SQLValueMap.html}{SQLValueMap class}\\
 
 \subsection{Model}
 
@@ -188,13 +196,25 @@ In order to simplify the following class diagrams, dependencies on these types a
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/Model.png}
 \captionof{figure}{Model subsystem class diagram}\bigskip
 
+\newpage
 The model subsystem consists of two main parts. The first is the \code{RepositoryContainer} that interfaces with the rest of the application. It owns the \code{TransactionRepository} and \code{AccountRepository} instances and passes read or write commands to each as they are received from the controllers. It also notifies the views of any CRUD operations using the observer pattern.\\
 
 The second part consists of the SQL database. This is where all information is serialized to allow access between user sessions. It is continuously updated by the repositories as modifications are made. SQL queries to the database can easily be created by using the singleton \code{SQLStringFactory}.\\
 
 \subsubsection{Units Description}
 
-TODO -- Generete from JavaDoc for each class in the subsystem
+Links to javadoc generated documentation:\\
+\href{run:javadoc/IObservable.html}{IObservable interface}\\
+\href{run:javadoc/IModelView.html}{IModelView interface}\\
+\href{run:javadoc/IModelController.html}{IModelController interface}\\
+\\
+\href{run:javadoc/AbstractRepository.html}{AbstractRepository abstract class}\\
+\href{run:javadoc/AccountRepository.html}{AccountRepository class}\\
+\href{run:javadoc/TransactionRepository.html}{TransactionRepository class}\\
+\href{run:javadoc/RepositoryContainer.html}{RepositoryContainer class}\\
+\\
+\href{run:javadoc/Database.html}{Database class}\\
+\href{run:javadoc/SQLStringFactory.html}{SQLStringFactory class}\\
 
 \subsection{View}
 
@@ -203,11 +223,20 @@ TODO -- Generete from JavaDoc for each class in the subsystem
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/View.png}
 \captionof{figure}{View subsystem class diagram}\bigskip
 
-TODO - Put words here
+\newpage
+The view subsystems consists of two concrete implementations, one for transactions and the other for accounts. They both implement the required interfaces for the other subsystems. Their roles are to update themselves when the model changes via their observer pattern implementation as well as sending events to the controller's registered callbacks methods whenever an action is required from the user input.\\
 
 \subsection{Units Description}
 
-TODO -- Generete from JavaDoc for each class in the subsystem
+Links to javadoc generated documentation:\\
+\href{run:javadoc/IObserver.html}{IObserver interface}\\
+\href{run:javadoc/IAccountView.html}{IAccountView interface}\\
+\href{run:javadoc/IViewGUI.html}{IViewGUI interface}\\
+\href{run:javadoc/ITransactionView.html}{ITransactionView interface}\\
+\\
+\href{run:javadoc/AbstractView.html}{AbstractView abstract class}\\
+\href{run:javadoc/AccountView.html}{AccountView class}\\
+\href{run:javadoc/TransactionView.html}{TransactionView class}\\
 
 \subsection{Controller}
 
@@ -216,16 +245,18 @@ TODO -- Generete from JavaDoc for each class in the subsystem
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Diagrams/UML/Controller.png}
 \captionof{figure}{Controller subsystem class diagram}\bigskip
 
-TODO - Put words here
+The controller subsystem is very slim. It consists only of two concrete implementations, one for accounts and the other for transactions. It registers event handlers to the views on creation and calls the appropriate methods on the model through the \code{IModelController} interface when action is required by the user.
 
 \subsubsection{Units Description}
 
-TODO -- Generete from JavaDoc for each class in the subsystem
+\href{run:javadoc/AbstractController.html}{AbstractController abstract class}\\
+\href{run:javadoc/AccountController.html}{AccountController class}\\
+\href{run:javadoc/TransactionController.html}{TransactionController class}\\
 
+\newpage
 \section{Dynamic Design Scenarios}
 To illustrate the interactions between the difference classes of our system, we have drawn sequence diagrams for the main features of our program. For simplicity, the model interface is the lowest layer of abstraction in these diagrams. The final section illustrates the internal structure of the model to complement the higher level diagrams.
 
-\newpage
 \subsection{Add an account} \label{sec:addAccount}
 The first scenario illustrates the addition of an account to the system. The user completes the required text fields and presses the "Add" button, which sends an \code{ActionEvent} the \code{AccountController}. The controller then gathers and validates the inputs. If they are valid, the controller constructs an \code{Account} object and initializes it using the info gathered from the view. Finally, the object is saved by calling the model's \code{saveAccount()} method. See \ref{sec:modelSaveDetail} for the sequence diagram from the model's perspective once the call to \code{saveAccount()} is made. The sequence of calls for adding a \code{Transaction} is fundamentally the same.\\
 \\
@@ -247,7 +278,6 @@ To delete an account, the user selects an entry in the \code{AccountView}'s tabl
 \captionof{figure}{Deleting an account}
 \bigskip
 
-\newpage
 \subsection{Import a transaction list}
 In this scenario, the users imports a list of transactions from a .csv file and adds them to the model. When the user clicks the "Import" button, the \code{TransactionController} creates a window with a dialog box. The user then inputs the file path of the transaction csv file. If the file path is valid, both the file path and the currently selected accountId is passed to the model with a call to \code{importTransactions()}. For details on how the model then handles the import, see \ref{sec:modelImportDetail}.\\
 \\

@@ -1,12 +1,12 @@
-\contentsline {figure}{\numberline {1}{\ignorespaces High level structure of MVC architecture\relax }}{5}
-\contentsline {figure}{\numberline {2}{\ignorespaces Subsystem specification diagram\relax }}{6}
-\contentsline {figure}{\numberline {3}{\ignorespaces Overview of basic types\relax }}{10}
-\contentsline {figure}{\numberline {4}{\ignorespaces Model subsystem class diagram\relax }}{12}
-\contentsline {figure}{\numberline {5}{\ignorespaces View subsystem class diagram\relax }}{14}
-\contentsline {figure}{\numberline {6}{\ignorespaces Controller subsystem class diagram\relax }}{15}
-\contentsline {figure}{\numberline {7}{\ignorespaces Adding an account\relax }}{16}
-\contentsline {figure}{\numberline {8}{\ignorespaces Updating an account\relax }}{17}
-\contentsline {figure}{\numberline {9}{\ignorespaces Deleting an account\relax }}{18}
-\contentsline {figure}{\numberline {10}{\ignorespaces Import a list of transactions from .csv file\relax }}{19}
-\contentsline {figure}{\numberline {11}{\ignorespaces Model - Saving an account\relax }}{20}
-\contentsline {figure}{\numberline {12}{\ignorespaces Model - Import list of transactions from .csv file\relax }}{21}
+\contentsline {figure}{\numberline {1}{\ignorespaces High level structure of MVC architecture\relax }}{5}{figure.1}
+\contentsline {figure}{\numberline {2}{\ignorespaces Subsystem specification diagram\relax }}{6}{figure.2}
+\contentsline {figure}{\numberline {3}{\ignorespaces Overview of basic types\relax }}{10}{figure.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Model subsystem class diagram\relax }}{12}{figure.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces View subsystem class diagram\relax }}{14}{figure.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Controller subsystem class diagram\relax }}{16}{figure.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Adding an account\relax }}{18}{figure.7}
+\contentsline {figure}{\numberline {8}{\ignorespaces Updating an account\relax }}{19}{figure.8}
+\contentsline {figure}{\numberline {9}{\ignorespaces Deleting an account\relax }}{20}{figure.9}
+\contentsline {figure}{\numberline {10}{\ignorespaces Import a list of transactions from .csv file\relax }}{20}{figure.10}
+\contentsline {figure}{\numberline {11}{\ignorespaces Model - Saving an account\relax }}{22}{figure.11}
+\contentsline {figure}{\numberline {12}{\ignorespaces Model - Import list of transactions from .csv file\relax }}{23}{figure.12}
