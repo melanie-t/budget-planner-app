@@ -71,13 +71,13 @@ Colin Greczkowski & 40001600 \\
 The purpose of this document is to describe and provide details for the design and
 implementation of the second iteration of the MyMoney application.\\
 
-The following pages will cover the rational of the architectural design as well as the
+The following pages will cover the rational of the architectural design, as well as the
 subsystem interface specifications and details on their implementation. Finally, we will
 describe three dynamic design scenarios based on use cases specified in the documentation
 for iteration 1.
 
 \section{Architectural Design} \label{sec:arch}
-The Mymoney application is implemented using a model-view-controller (MVC) architecture. this section will cover the architectural diagram for the MVC as well as the subsystem interface specifications.
+The MyMoney application is implemented using a model-view-controller (MVC) architecture. This section will cover the architectural diagram for the MVC as well as the subsystem interface specifications.
 \newpage
 \subsection{Architectural Diagram}
 
@@ -104,8 +104,8 @@ The interfaces \code{IObservable} and \code{IObserver} form the observer pattern
 
 \code{IObservable}
 \begin{itemize}
-	\item \code{attachObserver(IObserver)} : Attach an observer to this object
-	\item \code{detachObserver(IObserver)} : Detach an observer from this object
+	\item \code{attachObserver(IObserver)} : Attach an observer to this object.
+	\item \code{detachObserver(IObserver)} : Detach an observer from this object.
 	\item \code{notifyObservers()} : Call the \code{update()} method on all attached observers. Whenever the state of the model changes, it should call this function to allow its attached observers to update their views.
 \end{itemize}\bigskip
 
@@ -119,41 +119,41 @@ The \code{ImodelView} interface exposes methods to allow the view to fetch infor
 \subsubsection{Model : IModelController Interface}
 The \code{IModelController} interface exposes methods to allow the controller to modify the model.\\
 \begin{itemize}
-	\item \code{saveTransaction(Transaction)} : Save the given \code{Transaction} object to the repository and update the SQL database. If the ID of the transaction is 0, create a new entry. Otherwise update the existing one.
-	\item \code{saveAccount(Account)} : Save the given \code{Account} object to the repository and update the SQL database. If the ID of the account is 0, create a new entry. Otherwise update the existing one.
-	\item \code{deleteTransaction(Transaction)} : Delete the specified transaction from both the repository and the SQL database.
-	\item \code{deleteAccount(Account)} : Delete the specified account from both the repository and the SQL database.
-	\item \code{importTransactions(String path, Integer accountId)} : Construct and save \code{Transactions} objects to the repository and SQL databse from a .csv file located at the specified path. The format of the .csv file should be well defined.
+	\item \code{saveTransaction(Transaction)} : Saves the given \code{Transaction} object to the repository and updates the SQL database. If the ID of the transaction is 0, creates a new entry. Otherwise, updates the existing one.
+	\item \code{saveAccount(Account)} : Saves the given \code{Account} object to the repository and updates the SQL database. If the ID of the account is 0, creates a new entry. Otherwise, updates the existing one.
+	\item \code{deleteTransaction(Transaction)} : Deletes the specified transaction from both the repository and the SQL database.
+	\item \code{deleteAccount(Account)} : Deletes the specified account from both the repository and the SQL database.
+	\item \code{importTransactions(String path, Integer accountId)} : Constructs and saves \code{Transactions} objects to the repository and SQL databse from a .csv file located at the specified path. The format of the .csv file should be well defined.
 \end{itemize}
 
 \subsubsection{View : IAccountView}
 The \code{IAccountView} interface exposes methods to allow the controller to register event listeners for user actions (buttons clicks) and have access to the content of the form fields filled by the user.\\
 The callback system uses Java's \code{ActionEvent} class. 
 \begin{itemize}
-	\item \code{registerAddActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Add" action and set the event's action command to the specified string (should be "Add").
-	\item \code{registerUpdateActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Update" action and set the event's action command to the specified string (should be "Update").
-	\item \code{registerDeleteActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Delete" action and set the event's action command to the specified string (should be "Delete").
-	\item \code{getBankInput()} : Return a string consisting of the content of the BankName field in the GUI.
-	\item \code{getNicknameInput()} : Return a string consisting of the content of the Nickname field in the GUI.
-	\item \code{getBalanceInput()} : Return an Integer consisting of the content of the Balance field in the GUI.
-	\item \code{getSelectedAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
-	\item \code{setSelection(Integer)} : Overrides the user's current account selection. This method mostly improves user experience (for example, automatically selects a new account when it is created)
+	\item \code{registerAddActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Add" action and set the event's action command to the specified string (should be "Add").
+	\item \code{registerUpdateActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Update" action, and set the event's action command to the specified string (should be "Update").
+	\item \code{registerDeleteActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Delete" action and set the event's action command to the specified string (should be "Delete").
+	\item \code{getBankInput()} : Returns a string consisting of the content of the BankName field in the GUI.
+	\item \code{getNicknameInput()} : Returns a string consisting of the content of the Nickname field in the GUI.
+	\item \code{getBalanceInput()} : Returns an Integer consisting of the content of the Balance field in the GUI.
+	\item \code{getSelectedAccountId()} : Returns a Integer consisting of the ID of the account currently selected by the user.
+	\item \code{setSelection(Integer)} : Overrides the user's current account selection. This method mostly improves user experience (for example, automatically selects a new account when it is created).
 \end{itemize}
 
 \subsubsection{View : ITransactionView}
 The \code{ITransactionView} interface exposes methods to allow the controller to register event listeners for user actions (buttons clicks) and have access to the content of the form fields filled by the user.\\
 The callback system uses Java's \code{ActionEvent} class.
 \begin{itemize}
-	\item \code{registerAddActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Add" action and set the event's action command to the specified string (should be "Add").
-	\item \code{registerUpdateActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Update" action and set the event's action command to the specified string (should be "Update").
-	\item \code{registerDeleteActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Delete" action and set the event's action command to the specified string (should be "Delete").
-		\item \code{registerImportActionCallback(ActionListener, String)} : Attach the specified listener to the GUI element that should trigger the "Import" action and set the event's action command to the specified string (should be "Import").
-	\item \code{getTypeInput()} : Return a string consisting of the content of the Type field in the GUI.
-	\item \code{getDateInput()} : Return a string consisting of the content of the Date field in the GUI.
-	\item \code{getDescriptionInput()} : Return a string consisting of the content of the Description field in the GUI.
-	\item \code{getAmountInput()} : Return an Integer consisting of the content of the Amount field in the GUI.
-	\item \code{getSelectedAccountId()} : Return a Integer consisting of the id of the account currently selected by the user.
-	\item \code{getSelectedTransactionId()} : Return a Integer consisting of the id of the transaction currently selected by the user.
+	\item \code{registerAddActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Add" action and set the event's action command to the specified string (should be "Add").
+	\item \code{registerUpdateActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Update" action and set the event's action command to the specified string (should be "Update").
+	\item \code{registerDeleteActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Delete" action and set the event's action command to the specified string (should be "Delete").
+		\item \code{registerImportActionCallback(ActionListener, String)} : Attaches the specified listener to the GUI element that should trigger the "Import" action and set the event's action command to the specified string (should be "Import").
+	\item \code{getTypeInput()} : Returns a string consisting of the content of the Type field in the GUI.
+	\item \code{getDateInput()} : Returns a string consisting of the content of the Date field in the GUI.
+	\item \code{getDescriptionInput()} : Returns a string consisting of the content of the Description field in the GUI.
+	\item \code{getAmountInput()} : Returns an Integer consisting of the content of the Amount field in the GUI.
+	\item \code{getSelectedAccountId()} : Returns a Integer consisting of the ID of the account currently selected by the user.
+	\item \code{getSelectedTransactionId()} : Returns a Integer consisting of the ID of the transaction currently selected by the user.
 	\item \code{setSelection(Integer)} : Overrides the user's current transaction selection. This method mostly improves user experience (for example, resetting the current selection when a transaction is deleted)
 \end{itemize}
 
@@ -179,7 +179,7 @@ This section will cover the implementation details for each subsystem. Before mo
 \captionof{figure}{Overview of basic types}\bigskip
 
 \newpage
-The \code{Transaction} and \code{Account} are nothing more than plain old data structures with public read and write access. They both inherit from the \code{AbstractUniqueId} class which holds the id that will be used as primary key for the database. The \code{SQLValueMap} is a helper class  that derives from Java's \code{HashMap} and overrides the \code{put()} method to quickly convert the \code{value} of the (key,value) pair into a string. \code{SQLValueMaps} instances are extensively used when building strings that are sent to the SQL database.\\
+The \code{Transaction} and \code{Account} are nothing more than plain old data structures with public read and write access. They both inherit from the \code{AbstractUniqueId} class which holds the ID that will be used as primary key for the database. The \code{SQLValueMap} is a helper class  that derives from Java's \code{HashMap} and overrides the \code{put()} method to quickly convert the \code{value} of the (key,value) pair into a string. \code{SQLValueMaps} instances are extensively used when building strings that are sent to the SQL database.\\
 
 In order to simplify the following class diagrams, dependencies on these types are to be assumed and have been omitted.\\
 
@@ -265,7 +265,7 @@ The first scenario illustrates the addition of an account to the system. The use
 \bigskip
 
 \subsection{Update an account}
-Updating and existing \code{Account} is very similar to creating a new one. The one difference is that the user must first select an entry from the view. The fields will then update to show the selected \code{Account}'s information. The user can then modify the fields as desired and press the "Update" button when ready. The flow is then identical to \ref{sec:addAccount}, with the exception that the \code{AccountController} will set the created \code{Account} object's id from the one selected by the user. Again, the sequence of calls for updating a \code{Transaction} is fundamentally the same.\\
+Updating and existing \code{Account} is very similar to creating a new one. The one difference is that the user must first select an entry from the view. The fields will then update to show the selected \code{Account}'s information. The user can then modify the fields as desired and press the "Update" button when ready. The flow is then identical to \ref{sec:addAccount}, with the exception that the \code{AccountController} will set the created \code{Account} object's ID from the one selected by the user. Again, the sequence of calls for updating a \code{Transaction} is fundamentally the same.\\
 \\
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/sequence/updateAccount.png}
 \captionof{figure}{Updating an account}
@@ -289,11 +289,11 @@ In this scenario, the users imports a list of transactions from a .csv file and 
 The next subsections offer a glimpse into the internal logic of the model and how it implements the methods of its interface.
 
 \subsubsection{saveAccount()} \label{sec:modelSaveDetail}
-The \code{saveAccount(Account)} method provides a simple interface for adding new \code{Account} objects or updating existing ones. When the specified \code{Account} object's \code{accountId} member variable is 0, it is assumed that this is a new entry. Otherwise the call is treated as an update. \\ 
+The \code{saveAccount(Account)} method provides a simple interface for adding new \code{Account} objects or updating existing ones. When the specified \code{Account} object's \code{accountId} member variable is 0, it is assumed that this is a new entry. Otherwise, the call is treated as an update. \\ 
 
 After the \code{saveItem()} method is called, the \code{AccountRepository} creates an \code{SQLValueMap} object (linked HashMap with keys and values of type String) to store the column-value mapping. \\
 
-If the account is new, then the repository uses the \code{SQLStringFactory} class to build a \code{String} insert query using the (key,value) pairs in the \code{SQLValueMap}. It executes the query by calling \code{updateSQL} from the Database class. The repository then updates the account's ID using the accountId value returned from updateSQL and proceeds to add the new account to the repository's \code{AccountMap}.\\
+If the account is new, then the repository uses the \code{SQLStringFactory} class to build a \code{String} insert query using the (key, value) pairs in the \code{SQLValueMap}. It executes the query by calling \code{updateSQL} from the Database class. The repository then updates the account's ID using the accountId value returned from updateSQL and proceeds to add the new account to the repository's \code{AccountMap}.\\
 
 If the account already exists, then the repository will construct a \code{SQLValueMap} for the where clause of the query using the account's ID. \code{SQLStringFactory} is then used to generate an update query, which will be executed by calling the \code{Database} class's \code{updateSQL} method. The returned accountId is unused. \\
 \\
