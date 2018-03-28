@@ -74,12 +74,19 @@ public class RepositoryContainer implements IModelView, IModelController {
 
     @Override
     public void saveItem(Transaction transaction) {
-        transactionRepository.saveItem(transaction);
         Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
+        // This should never happen, unless we need it for unit testing ?
         if(associatedAccount != null) {
+            if (transaction.getId() != 0) {
+                // Remove previous transaction ammount from account
+                Transaction oldVersion = transactionRepository.getItem(transaction.getId());
+                associatedAccount.setBalance(associatedAccount.getBalance() - oldVersion.getAmount());
+            }
+            // Add new/updated amount of transaction and save the account
         	associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
-        	accountRepository.saveItem(associatedAccount);
+            accountRepository.saveItem(associatedAccount);
         }
+        transactionRepository.saveItem(transaction);
         notifyObservers();
     }
 

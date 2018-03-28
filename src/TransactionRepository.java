@@ -25,6 +25,11 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
         database.updateSQL(sql.addColumn(tableName, "description", "VARCHAR"));
     }
 
+    @Override
+    public Transaction getItem(Integer id) {
+        return new Transaction(itemMap.get(id));
+    }
+
     protected void setItemFromResult(ResultSet result) {
         try {
             Transaction transaction = new Transaction();

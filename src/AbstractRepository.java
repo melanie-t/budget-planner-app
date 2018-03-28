@@ -38,9 +38,7 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
      * @param id id of the desired item
      * @return item associated with id
      */
-    public T getItem(Integer id) {
-        return itemMap.get(id);
-    }
+    abstract public T getItem(Integer id);
 
     /**
      * Initialize this repository will all the contents of its associated table in the database.

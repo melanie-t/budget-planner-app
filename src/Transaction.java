@@ -17,6 +17,19 @@ public class Transaction extends AbstractUniqueId{
 	}
 
     /**
+     * Copy constructor.
+     * @param other Transaction object
+     */
+	public Transaction(Transaction other) {
+	    super(other.getId());
+        this.associatedAccountId = other.getAssociatedAccountId();
+        this.type = other.getType();
+        this.date = other.getDate();
+        this.amount = other.getAmount();
+        this.description = other.getDescription();
+	}
+
+    /**
      * Constructor.
      * Transactions created with an id of 0 are assumed to be new. The system will assign a generated id once
      * added to the database.

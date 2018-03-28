@@ -14,6 +14,16 @@ public class Account extends  AbstractUniqueId {
         this(0,"","",0);
 	}
 
+	/**
+	 * Copy constructor.
+	 * @param other Account object
+	 */
+	public Account(Account other) {
+		super(other.getId());
+		this.bankName = other.getBankName();
+		this.nickname = other.getNickname();
+		this.balance = other.getBalance();
+	}
     /**
      * Constructor.
      * Accounts created with an id of 0 are assumed to be new. The system will assign a generated id once

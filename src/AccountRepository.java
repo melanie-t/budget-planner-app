@@ -23,6 +23,11 @@ public class AccountRepository extends AbstractRepository<Account> {
         database.updateSQL(sql.addColumn(tableName, "balance", "INTEGER"));
     }
 
+    @Override
+    public Account getItem(Integer id) {
+        return new Account(itemMap.get(id));
+    }
+
     protected void setItemFromResult(ResultSet result) {
         try {
             Account account =  new Account();

@@ -15,7 +15,7 @@ public class User {
 
 	public User()
 	{
-		this("Jane_Doe", "", 9000);
+		this("Jane_Doe", "", 0);
 	}
 
 	public User(String name, String password, Integer userId)
