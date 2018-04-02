@@ -3,7 +3,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The RepositoryContainer provides a facade for the model and exposes the methods required by the view
@@ -92,7 +94,31 @@ public class RepositoryContainer implements IModelView, IModelController {
 
     @Override
     public void saveItem(Account account) {
+
+        int initialAmount;
+        Transaction initialTransaction = null;
+
+        //id 0 is reserved for new accounts
+        if(account.getId() == 0 && account.getBalance() != 0) {
+            initialAmount = account.getBalance();
+            account.setBalance(0);
+            initialTransaction = new Transaction(
+                    0,
+                    0,
+                    "Initial Balance",
+                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+                    initialAmount,
+                    "Initial Balance"
+            );
+        }
+
         accountRepository.saveItem(account);
+
+        if(initialTransaction != null) {
+            initialTransaction.setAssociatedAccountId(account.getId()); //update the transaction with the new account id
+            saveItem(initialTransaction);
+        }
+
         notifyObservers();
     }
 
