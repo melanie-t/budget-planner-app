@@ -21,8 +21,7 @@ public class AccountTest {
 	}
 	
 	@Test
-	public void updateAccountTest() {
-		
+	public void updateWithTest() {
 		/* Test Account */
 		Integer id = 1;
 		Integer balance = 1000;
@@ -46,5 +45,6 @@ public class AccountTest {
 		assertEquals(testAccount.getBalance(), newBalance);
 		assertEquals(testAccount.getBankName(), newBankName);
 		assertEquals(testAccount.getNickname(), newNickname);
-	}
+	}	
+
 }
