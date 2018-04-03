@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -36,14 +37,13 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JButton clearButton;
 	private JButton importButton;
     private JButton updateButton;
-	private JTextField typeTextfield;
 	private JTextField amountTextfield;
 	private JTextArea descriptionTextArea;
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JComboBox typeField;
 	private JDatePickerImpl dateField;
 	private JDatePanelImpl datePanel;
-
 
     /**
      * Cosntructor.
@@ -106,7 +106,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     @Override
     public JPanel   getPanel()          {return panel;}
     @Override
-    public String getTypeInput() {return typeTextfield.getText();}
+    public String getTypeInput() {return (String) typeField.getSelectedItem();}
     @Override
     public String getDateInput() {
 	    int year = dateField.getModel().getYear();
@@ -182,7 +182,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     {
         if (transaction == null)
         {
-            typeTextfield.setText("");
+            typeField.setSelectedIndex(0);
             amountTextfield.setText("");
             descriptionTextArea.setText("");
 
@@ -195,7 +195,8 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         }
         else
         {
-            typeTextfield.setText(transaction.getType());
+
+            typeField.setSelectedIndex(Arrays.asList(Transaction.getTransactionTypes()).indexOf(transaction.getType()));
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
 
@@ -252,7 +253,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
-		typeTextfield = new JTextField(15);
+		typeField = new JComboBox(Transaction.getTransactionTypes());
 		datePanel = new JDatePanelImpl(model, p);
 		dateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
@@ -311,7 +312,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(amountLabel)
 									.addComponent(descriptionLabel))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(typeTextfield, 250, 250, 250)
+									.addComponent(typeField, 250, 250, 250)
 									.addComponent(dateField, 250, 250, 250)
 									.addComponent(amountTextfield, 250, 250, 250)
 									.addComponent(descriptionTextArea, 100, 100, 220)))
@@ -338,7 +339,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(typeLabel)
-									.addComponent(typeTextfield))
+									.addComponent(typeField))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(dateLabel)
 									.addComponent(dateField))
