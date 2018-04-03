@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * Controller class for views that implement ITransactionView interface and models that implement
@@ -66,10 +67,24 @@ public class TransactionController extends AbstractController<ITransactionView>{
                 message += "Type. ";
 
             if (date.isEmpty())
-                message += "Date. ";    // TODO - validate date format and/or use a date type
+                message += "Date. ";
 
             if (amount == null)
                 message += "Amount must be a number.";
+
+            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
+
+            success = false;
+        }
+        else if (!Arrays.asList(Transaction.getTransactionTypes()).contains(type) ||    //validate transaction type
+                validDateString(date))
+        {
+            String message = "Invalid Inputs: ";
+            if (!Arrays.asList(Transaction.getTransactionTypes()).contains(type))
+                message += "Type. ";
+
+            if (validDateString(date))
+                message += "Date. ";
 
             JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
 
@@ -138,4 +153,24 @@ public class TransactionController extends AbstractController<ITransactionView>{
 		model.importTransactions(filePath, view.getSelectedAccountId());
         view.setSelection(0);
 	}
+
+    /**
+     * Helper method to validate date strings
+     * @return validOrNot
+     */
+    private boolean validDateString(String date) {
+        try {
+            if(date.length() != 10) return false;   //format dd-mm-yyyy
+
+            String[] tokens = date.split("-");
+            if (tokens.length != 3) return false;
+
+            int day = Integer.parseInt(tokens[0]);
+            int month = Integer.parseInt(tokens[1]);
+            int year = Integer.parseInt(tokens[2]);
+            return true;
+        }catch(NumberFormatException e) {
+            return false;
+        }
+    }
 }
