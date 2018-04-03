@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -129,6 +130,7 @@ public class RepositoryContainer implements IModelView, IModelController {
         try {
             br = new BufferedReader(new FileReader(path));
             String line = null;
+            int lineNumber = 1;
             while((line = br.readLine()) != null) {
 				/*
 				 * tokenList maps the tokens as
@@ -140,6 +142,13 @@ public class RepositoryContainer implements IModelView, IModelController {
 
                 Integer amount = Integer.parseInt(tokenList[2]);
 
+                if(!Util.validDateString(tokenList[1]))
+                    throw new InvalidInputException("Invalid date format found in import file at line " + lineNumber);
+
+                //invalid transaction types are replaced by "Other"
+                if(!Arrays.asList(Transaction.getTransactionTypes()).contains(tokenList[0]))
+                    tokenList[0] = "Other";
+
                 Transaction transaction = new Transaction();
                 transaction.setAssociatedAccountId(accountId);
                 transaction.setType(tokenList[0]);
@@ -148,6 +157,7 @@ public class RepositoryContainer implements IModelView, IModelController {
 
 
                 saveItem(transaction);
+                lineNumber++;
             }
             br.close();
 
@@ -155,6 +165,11 @@ public class RepositoryContainer implements IModelView, IModelController {
             JOptionPane.showMessageDialog(null, fnfe.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch(IOException ioe) {
             JOptionPane.showMessageDialog(null, ioe.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input for amount column", "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(InvalidInputException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -185,4 +200,8 @@ public class RepositoryContainer implements IModelView, IModelController {
         accountRepository.initSQLStructure();
         transactionRepository.initSQLStructure();
     }
+}
+
+class InvalidInputException extends Exception {
+    InvalidInputException(String message) {super(message);}
 }
