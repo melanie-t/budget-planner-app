@@ -4,7 +4,7 @@ import org.junit.runner.notification.Failure;
 
 public class TestRunner {
    public static void main(String[] args) {
-      Result result = JUnitCore.runClasses(SQLStringFactoryTest.class, AccountRepositoryTest.class, ImportTransactionTest.class, TransactionRepositoryTest.class, AccountTest.class, TransactionTest.class, AccountControllerTest.class, TransactionController.class);
+      Result result = JUnitCore.runClasses(SQLStringFactoryTest.class, AccountRepositoryTest.class, ImportTransactionTest.class, TransactionRepositoryTest.class, AccountTest.class, TransactionTest.class, AccountControllerTest.class, TransactionController.class, RepositoryContainerTest.class);
 
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());

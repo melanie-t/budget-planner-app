@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  * WARNING:: each test depends on the previous ones
  * */
 public class AccountRepositoryTest {
-	private static AccountRepository accoutRepo;
+	private static AccountRepository accountRepo;
 	private static String TestDBName;
 	private static Database testDatabase;
 
@@ -18,26 +18,25 @@ public class AccountRepositoryTest {
 	public void setUpClass() {
 		TestDBName = "AccountsTest";
 		testDatabase = new Database(TestDBName);
-		accoutRepo = new AccountRepository(testDatabase);
-		accoutRepo.reinitSQLStructure();
+		accountRepo = new AccountRepository(testDatabase);
+		accountRepo.reinitSQLStructure();
 
-		assertEquals(accoutRepo.getItems().size(), 0); // not the best methods to check if db structure is intact but if no errors thown is good sign
+		assertEquals(accountRepo.getItems().size(), 0); // not the best methods to check if db structure is intact but if no errors thrown is good sign
 	}
 
 	@Test
 	//Assumes tests are executed in same order as listed in this class
 	public void saveItemTest() {
 		String bankName = "Fort Knox";
-		String nickname = "My PiggyBank";
-		@SuppressWarnings("deprecation")
-		Integer accBalance = new Integer(200);
+		String nickname = "My PiggyBank";		
+		Integer accBalance = 200;
 
 
 		Account testAcc1 = new Account();
 		testAcc1.setBalance(accBalance);
 		testAcc1.setBankName(bankName);
 		testAcc1.setNickname(nickname);
-		accoutRepo.saveItem(testAcc1);
+		accountRepo.saveItem(testAcc1);
 
 
 		//If item is fetched in a fresh repo means save to DB worked
@@ -48,6 +47,14 @@ public class AccountRepositoryTest {
 		assertEquals(a.getBalance(), accBalance);
 		assertEquals(a.getBankName(), bankName);
 		assertEquals(a.getNickname(), nickname);
+		
+		//Attempt to save account with existing ID, should update item
+		Integer updatedAccBalance = 10000;
+		Account testUpdateAcc = freshAccountRepo.getItem(testAcc1.getId());
+		testUpdateAcc.setBalance(updatedAccBalance);
+		accountRepo.saveItem(testUpdateAcc);
+		
+		assertEquals(testUpdateAcc.getBalance(),updatedAccBalance);
 
 	}
 
@@ -55,22 +62,18 @@ public class AccountRepositoryTest {
 	//Assumes tests are executed in same order as listed in this class
 	public void saveSecondItemTest() {
 		String bankName1 = "Fort Knox";
-		String nickname1 = "My PiggyBank";
-		@SuppressWarnings("deprecation")
-		Integer accBalance1 = new Integer(200);
-
+		String nickname1 = "My PiggyBank";		
+		Integer accBalance1 = 10000;
 
 		String bankName2 = "Sock Drawer";
-		String nickname2 = "Coffe funds";
-		@SuppressWarnings("deprecation")
-		Integer accBalance2 = new Integer(20200);
-
+		String nickname2 = "Coffee funds";		
+		Integer accBalance2 = 20200;
 
 		Account testAcc2 = new Account();
 		testAcc2.setBalance(accBalance2);
 		testAcc2.setBankName(bankName2);
 		testAcc2.setNickname(nickname2);
-		accoutRepo.saveItem(testAcc2);
+		accountRepo.saveItem(testAcc2);
 
 
 		//If item is fetched in a fresh repo means save to DB worked
@@ -98,46 +101,43 @@ public class AccountRepositoryTest {
 	}
 
 	@Test
-	public void DeleteItemTest() {
-		
-		
+	public void DeleteItemTest() {		
 		
 		Database db = new Database("DeleteItemTest");
-		accoutRepo = new AccountRepository(db);
-		accoutRepo.reinitSQLStructure();
+		accountRepo = new AccountRepository(db);
+		accountRepo.reinitSQLStructure();
 		
 		
 		String bankName = "Fort Knox";
-		String nickname = "My PiggyBank";
-		@SuppressWarnings("deprecation")
-		Integer accBalance = new Integer(200);
+		String nickname = "My PiggyBank";		
+		Integer accBalance = 200;
 
 
 		Account testAcc1 = new Account();
 		testAcc1.setBalance(accBalance);
 		testAcc1.setBankName(bankName);
 		testAcc1.setNickname(nickname);
-		accoutRepo.saveItem(testAcc1);
+		accountRepo.saveItem(testAcc1);
 		
 		
 		Account testAcc2 = new Account();
 		testAcc2.setBalance(accBalance);
 		testAcc2.setBankName(bankName);
 		testAcc2.setNickname(nickname);
-		accoutRepo.saveItem(testAcc2);
+		accountRepo.saveItem(testAcc2);
 		
 		
 		
-		System.out.println("Before "+AccountRepositoryTest.accoutRepo.getItems().size());
+		System.out.println("Tuples in Account repository test before delete: "+AccountRepositoryTest.accountRepo.getItems().size());
 		
-		AccountRepositoryTest.accoutRepo.deleteItem(1);
-		System.out.println("After "+AccountRepositoryTest.accoutRepo.getItems().size());
-		System.out.println("currenlt items loaded in repo" + AccountRepositoryTest.accoutRepo.getItems().size());
+		AccountRepositoryTest.accountRepo.deleteItem(1);
+		System.out.println("Tuples in Account repository test after delete: "+AccountRepositoryTest.accountRepo.getItems().size());
+		System.out.println("Current items loaded in repo:" + AccountRepositoryTest.accountRepo.getItems().size());
 		
-		//check in current repo if delete worked
-		assertEquals(AccountRepositoryTest.accoutRepo.getItems().size(), 1);
+		//check if delete worked in current repo 
+		assertEquals(AccountRepositoryTest.accountRepo.getItems().size(), 1);
 
-		//check in fresh repo to check if delete worked
+		//check if delete worked in fresh repo
 		AccountRepository freshAccountRepo = new AccountRepository(db);
 		freshAccountRepo.loadAllItems();
 		System.out.println(freshAccountRepo.getItems().size());

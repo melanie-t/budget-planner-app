@@ -89,10 +89,14 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
      * @param accountId accound id
      */
     public void deleteAllItemsFromAccount(Integer accountId) {
+    	ArrayList<Transaction> transactionsToDelete = new ArrayList<Transaction>();
         for (Transaction transaction : itemMap.values())
         {
             if (transaction.getAssociatedAccountId().equals(accountId))
-                deleteItem(transaction.getId());
+                transactionsToDelete.add(transaction);
+        }
+        for (Transaction transaction : transactionsToDelete) {
+        	deleteItem(transaction.getId());
         }
     }
 
