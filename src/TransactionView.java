@@ -2,7 +2,12 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<<<<<<< Updated upstream
 import java.util.ArrayList;
+=======
+import java.time.LocalDateTime;
+import java.util.*;
+>>>>>>> Stashed changes
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * interface.
  */
 public class TransactionView extends AbstractView<Transaction> implements ITransactionView, IViewGUI {
+
+    private String[] transactionTypes = new String[]{"Entertainment", "Food", "Rent", "Social", "Tuition", "Utilities", "Other"};
 
 	// Transaction UI elements
 	private JPanel panel;
@@ -26,12 +33,21 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JButton clearButton;
 	private JButton importButton;
     private JButton updateButton;
+<<<<<<< Updated upstream
 	private JTextField typeTextfield;
 	private JTextField dateTextfield;
+=======
+>>>>>>> Stashed changes
 	private JTextField amountTextfield;
 	private JTextArea descriptionTextArea;
 	private JTable table;
 	private JScrollPane scrollPane;
+<<<<<<< Updated upstream
+=======
+	private JDatePickerImpl dateField;
+	private JDatePanelImpl datePanel;
+	private JComboBox typeField;
+>>>>>>> Stashed changes
 
 
     /**
@@ -95,7 +111,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     @Override
     public JPanel   getPanel()          {return panel;}
     @Override
-    public String getTypeInput() {return typeTextfield.getText();}
+    public String getTypeInput() {return (String) typeField.getSelectedItem();}
     @Override
     public String getDateInput() {return dateTextfield.getText();}
     @Override
@@ -166,15 +182,23 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     {
         if (transaction == null)
         {
+<<<<<<< Updated upstream
             typeTextfield.setText("");
             dateTextfield.setText("");
+=======
+            typeField.setSelectedIndex(0);
+>>>>>>> Stashed changes
             amountTextfield.setText("");
             descriptionTextArea.setText("");
         }
         else
         {
+<<<<<<< Updated upstream
             typeTextfield.setText(transaction.getType());
             dateTextfield.setText(transaction.getDate());
+=======
+            typeField.setSelectedIndex(Arrays.asList(transactionTypes).indexOf(transaction.getType()));
+>>>>>>> Stashed changes
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
         }
@@ -218,8 +242,16 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
+<<<<<<< Updated upstream
 		typeTextfield = new JTextField(15);
 		dateTextfield = new JTextField(15);
+=======
+
+		typeField = new JComboBox(transactionTypes);
+		datePanel = new JDatePanelImpl(model, p);
+		dateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
+>>>>>>> Stashed changes
 		amountTextfield = new JTextField(15);
 		descriptionTextArea = new JTextArea(2, 10);
 		table = new JTable();
@@ -275,8 +307,13 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(amountLabel)
 									.addComponent(descriptionLabel))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
 									.addComponent(typeTextfield, 250, 250, 250)
 									.addComponent(dateTextfield, 250, 250, 250)
+=======
+									.addComponent(typeField, 250, 250, 250)
+									.addComponent(dateField, 250, 250, 250)
+>>>>>>> Stashed changes
 									.addComponent(amountTextfield, 250, 250, 250)
 									.addComponent(descriptionTextArea, 100, 100, 220)))
 						.addGroup(layout.createSequentialGroup()
@@ -302,7 +339,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(typeLabel)
-									.addComponent(typeTextfield))
+									.addComponent(typeField))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(dateLabel)
 									.addComponent(dateTextfield))
