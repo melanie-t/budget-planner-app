@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Repository class for Account objects.
+ * Repositoy class for Account objects.
  */
 public class AccountRepository extends AbstractRepository<Account> {
 
