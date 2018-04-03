@@ -11,4 +11,20 @@ public class Util {
 		}
 		return true;  
 	}
+
+	public static boolean validDateString(String date) {
+		try {
+			if(date.length() != 10) return false;   //format dd-mm-yyyy
+
+			String[] tokens = date.split("-");
+			if (tokens.length != 3) return false;
+
+			int day = Integer.parseInt(tokens[0]);
+			int month = Integer.parseInt(tokens[1]);
+			int year = Integer.parseInt(tokens[2]);
+			return true;
+		}catch(NumberFormatException e) {
+			return false;
+		}
+	}
 }
