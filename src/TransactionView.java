@@ -24,8 +24,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TransactionView extends AbstractView<Transaction> implements ITransactionView, IViewGUI {
 
-    private String[] transactionTypes = new String[]{"Entertainment", "Food", "Rent", "Social", "Tuition", "Utilities", "Other"};
-
 	// Transaction UI elements
 	private JPanel panel;
 	private DefaultTableModel tableModel;
@@ -198,7 +196,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         else
         {
 
-            typeField.setSelectedIndex(Arrays.asList(transactionTypes).indexOf(transaction.getType()));
+            typeField.setSelectedIndex(Arrays.asList(Transaction.getTransactionTypes()).indexOf(transaction.getType()));
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
 
@@ -255,7 +253,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
-		typeField = new JComboBox(transactionTypes);
+		typeField = new JComboBox(Transaction.getTransactionTypes());
 		datePanel = new JDatePanelImpl(model, p);
 		dateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
