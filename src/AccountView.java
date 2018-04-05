@@ -266,7 +266,7 @@ public class AccountView extends AbstractView<Account> implements IAccountView, 
 
 								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane, 650, 650, 650))
+						.addComponent(scrollPane, 650, 650, 700))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()

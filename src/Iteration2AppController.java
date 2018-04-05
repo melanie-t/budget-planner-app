@@ -8,6 +8,7 @@ public class Iteration2AppController implements IAppController, WindowListener{
 	RepositoryContainer model;
 	AccountView accountView;
 	TransactionView transactionView;
+	BudgetView budgetView;
 	AccountController accountController;
 	TransactionController transactionController;
 

@@ -30,6 +30,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JLabel transLabel;
 	private JLabel typeLabel;
 	private JLabel dateLabel;
+	private JLabel budgetLabel;
 	private JLabel amountLabel;
 	private JLabel descriptionLabel;
 	private JButton addButton;
@@ -38,6 +39,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JButton importButton;
     private JButton updateButton;
 	private JTextField amountTextfield;
+	private JComboBox budgetField;
 	private JTextArea descriptionTextArea;
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -246,6 +248,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		transLabel = new JLabel("Transactions");
 		typeLabel = new JLabel("Type");
 		dateLabel = new JLabel("Date");
+		budgetLabel = new JLabel("Budget");
 		amountLabel = new JLabel("Amount (cents)");
 		descriptionLabel = new JLabel("Description");
 		addButton = new JButton("Add");
@@ -253,6 +256,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
+        budgetField = new JComboBox(new String[]{"TO BE IMPLEMENTED", "OPTION 1", "OPTION 2"});
 		typeField = new JComboBox(Transaction.getTransactionTypes());
 		datePanel = new JDatePanelImpl(model, p);
 		dateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
@@ -265,7 +269,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		descriptionTextArea.setLineWrap(true);
 		
 		// Loading JTable
-		Object[] columns = {"Type", "Date", "Amount (cents)", "Description"};
+		Object[] columns = {"Type", "Date", "Amount (cents)", "Budget", "Description"};
 		tableModel = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -310,12 +314,14 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(typeLabel)
 									.addComponent(dateLabel)
 									.addComponent(amountLabel)
+									.addComponent(budgetLabel)
 									.addComponent(descriptionLabel))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(typeField, 250, 250, 250)
 									.addComponent(dateField, 250, 250, 250)
 									.addComponent(amountTextfield, 250, 250, 250)
-									.addComponent(descriptionTextArea, 100, 100, 220)))
+									.addComponent(budgetField, 250, 250, 250)
+									.addComponent(descriptionTextArea, 100, 100, 250)))
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton)
@@ -347,8 +353,11 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(amountLabel)
 									.addComponent(amountTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(budgetLabel)
+										.addComponent(budgetField))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(descriptionLabel)
-										.addComponent(descriptionTextArea))
+										.addComponent(descriptionTextArea, 50, 50, 50))
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
 									.addComponent(updateButton)
