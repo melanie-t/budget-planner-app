@@ -36,6 +36,7 @@ public class RepositoryContainerTest {
         testRepoContainer.deleteTransaction(transactionId);
 
         verify(transactionRepoMock).deleteItem(transactionId);
+        
     }
 
     @Test
@@ -59,6 +60,7 @@ public class RepositoryContainerTest {
         testRepoContainer.saveItem(testTransaction);
 
         verify(transactionRepoMock).saveItem(testTransaction);
+        
     }
 
     @Test
@@ -132,13 +134,17 @@ public class RepositoryContainerTest {
 		Integer actual = accountRepoTest.getItems().size();
 		Integer expected = 1;
 		assertEquals(actual, expected);
-				
+		Integer originalBalance = testAcc1.getBalance();	
+		
+		//Did the account get created with a balance of $0?
+		assertEquals(accBalance, originalBalance);
 				
 		//Create fake transaction
 		Integer associatedAccountId = testAcc1.getId();
 		String type = "deposit";
 		String date = "2018-04-03";
 		Integer amount = 100;
+		Integer expectedBalance = accBalance + amount;
 		String description = "Test transaction";
 		Transaction testTransaction1 = new Transaction();
 		testTransaction1.setAssociatedAccountId(associatedAccountId);
@@ -153,6 +159,9 @@ public class RepositoryContainerTest {
 		expected = 1;
 		if(accBalance != 0) expected +=1;   //if account balance is not zero, there will an initial balance
 		assertEquals(expected, actual);
+		
+		//did the balance update properly?
+		assertEquals(expectedBalance, amount);
 	}
 
 
