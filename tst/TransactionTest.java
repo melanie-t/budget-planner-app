@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
@@ -23,9 +24,10 @@ public class TransactionTest {
 		assertEquals(testTransaction.getAmount(), amount);
 		assertEquals(testTransaction.getDescription(), description);
 	}
-	
+
+	//Tests the setters and getters of the class
 	@Test
-	public void updateTransactionTest() {
+	public void testUpdateTransaction() {
 		
 		/* Transaction Creation */
 		Integer transactionID = 1;
@@ -62,4 +64,29 @@ public class TransactionTest {
 		assertEquals(testTransaction.getDescription(), newDescription);
 		
 	}
+
+	@Test
+	public void testUpdateWith() {
+		/* Transaction Creation */
+		Integer transactionID = 1;
+		Integer accountID = 1;
+		String type = "Grocery";
+		String date = "2018-02-12";
+		Integer amount = 2000;
+		String description = "Sandwich ingredients for the week";
+		Transaction other = new Transaction(transactionID, accountID, type, date, amount, description);
+		Transaction testTransaction = new Transaction();
+
+		//call updateWith()
+		testTransaction.updateWith(other);
+
+		/* assert result */
+		assertEquals(testTransaction.getId(),other.getId());
+        assertEquals(testTransaction.getAssociatedAccountId(), other.getAssociatedAccountId());
+        assertEquals(testTransaction.getType(), other.getType());
+        assertEquals(testTransaction.getDate(), other.getDate());
+        assertEquals(testTransaction.getAmount(), other.getAmount());
+        assertEquals(testTransaction.getDescription(), other.getDescription());
+	}
+
 }

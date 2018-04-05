@@ -106,7 +106,7 @@ public class RepositoryContainer implements IModelView, IModelController {
             initialTransaction = new Transaction(
                     0,
                     0,
-                    "Initial Balance",
+                    "Deposit",
                      new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
                     initialAmount,
                     "Initial Balance"
