@@ -2,7 +2,9 @@
  * The Transaction class is a plain old data structure that contains all the information on a given transaction.
  */
 public class Transaction extends AbstractUniqueId{
+
     private static String[] transactionTypes = new String[]{"Deposit", "Withdrawal"};
+
 	private Integer associatedAccountId;
 	private String 	type;
 	private String 	date;
