@@ -72,7 +72,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
             if (amount == null)
                 message += "Amount must be a number.";
 
-            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPaneWrapper.showErrorMessageDialog("Input Error", message);
 
             success = false;
         }
@@ -86,7 +86,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
             if (Util.validDateString(date))
                 message += "Date. ";
 
-            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPaneWrapper.showErrorMessageDialog("Input Error", message);
 
             success = false;
         }
@@ -153,5 +153,4 @@ public class TransactionController extends AbstractController<ITransactionView>{
 		model.importTransactions(filePath, view.getSelectedAccountId());
         view.setSelection(0);
 	}
-
 }

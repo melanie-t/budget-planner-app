@@ -162,13 +162,13 @@ public class RepositoryContainer implements IModelView, IModelController {
             br.close();
 
         }catch(FileNotFoundException fnfe) {
-            JOptionPane.showMessageDialog(null, fnfe.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPaneWrapper.showErrorMessageDialog("Error", fnfe.getMessage());
         }catch(IOException ioe) {
-            JOptionPane.showMessageDialog(null, ioe.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPaneWrapper.showErrorMessageDialog("Error", ioe.getMessage());
         }catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input for amount column", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPaneWrapper.showErrorMessageDialog("Error", "Invalid input for amount column");
         }catch(InvalidInputException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPaneWrapper.showErrorMessageDialog("Error", e.getMessage());
 
         }
     }
