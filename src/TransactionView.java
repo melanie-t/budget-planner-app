@@ -125,7 +125,11 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	    int year = dateField.getModel().getYear();
 	    int month = dateField.getModel().getMonth()+1; //months are zero-indexed
 	    int day = dateField.getModel().getDay();
-	    return year + "-" + month + "-" + day;
+
+	    String monthZero = month < 10? "0": "";
+	    String dayZero = day < 10? "0" : "";
+
+	    return year + "-" + monthZero + month + "-" + dayZero + day;
 	}
     @Override
     public Integer getAmountInput() {
