@@ -1,3 +1,4 @@
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 
 /**
@@ -67,7 +68,7 @@ public class AccountController extends AbstractController<IAccountView> {
             if (balance == null)
                 message += "Balance must be a number.";
 
-            JOptionPaneWrapper.showErrorMessageDialog("Input Error", message);
+            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
 
             success = false;
         }
