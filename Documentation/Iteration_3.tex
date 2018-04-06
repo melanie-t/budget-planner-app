@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{xcolor}
 \usepackage{hyperref}
@@ -78,9 +79,32 @@ Indicate which qualities (from requirements) were tested and which qualities wer
 
 \subsection{System Level Test Cases}
 
+\begin{table}[htbp]
+\centering
+\caption{Template Test Case}
+\label{TC-1}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-1                         \\ \hline
+\textbf{Test Case Description}    &  This test case is used to ensure the generated puzzle board has the same dimensions as the input width and height                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item None - Default 8-8 board size
+	\item  Width/height from "input.txt" file. 
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "OK" - Test executed successfully.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           &  The system responds to the presence or absence of the input vector and outputs a success message upon test successful completion in "output.txt", along with a time-stamp containing the test's execution time and date.                    \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 05/04/2016 | Tester's name | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+
 {\it
-All test cases for testing at the system level.
-}
+All test cases for testing at the system level.}
+\clearpage
 
 \subsubsection{Test Case 1} \label{tc:1}
 
