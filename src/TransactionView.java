@@ -165,10 +165,18 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         highlightCurrentSelection();
     }
 
+    protected void isDeposit(Transaction transaction) {
+    	if (transaction.getType().equals("Deposit"))
+    		budgetField.setEnabled(false);
+    	else
+    		budgetField.setEnabled(true);		
+    }
+    
     protected void highlightCurrentSelection() {
         if (getCurrentTransactionSelection() == 0)
         {
             fillFields(null);
+            budgetField.setEnabled(true);
             return;
         }
 
@@ -188,6 +196,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     protected void handleClear()
     {
         setCurrentTransactionSelection(0);
+        budgetField.setEnabled(true);
         update();
     }
 
@@ -211,13 +220,14 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
                     now.getMonthValue() - 1,    //months are zero-indexed
                     now.getDayOfMonth()
             );
+      
         }
         else
-        {
-
+        { 		
             typeField.setSelectedIndex(Arrays.asList(Transaction.getTransactionTypes()).indexOf(transaction.getType()));
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
+            isDeposit(transaction);
 
             String[] parts = transaction.getDate().split("-");
             dateField.getModel().setDate(
@@ -385,7 +395,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(importButton)))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel, descriptionLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel, descriptionLabel, budgetLabel);
 		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, importButton, clearButton);
 	}
 }
