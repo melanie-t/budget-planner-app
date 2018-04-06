@@ -3,8 +3,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -155,7 +153,7 @@ public class RepositoryContainerTest {
 		repoContainer.saveItem(testTransaction1);	
 		
 		//Did the fake transaction get added to the correct DB?
-		actual = transacRepoTest.getItems(associatedAccountId).size();
+		actual = transacRepoTest.getItemsFromAccount(associatedAccountId).size();
 		expected = 1;
 		if(accBalance != 0) expected +=1;   //if account balance is not zero, there will an initial balance
 		assertEquals(expected, actual);

@@ -15,6 +15,7 @@ public class MainView
 	public MainView(String title,
                     IViewGUI accountView,
                     IViewGUI transactionView,
+                    IViewGUI budgetView,
                     WindowListener listener)
     {
         // Create main frame container
@@ -41,7 +42,7 @@ public class MainView
         mainPanel.add(transactionPanel);
         
         // Attach budget panel
-        JPanel budgetPanel = new BudgetView().getPanel();
+        JPanel budgetPanel = budgetView.getPanel();
         secondaryPanel.add(budgetPanel);
         
         

@@ -59,6 +59,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
         Integer amount = view.getAmountInput();
         String description = view.getDescriptionInput();
         Integer accountId = view.getSelectedAccountId();
+        Integer budgetId = view.getBudgetIdInput();
 
         if (type.isEmpty() || date.isEmpty() || amount == null)
         {
@@ -96,6 +97,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
             Transaction transaction = new Transaction(
                     transactionId,
                     accountId,
+                    budgetId,
                     type,
                     date,
                     amount,

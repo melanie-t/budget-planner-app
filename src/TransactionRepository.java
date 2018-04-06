@@ -19,6 +19,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
 
     public void initSQLStructure() {
         database.updateSQL(sql.createTable(tableName, "transactionId", "INTEGER", "accountId", "INTEGER", "account", "accountId"));	//handles foreign key
+        database.updateSQL(sql.addColumn(tableName, "budgetId", "INTEGER"));
         database.updateSQL(sql.addColumn(tableName, "date", "VARCHAR"));
         database.updateSQL(sql.addColumn(tableName, "type", "VARCHAR"));
         database.updateSQL(sql.addColumn(tableName, "amount", "INTEGER"));
@@ -35,6 +36,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
             Transaction transaction = new Transaction();
             transaction.setId(result.getInt("transactionId"));
             transaction.setAssociatedAccountId(result.getInt("accountId"));
+            transaction.setAssociatedBudgetId(result.getInt("budgetId"));
             transaction.setAmount(result.getInt("amount"));
             transaction.setDate(result.getString("date"));
             transaction.setType(result.getString("type"));
@@ -50,7 +52,8 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
 	public void saveItem(Transaction transaction) {
 		System.out.println(transaction.toString());
 		SQLValueMap values = new SQLValueMap();
-		values.put("accountId", transaction.getAssociatedAccountId());
+        values.put("accountId", transaction.getAssociatedAccountId());
+        values.put("budgetId", transaction.getAssociatedBudgetId());
 		values.put("type", transaction.getType());
 		values.put("date", transaction.getDate());
 		values.put("amount", transaction.getAmount());
@@ -105,7 +108,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
      * @param accountId account id
      * @return list of Transactions
      */
-    public ArrayList<Transaction> getItems(Integer accountId) {
+    public ArrayList<Transaction> getItemsFromAccount(Integer accountId) {
 	    ArrayList<Transaction> itemsToFilter = getItems();
         Iterator<Transaction> it = itemsToFilter.iterator();
         while (it.hasNext()) {
@@ -113,6 +116,29 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
                 it.remove();
         }
         return itemsToFilter;
+    }
+
+    public ArrayList<Transaction> getItemsFromBudget(Integer budgetid)
+    {
+        ArrayList<Transaction> itemsToFilter = getItems();
+        Iterator<Transaction> it = itemsToFilter.iterator();
+        while (it.hasNext()) {
+            if (it.next().getAssociatedBudgetId() != budgetid)
+                it.remove();
+        }
+        return itemsToFilter;
+    }
+
+    public void clearBudgetAssociations(Integer budgetId)
+    {
+        for (Transaction transaction : getItems())
+        {
+            if (transaction.getAssociatedBudgetId() == budgetId)
+            {
+                transaction.setAssociatedBudgetId(1);
+                saveItem(transaction);
+            }
+        }
     }
 }
 

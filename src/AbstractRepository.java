@@ -72,8 +72,7 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
         if(itemMap.containsKey(id)) {
         	itemMap.remove(id);
         }
-        
-        
+
         database.updateSQL(sql.deleteEntry(tableName, primaryKey, id));
     }
 

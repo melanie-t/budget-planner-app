@@ -58,6 +58,8 @@ public interface ITransactionView extends IObserver
      */
     String  getDescriptionInput();
 
+    Integer getBudgetIdInput();
+
     /**
      * Returns the user's current transaction selection
      * @return the transaction id

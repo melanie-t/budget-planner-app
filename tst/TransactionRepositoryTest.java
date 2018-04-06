@@ -1,9 +1,9 @@
 import org.junit.Test;
-import java.io.File;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
@@ -91,14 +91,14 @@ public class TransactionRepositoryTest {
 		transacRepoTest.saveItem(testDeleteTransaction_2);
 		
 		//should now be 2 transactions in the repo		
-		ArrayList<Transaction> transList = transacRepoTest.getItems(associatedAccountId_2);
+		ArrayList<Transaction> transList = transacRepoTest.getItemsFromAccount(associatedAccountId_2);
 		assertEquals(transList.size(), 2);
 			
 		transacRepoTest.deleteAllItemsFromAccount(associatedAccountId_2);
 
 
 		//should now be 0 transactions in the repo
-		transList = transacRepoTest.getItems(associatedAccountId_2);
+		transList = transacRepoTest.getItemsFromAccount(associatedAccountId_2);
 		assertEquals(transList.size(), 0);
 		
 	}

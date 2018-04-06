@@ -69,6 +69,13 @@ public class AccountView extends AbstractView<Account> implements IAccountView, 
     public String getBankInput() {return bankTextfield.getText();}
     @Override
     public String getNicknameInput() {return nicknameTextfield.getText();}
+
+    @Override
+    protected void handleBudgetSelectionChange() {
+        // do nothing
+        return;
+    }
+
     @Override
     public Integer getBalanceInput() {
         String amount = balanceTextfield.getText();
