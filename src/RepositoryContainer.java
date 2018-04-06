@@ -81,12 +81,18 @@ public class RepositoryContainer implements IModelView, IModelController {
         // This should never happen, unless we need it for unit testing ?
         if(associatedAccount != null) {
             if (transaction.getId() != 0) {
-                // Remove previous transaction ammount from account
+                // Remove previous transaction amount from account
                 Transaction oldVersion = transactionRepository.getItem(transaction.getId());
                 associatedAccount.setBalance(associatedAccount.getBalance() - oldVersion.getAmount());
             }
+
+            //if transaction is a deposit, then balance should be decreased
+            int transactionAmount = transaction.getAmount();
+            if(transaction.getType() == "Withdrawal")
+                transactionAmount *= -1;
+
             // Add new/updated amount of transaction and save the account
-        	associatedAccount.setBalance(associatedAccount.getBalance() + transaction.getAmount());
+            associatedAccount.setBalance(associatedAccount.getBalance() + transactionAmount);
             accountRepository.saveItem(associatedAccount);
         }
         transactionRepository.saveItem(transaction);
