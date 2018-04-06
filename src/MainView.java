@@ -43,8 +43,8 @@ public class MainView
         
         // Attach budget panel
         JPanel budgetPanel = budgetView.getPanel();
+        budgetPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         secondaryPanel.add(budgetPanel);
-        
         
         tabbedPane.addTab("Accounts", mainPanel);
         tabbedPane.addTab("Budget", secondaryPanel);

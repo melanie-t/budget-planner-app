@@ -1,3 +1,4 @@
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -6,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,22 +23,30 @@ import javax.swing.table.DefaultTableModel;
 public class BudgetView extends AbstractView<Budget> implements IBudgetView, IViewGUI{
 	
 	//Budget UI elements	
+	private JPanel mainPanel = new JPanel();
 	private JPanel panel;
-	private DefaultTableModel tableModel;
+	private DefaultTableModel budgetModel;
 	private JLabel budgetCategoryLabel;
 	private JLabel budgetLabel;
 	private JLabel nameLabel;
-//	private JLabel durationLabel;
 	private JLabel amountLabel;
 	private JButton addButton;
 	private JButton updateButton;
 	private JButton deleteButton;
 	private JButton clearButton;
-//	private JComboBox durationBox;
 	private JTextField nameTextfield;
 	private JTextField amountTextfield;
-	private JTable table;
-	private JScrollPane scrollPane;
+	private JTable budgetTable;
+	private JScrollPane budgetScrollPane;
+	
+	private JPanel secondPanel;
+	private DefaultTableModel transactionModel;
+	private JTable transactionTable;
+	private JScrollPane transactionScrollPane;
+	private JLabel viewLabel;
+	private JLabel transactionLabel;
+	private JComboBox monthField;
+	private JComboBox yearField;
 	
 	public BudgetView(IModelView model) {
 
@@ -44,13 +54,14 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 		items = new ArrayList<>();
 		model.attachObserver(this);
 		createBudgetPanel();
+		createTransactionPanel();
         setLayout();
 
 		// The clear button is handled directly by the view, no need for the controller here
 		clearButton.addActionListener(e->handleClear());
 	}
   
-	public JPanel getPanel()		{return panel;}
+	public JPanel getPanel()		{return mainPanel;}
 	public String getNameInput()	{return nameTextfield.getText();}
 	public Integer getAmountInput()
 	{
@@ -65,38 +76,36 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 		panel = new JPanel();
 		budgetLabel = new JLabel("Budgets");
 		nameLabel = new JLabel("Name");
-//		durationLabel = new JLabel("Duration");
 		amountLabel = new JLabel("Amount (cents)");
 		addButton = new JButton("Add");
 		updateButton = new JButton("Update");
 		deleteButton = new JButton("Delete");
 		clearButton = new JButton("Clear");
 		nameTextfield = new JTextField(15);
-//		durationBox = new JComboBox(new String[]{"Weekly", "Monthly"});
 		amountTextfield = new JTextField(15);
-		table = new JTable();
-		tableModel = new DefaultTableModel() {
+		budgetTable = new JTable();
+		budgetModel = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane = new JScrollPane(table);
+		budgetTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		budgetScrollPane = new JScrollPane(budgetTable);
 		
 		// Loading JTable
-		Object[] columns = {"Name"/*, "Duration"*/, "Budget Amount", "Recorded Amount"};
-		tableModel.setColumnIdentifiers(columns);
-		table.setModel(tableModel);
-		table.setPreferredScrollableViewportSize(new Dimension(300, 80));
-		table.setFillsViewportHeight(true);
+		Object[] columns = {"Name", "Budget Amount", "Recorded Amount"};
+		budgetModel.setColumnIdentifiers(columns);
+		budgetTable.setModel(budgetModel);
+		budgetTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
+		budgetTable.setFillsViewportHeight(true);
 		
 		// Set mouse click to update values in field with currently selected row
-		table.addMouseListener(new MouseAdapter() {
+		budgetTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// i = the index of the selected row
-				int selectedRow = table.getSelectedRow();
+				int selectedRow = budgetTable.getSelectedRow();
 				if (selectedRow >= 0) {
                     Budget selectedItem = items.get(selectedRow);
                     setCurrentBudgetSelection(selectedItem.getId());
@@ -105,56 +114,88 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 		});
 	}
 	
-	private void setLayout() {
-		GroupLayout layout = new GroupLayout(panel);
-		panel.setLayout(layout);
-		layout.setAutoCreateGaps(true);
-		layout.setAutoCreateContainerGaps(true);
+	private void createTransactionPanel() {
+		secondPanel = new JPanel();
+		viewLabel = new JLabel("View in");
+		transactionLabel = new JLabel("Budget Transactions");
+		transactionTable = new JTable();
+		monthField = new JComboBox(new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"});
+		yearField = new JComboBox(new String[]{"2018", "2017"});
+		transactionModel = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		transactionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		transactionScrollPane = new JScrollPane(transactionTable);
 		
-		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+		// Loading JTable
+		Object[] columns = {"Type", "Date", "Amount (cents)", "Description", "Budget"};
+		transactionModel.setColumnIdentifiers(columns);
+		transactionTable.setModel(transactionModel);
+		transactionTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
+		transactionTable.setFillsViewportHeight(true);
+	}
+	
+	private void setLayout() {
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        secondPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mainPanel.add(panel);
+        mainPanel.add(secondPanel);
+        
+		layoutBudgetPanel();
+		layoutTransactionPanel();
+	}
+	
+	private void layoutBudgetPanel() {
+		
+		// Budget Layout
+		GroupLayout budgetLayout = new GroupLayout(panel);
+		panel.setLayout(budgetLayout);
+		budgetLayout.setAutoCreateGaps(true);
+		budgetLayout.setAutoCreateContainerGaps(true);
+		
+		budgetLayout.setHorizontalGroup(budgetLayout.createSequentialGroup()
+				.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(budgetLabel)
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addGroup(budgetLayout.createSequentialGroup()
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(nameLabel)
-//									.addComponent(durationLabel)
 									.addComponent(amountLabel))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)		
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)		
 									.addComponent(nameTextfield, 200, 200, 250)
-//									.addComponent(durationBox, 200, 200, 250)
 									.addComponent(amountTextfield, 200, 200, 250)))
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addGroup(budgetLayout.createSequentialGroup()
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)									
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)									
 									.addComponent(updateButton))
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addComponent(deleteButton)).
-                                addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(clearButton))
 
 								))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane, 650, 650, 700))
+				.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(budgetScrollPane, 650, 650, 700))
 		);
 		
-		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+		budgetLayout.setVerticalGroup(budgetLayout.createSequentialGroup()
+				.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(budgetLabel))
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane, 50, 80, 105)
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)	
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(budgetScrollPane, 50, 80, 105)
+				.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.LEADING)	
+						.addGroup(budgetLayout.createSequentialGroup()
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(nameLabel)
 									.addComponent(nameTextfield))
-//								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-//									.addComponent(durationLabel)
-//									.addComponent(durationBox))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(amountLabel)
 									.addComponent(amountTextfield))
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+								.addGroup(budgetLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
 									.addComponent(clearButton)
 									.addComponent(updateButton)
@@ -162,10 +203,41 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 									))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, nameLabel/*, durationLabel*/, amountLabel);
-		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
+		budgetLayout.linkSize(SwingConstants.HORIZONTAL, nameLabel, amountLabel);
+		budgetLayout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, clearButton);	
 	}
 
+	private void layoutTransactionPanel() {
+		// Transaction Layout
+		GroupLayout transactionLayout = new GroupLayout(secondPanel);
+		secondPanel.setLayout(transactionLayout);
+		transactionLayout.setAutoCreateGaps(true);
+		transactionLayout.setAutoCreateContainerGaps(true);
+		
+		transactionLayout.setHorizontalGroup(transactionLayout.createSequentialGroup()		
+				.addGroup(transactionLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(transactionLabel)
+						.addGroup(transactionLayout.createSequentialGroup()
+							.addComponent(viewLabel)
+							.addComponent(monthField)
+							.addComponent(yearField))
+						.addComponent(transactionScrollPane, 1000, 1000, 1000))	
+		);
+		
+		transactionLayout.setVerticalGroup(transactionLayout.createSequentialGroup()
+				.addGroup(transactionLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(transactionLabel))
+				.addGroup(transactionLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+								.addComponent(viewLabel)
+								.addComponent(monthField, 20, 20, 20)
+								.addComponent(yearField, 20, 20, 20))
+				.addGroup(transactionLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(transactionScrollPane, 50, 80, 105))
+		);
+		
+		transactionLayout.linkSize(SwingConstants.HORIZONTAL, yearField, monthField);
+	}
+	
     @Override
     protected void handleAccountSelectionChange() {
 	    // do nothing
@@ -196,7 +268,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
             item = items.get(i);
             if (item.getId().equals(getCurrentBudgetSelection()))
             {
-                table.setRowSelectionInterval(i, i);
+                budgetTable.setRowSelectionInterval(i, i);
                 fillFields(item);
                 return;
             }
@@ -226,7 +298,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
     @Override
     protected void fillTable() {
         // Clear table
-        tableModel.setRowCount(0);
+        budgetModel.setRowCount(0);
 
         // Fetch transactions associated with account and display
         boolean validSelectionFound = false;
@@ -237,7 +309,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
                 if (item.getId() == 1) // This is the 'none' budget
                     continue;
 
-                tableModel.addRow(new Object[] {item.getName(), item.getAmount(), item.getBalance()});
+                budgetModel.addRow(new Object[] {item.getName(), item.getAmount(), item.getBalance()});
                 if (!validSelectionFound && item.getId().equals(getCurrentBudgetSelection()))
                 {
                     validSelectionFound = true;
