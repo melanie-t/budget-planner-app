@@ -78,13 +78,13 @@ public class TransactionController extends AbstractController<ITransactionView>{
             success = false;
         }
         else if (!Arrays.asList(Transaction.getTransactionTypes()).contains(type) ||    //validate transaction type
-                Util.validDateString(date))
+                !Util.validDateString(date))
         {
             String message = "Invalid Inputs: ";
             if (!Arrays.asList(Transaction.getTransactionTypes()).contains(type))
                 message += "Type. ";
 
-            if (Util.validDateString(date))
+            if (!Util.validDateString(date))
                 message += "Date. ";
 
             JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
