@@ -1,5 +1,3 @@
-import org.jdatepicker.JDatePanel;
-import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -9,11 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -47,6 +41,8 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JDatePickerImpl dateField;
 	private JDatePanelImpl datePanel;
 
+	private HashMap<String, Integer> budgetIndexes;
+
     /**
      * Cosntructor.
      * @param model model
@@ -54,6 +50,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	public TransactionView(IModelView model)
 	{
         super(model);
+        budgetIndexes = new HashMap<>();
         items = new ArrayList<>();
         model.attachObserver(this);
 		createTransPanel();
@@ -73,12 +70,26 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         else if (!panel.isVisible())
             panel.setVisible(true);
 
-        items = model.getTransactions(getCurrentAccountSelection());
+        budgetIndexes = model.getBudgetIndexes();
+        budgetField.removeAllItems();
+
+        for (String key : budgetIndexes.keySet())
+        {
+            budgetField.addItem(key);
+        }
+
+        items = model.getTransactionsFromAccount(getCurrentAccountSelection());
 
         // Also checks to see if previous selection is still there
         fillTable();
 
         highlightCurrentSelection();
+    }
+
+    @Override
+    public Integer getBudgetIdInput() {
+	    String selection = budgetField.getSelectedItem().toString();
+        return budgetIndexes.get(selection);
     }
 
     @Override
@@ -114,7 +125,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	    int year = dateField.getModel().getYear();
 	    int month = dateField.getModel().getMonth()+1; //months are zero-indexed
 	    int day = dateField.getModel().getDay();
-	    return day+"-"+month+"-"+year;
+	    return year + "-" + month + "-" + day;
 	}
     @Override
     public Integer getAmountInput() {
@@ -180,6 +191,12 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         update();
     }
 
+    @Override
+    protected void handleBudgetSelectionChange() {
+        //do nothing
+        return;
+    }
+
     protected void fillFields(Transaction transaction)
     {
         if (transaction == null)
@@ -202,10 +219,11 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
 
+            String[] parts = transaction.getDate().split("-");
             dateField.getModel().setDate(
-                    Integer.parseInt(transaction.getDate().substring(0,4)),         //year
-                    Integer.parseInt(transaction.getDate().substring(5,7))-1,   //months are zero-indexed
-                    Integer.parseInt(transaction.getDate().substring(8))            //day
+                    Integer.parseInt(parts[0]),         //year
+                    Integer.parseInt(parts[1])-1,   //months are zero-indexed
+                    Integer.parseInt(parts[2])            //day
             );
         }
     }
@@ -256,7 +274,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
-        budgetField = new JComboBox(new String[]{"TO BE IMPLEMENTED", "OPTION 1", "OPTION 2"});
+        budgetField = new JComboBox();
 		typeField = new JComboBox(Transaction.getTransactionTypes());
 		datePanel = new JDatePanelImpl(model, p);
 		dateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
@@ -269,7 +287,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		descriptionTextArea.setLineWrap(true);
 		
 		// Loading JTable
-		Object[] columns = {"Type", "Date", "Amount (cents)", "Budget", "Description"};
+		Object[] columns = {"Type", "Date", "Amount (cents)", "Description", "Budget"};
 		tableModel = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {

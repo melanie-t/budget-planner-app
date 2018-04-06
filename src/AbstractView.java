@@ -11,6 +11,7 @@ public abstract class AbstractView<T extends AbstractUniqueId>
 {
     private static Integer currentAccountSelection = 0;
     private static Integer currentTransactionSelection = 0;
+    private static Integer currentBudgetSelection = 0;
     private static ArrayList<AbstractView> instances = new ArrayList<>();
 
     protected IModelView model;
@@ -51,6 +52,15 @@ public abstract class AbstractView<T extends AbstractUniqueId>
         }
     }
 
+    protected  void setCurrentBudgetSelection(int budgetId)
+    {
+        currentBudgetSelection = budgetId;
+        for (AbstractView view : AbstractView.instances)
+        {
+            view.handleBudgetSelectionChange();
+        }
+    }
+
     /**
      * Find an item in the local list with specified it
      * @param id item id
@@ -79,6 +89,8 @@ public abstract class AbstractView<T extends AbstractUniqueId>
      */
     protected int getCurrentTransactionSelection() {return currentTransactionSelection;}
 
+    protected int getCurrentBudgetSelection() { return currentBudgetSelection; }
+
     /**
      * Handler method called whenever changed are made to an active selection.
      */
@@ -88,6 +100,8 @@ public abstract class AbstractView<T extends AbstractUniqueId>
      * Handler method called whenever changed are made to an active selection.
      */
     protected abstract void handleTransactionSelectionChange();
+
+    protected abstract void handleBudgetSelectionChange();
 
     /**
      * Highlights the entry in the table with the current selection id.

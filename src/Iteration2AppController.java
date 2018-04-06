@@ -11,6 +11,7 @@ public class Iteration2AppController implements IAppController, WindowListener{
 	BudgetView budgetView;
 	AccountController accountController;
 	TransactionController transactionController;
+	BudgetController budgetController;
 
     User user;
 
@@ -18,21 +19,25 @@ public class Iteration2AppController implements IAppController, WindowListener{
 
 	public Iteration2AppController(User user) {
         this.user = user;
+
 		myDatabase = new Database(user.getName());
 		sql = SQLStringFactory.getInstance();
 
 		// Create model
 		AccountRepository accounts = new AccountRepository(myDatabase);
 		TransactionRepository transactions = new TransactionRepository(myDatabase);
-		model = new RepositoryContainer(transactions, accounts);
+		BudgetRepository budgets = new BudgetRepository((myDatabase));
+		model = new RepositoryContainer(transactions, accounts, budgets);
 
 		// Create views
 		accountView = new AccountView(model);
 		transactionView = new TransactionView(model);
+		budgetView = new BudgetView(model);
 
 		// Create controllers
 		accountController = new AccountController(accountView, model);
 		transactionController = new TransactionController(transactionView, model);
+		budgetController = new BudgetController(budgetView, model);
 	}
 
 
@@ -85,7 +90,7 @@ public class Iteration2AppController implements IAppController, WindowListener{
 	public void run() {
 
 		// Create window
-		window = new MainView("My Money Manager - " + "User : " + user.getName(), accountView, transactionView, this);
+		window = new MainView("My Money Manager - " + "User : " + user.getName(), accountView, transactionView, budgetView, this);
 
 
 		/*
