@@ -127,7 +127,7 @@ Indicate which qualities (from requirements) were tested and which qualities wer
 
 \begin{table}[htbp]
 \centering
-\label{UT-1}
+\label{UT-2}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
 \textbf{Test Case Number}      &  UT-2                         \\ \hline
@@ -150,7 +150,7 @@ Indicate which qualities (from requirements) were tested and which qualities wer
 
 \begin{table}[htbp]
 \centering
-\label{UT-1}
+\label{UT-3}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
 \textbf{Test Case Number}      &  UT-3                         \\ \hline
@@ -168,6 +168,30 @@ Indicate which qualities (from requirements) were tested and which qualities wer
 \textbf{Expected Post-Conditions}           & The test transaction database does not contain the two transactions that had the generic account ID.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
 	\item 04/03/2017 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\label{UT-4}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-4                         \\ \hline
+\textbf{Test Case Description}    &  This tests the RepositoryContainer's ability to save a variety of types of objects (Transactions, Accounts, Budgets).                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+          \item Test Transaction, Budget and Account Databases
+	\item A test Transaction
+	\item A test Account
+	\item A test Budget
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item The test transaction's details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The account,transaction and budget items are saved to their respective test databases. Balances are updated correctly.                \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/07/2017 | Colin Greczkowski | Executed test successfully.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
