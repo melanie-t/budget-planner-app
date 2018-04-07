@@ -59,9 +59,35 @@ public class TransactionRepositoryTest {
 	}
 
 	@Test
-	public void deleteAllItemsFromAccountTest() {
-		//will test both deleteAllItems and deleteItem
+	public void deleteItemTest() {		
 		
+		//add a transaction to repo
+		Integer associatedAccountId_1 = 1;
+		String type_1 = "deposit";
+		String date_1 = "2018-04-03";
+		Integer amount_1 = 100;
+		String description_1 = "This is test transaction number one";
+		Transaction testDeleteTransaction_1 = new Transaction();
+		testDeleteTransaction_1.setAssociatedAccountId(associatedAccountId_1);
+		testDeleteTransaction_1.setType(type_1);
+		testDeleteTransaction_1.setDate(date_1);
+		testDeleteTransaction_1.setAmount(amount_1);
+		testDeleteTransaction_1.setDescription(description_1);
+		transacRepoTest.saveItem(testDeleteTransaction_1);		
+		
+		//should now be 1 transaction in the repo		
+		ArrayList<Transaction> transList = transacRepoTest.getItemsFromAccount(associatedAccountId_1);
+		assertEquals(transList.size(), 1);
+			
+		transacRepoTest.deleteItem(associatedAccountId_1);
+
+		//should now be 0 transactions in the repo
+		transList = transacRepoTest.getItemsFromAccount(associatedAccountId_1);
+		assertEquals(transList.size(), 0);
+		
+	}
+	@Test
+	public void deleteAllItemsFromAccountTest() {		
 		
 		//add two transactions to repo
 		Integer associatedAccountId_1 = 1;
