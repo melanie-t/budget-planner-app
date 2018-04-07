@@ -10,13 +10,14 @@ public class TransactionTest {
 		
 		/* Test Transaction Creation */
 		Integer transactionID = 1;
+		Integer budgetID = 1;
 		Integer accountID = 1;
 		String type = "Grocery";
 		String date = "2018-02-12";
 		Integer amount = 2000;
 		String description = "Sandwich ingredients for the week";
 		
-		Transaction testTransaction = new Transaction(transactionID, accountID, type, date, amount, description);
+		Transaction testTransaction = new Transaction(transactionID, accountID, budgetID, type, date, amount, description);
 		assertEquals(testTransaction.getId(), transactionID);
 		assertEquals(testTransaction.getAssociatedAccountId(), accountID);
 		assertEquals(testTransaction.getType(), type);
@@ -32,15 +33,17 @@ public class TransactionTest {
 		/* Transaction Creation */
 		Integer transactionID = 1;
 		Integer accountID = 1;
+		Integer budgetID = 1;
 		String type = "Grocery";
 		String date = "2018-02-12";
 		Integer amount = 2000;
 		String description = "Sandwich ingredients for the week";
-		Transaction testTransaction = new Transaction(transactionID, accountID, type, date, amount, description);
+		Transaction testTransaction = new Transaction(transactionID,accountID,  budgetID, type, date, amount, description);
 		
 		/* Creating Updated Transaction */
 		Integer newTransactionID = 1;
 		Integer newAccountID = 2;
+		Integer newBudgetID = 1;
 		Integer newAmount = 3000;
 		String newType = "Snacks";
 		String newDate = "2018-02-13";
@@ -49,6 +52,7 @@ public class TransactionTest {
 		Transaction updatedTransaction = new Transaction();
 		updatedTransaction.setId(newTransactionID);
 		updatedTransaction.setAssociatedAccountId(newAccountID);
+		updatedTransaction.setAssociatedBudgetId(newBudgetID);
 		updatedTransaction.setType(newType);
 		updatedTransaction.setDate(newDate);
 		updatedTransaction.setDescription(newDescription);
@@ -70,11 +74,12 @@ public class TransactionTest {
 		/* Transaction Creation */
 		Integer transactionID = 1;
 		Integer accountID = 1;
+		Integer budgetID = 1;
 		String type = "Grocery";
 		String date = "2018-02-12";
 		Integer amount = 2000;
 		String description = "Sandwich ingredients for the week";
-		Transaction other = new Transaction(transactionID, accountID, type, date, amount, description);
+		Transaction other = new Transaction(transactionID, accountID, budgetID, type, date, amount, description);
 		Transaction testTransaction = new Transaction();
 
 		//call updateWith()
