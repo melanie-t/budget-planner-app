@@ -102,6 +102,76 @@ Indicate which qualities (from requirements) were tested and which qualities wer
 \end{tabularx}
 \end{table}
 
+\begin{table}[htbp]
+\centering
+\label{UT-1}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-1                         \\ \hline
+\textbf{Test Case Description}    &  This test case is used to ensure that transactions are properly saved or updated to their repository                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A Transaction object populated with generic data
+          \item A second Transaction object with the ID of the first one.
+	\item A test transaction database.
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item Transaction details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           &  A transaction database is created and a transaction is inserted. The balance of this transaction is then updated to a new value.                   \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/03/2017 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\label{UT-1}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-2                         \\ \hline
+\textbf{Test Case Description}    &  This test verifies that the deleteItem method works as intended, and deletes a Transaction record for a given ID                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+          \item A generic account ID
+	\item A Transaction object populated with generic data, associated to the generic account.
+	\item A test transaction database.
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "Delete Transaction 1"
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test transaction database should be empty.                \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/07/2017 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\label{UT-1}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-3                         \\ \hline
+\textbf{Test Case Description}    &  This test case is used to make sure all Transactions associated to an account are properly purged from the repository.                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+          \item A generic account ID
+	\item Two Transaction objects populated with generic data, associated to the generic account.
+	\item A test transaction database.
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "Delete Transaction 1"
+           \item "Delete Transaction 2"
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test transaction database does not contain the two transactions that had the generic account ID.                \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/03/2017 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+
 {\it
 All test cases for testing at the system level.}
 \clearpage
