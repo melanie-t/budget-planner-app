@@ -15,7 +15,7 @@
 \textheight=22.0cm
 \textwidth=16cm
 \parindent=0cm
-\parskip=0.15cm
+\parskip=0.25cm
 \topskip=0truecm
 \raggedbottom
 \abovedisplayskip=3mm
@@ -160,7 +160,6 @@ It satisfies the requirement of the user being able to create a bank account.
  {\bf Traces to Use Cases}\\
      This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
                     
-
 %Test case 6.3
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 \subsubsection{Test Case 6.3} \label{6.3}
@@ -297,7 +296,28 @@ The transaction does not show in the bottom-right window.
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 7 - \textit{DeleteTransactions}
+This satisfies use case  - 7 \textit{DeleteTransactions}
+
+%Test case 6.8
+\subsubsection{Test Case 6.8} \label{6.8}
+\noindent
+{\bf Purpose}\\
+This test verifies that the user is able to view the selected account's transactions.
+                                                        
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse.
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.       
+The transaction window is visible.
+The selected account's transactions shows up in the transaction table. 
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 8 - \textit{ViewTransactions}
 
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
@@ -458,7 +478,7 @@ One subsection per unit
 \end{table}
 \clearpage
 
-
+%Budget repository test case
 \subsubsection{Unit Test Case 5} \label{tc:1}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
@@ -491,6 +511,7 @@ One subsection per unit
 %Account repository test case
 \begin{table}[htbp]
 \centering
+\caption {UT-6}
 \label{UT-6}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
