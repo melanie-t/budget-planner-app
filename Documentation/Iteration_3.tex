@@ -289,6 +289,42 @@ One subsection per unit
 \end{table}
 \clearpage
 
+
+
+%Account repository test case
+\begin{table}[htbp]
+\centering
+\label{UT-6}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-6                      \\ \hline
+\textbf{Test Case Description}    &  This test case is used to ensure created accounts are saved in the database. Also it verifies that accounts can be deleted from it.                 \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+  
+\item An account database
+\item An account repository
+\item An account with non-null values for \textit{nickname}, \textit{bankName} and a non-negative value for \textit{balance}
+  
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+\item Tuples in Account repository test before delete: 2 
+\item Tuples in Account repository test after delete: 1 
+\item Current items loaded in repo:1 
+\item 1
+
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions} & The system has a single account in the account database. \\
+\hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/07/2018 | Wayne Yiel Leung | Executed test failed.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+
+
+
+
 \section{Test Results}
 
 {\it
