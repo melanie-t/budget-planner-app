@@ -111,6 +111,194 @@ You can cross-reference to actual file data specified in an appendix.
 State which requirements (at the level of use case and scenario) are tested by this test case.
 \clearpage
 
+% Test case 6.1
+\subsubsection{Test Case 6.1} \label{6.1}
+
+\noindent
+{\bf Purpose}\\
+The purpose of the test is to verify the user is able to add a bank account into the application's database.
+It satisfies the requirement of the user being able to create a bank account.
+
+\noindent
+    {\bf Input Specification}\\
+    The application displays a graphical user interface on the screen.
+    Optionally, it shows a list of pre-existing bank accounts in the window's top-right corner.
+    MyMoney accepts any kind of characters and of any length as input in the \textit{Bank} and \textit{Nickname} fields while
+    the \textit{Balance} field accepts non-negative integers. The \textit{Bank} and \textit{Balance} fields cannot be empty.
+    The user presses \textit{Add} on the interface to add the account.
+    
+\noindent
+    {\bf Expected Output}\\
+    The application displays the window.
+    A created bank account with the information the user entered now exists in the application.
+    
+\noindent
+    {\bf Traces to Use Cases}\\
+    This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
+
+% Test case 6.2
+\subsubsection{Test Case 6.2} \label{6.2}
+\noindent
+{\bf Purpose}\\
+        The test verifies that for an existing bank account its bank name, nickname and balance can be modified.
+        This satisfies the requirement that the user is able to adjust account information in case of an account transfer
+        to another financial institution. 
+
+\noindent
+{\bf Input Specification}\\
+            MyMoney displays a graphical user interface on the screen.
+            For this operation, MyMoney accepts any kind of characters and of any length as
+            input in the \textit{Bank} and \textit{Nickname} fields while the \textit{Balance} field accepts non-negative integers.
+            The \textit{Bank} and \textit{Balance} fields cannot be empty. The user presses the \textit{Update} to update the account information.
+            
+\noindent
+{\bf Expected Output}\\
+    The application displays the window.    
+    The system displays updated information of the bank account in the top-right window.
+
+ \noindent
+ {\bf Traces to Use Cases}\\
+     This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
+                    
+
+%Test case 6.3
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+\subsubsection{Test Case 6.3} \label{6.3}
+\noindent
+{\bf Purpose}\\
+ This test verifies the user is able to delete their own account.
+ This satisfies the requirement that the user is able to remove their account when their is no longer associated
+ with a bank. 
+
+ \noindent
+ {\bf Input Specification}\\
+ MyMoney displays a graphical user interface on the screen.
+ For this operation, the user selects their account with the mouse and presses \textit{Delete}.
+                            
+ \noindent
+ {\bf Expected Output}\\
+ The application displays the window.
+ Also it display a list of accounts in the top-right corner except the one that was deleted.
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
+
+
+%Test case 6.4
+\subsubsection{Test Case 6.4} \label{6.4}
+
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to add a transaction into their existing account.
+This satisfies the requirement that the user can complete an addition of a transaction into their account.
+                                        
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, MyMoney accepts a transaction \textit{type} - withdraw or deposit, a \textit{date}
+which is selected via the date picker, an \textit{Amount}, a integer, a \textit{Budget} which is chosen
+from a drop-down list, and a \textit{description} - a string composed of any characters and
+of non-negative length. To register the action, the user presses \textit{Add} located in the bottom left
+of the window.                                          
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.    
+The transaction is added to the account.
+If the user selects his account in the top-right corner of the window then
+the bottom-right window displays the newly created transaction.
+                                                
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
+
+
+%Test case 6.5
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+\subsubsection{Test Case 6.5} \label{6.5}
+
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to import a transaction into their existing account.
+This satisfies the requirement that the user can import a transaction into their account.
+                                                        
+
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse,
+clicks the import button, chose the csv file.
+                                                          
+
+\noindent
+{\bf Expected Output}\\
+The transaction is added to the user's account.
+The bottom-right corner displays the transaction.
+
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 5 - \textit{ImportTransactions}
+
+
+
+%Test case 6.6
+\subsubsection{Test Case 6.6} \label{6.6}
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to update an existing transaction in their account.
+This satisfies the requirement that the user can change information of a transaction in their account.
+                                                        
+
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse,
+chose the appropriate transaction to modify in the bottom-right window.
+The user can modify the transaction fields on the transactions pane.
+In the pane, transaction \textit{type} - withdraw or deposit, a \textit{date}
+which is selected via the date picker, an \textit{Amount}, a integer, a \textit{Budget} which is chosen
+from a drop-down list, and a \textit{description} - a string composed of any characters and
+of non-negative length. The register the action, the user presses \textit{Add} located in the bottom left
+of the window.   
+                                                          
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.    
+The fields in the transaction are updated.
+If selected, the bottom-right corner displays the updated transaction.
+
+\noindent
+    {\bf Traces to Use Cases}\\
+    This satisfies use case 6 - \textit{ImportTransactions}
+
+%Test case 6.7
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+\subsubsection{Test Case 6.7} \label{6.7}
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to delete an existing transaction in their account.
+This satisfies the requirement that the user can changeremove a transaction from their account.
+                                                        
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse,
+chose the appropriate transaction to remove in the bottom-right window.
+The user presses \textit{Delete} in the Transactions pane.
+                                                          
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.       
+The transaction does not show in the bottom-right window.
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 7 - \textit{DeleteTransactions}
+
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
