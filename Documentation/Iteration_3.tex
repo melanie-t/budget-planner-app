@@ -102,6 +102,7 @@ You can cross-reference to actual file data specified in an appendix.
 State which requirements (at the level of use case and scenario) are tested by this test case.
 \clearpage
 
+\def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
 \caption{Template Test Case}
@@ -120,7 +121,7 @@ State which requirements (at the level of use case and scenario) are tested by t
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           &  The system responds to the presence or absence of the input vector and outputs a success message upon test successful completion in "output.txt", along with a time-stamp containing the test's execution time and date.                    \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 05/04/2016 | Tester's name | Executed test successfully.
+	\item 05/04/2018 | Tester's name | Executed test successfully.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -151,6 +152,7 @@ One subsection per unit
 
 
 \subsubsection{Unit Test Case 1} \label{tc:1}
+\def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
 \caption {UT-1}
@@ -170,13 +172,14 @@ One subsection per unit
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           &  A transaction database is created and a transaction is inserted. The balance of this transaction is then updated to a new value.                   \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/03/2017 | Colin Greczkowski | Executed test successfully.
+	\item 04/03/2018 | Colin Greczkowski | Executed test successfully.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
 
 \subsubsection{Unit Test Case 2} \label{tc:2}
+\def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
 \caption {UT-2}
@@ -196,13 +199,14 @@ One subsection per unit
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & The test transaction database should be empty.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/07/2017 | Colin Greczkowski | Executed test successfully.
+	\item 04/07/2018 | Colin Greczkowski | Executed test successfully.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
 
 \subsubsection{Unit Test Case 3} \label{tc:3}
+\def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
 \caption {UT-3}
@@ -223,15 +227,17 @@ One subsection per unit
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & The test transaction database does not contain the two transactions that had the generic account ID.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/03/2017 | Colin Greczkowski | Executed test successfully.
+	\item 04/03/2018 | Colin Greczkowski | Executed test successfully.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
 
 \subsubsection{Unit Test Case 4} \label{tc:1}
+\def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
+\caption {UT-4}
 \label{UT-4}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
@@ -249,7 +255,35 @@ One subsection per unit
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & The account,transaction and budget items are saved to their respective test databases. Balances are updated correctly.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/07/2017 | Colin Greczkowski | Executed test successfully.
+	\item 04/07/2018 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+
+\subsubsection{Unit Test Case 5} \label{tc:1}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-5}
+\label{UT-5}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-5                         \\ \hline
+\textbf{Test Case Description}    &  TO BE COMPLETED: BudgetContainer test                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A Budget object populated with generic data
+	\item A test Account database with transactions
+	\item A test Budget database
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item The test budget's details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & A budget database is created and a budget is inserted. The recorded budget amount is updated according to transactions made across all accounts for that budget.            \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/08/2018 | Melanie Taing | Not executed
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
