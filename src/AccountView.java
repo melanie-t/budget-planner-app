@@ -69,6 +69,13 @@ public class AccountView extends AbstractView<Account> implements IAccountView, 
     public String getBankInput() {return bankTextfield.getText();}
     @Override
     public String getNicknameInput() {return nicknameTextfield.getText();}
+
+    @Override
+    protected void handleBudgetSelectionChange() {
+        // do nothing
+        return;
+    }
+
     @Override
     public Integer getBalanceInput() {
         String amount = balanceTextfield.getText();
@@ -266,7 +273,7 @@ public class AccountView extends AbstractView<Account> implements IAccountView, 
 
 								))
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(scrollPane, 650, 650, 650))
+						.addComponent(scrollPane, 650, 650, 700))
 		);
 		
 		layout.setVerticalGroup(layout.createSequentialGroup()

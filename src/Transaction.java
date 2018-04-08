@@ -2,7 +2,11 @@
  * The Transaction class is a plain old data structure that contains all the information on a given transaction.
  */
 public class Transaction extends AbstractUniqueId{
+
+    private static String[] transactionTypes = new String[]{"Deposit", "Withdrawal"};
+
 	private Integer associatedAccountId;
+	private Integer associatedBudgetId;
 	private String 	type;
 	private String 	date;
 	private Integer amount;
@@ -13,7 +17,7 @@ public class Transaction extends AbstractUniqueId{
      */
 	public Transaction()
 	{
-        this(0,0,"","0000-00-00",0,"");
+        this(0,0,0,"","0000-00-00",0,"");
 	}
 
     /**
@@ -23,6 +27,7 @@ public class Transaction extends AbstractUniqueId{
 	public Transaction(Transaction other) {
 	    super(other.getId());
         this.associatedAccountId = other.getAssociatedAccountId();
+        this.associatedBudgetId = other.getAssociatedBudgetId();
         this.type = other.getType();
         this.date = other.getDate();
         this.amount = other.getAmount();
@@ -43,6 +48,7 @@ public class Transaction extends AbstractUniqueId{
     public Transaction(
             Integer transactionId,
             Integer associatedAccountId,
+            Integer associatedBudgetId,
             String type,
             String date,
             Integer amount,
@@ -50,6 +56,7 @@ public class Transaction extends AbstractUniqueId{
     {
         super(transactionId);
         this.associatedAccountId = associatedAccountId;
+        this.associatedBudgetId = associatedBudgetId;
         this.type = type;
         this.date = date;
         this.amount = amount;
@@ -65,6 +72,7 @@ public class Transaction extends AbstractUniqueId{
     {
     	setId(other.getId());
         associatedAccountId = other.getAssociatedAccountId();
+        associatedBudgetId = other.getAssociatedBudgetId();
         type = other.getType();
         date = other.getDate();
         amount = other.getAmount();
@@ -77,6 +85,7 @@ public class Transaction extends AbstractUniqueId{
      */
 	public void setAssociatedAccountId(Integer associatedAccountId) {this.associatedAccountId = associatedAccountId;}
 
+	public void setAssociatedBudgetId(Integer associatedBudgetId) { this.associatedBudgetId = associatedBudgetId; }
     /**
      * Set the type of transaction
      * @param type type of transaction
@@ -107,6 +116,7 @@ public class Transaction extends AbstractUniqueId{
      */
 	public Integer getAssociatedAccountId() 		{return associatedAccountId;}
 
+	public Integer getAssociatedBudgetId()      { return associatedBudgetId; }
     /**
      * Get the type of the transaction
      * @return type
@@ -125,6 +135,12 @@ public class Transaction extends AbstractUniqueId{
      */
 	public Integer 	getAmount()			{return amount;}
 	public String 	getDescription() 	{return description;}
+
+    /**
+     * Get the possible types of transactions
+     * @return transactionTypes
+     */
+	public static String[] getTransactionTypes() {return transactionTypes;}
 
     /**
      * Generates a multi-line string that describes the content of the transaction

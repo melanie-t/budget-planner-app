@@ -1,8 +1,13 @@
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +24,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JLabel transLabel;
 	private JLabel typeLabel;
 	private JLabel dateLabel;
+	private JLabel budgetLabel;
 	private JLabel amountLabel;
 	private JLabel descriptionLabel;
 	private JButton addButton;
@@ -26,13 +32,16 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	private JButton clearButton;
 	private JButton importButton;
     private JButton updateButton;
-	private JTextField typeTextfield;
-	private JTextField dateTextfield;
 	private JTextField amountTextfield;
+	private JComboBox budgetField;
 	private JTextArea descriptionTextArea;
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JComboBox typeField;
+	private JDatePickerImpl dateField;
+	private JDatePanelImpl datePanel;
 
+	private HashMap<String, Integer> budgetIndexes;
 
     /**
      * Cosntructor.
@@ -41,6 +50,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 	public TransactionView(IModelView model)
 	{
         super(model);
+        budgetIndexes = new HashMap<>();
         items = new ArrayList<>();
         model.attachObserver(this);
 		createTransPanel();
@@ -60,12 +70,26 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         else if (!panel.isVisible())
             panel.setVisible(true);
 
-        items = model.getTransactions(getCurrentAccountSelection());
+        budgetIndexes = model.getBudgetIndexes();
+        budgetField.removeAllItems();
+
+        for (String key : budgetIndexes.keySet())
+        {
+            budgetField.addItem(key);
+        }
+
+        items = model.getTransactionsFromAccount(getCurrentAccountSelection());
 
         // Also checks to see if previous selection is still there
         fillTable();
 
         highlightCurrentSelection();
+    }
+
+    @Override
+    public Integer getBudgetIdInput() {
+	    String selection = budgetField.getSelectedItem().toString();
+        return budgetIndexes.get(selection);
     }
 
     @Override
@@ -95,9 +119,18 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     @Override
     public JPanel   getPanel()          {return panel;}
     @Override
-    public String getTypeInput() {return typeTextfield.getText();}
+    public String getTypeInput() {return (String) typeField.getSelectedItem();}
     @Override
-    public String getDateInput() {return dateTextfield.getText();}
+    public String getDateInput() {
+	    int year = dateField.getModel().getYear();
+	    int month = dateField.getModel().getMonth()+1; //months are zero-indexed
+	    int day = dateField.getModel().getDay();
+
+	    String monthZero = month < 10? "0": "";
+	    String dayZero = day < 10? "0" : "";
+
+	    return year + "-" + monthZero + month + "-" + dayZero + day;
+	}
     @Override
     public Integer getAmountInput() {
         String amount = amountTextfield.getText();
@@ -136,10 +169,18 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         highlightCurrentSelection();
     }
 
+    protected void isDeposit(Transaction transaction) {
+    	if (transaction.getType().equals("Deposit"))
+    		budgetField.setEnabled(false);
+    	else
+    		budgetField.setEnabled(true);		
+    }
+    
     protected void highlightCurrentSelection() {
         if (getCurrentTransactionSelection() == 0)
         {
             fillFields(null);
+            budgetField.setEnabled(true);
             return;
         }
 
@@ -159,24 +200,45 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
     protected void handleClear()
     {
         setCurrentTransactionSelection(0);
+        budgetField.setEnabled(true);
         update();
+    }
+
+    @Override
+    protected void handleBudgetSelectionChange() {
+        //do nothing
+        return;
     }
 
     protected void fillFields(Transaction transaction)
     {
         if (transaction == null)
         {
-            typeTextfield.setText("");
-            dateTextfield.setText("");
+            typeField.setSelectedIndex(0);
             amountTextfield.setText("");
             descriptionTextArea.setText("");
+
+            LocalDateTime now = LocalDateTime.now();
+            dateField.getModel().setDate(
+                    now.getYear(),
+                    now.getMonthValue() - 1,    //months are zero-indexed
+                    now.getDayOfMonth()
+            );
+      
         }
         else
-        {
-            typeTextfield.setText(transaction.getType());
-            dateTextfield.setText(transaction.getDate());
+        { 		
+            typeField.setSelectedIndex(Arrays.asList(Transaction.getTransactionTypes()).indexOf(transaction.getType()));
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
+            isDeposit(transaction);
+
+            String[] parts = transaction.getDate().split("-");
+            dateField.getModel().setDate(
+                    Integer.parseInt(parts[0]),         //year
+                    Integer.parseInt(parts[1])-1,   //months are zero-indexed
+                    Integer.parseInt(parts[2])            //day
+            );
         }
     }
 
@@ -206,11 +268,19 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
      * Create GUI elements
      */
     private void createTransPanel() {
+        //JDatePicker properties
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+
 		// Create Transaction UI elements
 		panel = new JPanel();
 		transLabel = new JLabel("Transactions");
 		typeLabel = new JLabel("Type");
 		dateLabel = new JLabel("Date");
+		budgetLabel = new JLabel("Budget");
 		amountLabel = new JLabel("Amount (cents)");
 		descriptionLabel = new JLabel("Description");
 		addButton = new JButton("Add");
@@ -218,8 +288,11 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		clearButton = new JButton("Clear");
 		importButton = new JButton("Import");
         updateButton = new JButton("Update");
-		typeTextfield = new JTextField(15);
-		dateTextfield = new JTextField(15);
+        budgetField = new JComboBox();
+		typeField = new JComboBox(Transaction.getTransactionTypes());
+		datePanel = new JDatePanelImpl(model, p);
+		dateField = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
 		amountTextfield = new JTextField(15);
 		descriptionTextArea = new JTextArea(2, 10);
 		table = new JTable();
@@ -228,7 +301,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		descriptionTextArea.setLineWrap(true);
 		
 		// Loading JTable
-		Object[] columns = {"Type", "Date", "Amount (cents)", "Description"};
+		Object[] columns = {"Type", "Date", "Amount (cents)", "Description", "Budget"};
 		tableModel = new DefaultTableModel() {
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -273,12 +346,14 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(typeLabel)
 									.addComponent(dateLabel)
 									.addComponent(amountLabel)
+									.addComponent(budgetLabel)
 									.addComponent(descriptionLabel))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-									.addComponent(typeTextfield, 250, 250, 250)
-									.addComponent(dateTextfield, 250, 250, 250)
+									.addComponent(typeField, 250, 250, 250)
+									.addComponent(dateField, 250, 250, 250)
 									.addComponent(amountTextfield, 250, 250, 250)
-									.addComponent(descriptionTextArea, 100, 100, 220)))
+									.addComponent(budgetField, 250, 250, 250)
+									.addComponent(descriptionTextArea, 100, 100, 250)))
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 									.addComponent(addButton)
@@ -302,16 +377,19 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 						.addGroup(layout.createSequentialGroup()
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(typeLabel)
-									.addComponent(typeTextfield))
+									.addComponent(typeField))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(dateLabel)
-									.addComponent(dateTextfield))
+									.addComponent(dateField))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(amountLabel)
 									.addComponent(amountTextfield))
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(budgetLabel)
+										.addComponent(budgetField))
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(descriptionLabel)
-										.addComponent(descriptionTextArea))
+										.addComponent(descriptionTextArea, 50, 50, 50))
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 									.addComponent(addButton)
 									.addComponent(updateButton)
@@ -321,7 +399,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 									.addComponent(importButton)))))
 		);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel, descriptionLabel);
+		layout.linkSize(SwingConstants.HORIZONTAL, typeLabel, dateLabel, amountLabel, descriptionLabel, budgetLabel);
 		layout.linkSize(SwingConstants.HORIZONTAL, addButton, updateButton, deleteButton, importButton, clearButton);
 	}
 }

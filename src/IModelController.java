@@ -15,6 +15,8 @@ public interface IModelController {
      */
     void saveItem(Account account);
 
+    void saveItem(Budget budget);
+
     /**
      * Delete the Transaction with the specified id from the repository and the database.
      * @param transactionId transaction id
@@ -27,6 +29,8 @@ public interface IModelController {
      * @param accountId account id
      */
     void deleteAccount(Integer accountId);
+
+    void deleteBudget(Integer budgetId);
 
     /**
      * Import a list of transactions from a .csv file on disk and associate them with the

@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * Controller class for views that implement ITransactionView interface and models that implement
@@ -58,6 +59,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
         Integer amount = view.getAmountInput();
         String description = view.getDescriptionInput();
         Integer accountId = view.getSelectedAccountId();
+        Integer budgetId = view.getBudgetIdInput();
 
         if (type.isEmpty() || date.isEmpty() || amount == null)
         {
@@ -66,10 +68,24 @@ public class TransactionController extends AbstractController<ITransactionView>{
                 message += "Type. ";
 
             if (date.isEmpty())
-                message += "Date. ";    // TODO - validate date format and/or use a date type
+                message += "Date. ";
 
             if (amount == null)
                 message += "Amount must be a number.";
+
+            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
+
+            success = false;
+        }
+        else if (!Arrays.asList(Transaction.getTransactionTypes()).contains(type) ||    //validate transaction type
+                !Util.validDateString(date))
+        {
+            String message = "Invalid Inputs: ";
+            if (!Arrays.asList(Transaction.getTransactionTypes()).contains(type))
+                message += "Type. ";
+
+            if (!Util.validDateString(date))
+                message += "Date. ";
 
             JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
 
@@ -81,6 +97,7 @@ public class TransactionController extends AbstractController<ITransactionView>{
             Transaction transaction = new Transaction(
                     transactionId,
                     accountId,
+                    budgetId,
                     type,
                     date,
                     amount,
@@ -138,4 +155,5 @@ public class TransactionController extends AbstractController<ITransactionView>{
 		model.importTransactions(filePath, view.getSelectedAccountId());
         view.setSelection(0);
 	}
+
 }
