@@ -58,8 +58,17 @@ Colin Greczkowski & 40001600 \\
 
 \clearpage
 
+\pagenumbering{roman}
+\pagestyle{plain}
+
 \tableofcontents
 \clearpage
+
+\listoffigures
+\newpage
+
+\pagenumbering{arabic}
+\pagestyle{plain}
 
 \section{Introduction}
 The purpose of this document is to gather all information necessary for testing of the MyMoney application. This document describes the testing approach and overall framework that will be used to test the MyMoney application.\\
@@ -334,7 +343,13 @@ List requirements indicating the percentage of tests that passed for that requir
 
 \section{References}
 
-\appendix
+\section{Addendum}
+
+\begin{figure}[H]
+\centering
+\caption{Updated use case diagram}
+\includegraphics[scale=0.5]{Diagrams/UML/SOEN.png}
+\end{figure}
 
 \section{Description of Input Files}
 
