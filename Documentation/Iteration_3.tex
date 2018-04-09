@@ -81,10 +81,11 @@ The following pages will identify the requirements that will be tested, the test
 
 \section{Test Plan}
 
-We will be performing system level, integration and unit testing based on the use case scenarios.  We are performing black box testing for system level testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Integration tests will focus on the integration of {\it Transactions} in {\it Accounts} and the integration of {\it Budgets} across all {\it Accounts} with respect to their {\it Transactions}. Unit testing will focus on testing specific methods within subsystems to ensure they function properly, which satisfies usability. \\
+We will be performing system level, integration and unit testing based on the use case scenarios.  We are performing black box testing for system level testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Integration tests will focus on the integration of {\it Transactions} in {\it Accounts} and the integration of {\it Budgets} across all {\it Accounts} with respect to their {\it Transactions}. Unit testing will focus on testing specific methods within {\it TransactionRepository}, {\it RepositoryContainer}, {\it AccountRepository},, {\it BudgetRepository} as well as the controllers: {\it TransactionController}, {\it AccountController}, {\it BudgetController}. \\
 
 The following functional requirements will be tested:
 \begin{itemize}
+\setlength{\parskip}{0.8mm}
 	\item Add Account
 	\item Update Account
 	\item Delete Account
@@ -99,6 +100,33 @@ The following functional requirements will be tested:
 	\item Apply Transaction to Budget
 	\item View Budget Transactions
 \end{itemize}
+\clearpage
+
+\setlength{\parskip}{0.8mm}
+The unit tests will include:
+\begin {itemize}
+	\item TransactionRepository
+	\begin {itemize}
+		\item Function saveItem
+		\item Function deleteItem
+	\end {itemize}
+	\item RepositoryContainer
+	\begin {itemize}
+		\item Function saveItem
+	\end {itemize}
+	\item AccountRepository
+	\begin {itemize}
+		\item Function saveItem
+		\item Function deleteItem
+	\end {itemize}
+	\item BudgetRepository
+	\begin {itemize}
+		\item Function saveItem
+	\end {itemize}
+	\item TransactionController
+	\item AccountController
+	\item BudgetController
+\end {itemize}
 
 % Describe what forms of testing you plan to do (unit, subsystem, integration),
 % describe briefly the schedule and resources for testing, and how you designed your test cases.
@@ -110,7 +138,8 @@ The following functional requirements will be tested:
 % All test cases for testing at the system level.
 
 % Test case 1
-\subsubsection{Test Case 1} \label{TC-1}
+
+\subsubsection {Test Case 1 - Add Account} \label{TC-1}
 
 \noindent
 {\bf Purpose}\\
@@ -135,7 +164,7 @@ It satisfies the requirement of the user being able to create a bank account.
     This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
 
 % Test case 2
-\subsubsection{Test Case 2} \label{TC-2}
+\subsubsection{Test Case 2 - Update Account} \label{TC-2}
 \noindent
 {\bf Purpose}\\
         The test verifies that for an existing bank account its bank name, nickname and balance can be modified.
@@ -160,7 +189,7 @@ It satisfies the requirement of the user being able to create a bank account.
                  
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE   
 %Test case 3
-\subsubsection{Test Case 3} \label{TC-3}
+\subsubsection{Test Case 3 - Delete Account} \label{TC-3}
 \noindent
 {\bf Purpose}\\
  This test verifies the user is able to delete their own account.
@@ -182,7 +211,7 @@ It satisfies the requirement of the user being able to create a bank account.
 This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
 
 %Test case 4
-\subsubsection{Test Case 4} \label{TC-4}
+\subsubsection{Test Case 4 - Add Transaction} \label{TC-4}
 
 \noindent
 {\bf Purpose}\\
@@ -211,7 +240,7 @@ This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
 
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 5
-\subsubsection{Test Case 5} \label{TC-5}
+\subsubsection{Test Case 5 - Import Transaction} \label{TC-5}
 
 \noindent
 {\bf Purpose}\\
@@ -237,7 +266,7 @@ The bottom-right corner displays the transaction.
 This satisfies use case 5 - \textit{ImportTransactions}
 
 %Test case 6
-\subsubsection{Test Case 6} \label{TC-6}
+\subsubsection{Test Case 6 - Update Transaction} \label{TC-6}
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to update an existing transaction in their account.
@@ -270,7 +299,7 @@ If selected, the bottom-right corner displays the updated transaction.
 
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 7
-\subsubsection{Test Case 7} \label{TC-7}
+\subsubsection{Test Case 7 - Delete Transaction} \label{TC-7}
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to delete an existing transaction in their account.
@@ -294,7 +323,7 @@ The transaction does not show in the bottom-right window.
 This satisfies use case  - 7 \textit{DeleteTransactions}
 
 %Test case 8
-\subsubsection{Test Case 8} \label{TC-8}
+\subsubsection{Test Case 8 - View Account Transactions} \label{TC-8}
 \noindent
 {\bf Purpose}\\
 This test verifies that the user is able to view the selected account's transactions.
@@ -316,7 +345,7 @@ This satisfies use case 8 - \textit{ViewTransactions}
 
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 9
-\subsubsection{Test Case 9} \label{TC-9}
+\subsubsection{Test Case 9 - Add Budget} \label{TC-9}
 \noindent
 {\bf Purpose}\\
                                                         
@@ -331,7 +360,7 @@ This satisfies use case 8 - \textit{ViewTransactions}
 This satisfies use case 9 - \textit{AddBudget}
 
 %Test case 10
-\subsubsection{Test Case 10} \label{TC-10}
+\subsubsection{Test Case 10 - Update Budget} \label{TC-10}
 \noindent
 {\bf Purpose}\\
                                                         
@@ -347,7 +376,7 @@ This satisfies use case 10 - \textit{UpdateBudget}
 
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 9
-\subsubsection{Test Case 11} \label{TC-11}
+\subsubsection{Test Case 11 - Delete Budget} \label{TC-11}
 \noindent
 {\bf Purpose}\\
                                                         
@@ -362,7 +391,7 @@ This satisfies use case 10 - \textit{UpdateBudget}
 This satisfies use case 11 - \textit{DeleteBudget}
 
 %Test case 10
-\subsubsection{Test Case 12} \label{TC-12}
+\subsubsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
 \noindent
 {\bf Purpose}\\
                                                         
@@ -378,7 +407,7 @@ This satisfies use case 12 - \textit{ApplyTransactionToBudget}
 
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 9
-\subsubsection{Test Case 13} \label{TC-13}
+\subsubsection{Test Case 13 - View Budget Transactions} \label{TC-13}
 \noindent
 {\bf Purpose}\\
                                                         
@@ -404,7 +433,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 % One subsection per unit
 
 % Unit Test Case 1
-\subsubsection{Unit Test Case 1}
+\subsubsection{Unit Test Case 1 - Transaction: saveItem}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -432,7 +461,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \clearpage
 
 % Unit Test Case 2
-\subsubsection{Unit Test Case 2}
+\subsubsection{Unit Test Case 2 - Transaction: deleteItem}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -460,7 +489,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \clearpage
 
 % Unit Test Case 3
-\subsubsection{Unit Test Case 3} 
+\subsubsection{Unit Test Case 3 - Transaction: deleteItem (all items)} 
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -489,7 +518,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \clearpage
 
 % Unit Test Case 4
-\subsubsection{Unit Test Case 4}
+\subsubsection{Unit Test Case 4 - RepositoryContainer: saveItem (all types)}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -518,44 +547,15 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \clearpage
 
 % Unit Test Case 5
-%Budget repository test case
-\subsubsection{Unit Test Case 5}
-\def\arraystretch{1.5}%
+%Account repository test case
+\subsubsection{Unit Test Case 5 - AccountRepository: saveItem, deleteItem}
 \begin{table}[htbp]
 \centering
 \caption {UT-5}
 \label{UT-5}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
-\textbf{Test Case Number}      &  UT-5                         \\ \hline
-\textbf{Test Case Description}    &  TO BE COMPLETED: BudgetContainer test                \\ \hline
-\textbf{Input}         & 	\begin{enumerate}
-	\item A Budget object populated with generic data
-	\item A test Account database with transactions
-	\item A test Budget database
-\end{enumerate} \\ \hline
-
-\textbf{Expected Output}     & \begin{enumerate}
-	\item The test budget's details are printed to console.
-\end{enumerate} \\ \hline
-\textbf{Expected Post-Conditions}           & A budget database is created and a budget is inserted. The recorded budget amount is updated according to transactions made across all accounts for that budget.            \\ \hline
-\textbf{Execution History}   &  \begin{enumerate}
-	\item 04/08/2018 | Melanie Taing | Not executed
-\end {enumerate} \\ \hline
-\end{tabularx}
-\end{table}
-\clearpage
-
-% Unit Test Case 6
-%Account repository test case
-\subsubsection{Unit Test Case 6}
-\begin{table}[htbp]
-\centering
-\caption {UT-6}
-\label{UT-6}
-\begin{tabularx}{\textwidth}{ | l | X |}
-\hline
-\textbf{Test Case Number}      &  UT-6                      \\ \hline
+\textbf{Test Case Number}      &  UT-5                     \\ \hline
 \textbf{Test Case Description}    &  This test case is used to ensure created accounts are saved in the database. Also it verifies that accounts can be deleted from it.                 \\ \hline
 \textbf{Input}         & 	\begin{enumerate}
   
@@ -576,6 +576,35 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \hline
 \textbf{Execution History}   &  \begin{enumerate}
 	\item 04/07/2018 | Wayne Yiel Leung | Executed test failed.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 6
+%Budget repository test case
+\subsubsection{Unit Test Case 6 - BudgetRepository: saveItem}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-6}
+\label{UT-6}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-6                         \\ \hline
+\textbf{Test Case Description}    &  This test case verifies that the saveItem method functions properly and saves the Budget object to the selected account's BudgetRepository.         \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A Budget object populated with generic data
+	\item A test Account database populated with generic transactions
+	\item A test Budget database
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item The test budget's details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & A budget database is created and a budget is inserted. The recorded budget amount is updated according to transactions made across all accounts for that budget.            \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/08/2018 | Melanie Taing | Not executed
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
