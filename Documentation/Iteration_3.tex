@@ -25,6 +25,11 @@
 \normalbaselineskip=12pt
 \normalbaselines
 
+% Test Case Counter for Results section
+\newcounter{testcase}[section]
+\newenvironment{testcase}[1][]{\refstepcounter{testcase}\par\medskip
+   \textbf{Test Case~\thetestcase. #1} \rmfamily}{\medskip}
+
 \begin{document}
 
 \vspace*{0.5in}
@@ -122,6 +127,7 @@ The unit tests will include:
 	\item BudgetRepository
 	\begin {itemize}
 		\item Function saveItem
+		\item Function deleteItem
 	\end {itemize}
 	\item TransactionController
 	\item AccountController
@@ -604,7 +610,36 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & A budget database is created and a budget is inserted. The recorded budget amount is updated according to transactions made across all accounts for that budget.            \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/08/2018 | Melanie Taing | Not executed
+	\item 04/08/2018 | Melanie Taing | N/A
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 7
+%Budget repository test case
+\subsubsection{Unit Test Case 7 - BudgetRepository: deleteItem}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-7}
+\label{UT-7}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-7                         \\ \hline
+\textbf{Test Case Description}    &  This test case verifies that the deleteItem method functions properly and deletes the Budget record in the repository for a given account ID.         \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A generic account ID
+	\item A Budget object populared with generic data
+	\item A test Budget database
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "Delete Budget 1"
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test budget database should be empty.            \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/08/2018 | Melanie Taing | N/A
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -664,6 +699,51 @@ State which requirements (at the level of use case and scenario) are tested by t
 \section{Test Results}
 % List the tests, indicating which passed and which did not pass.
 % List requirements indicating the percentage of tests that passed for that requirement.
+\subsection{System Level Tests}
+\begin{table}[htbp]
+\centering
+\caption {System Test Case Results}
+\label{test-result}
+\begin{tabularx}{\textwidth}{ | l | X | l |}
+\hline
+\textbf{Test Case}  &\textbf {Test Name}   &  \textbf{Result}                         \\ \hline
+1 & Add Account &  Pass				\\ \hline
+2 & Update Account & Pass 			\\ \hline
+3 & Delete Account & Pass				\\ \hline
+4 & Add Transaction & Pass			\\ \hline
+5 & Import Transaction &	Pass	 		\\ \hline
+6 & Update Transaction &	Pass			\\ \hline
+7 & Delete Transaction & 	Pass			\\ \hline
+8 & View Account Transactions & Pass		 \\ \hline
+9 & Add Budget & N/A				\\ \hline
+10 & Update Budget & N/A			\\ \hline
+11 & Delete Budget & N/A				\\ \hline
+12 & Apply Transaction to Budget & N/A	\\ \hline
+13 & View Budget Transactions & N/A		\\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+\subsection {Subsystem Level Tests}
+
+\subsection {Unit Level Tests}
+\begin{table}[htbp]
+\centering
+\caption {Unit Test Case Results}
+\label{test-result}
+\begin{tabularx}{\textwidth}{ | l | X | l |}
+\hline
+\textbf{Unit Test Case}  &\textbf{Test Name}    &  \textbf{Result}                         \\ \hline
+1 & Transaction: saveItem & Pass		 		\\ \hline
+2 & Transaction: deleteItem & Pass 				\\ \hline
+3 & Transaction: deleteItem (all items)& Pass 			\\ \hline
+4 & RepositoryContainer: saveItem (all types) & Pass	 \\ \hline
+5 & AccountRepository: saveItem, deleteItem & Fail 		\\ \hline
+6 & BudgetRepository: saveItem & N/A 				\\ \hline
+7 & BudgetRepository: deleteItem & N/A 			\\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
 
 \section{References}
 \href{https://users.encs.concordia.ca/~gregb/home/PDF/comp354-testing-intro.pdf}{Sinnig, D., "Introduction to Software Testing"} (Current April 8, 2018)
