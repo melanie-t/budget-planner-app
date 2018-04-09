@@ -41,7 +41,7 @@ public class ImportTransactionTest {
 	@Test
 	public void testAddTransaction() {
 
-        model = new RepositoryContainer(new TransactionRepository(testDatabase), new AccountRepository(testDatabase));
+        model = new RepositoryContainer(new TransactionRepository(testDatabase), new AccountRepository(testDatabase), new BudgetRepository((testDatabase)));
 		((RepositoryContainer) model).initSQLStructure();
         model.importTransactions("tst/spread_sheet_test_case.csv", 1);
 
@@ -51,7 +51,7 @@ public class ImportTransactionTest {
 		 **/
 		String dbAccountID = "select accountId from transactions;";
 		String dbAmount = "select amount from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
-		String dbDate = "select date from transactions where accountId = " + expected.getAssociatedAccountId() + ";";;
+		String dbDate = "select date from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
 		String dbType = "select type from transactions where accountId = " + expected.getAssociatedAccountId() + ";";
 
 		Integer actualAccountID = null;
