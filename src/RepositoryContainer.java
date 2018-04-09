@@ -224,6 +224,7 @@ public class RepositoryContainer implements IModelView, IModelController {
                 transaction.setType(tokenList[0]);
                 transaction.setDate(tokenList[1]);
                 transaction.setAmount(amount);
+                transaction.setAssociatedBudgetId(budgetRepository.getNoneBudgetId());
 
 
                 saveItem(transaction);
@@ -281,6 +282,11 @@ public class RepositoryContainer implements IModelView, IModelController {
                 0, "None",0,0
         );
         saveItem(noneBudget);
+    }
+
+    public Integer getNoneBudgetId()
+    {
+        return budgetRepository.getNoneBudgetId();
     }
 }
 

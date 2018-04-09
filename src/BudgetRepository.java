@@ -5,6 +5,10 @@ public class BudgetRepository extends AbstractRepository<Budget>
 {
     public BudgetRepository(Database database) { super(database, "budget", "budgetId"); }
 
+    private Integer noneBudgetId;
+
+    public Integer getNoneBudgetId() { return noneBudgetId; }
+
     @Override
     public Budget getItem(Integer id) {
         return new Budget(itemMap.get(id));
@@ -47,7 +51,12 @@ public class BudgetRepository extends AbstractRepository<Budget>
             Integer generatedId = database.updateSQL( sql.addEntryUsingMap(tableName, values) );
             item.setId(generatedId);
             addItemToMap(item);
-        } else {
+            if (item.getName().equals("None"))
+            {
+                noneBudgetId = item.getId();
+            }
+        }
+        else {
             // Update item in database
             SQLValueMap where = new SQLValueMap();
             where.put(primaryKey, Integer.toString(item.getId()));
