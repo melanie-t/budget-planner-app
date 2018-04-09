@@ -71,45 +71,42 @@ Colin Greczkowski & 40001600 \\
 \pagestyle{plain}
 
 \section{Introduction}
+
+% The introduction of the document provides an overview of the entire document,
+% briefly introducing what are its goals, and what information is to be found in it.
+
 The purpose of this document is to gather all information necessary for testing of the MyMoney application. This document describes the testing approach and overall framework that will be used to test the MyMoney application.\\
 
 The following pages will identify the requirements that will be tested, the testing strategy used, the test cases and their results, and the description of input files.
 
 \section{Test Plan}
 
-{\it
-Describe what forms of testing you plan to do (unit, subsystem, integration),
-describe briefly the schedule and resources for testing,
-and
-how you designed your test cases.
+We will be performing system level and unit testing based on the use case scenarios.  We are performing black box testing for functional testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Unit testing will focus on testing specific methods to ensure they function properly, which satisfies usability. \\
 
-Indicate which qualities (from requirements) were tested and which qualities were not tested.
-}
+The following functional requirements will be tested:
+\begin{itemize}
+	\item Add Account
+	\item Update Account
+	\item Delete Account
+	\item Add Transaction
+	\item Import Transaction
+	\item Update Transaction
+	\item Delete Transaction
+	\item View Account Transactions
+	\item Add Budget
+	\item Update Budget
+	\item Delete Budget
+	\item Apply Transaction to Budget
+	\item View Budget Transactions
+\end{itemize}
+
+% Describe what forms of testing you plan to do (unit, subsystem, integration),
+% describe briefly the schedule and resources for testing, and how you designed your test cases.
+
+% Indicate which qualities (from requirements) were tested and which qualities were not tested.
 
 \subsection{System Level Test Cases}
-{\it
-All test cases for testing at the system level.}
-
-\noindent
-{\bf Purpose}\\
-State the purpose of the test.
-Indicate which requirement and which aspect of that requirement is being tested.
-
-\noindent
-{\bf Input Specification}\\
-State the context for the test in terms of system state.
-State the input test data. You may need to mention operations invoked as well as data for the operation.
-You can cross-reference to actual file data specified in an appendix.
-
-\noindent
-{\bf Expected Output}\\
-State the expected system response and output.
-You can cross-reference to actual file data specified in an appendix.
-
-\noindent
-{\bf Traces to Use Cases}\\
-State which requirements (at the level of use case and scenario) are tested by this test case.
-\clearpage
+% All test cases for testing at the system level.
 
 % Test case 1
 \subsubsection{Test Case 1} \label{TC-1}
@@ -136,6 +133,7 @@ It satisfies the requirement of the user being able to create a bank account.
     {\bf Traces to Use Cases}\\
     This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
 
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 % Test case 2
 \subsubsection{Test Case 2} \label{TC-2}
 \noindent
@@ -161,7 +159,6 @@ It satisfies the requirement of the user being able to create a bank account.
      This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
                     
 %Test case 3
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 \subsubsection{Test Case 3} \label{TC-3}
 \noindent
 {\bf Purpose}\\
@@ -183,7 +180,7 @@ It satisfies the requirement of the user being able to create a bank account.
 {\bf Traces to Use Cases}\\
 This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
 
-
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 4
 \subsubsection{Test Case 4} \label{TC-4}
 
@@ -214,7 +211,6 @@ This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
 
 
 %Test case 5
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 \subsubsection{Test Case 5} \label{TC-5}
 
 \noindent
@@ -241,7 +237,7 @@ The bottom-right corner displays the transaction.
 This satisfies use case 5 - \textit{ImportTransactions}
 
 
-
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 6
 \subsubsection{Test Case 6} \label{TC-6}
 \noindent
@@ -274,7 +270,6 @@ If selected, the bottom-right corner displays the updated transaction.
     This satisfies use case 6 - \textit{ImportTransactions}
 
 %Test case 7
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 \subsubsection{Test Case 7} \label{TC-7}
 \noindent
 {\bf Purpose}\\
@@ -298,6 +293,7 @@ The transaction does not show in the bottom-right window.
 {\bf Traces to Use Cases}\\
 This satisfies use case  - 7 \textit{DeleteTransactions}
 
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 8
 \subsubsection{Test Case 8} \label{TC-8}
 \noindent
@@ -320,29 +316,16 @@ The selected account's transactions shows up in the transaction table.
 This satisfies use case 8 - \textit{ViewTransactions}
 
 \subsection{Subsystem Level Test Cases}
-
-{\it
-All test cases for testing at the subsystem level.
-}
-
-{\it
-One subsection per subsystem
-}
+% All test cases for testing at the subsystem level.
+% One subsection per subsystem
 
 \subsubsection{Subsystem X}
-
+\clearpage
 \subsection{Unit Test cases}
-
-{\it
-All test cases for testing at the unit level.
-}
-
-{\it
-One subsection per unit
-}
+% All test cases for testing at the unit level.
+% One subsection per unit
 
 % Unit Test Case 1
-\clearpage
 \subsubsection{Unit Test Case 1}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
@@ -520,12 +503,38 @@ One subsection per unit
 \end{table}
 \clearpage
 
-\subsection{Template Unit Test Case}
+% Test Case Templates
+\subsection{Test Case Templates}
+
+% System Level Test Case
+\subsubsection{System Level Test Case Template}
+\noindent
+{\bf Purpose}\\
+State the purpose of the test.
+Indicate which requirement and which aspect of that requirement is being tested.
+
+\noindent
+{\bf Input Specification}\\
+State the context for the test in terms of system state.
+State the input test data. You may need to mention operations invoked as well as data for the operation.
+You can cross-reference to actual file data specified in an appendix.
+
+\noindent
+{\bf Expected Output}\\
+State the expected system response and output.
+You can cross-reference to actual file data specified in an appendix.
+
+\noindent
+{\bf Traces to Use Cases}\\
+State which requirements (at the level of use case and scenario) are tested by this test case.
+
+% Unit Test Case Template
+\subsubsection{Unit Test Case Template}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
 \caption{Template Test Case}
-\label{UT-1}
+\label{UT-X}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
 \textbf{Test Case Number}      &                           \\ \hline
@@ -546,13 +555,8 @@ One subsection per unit
 \clearpage
 
 \section{Test Results}
-
-{\it
-List the tests, indicating which passed and which did not pass.
-List requirements indicating the percentage of tests that passed for that requirement.
-}
-
-
+% List the tests, indicating which passed and which did not pass.
+% List requirements indicating the percentage of tests that passed for that requirement.
 
 \section{References}
 
@@ -565,7 +569,6 @@ List requirements indicating the percentage of tests that passed for that requir
 \end{figure}
 
 \section{Description of Input Files}
-
-Describe/include test data from input files.
+% Describe/include test data from input files.
 
 \end{document}
