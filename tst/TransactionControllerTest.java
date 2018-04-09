@@ -22,14 +22,15 @@ public class TransactionControllerTest {
 
     @BeforeClass
     public static void setUpClass() {
-        int transactionId = (int) (Math.random() * 10000000);;
-        int accountId = (int) (Math.random() * 10000000);;
-        String type = "testType";
+        int transactionId = (int) (Math.random() * 10000000);
+        int accountId = (int) (Math.random() * 10000000);
+        int budgetId = 0;
+        String type = "Deposit";
         String date = "01-01-1970";
         int amount = (int) (Math.random() * 10000000);;
         String description = "THIS IS A TEST TRANSACTION";
 
-        transaction = new Transaction(transactionId, accountId, type, date, amount, description);
+        transaction = new Transaction(transactionId, accountId, budgetId, type, date, amount, description);
 
         viewMock = mock(ITransactionView.class);
         when(viewMock.getTypeInput()).thenReturn(type);
