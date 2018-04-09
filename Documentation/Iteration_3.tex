@@ -15,7 +15,7 @@
 \textheight=22.0cm
 \textwidth=16cm
 \parindent=0cm
-\parskip=0.25cm
+\parskip=0.15cm
 \topskip=0truecm
 \raggedbottom
 \abovedisplayskip=3mm
@@ -81,7 +81,7 @@ The following pages will identify the requirements that will be tested, the test
 
 \section{Test Plan}
 
-We will be performing system level and unit testing based on the use case scenarios.  We are performing black box testing for functional testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Unit testing will focus on testing specific methods to ensure they function properly, which satisfies usability. \\
+We will be performing system level and unit testing based on the use case scenarios.  We are performing black box testing for system level testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Unit testing will focus on testing specific methods to ensure they function properly, which satisfies usability. \\
 
 The following functional requirements will be tested:
 \begin{itemize}
@@ -105,6 +105,7 @@ The following functional requirements will be tested:
 
 % Indicate which qualities (from requirements) were tested and which qualities were not tested.
 
+\clearpage
 \subsection{System Level Test Cases}
 % All test cases for testing at the system level.
 
@@ -133,7 +134,6 @@ It satisfies the requirement of the user being able to create a bank account.
     {\bf Traces to Use Cases}\\
     This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
 
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 % Test case 2
 \subsubsection{Test Case 2} \label{TC-2}
 \noindent
@@ -157,7 +157,8 @@ It satisfies the requirement of the user being able to create a bank account.
  \noindent
  {\bf Traces to Use Cases}\\
      This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
-                    
+                 
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE   
 %Test case 3
 \subsubsection{Test Case 3} \label{TC-3}
 \noindent
@@ -180,7 +181,6 @@ It satisfies the requirement of the user being able to create a bank account.
 {\bf Traces to Use Cases}\\
 This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
 
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 4
 \subsubsection{Test Case 4} \label{TC-4}
 
@@ -209,7 +209,7 @@ the bottom-right window displays the newly created transaction.
 {\bf Traces to Use Cases}\\
 This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
 
-
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 5
 \subsubsection{Test Case 5} \label{TC-5}
 
@@ -236,8 +236,6 @@ The bottom-right corner displays the transaction.
 {\bf Traces to Use Cases}\\
 This satisfies use case 5 - \textit{ImportTransactions}
 
-
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 6
 \subsubsection{Test Case 6} \label{TC-6}
 \noindent
@@ -269,6 +267,8 @@ If selected, the bottom-right corner displays the updated transaction.
     {\bf Traces to Use Cases}\\
     This satisfies use case 6 - \textit{ImportTransactions}
 
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 7
 \subsubsection{Test Case 7} \label{TC-7}
 \noindent
@@ -293,7 +293,6 @@ The transaction does not show in the bottom-right window.
 {\bf Traces to Use Cases}\\
 This satisfies use case  - 7 \textit{DeleteTransactions}
 
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 %Test case 8
 \subsubsection{Test Case 8} \label{TC-8}
 \noindent
@@ -314,6 +313,85 @@ The selected account's transactions shows up in the transaction table.
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 8 - \textit{ViewTransactions}
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 9
+\subsubsection{Test Case 9} \label{TC-9}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 9 - \textit{AddBudget}
+
+%Test case 10
+\subsubsection{Test Case 10} \label{TC-10}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 10 - \textit{UpdateBudget}
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 9
+\subsubsection{Test Case 11} \label{TC-11}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 11 - \textit{DeleteBudget}
+
+%Test case 10
+\subsubsection{Test Case 12} \label{TC-12}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 12 - \textit{ApplyTransactionToBudget}
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 9
+\subsubsection{Test Case 13} \label{TC-13}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 13 - \textit{ViewBudgetTransactions}
+
 
 \subsection{Subsystem Level Test Cases}
 % All test cases for testing at the subsystem level.
