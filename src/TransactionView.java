@@ -57,7 +57,22 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
 		setLayout();
         // The clear button is handled directly by the view, no need for the controller here
         clearButton.addActionListener(e->handleClear());
+        typeField.addActionListener(e->handleTypeDropdown());
 	}
+
+	private void handleTypeDropdown()
+    {
+        if (typeField.getSelectedItem().toString().equals("Deposit"))
+        {
+            budgetField.setSelectedItem("None");
+            budgetField.setVisible(false);
+        }
+        else
+        {
+            budgetField.setVisible(true);
+        }
+    }
+
     @Override
     public void update(){
         // Do not show the transaction window if the user has not selected an account
@@ -77,7 +92,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         {
             budgetField.addItem(key);
         }
-
+        budgetField.setSelectedItem("None");
         items = model.getTransactionsFromAccount(getCurrentAccountSelection());
 
         // Also checks to see if previous selection is still there
