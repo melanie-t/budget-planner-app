@@ -39,4 +39,6 @@ public interface IModelController {
      * @param accountId associated account id
      */
     void importTransactions(String path, Integer accountId);
+
+    Integer getNoneBudgetId();
 }

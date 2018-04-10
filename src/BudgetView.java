@@ -1,8 +1,6 @@
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +45,8 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 	private JLabel transactionLabel;
 	private JComboBox monthField;
 	private JComboBox yearField;
-	
+	private JLabel balanceLabel;
+
 	public BudgetView(IModelView model) {
 
 		super(model);
@@ -94,7 +93,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 		budgetScrollPane = new JScrollPane(budgetTable);
 		
 		// Loading JTable
-		Object[] columns = {"Name", "Budget Amount", "Recorded Amount"};
+		Object[] columns = {"Name", "Budget Amount"};
 		budgetModel.setColumnIdentifiers(columns);
 		budgetTable.setModel(budgetModel);
 		budgetTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
@@ -117,6 +116,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 	private void createTransactionPanel() {
 		secondPanel = new JPanel();
 		viewLabel = new JLabel("View in");
+		balanceLabel = new JLabel("Balance : ");
 		transactionLabel = new JLabel("Budget Transactions");
 		transactionTable = new JTable();
 		monthField = new JComboBox(new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"});
@@ -131,13 +131,93 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 		transactionScrollPane = new JScrollPane(transactionTable);
 		
 		// Loading JTable
-		Object[] columns = {"Type", "Date", "Amount (cents)", "Description", "Budget"};
+		Object[] columns = {"Account", "Date", "Amount (cents)", "Description"};
 		transactionModel.setColumnIdentifiers(columns);
 		transactionTable.setModel(transactionModel);
 		transactionTable.setPreferredScrollableViewportSize(new Dimension(300, 80));
 		transactionTable.setFillsViewportHeight(true);
+		transactionTable.setFocusable(false);
+
+		monthField.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					handleDateSelectionChange();
+			}
+		});
+		yearField.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					handleDateSelectionChange();
+			}
+		});
 	}
-	
+
+	private void handleDateSelectionChange()
+	{
+		if (getCurrentBudgetSelection() == model.getNoneBudgetId())
+		{
+			fillTransactionTable(new ArrayList<>());
+			balanceLabel.setText("Balance : ");
+			return;
+		}
+		else
+		{
+			ArrayList<Transaction> transactions = model.getTransactionsFromBudget(getSelectedBudgetId());
+			ArrayList<Transaction> toDisplay = new ArrayList<>();
+			int balanceCount = 0;
+
+			for (Transaction transaction : transactions)
+			{
+				if (isWithinSelectedDate(transaction.getDate()))
+				{
+					toDisplay.add(transaction);
+					balanceCount += transaction.getAmount();
+				}
+			}
+
+			fillTransactionTable(toDisplay);
+			balanceLabel.setText("Balance : " + (findItem(getSelectedBudgetId()).getAmount() - balanceCount));
+		}
+
+	}
+
+	private void fillTransactionTable(ArrayList<Transaction> list)
+	{
+		transactionModel.setRowCount(0);
+
+		// Fetch transactions associated with account and display
+		if (!list.isEmpty()) {
+			//add rows to table
+			for (Transaction item : list)
+			{
+				String accountName = model.getAccountName(item.getAssociatedAccountId());
+
+				transactionModel.addRow(new Object[] {accountName, item.getDate(), item.getAmount(), item.getDescription()});
+			}
+		}
+	}
+
+	private boolean isWithinSelectedDate(String date)
+	{
+		String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		String[] parts = date.split("-");
+
+		String selYear = yearField.getSelectedItem().toString();
+		String selMonth = monthField.getSelectedItem().toString();
+
+		if (parts[0].equals( selYear ) &&
+			months[Integer.parseInt(parts[1])-1].equals( selMonth ))
+		{
+			return true;
+		}
+
+		return false;
+
+	}
+
+
 	private void setLayout() {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -220,7 +300,8 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 						.addGroup(transactionLayout.createSequentialGroup()
 							.addComponent(viewLabel)
 							.addComponent(monthField)
-							.addComponent(yearField))
+							.addComponent(yearField)
+							.addComponent(balanceLabel))
 						.addComponent(transactionScrollPane, 1000, 1000, 1000))	
 		);
 		
@@ -230,7 +311,8 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 				.addGroup(transactionLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 								.addComponent(viewLabel)
 								.addComponent(monthField, 20, 20, 20)
-								.addComponent(yearField, 20, 20, 20))
+								.addComponent(yearField, 20, 20, 20)
+								.addComponent(balanceLabel))
 				.addGroup(transactionLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addComponent(transactionScrollPane, 50, 80, 105))
 		);
@@ -252,12 +334,14 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 
     @Override
     protected void handleBudgetSelectionChange() {
-        // do nothing
+		Budget currentSelection = findItem(getCurrentBudgetSelection());
+		fillFields(currentSelection);
+		highlightCurrentSelection();
     }
 
     @Override
     protected void highlightCurrentSelection() {
-        if (getCurrentBudgetSelection() == 0 || getCurrentBudgetSelection() == 1)
+        if (getCurrentBudgetSelection() == model.getNoneBudgetId())
         {
             fillFields(null);
             return;
@@ -277,7 +361,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 
     @Override
     protected void handleClear() {
-        setCurrentBudgetSelection(0);
+        setCurrentBudgetSelection(model.getNoneBudgetId());
         update();
     }
 
@@ -306,10 +390,10 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
             //add rows to table
             for (Budget item : items)
             {
-                if (item.getId() == 1) // This is the 'none' budget
+                if (item.getId() == model.getNoneBudgetId()) // This is the 'none' budget
                     continue;
 
-                budgetModel.addRow(new Object[] {item.getName(), item.getAmount(), item.getBalance()});
+                budgetModel.addRow(new Object[] {item.getName(), item.getAmount()});
                 if (!validSelectionFound && item.getId().equals(getCurrentBudgetSelection()))
                 {
                     validSelectionFound = true;
@@ -317,7 +401,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
             }
         }
         if (!validSelectionFound)
-            setCurrentBudgetSelection(0);
+            setCurrentBudgetSelection(model.getNoneBudgetId());
     }
 
     @Override
@@ -345,7 +429,10 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 
     @Override
     public void setSelection(Integer id) {
-        setCurrentBudgetSelection(id);
+		if (id == 0)
+			setCurrentBudgetSelection(model.getNoneBudgetId());
+		else
+        	setCurrentBudgetSelection(id);
     }
 
     @Override
@@ -356,5 +443,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
         fillTable();
 
         highlightCurrentSelection();
+
+        handleDateSelectionChange();
     }
 }

@@ -60,6 +60,8 @@ public class TransactionController extends AbstractController<ITransactionView>{
         String description = view.getDescriptionInput();
         Integer accountId = view.getSelectedAccountId();
         Integer budgetId = view.getBudgetIdInput();
+        if (budgetId == 0)
+            budgetId = model.getNoneBudgetId();
 
         if (type.isEmpty() || date.isEmpty() || amount == null)
         {

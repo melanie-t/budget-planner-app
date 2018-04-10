@@ -28,16 +28,6 @@ public class Iteration2AppController implements IAppController, WindowListener{
 		TransactionRepository transactions = new TransactionRepository(myDatabase);
 		BudgetRepository budgets = new BudgetRepository((myDatabase));
 		model = new RepositoryContainer(transactions, accounts, budgets);
-
-		// Create views
-		accountView = new AccountView(model);
-		transactionView = new TransactionView(model);
-		budgetView = new BudgetView(model);
-
-		// Create controllers
-		accountController = new AccountController(accountView, model);
-		transactionController = new TransactionController(transactionView, model);
-		budgetController = new BudgetController(budgetView, model);
 	}
 
 
@@ -57,6 +47,18 @@ public class Iteration2AppController implements IAppController, WindowListener{
 	protected void devStart() {
 		model.resetSQLStructure();
 		InsertFakeAccounts();
+
+		// Create views
+		accountView = new AccountView(model);
+		transactionView = new TransactionView(model);
+		budgetView = new BudgetView(model);
+
+		// Create controllers
+		accountController = new AccountController(accountView, model);
+		transactionController = new TransactionController(transactionView, model);
+		budgetController = new BudgetController(budgetView, model);
+
+		model.forceUpdate();
 	}
 
 	//Production Mode
@@ -69,6 +71,18 @@ public class Iteration2AppController implements IAppController, WindowListener{
         {
             model.loadAllItems();
         }
+
+		// Create views
+		accountView = new AccountView(model);
+		transactionView = new TransactionView(model);
+		budgetView = new BudgetView(model);
+
+		// Create controllers
+		accountController = new AccountController(accountView, model);
+		transactionController = new TransactionController(transactionView, model);
+		budgetController = new BudgetController(budgetView, model);
+
+		model.forceUpdate();
 	}
 
 	protected void InsertFakeAccounts() {

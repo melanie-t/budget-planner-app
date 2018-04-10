@@ -23,4 +23,8 @@ public interface IModelView extends IObservable{
     ArrayList<Budget> getAllBudgets();
 
     HashMap<String, Integer> getBudgetIndexes();
+
+    String getAccountName(Integer accountId);
+
+    Integer getNoneBudgetId();
 }

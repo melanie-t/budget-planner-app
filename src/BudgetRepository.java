@@ -3,7 +3,10 @@ import java.sql.SQLException;
 
 public class BudgetRepository extends AbstractRepository<Budget>
 {
-    public BudgetRepository(Database database) { super(database, "budget", "budgetId"); }
+    public BudgetRepository(Database database)
+    {
+        super(database, "budget", "budgetId");
+    }
 
     private Integer noneBudgetId;
 
@@ -36,6 +39,10 @@ public class BudgetRepository extends AbstractRepository<Budget>
         database.updateSQL(sql.addColumn(tableName, "name", "VARCHAR"));
         database.updateSQL(sql.addColumn(tableName, "amount", "INTEGER"));
         database.updateSQL(sql.addColumn(tableName, "balance", "INTEGER"));
+        Budget noneBudget = new Budget(
+                0, "None",0,0
+        );
+        saveItem(noneBudget);
     }
 
     @Override

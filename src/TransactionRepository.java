@@ -129,13 +129,13 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
         return itemsToFilter;
     }
 
-    public void clearBudgetAssociations(Integer budgetId)
+    public void clearBudgetAssociations(Integer budgetId, Integer defaultBudget)
     {
         for (Transaction transaction : getItems())
         {
             if (transaction.getAssociatedBudgetId() == budgetId)
             {
-                transaction.setAssociatedBudgetId(1);
+                transaction.setAssociatedBudgetId(defaultBudget);
                 saveItem(transaction);
             }
         }

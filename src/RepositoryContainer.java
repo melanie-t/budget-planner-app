@@ -77,22 +77,19 @@ public class RepositoryContainer implements IModelView, IModelController {
     @Override
     public ArrayList<Budget> getAllBudgets() {
         ArrayList<Budget> allBudgets = budgetRepository.getItems();
-        if (allBudgets.get(0).getId() == 1)
-            allBudgets.remove(0);
-        else // This should not happen, just to be safe
+
+        int nullIndex = -1;
+        for (int i = 0; i < allBudgets.size(); i++)
         {
-            int nullIndex = -1;
-            for (int i = 0; i < allBudgets.size(); i++)
+            if (allBudgets.get(i).getName().equals("None"))
             {
-                if (allBudgets.get(1).getId() == 1)
-                {
-                    nullIndex = i;
-                    break;
-                }
+                nullIndex = i;
+                break;
             }
-            if (nullIndex != -1)
-                allBudgets.remove(nullIndex);
         }
+        if (nullIndex != -1)
+            allBudgets.remove(nullIndex);
+
 
         return allBudgets;
     }
@@ -103,14 +100,31 @@ public class RepositoryContainer implements IModelView, IModelController {
     }
 
     @Override
+    public String getAccountName(Integer accountId) {
+        return accountRepository.getItem(accountId).getBankName();
+    }
+
+    @Override
     public void deleteTransaction(Integer transactionId) {
         Transaction transactionToDelete = transactionRepository.getItem(transactionId);
         transactionRepository.deleteItem(transactionId);
+
+        int amount = transactionToDelete.getAmount();
+        amount *= transactionToDelete.getType().equals("Deposit") ? 1 : -1;
+
         Account associatedAccount = accountRepository.getItem(transactionToDelete.getAssociatedAccountId());
-        if(associatedAccount != null) {
-        	associatedAccount.setBalance(associatedAccount.getBalance() - transactionToDelete.getAmount());
+        if(associatedAccount != null) // This should never happen, if tests fails without this then the tests are wrong
+        {
+        	associatedAccount.setBalance(associatedAccount.getBalance() - amount);
         	accountRepository.saveItem(associatedAccount);
         }
+        Budget associatedBudget = budgetRepository.getItem(transactionToDelete.getAssociatedBudgetId());
+        if(associatedBudget != null) // This should never happen, if tests fails without this then the tests are wrong
+        {
+            associatedBudget.setBalance(associatedBudget.getBalance() + amount);
+            budgetRepository.saveItem(associatedBudget);
+        }
+
         notifyObservers();
     }
 
@@ -124,7 +138,7 @@ public class RepositoryContainer implements IModelView, IModelController {
     @Override
     public void deleteBudget(Integer budgetId) {
         budgetRepository.deleteItem(budgetId);
-        transactionRepository.clearBudgetAssociations(budgetId);
+        transactionRepository.clearBudgetAssociations(budgetId, getNoneBudgetId());
         notifyObservers();
     }
 
@@ -139,8 +153,10 @@ public class RepositoryContainer implements IModelView, IModelController {
             int previousAmount = previousTransaction.getAmount();
             previousAmount *= previousTransaction.getType().equals("Deposit") ? 1 : -1;
 
-            // Undo for budget and account balance
-            associatedBudget.setBalance(associatedBudget.getBalance() + previousAmount);
+            // Undo for budget and account balance (we can change budgets, but not accounts)
+            Budget previousBudget = budgetRepository.getItem(previousTransaction.getAssociatedBudgetId());
+            previousBudget.setBalance(previousBudget.getBalance() + previousAmount);
+            budgetRepository.saveItem(previousBudget);
             associatedAccount.setBalance(associatedAccount.getBalance() - previousAmount);
         }
 
@@ -190,7 +206,8 @@ public class RepositoryContainer implements IModelView, IModelController {
     @Override
     public void saveItem(Budget budget) {
         budgetRepository.saveItem(budget);
-        notifyObservers();
+        if (!budget.getName().equals("None"))
+            notifyObservers();
     }
 
     @Override
@@ -252,10 +269,6 @@ public class RepositoryContainer implements IModelView, IModelController {
         accountRepository.reinitSQLStructure();
         transactionRepository.reinitSQLStructure();
         budgetRepository.reinitSQLStructure();
-        Budget noneBudget = new Budget(
-                0, "None",0,0
-        );
-        saveItem(noneBudget);
     }
 
     /**
@@ -278,15 +291,16 @@ public class RepositoryContainer implements IModelView, IModelController {
         transactionRepository.initSQLStructure();
         budgetRepository.initSQLStructure();
         // Create a default "none" budget
-        Budget noneBudget = new Budget(
-                0, "None",0,0
-        );
-        saveItem(noneBudget);
     }
 
     public Integer getNoneBudgetId()
     {
         return budgetRepository.getNoneBudgetId();
+    }
+
+    public void forceUpdate()
+    {
+        notifyObservers();
     }
 }
 

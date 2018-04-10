@@ -62,11 +62,14 @@ public class BudgetController extends AbstractController<IBudgetView> {
         }
         else
             System.out.println("Add error");
+
+
     }
 
     private void handleDelete()
     {
-
+        model.deleteBudget(view.getSelectedBudgetId());
+        view.setSelection(0);
     }
 
 

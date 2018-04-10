@@ -95,7 +95,7 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
     /**
      * Delete associated table in the database.
      */
-    private void destroySQLStructure() {
+    protected void destroySQLStructure() {
         database.updateSQL(sql.deleteTable(tableName));
     }
 

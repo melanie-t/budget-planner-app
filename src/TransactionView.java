@@ -92,7 +92,7 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         {
             budgetField.addItem(key);
         }
-        budgetField.setSelectedItem("None");
+        budgetField.setSelectedIndex(budgetIndexes.size() - 1);
         items = model.getTransactionsFromAccount(getCurrentAccountSelection());
 
         // Also checks to see if previous selection is still there
@@ -184,13 +184,6 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
         highlightCurrentSelection();
     }
 
-    protected void isDeposit(Transaction transaction) {
-    	if (transaction.getType().equals("Deposit"))
-    		budgetField.setEnabled(false);
-    	else
-    		budgetField.setEnabled(true);		
-    }
-    
     protected void highlightCurrentSelection() {
         if (getCurrentTransactionSelection() == 0)
         {
@@ -246,7 +239,10 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
             typeField.setSelectedIndex(Arrays.asList(Transaction.getTransactionTypes()).indexOf(transaction.getType()));
             amountTextfield.setText(transaction.getAmount().toString());
             descriptionTextArea.setText(transaction.getDescription());
-            isDeposit(transaction);
+
+            String budgetName = getBudgetNameFromId(transaction.getAssociatedBudgetId());
+
+            budgetField.setSelectedItem(budgetName);
 
             String[] parts = transaction.getDate().split("-");
             dateField.getModel().setDate(
@@ -255,6 +251,17 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
                     Integer.parseInt(parts[2])            //day
             );
         }
+    }
+
+    private String getBudgetNameFromId(Integer budgetId)
+    {
+        Iterator it = budgetIndexes.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+           if (pair.getValue() == budgetId)
+               return pair.getKey().toString();
+        }
+        return "";
     }
 
     protected void fillTable()
@@ -268,7 +275,12 @@ public class TransactionView extends AbstractView<Transaction> implements ITrans
             //add rows to table
             for (Transaction item : items)
             {
-                tableModel.addRow(new Object[] {item.getType(), item.getDate(), item.getAmount(), item.getDescription()});
+                String budget = getBudgetNameFromId(item.getAssociatedBudgetId());
+
+                if (budget.equals("None"))
+                    budget = "";
+
+                tableModel.addRow(new Object[] {item.getType(), item.getDate(), item.getAmount(), item.getDescription(), budget});
                 if (!validSectionFound && item.getId().equals(getCurrentTransactionSelection()))
                 {
                     validSectionFound = true;
