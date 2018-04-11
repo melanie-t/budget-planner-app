@@ -38,12 +38,12 @@ public class BudgetController extends AbstractController<IBudgetView> {
         {
             String message = "Please complete the fields: ";
             if (name.isEmpty())
-                message += "Bank. ";
+                message += "Name. ";
 
             if (amount == null)
-                message += "Balance must be a number.";
+                message += "Amount must be a number.";
 
-            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
+            showMessageDialog("Input Error", message);
 
             success = false;
         }
@@ -72,5 +72,8 @@ public class BudgetController extends AbstractController<IBudgetView> {
         view.setSelection(0);
     }
 
+    protected void showMessageDialog(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+    }
 
 }
