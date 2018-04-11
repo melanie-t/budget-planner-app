@@ -1,7 +1,14 @@
 \documentclass[12pt]{article}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{xcolor}
+\usepackage{hyperref}
 
 \pagestyle{empty}
-\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
 
 \topmargin=0cm
 \oddsidemargin=0cm
@@ -17,6 +24,11 @@
 \belowdisplayshortskip=2mm
 \normalbaselineskip=12pt
 \normalbaselines
+
+% Test Case Counter for Results section
+\newcounter{testcase}[section]
+\newenvironment{testcase}[1][]{\refstepcounter{testcase}\par\medskip
+   \textbf{Test Case~\thetestcase. #1} \rmfamily}{\medskip}
 
 \begin{document}
 
@@ -51,32 +63,593 @@ Colin Greczkowski & 40001600 \\
 
 \clearpage
 
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\tableofcontents
+\clearpage
+
+\listoffigures
+\newpage
+
+\pagenumbering{arabic}
+\pagestyle{plain}
+
 \section{Introduction}
 
-{\it
-The introduction of the document provides an overview of the entire document,
-briefly introducing what are its goals, and what information is to be found in it.
-}
+% The introduction of the document provides an overview of the entire document,
+% briefly introducing what are its goals, and what information is to be found in it.
+
+The purpose of this document is to gather all information necessary for testing of the MyMoney application. This document describes the testing approach and overall framework that will be used to test the MyMoney application.\\
+
+The following pages will identify the requirements that will be tested, the testing strategy used, the test cases and their results, and the description of input files.
 
 \section{Test Plan}
 
-{\it
-Describe what forms of testing you plan to do (unit, subsystem, integration),
-describe briefly the schedule and resources for testing,
-and
-how you designed your test cases.
+We will be performing system level, integration and unit testing based on the use case scenarios.  We are performing black box testing for system level testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Integration tests will focus on the integration of {\it Transactions} in {\it Accounts} and the integration of {\it Budgets} across all {\it Accounts} with respect to their {\it Transactions}. Unit testing will focus on testing specific methods within {\it TransactionRepository}, {\it RepositoryContainer}, {\it AccountRepository},, {\it BudgetRepository} as well as the controllers: {\it TransactionController}, {\it AccountController}, {\it BudgetController}. \\
 
-Indicate which qualities (from requirements) were tested and which qualities were not tested.
-}
+The following functional requirements will be tested:
+\begin{itemize}
+\setlength{\parskip}{0.8mm}
+	\item Add Account
+	\item Update Account
+	\item Delete Account
+	\item Add Transaction
+	\item Import Transaction
+	\item Update Transaction
+	\item Delete Transaction
+	\item View Account Transactions
+	\item Add Budget
+	\item Update Budget
+	\item Delete Budget
+	\item Apply Transaction to Budget
+	\item View Budget Transactions
+\end{itemize}
+\clearpage
 
+\setlength{\parskip}{0.8mm}
+The unit tests will include:
+\begin {itemize}
+	\item TransactionRepository
+	\begin {itemize}
+		\item Function saveItem
+		\item Function deleteItem
+	\end {itemize}
+	\item RepositoryContainer
+	\begin {itemize}
+		\item Function saveItem
+	\end {itemize}
+	\item AccountRepository
+	\begin {itemize}
+		\item Function saveItem
+		\item Function deleteItem
+	\end {itemize}
+	\item BudgetRepository
+	\begin {itemize}
+		\item Function saveItem
+		\item Function deleteItem
+	\end {itemize}
+	\item TransactionController
+	\item AccountController
+	\item BudgetController
+\end {itemize}
+
+% Describe what forms of testing you plan to do (unit, subsystem, integration),
+% describe briefly the schedule and resources for testing, and how you designed your test cases.
+
+% Indicate which qualities (from requirements) were tested and which qualities were not tested.
+
+\clearpage
 \subsection{System Level Test Cases}
+% All test cases for testing at the system level.
 
-{\it
-All test cases for testing at the system level.
-}
+% Test case 1
 
-\subsubsection{Test Case 1} \label{tc:1}
+\subsubsection {Test Case 1 - Add Account} \label{TC-1}
 
+\noindent
+{\bf Purpose}\\
+The purpose of the test is to verify the user is able to add a bank account into the application's database.
+It satisfies the requirement of the user being able to create a bank account.
+
+\noindent
+    {\bf Input Specification}\\
+    The application displays a graphical user interface on the screen.
+    Optionally, it shows a list of pre-existing bank accounts in the window's top-right corner.
+    MyMoney accepts any kind of characters and of any length as input in the \textit{Bank} and \textit{Nickname} fields while
+    the \textit{Balance} field accepts non-negative integers. The \textit{Bank} and \textit{Balance} fields cannot be empty.
+    The user presses \textit{Add} on the interface to add the account.
+    
+\noindent
+    {\bf Expected Output}\\
+    The application displays the window.
+    A created bank account with the information the user entered now exists in the application.
+    
+\noindent
+    {\bf Traces to Use Cases}\\
+    This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
+
+% Test case 2
+\subsubsection{Test Case 2 - Update Account} \label{TC-2}
+\noindent
+{\bf Purpose}\\
+        The test verifies that for an existing bank account its bank name, nickname and balance can be modified.
+        This satisfies the requirement that the user is able to adjust account information in case of an account transfer
+        to another financial institution. 
+
+\noindent
+{\bf Input Specification}\\
+            MyMoney displays a graphical user interface on the screen.
+            For this operation, MyMoney accepts any kind of characters and of any length as
+            input in the \textit{Bank} and \textit{Nickname} fields while the \textit{Balance} field accepts non-negative integers.
+            The \textit{Bank} and \textit{Balance} fields cannot be empty. The user presses the \textit{Update} to update the account information.
+            
+\noindent
+{\bf Expected Output}\\
+    The application displays the window.    
+    The system displays updated information of the bank account in the top-right window.
+
+ \noindent
+ {\bf Traces to Use Cases}\\
+     This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
+                 
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE   
+%Test case 3
+\subsubsection{Test Case 3 - Delete Account} \label{TC-3}
+\noindent
+{\bf Purpose}\\
+ This test verifies the user is able to delete their own account.
+ This satisfies the requirement that the user is able to remove their account when their is no longer associated
+ with a bank. 
+
+ \noindent
+ {\bf Input Specification}\\
+ MyMoney displays a graphical user interface on the screen.
+ For this operation, the user selects their account with the mouse and presses \textit{Delete}.
+                            
+ \noindent
+ {\bf Expected Output}\\
+ The application displays the window.
+ Also it display a list of accounts in the top-right corner except the one that was deleted.
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
+
+%Test case 4
+\subsubsection{Test Case 4 - Add Transaction} \label{TC-4}
+
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to add a transaction into their existing account.
+This satisfies the requirement that the user can complete an addition of a transaction into their account.
+                                        
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, MyMoney accepts a transaction \textit{type} - withdraw or deposit, a \textit{date}
+which is selected via the date picker, an \textit{Amount}, a integer, a \textit{Budget} which is chosen
+from a drop-down list, and a \textit{description} - a string composed of any characters and
+of non-negative length. To register the action, the user presses \textit{Add} located in the bottom left
+of the window.                                          
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.    
+The transaction is added to the account.
+If the user selects his account in the top-right corner of the window then
+the bottom-right window displays the newly created transaction.
+                                                
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 5
+\subsubsection{Test Case 5 - Import Transaction} \label{TC-5}
+
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to import a transaction into their existing account.
+This satisfies the requirement that the user can import a transaction into their account.
+                                                        
+
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse,
+clicks the import button, chose the csv file.
+                                                          
+
+\noindent
+{\bf Expected Output}\\
+The transaction is added to the user's account.
+The bottom-right corner displays the transaction.
+
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 5 - \textit{ImportTransactions}
+
+%Test case 6
+\subsubsection{Test Case 6 - Update Transaction} \label{TC-6}
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to update an existing transaction in their account.
+This satisfies the requirement that the user can change information of a transaction in their account.
+                                                        
+
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse,
+chose the appropriate transaction to modify in the bottom-right window.
+The user can modify the transaction fields on the transactions pane.
+In the pane, transaction \textit{type} - withdraw or deposit, a \textit{date}
+which is selected via the date picker, an \textit{Amount}, a integer, a \textit{Budget} which is chosen
+from a drop-down list, and a \textit{description} - a string composed of any characters and
+of non-negative length. The register the action, the user presses \textit{Add} located in the bottom left
+of the window.   
+                                                          
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.    
+The fields in the transaction are updated.
+If selected, the bottom-right corner displays the updated transaction.
+
+\noindent
+    {\bf Traces to Use Cases}\\
+    This satisfies use case 6 - \textit{ImportTransactions}
+
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 7
+\subsubsection{Test Case 7 - Delete Transaction} \label{TC-7}
+\noindent
+{\bf Purpose}\\
+This test verifies the user is able to delete an existing transaction in their account.
+This satisfies the requirement that the user can changeremove a transaction from their account.
+                                                        
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse,
+chose the appropriate transaction to remove in the bottom-right window.
+The user presses \textit{Delete} in the Transactions pane.
+                                                          
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.       
+The transaction does not show in the bottom-right window.
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case  - 7 \textit{DeleteTransactions}
+
+%Test case 8
+\subsubsection{Test Case 8 - View Account Transactions} \label{TC-8}
+\noindent
+{\bf Purpose}\\
+This test verifies that the user is able to view the selected account's transactions.
+                                                        
+\noindent
+{\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen.
+For this operation, the user selects their account with the mouse.
+
+\noindent
+{\bf Expected Output}\\
+The application displays the window.       
+The transaction window is visible.
+The selected account's transactions shows up in the transaction table. 
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 8 - \textit{ViewTransactions}
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 9
+\subsubsection{Test Case 9 - Add Budget} \label{TC-9}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 9 - \textit{AddBudget}
+
+%Test case 10
+\subsubsection{Test Case 10 - Update Budget} \label{TC-10}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 10 - \textit{UpdateBudget}
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 9
+\subsubsection{Test Case 11 - Delete Budget} \label{TC-11}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 11 - \textit{DeleteBudget}
+
+%Test case 10
+\subsubsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 12 - \textit{ApplyTransactionToBudget}
+
+\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+%Test case 9
+\subsubsection{Test Case 13 - View Budget Transactions} \label{TC-13}
+\noindent
+{\bf Purpose}\\
+                                                        
+\noindent
+{\bf Input Specification}\\
+
+\noindent
+{\bf Expected Output}\\
+
+\noindent
+{\bf Traces to Use Cases}\\
+This satisfies use case 13 - \textit{ViewBudgetTransactions}
+
+
+\subsection{Subsystem Level Test Cases}
+% All test cases for testing at the subsystem level.
+% One subsection per subsystem
+
+\subsubsection{Subsystem X}
+\clearpage
+\subsection{Unit Test cases}
+% All test cases for testing at the unit level.
+% One subsection per unit
+
+% Unit Test Case 1
+\subsubsection{Unit Test Case 1 - Transaction: saveItem}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-1}
+\label{UT-1}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-1                         \\ \hline
+\textbf{Test Case Description}    &  This test case is used to ensure that transactions are properly saved or updated to their repository                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A Transaction object populated with generic data
+          \item A second Transaction object with the ID of the first one.
+	\item A test transaction database.
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item Transaction details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           &  A transaction database is created and a transaction is inserted. The balance of this transaction is then updated to a new value.                   \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/03/2018 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 2
+\subsubsection{Unit Test Case 2 - Transaction: deleteItem}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-2}
+\label{UT-2}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-2                         \\ \hline
+\textbf{Test Case Description}    &  This test verifies that the deleteItem method works as intended, and deletes a Transaction record for a given ID                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+          \item A generic account ID
+	\item A Transaction object populated with generic data, associated to the generic account.
+	\item A test transaction database.
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "Delete Transaction 1"
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test transaction database should be empty.                \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/07/2018 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 3
+\subsubsection{Unit Test Case 3 - Transaction: deleteItem (all items)} 
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-3}
+\label{UT-3}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-3                         \\ \hline
+\textbf{Test Case Description}    &  This test case is used to make sure all Transactions associated to an account are properly purged from the repository.                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+          \item A generic account ID
+	\item Two Transaction objects populated with generic data, associated to the generic account.
+	\item A test transaction database.
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "Delete Transaction 1"
+           \item "Delete Transaction 2"
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test transaction database does not contain the two transactions that had the generic account ID.                \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/03/2018 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 4
+\subsubsection{Unit Test Case 4 - RepositoryContainer: saveItem (all types)}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-4}
+\label{UT-4}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-4                         \\ \hline
+\textbf{Test Case Description}    &  This tests the RepositoryContainer's ability to save a variety of types of objects (Transactions, Accounts, Budgets).                \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+          \item Test Transaction, Budget and Account Databases
+	\item A test Transaction
+	\item A test Account
+	\item A test Budget
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item The test transaction's details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The account,transaction and budget items are saved to their respective test databases. Balances are updated correctly.                \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/07/2018 | Colin Greczkowski | Executed test successfully.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 5
+%Account repository test case
+\subsubsection{Unit Test Case 5 - AccountRepository: saveItem, deleteItem}
+\begin{table}[htbp]
+\centering
+\caption {UT-5}
+\label{UT-5}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-5                     \\ \hline
+\textbf{Test Case Description}    &  This test case is used to ensure created accounts are saved in the database. Also it verifies that accounts can be deleted from it.                 \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+  
+\item An account database
+\item An account repository
+\item An account with non-null values for \textit{nickname}, \textit{bankName} and a non-negative value for \textit{balance}
+  
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+\item Tuples in Account repository test before delete: 2 
+\item Tuples in Account repository test after delete: 1 
+\item Current items loaded in repo:1 
+\item 1
+
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions} & The system has a single account in the account database. \\
+\hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/07/2018 | Wayne Yiel Leung | Executed test failed.
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 6
+%Budget repository test case
+\subsubsection{Unit Test Case 6 - BudgetRepository: saveItem}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-6}
+\label{UT-6}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-6                         \\ \hline
+\textbf{Test Case Description}    &  This test case verifies that the saveItem method functions properly and saves the Budget object to the selected account's BudgetRepository.         \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A Budget object populated with generic data
+	\item A test Account database populated with generic transactions
+	\item A test Budget database
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item The test budget's details are printed to console.
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & A budget database is created and a budget is inserted. The recorded budget amount is updated according to transactions made across all accounts for that budget.            \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/08/2018 | Melanie Taing | N/A
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Unit Test Case 7
+%Budget repository test case
+\subsubsection{Unit Test Case 7 - BudgetRepository: deleteItem}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption {UT-7}
+\label{UT-7}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &  UT-7                         \\ \hline
+\textbf{Test Case Description}    &  This test case verifies that the deleteItem method functions properly and deletes the Budget record in the repository for a given account ID.         \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item A generic account ID
+	\item A Budget object populared with generic data
+	\item A test Budget database
+\end{enumerate} \\ \hline
+
+\textbf{Expected Output}     & \begin{enumerate}
+	\item "Delete Budget 1"
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test budget database should be empty.            \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item 04/08/2018 | Melanie Taing | N/A
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+% Test Case Templates
+\subsection{Test Case Templates}
+
+% System Level Test Case
+\subsubsection{System Level Test Case Template}
 \noindent
 {\bf Purpose}\\
 State the purpose of the test.
@@ -97,47 +670,95 @@ You can cross-reference to actual file data specified in an appendix.
 {\bf Traces to Use Cases}\\
 State which requirements (at the level of use case and scenario) are tested by this test case.
 
-\subsection{Subsystem Level Test Cases}
+% Unit Test Case Template
+\subsubsection{Unit Test Case Template}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption{Template Test Case}
+\label{UT-X}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      &                           \\ \hline
+\textbf{Test Case Description}    &                  \\ \hline
+\textbf{Input}         & 	\begin{enumerate}
+	\item
+\end{enumerate} \\ \hline
 
-{\it
-All test cases for testing at the subsystem level.
-}
-
-{\it
-One subsection per subsystem
-}
-
-\subsubsection{Subsystem X}
-
-\subsection{Unit Test cases}
-
-{\it
-All test cases for testing at the unit level.
-}
-
-{\it
-One subsection per unit
-}
-
-\subsubsection{Unit X}
+\textbf{Expected Output}     & \begin{enumerate}
+	\item 
+\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           &                 \\ \hline
+\textbf{Execution History}   &  \begin{enumerate}
+	\item mm/dd/yyyy | Tester's name | Execution result
+\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
 
 \section{Test Results}
+% List the tests, indicating which passed and which did not pass.
+% List requirements indicating the percentage of tests that passed for that requirement.
+\subsection{System Level Tests}
+\begin{table}[htbp]
+\centering
+\caption {System Test Case Results}
+\label{test-result}
+\begin{tabularx}{\textwidth}{ | l | X | l |}
+\hline
+\textbf{Test Case}  &\textbf {Test Name}   &  \textbf{Result}                         \\ \hline
+1 & Add Account &  Pass				\\ \hline
+2 & Update Account & Pass 			\\ \hline
+3 & Delete Account & Pass				\\ \hline
+4 & Add Transaction & Pass			\\ \hline
+5 & Import Transaction &	Pass	 		\\ \hline
+6 & Update Transaction &	Pass			\\ \hline
+7 & Delete Transaction & 	Pass			\\ \hline
+8 & View Account Transactions & Pass		 \\ \hline
+9 & Add Budget & N/A				\\ \hline
+10 & Update Budget & N/A			\\ \hline
+11 & Delete Budget & N/A				\\ \hline
+12 & Apply Transaction to Budget & N/A	\\ \hline
+13 & View Budget Transactions & N/A		\\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
 
-{\it
-List the tests, indicating which passed and which did not pass.
-List requirements indicating the percentage of tests that passed for that requirement.
-}
+\subsection {Subsystem Level Tests}
+
+\subsection {Unit Level Tests}
+\begin{table}[htbp]
+\centering
+\caption {Unit Test Case Results}
+\label{test-result}
+\begin{tabularx}{\textwidth}{ | l | X | l |}
+\hline
+\textbf{Unit Test Case}  &\textbf{Test Name}    &  \textbf{Result}                         \\ \hline
+1 & Transaction: saveItem & Pass		 		\\ \hline
+2 & Transaction: deleteItem & Pass 				\\ \hline
+3 & Transaction: deleteItem (all items)& Pass 			\\ \hline
+4 & RepositoryContainer: saveItem (all types) & Pass	 \\ \hline
+5 & AccountRepository: saveItem, deleteItem & Fail 		\\ \hline
+6 & BudgetRepository: saveItem & N/A 				\\ \hline
+7 & BudgetRepository: deleteItem & N/A 			\\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
 
 \section{References}
+\href{https://users.encs.concordia.ca/~gregb/home/PDF/comp354-testing-intro.pdf}{Sinnig, D., "Introduction to Software Testing"} (Current April 8, 2018)
 
-\appendix
+Larman, C. Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development, 3rd edition, Prentice-Hall, 2005.
+
+\section{Addendum}
+
+\begin{figure}[H]
+\centering
+\caption{Updated use case diagram}
+\includegraphics[scale=0.5]{Diagrams/UML/SOEN.png}
+\end{figure}
 
 \section{Description of Input Files}
-
-Describe/include test data from input files.
-
-\section{Description of Output Files}
-
-Describe/include test expected output that are output files.
+% Describe/include test data from input files.
 
 \end{document}
