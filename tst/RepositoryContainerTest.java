@@ -152,7 +152,7 @@ public class RepositoryContainerTest {
 		
 		repoContainer.saveItem(testBudget);
 		//Did the fake budget get added to the correct DB?
-		Budget returnedBudget = budgetRepoTest.getItem(1);
+		Budget returnedBudget = budgetRepoTest.getItem(2);
 		assertEquals(testBudget.getId(), returnedBudget.getId());
 		assertEquals(testBudget.getName(), returnedBudget.getName());
 		assertEquals(testBudget.getAmount(), returnedBudget.getAmount());
