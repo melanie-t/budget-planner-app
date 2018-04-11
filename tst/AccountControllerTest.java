@@ -21,10 +21,10 @@ public class AccountControllerTest {
 
     @BeforeClass
     public static void setUpClass() {
-        int accountId = (int) (Math.random() * 10000000);;
+        int accountId = (int) (Math.random() * 10000000);
         String bankName = "testBank";
         String nickname = "testAccount";
-        int balance = (int) (Math.random() * 10000000);;
+        int balance = (int) (Math.random() * 10000000);
 
         account = new Account(accountId, bankName, nickname, balance);
 

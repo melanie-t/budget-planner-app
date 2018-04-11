@@ -68,9 +68,9 @@ public class AccountController extends AbstractController<IAccountView> {
             if (balance == null)
                 message += "Balance must be a number.";
 
-            JOptionPane.showMessageDialog(null, message, "Input Error", JOptionPane.ERROR_MESSAGE);
-
             success = false;
+
+            showMessageDialog("Input Error", message);
         }
 
         if (success)
@@ -109,4 +109,8 @@ public class AccountController extends AbstractController<IAccountView> {
         model.deleteAccount(view.getSelectedAccountId());
         view.setSelection(0);
 	}
+
+    protected void showMessageDialog(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+    }
 }
