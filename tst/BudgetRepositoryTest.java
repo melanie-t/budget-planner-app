@@ -27,7 +27,7 @@ public class BudgetRepositoryTest {
 	
 	@Test
 	public void saveItemTest() {
-		String name = "Budget";
+		String name = "Test Budget";
 		Integer amount = 100;
 		Integer balance = 1000;
 
@@ -41,26 +41,35 @@ public class BudgetRepositoryTest {
 		//If item is fetched in a fresh repo means save to DB worked
 		BudgetRepository freshBudgetRepo = new BudgetRepository(testDatabase);
 		freshBudgetRepo.loadAllItems();
-		Budget returnedBudget = freshBudgetRepo.getItem(2);
+		Budget returnedBudget = freshBudgetRepo.getItem(expectedBudget.getId());
         assertTrue(returnedBudget.getId().equals(expectedBudget.getId()));
         assertEquals(returnedBudget.getName(), expectedBudget.getName());
         assertEquals(returnedBudget.getAmount(), expectedBudget.getAmount());
         assertEquals(returnedBudget.getBalance(), expectedBudget.getBalance());
         
+        System.out.println("Test budget added into repo: (Name, Amount, Balance) = ("
+        		+ returnedBudget.getName() + ", " 
+        		+ returnedBudget.getAmount() + ", " 
+        		+ returnedBudget.getBalance() + ")");
+        
         //Test "Update" mode of saveItem
 		//Attempt to save Budget with existing ID, should update item
 		Integer updatedBudgetAmount = 10000;
-		Budget updatedBudget = freshBudgetRepo.getItem(expectedBudget.getId());
-		updatedBudget.setAmount(updatedBudgetAmount);
-		budgetRepo.saveItem(updatedBudget);
+		Budget updateBudgetTest = freshBudgetRepo.getItem(expectedBudget.getId());
+		System.out.println("Budget amount before update: " + updateBudgetTest.getAmount());
+		updateBudgetTest.setAmount(updatedBudgetAmount);
 		
-		assertEquals(updatedBudget.getAmount(),updatedBudgetAmount);
+		budgetRepo.saveItem(updateBudgetTest);
+		
+		assertEquals(updateBudgetTest.getAmount(),updatedBudgetAmount);
+		
+		System.out.println("Budget amount after update: " + budgetRepo.getItem(updateBudgetTest.getId()).getAmount());
 	}
 	
 	@Test
 	public void DeleteItemTest() {		
 		
-		Database db = new Database("DeleteItemTest");
+		Database db = new Database("DeleteBudgetTest");
 		budgetRepo = new BudgetRepository(db);
 		budgetRepo.reinitSQLStructure();
 		
@@ -95,7 +104,7 @@ public class BudgetRepositoryTest {
 		//check if delete worked in fresh repo
 		BudgetRepository freshBudgetRepo = new BudgetRepository(db);
 		freshBudgetRepo.loadAllItems();
-		System.out.println(freshBudgetRepo.getItems().size());
+		//System.out.println(freshBudgetRepo.getItems().size());
 		assertEquals(freshBudgetRepo.getItems().size(), sizeBeforeDelete-1);
 		
 	}

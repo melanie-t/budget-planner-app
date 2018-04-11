@@ -86,7 +86,7 @@ The following pages will identify the requirements that will be tested, the test
 
 \section{Test Plan}
 
-We will be performing system level, integration and unit testing based on the use case scenarios.  We are performing black box testing for system level testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Integration tests will focus on the integration of {\it Transactions} in {\it Accounts} and the integration of {\it Budgets} across all {\it Accounts} with respect to their {\it Transactions}. Unit testing will focus on testing specific methods within {\it TransactionRepository}, {\it RepositoryContainer}, {\it AccountRepository},, {\it BudgetRepository} as well as the controllers: {\it TransactionController}, {\it AccountController}, {\it BudgetController}. \\
+We will be performing system level  based on the use case scenarios and unit testing on select classes.  We are performing black box testing for system level testing, as we are more concerned with the whole system working as a whole, and not necessarily "how" it works. Unit testing will focus on testing specific methods within {\it TransactionRepository}, {\it RepositoryContainer}, {\it AccountRepository}, {\it BudgetRepository} as well as the controllers: {\it TransactionController}, {\it AccountController}, {\it BudgetController}. \\
 
 The following functional requirements will be tested:
 \begin{itemize}
@@ -108,7 +108,7 @@ The following functional requirements will be tested:
 \clearpage
 
 \setlength{\parskip}{0.8mm}
-The unit tests will include:
+The unit tests will include the following classes:
 \begin {itemize}
 	\item TransactionRepository
 	\begin {itemize}
@@ -143,6 +143,7 @@ The unit tests will include:
 \subsection{System Level Test Cases}
 % All test cases for testing at the system level.
 
+
 % Test case 1
 
 \subsubsection {Test Case 1 - Add Account} \label{TC-1}
@@ -169,6 +170,7 @@ It satisfies the requirement of the user being able to create a bank account.
     {\bf Traces to Use Cases}\\
     This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
 
+
 % Test case 2
 \subsubsection{Test Case 2 - Update Account} \label{TC-2}
 \noindent
@@ -194,6 +196,8 @@ It satisfies the requirement of the user being able to create a bank account.
      This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
                  
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE   
+
+
 %Test case 3
 \subsubsection{Test Case 3 - Delete Account} \label{TC-3}
 \noindent
@@ -215,6 +219,7 @@ It satisfies the requirement of the user being able to create a bank account.
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
+
 
 %Test case 4
 \subsubsection{Test Case 4 - Add Transaction} \label{TC-4}
@@ -245,6 +250,8 @@ the bottom-right window displays the newly created transaction.
 This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
 
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+
+
 %Test case 5
 \subsubsection{Test Case 5 - Import Transaction} \label{TC-5}
 
@@ -270,6 +277,7 @@ The bottom-right corner displays the transaction.
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 5 - \textit{ImportTransactions}
+
 
 %Test case 6
 \subsubsection{Test Case 6 - Update Transaction} \label{TC-6}
@@ -302,8 +310,9 @@ If selected, the bottom-right corner displays the updated transaction.
     {\bf Traces to Use Cases}\\
     This satisfies use case 6 - \textit{ImportTransactions}
 
-
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+
+
 %Test case 7
 \subsubsection{Test Case 7 - Delete Transaction} \label{TC-7}
 \noindent
@@ -348,8 +357,12 @@ The selected account's transactions shows up in the transaction table.
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 8 - \textit{ViewTransactions}
-
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
 %Test case 9
 \subsubsection{Test Case 9 - Add Budget} \label{TC-9}
 \noindent
@@ -379,13 +392,17 @@ This satisfies use case 9 - \textit{AddBudget}
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 10 - \textit{UpdateBudget}
-
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
-%Test case 9
+
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
+%Test case 11
 \subsubsection{Test Case 11 - Delete Budget} \label{TC-11}
 \noindent
 {\bf Purpose}\\
-                                                        
+                                        
 \noindent
 {\bf Input Specification}\\
 
@@ -396,7 +413,11 @@ This satisfies use case 10 - \textit{UpdateBudget}
 {\bf Traces to Use Cases}\\
 This satisfies use case 11 - \textit{DeleteBudget}
 
-%Test case 10
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
+%Test case 12
 \subsubsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
 \noindent
 {\bf Purpose}\\
@@ -410,9 +431,13 @@ This satisfies use case 11 - \textit{DeleteBudget}
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 12 - \textit{ApplyTransactionToBudget}
-
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
-%Test case 9
+
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
+%Test case 13
 \subsubsection{Test Case 13 - View Budget Transactions} \label{TC-13}
 \noindent
 {\bf Purpose}\\
@@ -460,7 +485,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           &  A transaction database is created and a transaction is inserted. The balance of this transaction is then updated to a new value.                   \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/03/2018 | Colin Greczkowski | Executed test successfully.
+	\item 04/03/2018 | Colin Greczkowski | Test pass.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -488,7 +513,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & The test transaction database should be empty.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/07/2018 | Colin Greczkowski | Executed test successfully.
+	\item 04/07/2018 | Colin Greczkowski | Test pass.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -517,7 +542,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & The test transaction database does not contain the two transactions that had the generic account ID.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/03/2018 | Colin Greczkowski | Executed test successfully.
+	\item 04/03/2018 | Colin Greczkowski | Test pass.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -546,7 +571,9 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \end{enumerate} \\ \hline
 \textbf{Expected Post-Conditions}           & The account,transaction and budget items are saved to their respective test databases. Balances are updated correctly.                \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/07/2018 | Colin Greczkowski | Executed test successfully.
+	\item 04/07/2018 | Colin Greczkowski | Test pass.
+	\item 04/11/2018 | Michael Foo | Test fail.
+	\item 04/11/2018 | Melanie Taing | Test pass.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -581,7 +608,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \textbf{Expected Post-Conditions} & The system has a single account in the account database. \\
 \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/07/2018 | Wayne Yiel Leung | Executed test failed.
+	\item 04/07/2018 | Wayne Yiel Leung | Test fail.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -604,13 +631,15 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 	\item A test Account database populated with generic transactions
 	\item A test Budget database
 \end{enumerate} \\ \hline
-
 \textbf{Expected Output}     & \begin{enumerate}
-	\item The test budget's details are printed to console.
+	\item Test budget added into repo: (Name, Amount, Balance) = (Test Budget, 100, 1000)
+	\item Budget amount before update: 100
+	\item Budget amount after update: 10000
 \end{enumerate} \\ \hline
-\textbf{Expected Post-Conditions}           & A budget database is created and a budget is inserted. The recorded budget amount is updated according to transactions made across all accounts for that budget.            \\ \hline
+\textbf{Expected Post-Conditions}           & The test budget is added to the budget repository. The test budget's amount is updated to 1000.        \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/08/2018 | Melanie Taing | N/A
+	\item 04/08/2018 | Melanie Taing | Test fail
+	\item 04/10/2018 | Melanie Taing | Test pass
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -634,13 +663,107 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 	\item A test Budget database
 \end{enumerate} \\ \hline
 
-\textbf{Expected Output}     & \begin{enumerate}
-	\item "Delete Budget 1"
-\end{enumerate} \\ \hline
-\textbf{Expected Post-Conditions}           & The test budget database should be empty.            \\ \hline
+\textbf{Expected Output}     & 
+	\begin{enumerate}
+		\item Tuples in Budget repository test before delete: 3
+		\item Tuples in Budget repository test after delete: 2
+		\item Current items loaded in repo: 2
+	\end{enumerate} \\ \hline
+\textbf{Expected Post-Conditions}           & The test budget repository should contain one less budget.            \\ \hline
 \textbf{Execution History}   &  \begin{enumerate}
-	\item 04/08/2018 | Melanie Taing | N/A
+	\item 04/08/2018 | Melanie Taing | Test fail
+	\item 04/10/2018 | Melanie Taing | Test pass
 \end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
+% Unit Test Case 8
+%Budget repository test case
+\subsubsection{Unit Test Case 8 - AccountController}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption{UT-8}
+\label{UT-8}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      		&  UT-8                   			\\ \hline
+\textbf{Test Case Description}    	&                  				\\ \hline
+\textbf{Input}         			& 	\begin{enumerate}
+								\item
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		& 	\begin{enumerate}
+								\item 
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	&                 				\\ \hline
+\textbf{Execution History}   		&  	\begin{enumerate}
+								\item mm/dd/yyyy | Tester's name | Execution result
+							\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
+% Unit Test Case 9
+%Budget repository test case
+\subsubsection{Unit Test Case 9 - TransactionController}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption{UT-9}
+\label{UT-9}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      		&  UT-9                   			\\ \hline
+\textbf{Test Case Description}    	&                  				\\ \hline
+\textbf{Input}         			& 	\begin{enumerate}
+								\item
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		& 	\begin{enumerate}
+								\item 
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	&                 				\\ \hline
+\textbf{Execution History}   		&  	\begin{enumerate}
+								\item mm/dd/yyyy | Tester's name | Execution result
+							\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+
+% Unit Test Case 10
+%Budget repository test case
+\subsubsection{Unit Test Case 10 - BudgetController}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption{UT-10}
+\label{UT-10}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      		&  UT-10                 			\\ \hline
+\textbf{Test Case Description}    	&                  				\\ \hline
+\textbf{Input}         			& 	\begin{enumerate}
+								\item
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		& 	\begin{enumerate}
+								\item 
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	&                 				\\ \hline
+\textbf{Execution History}   		&  	\begin{enumerate}
+								\item mm/dd/yyyy | Tester's name | Execution result
+							\end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
@@ -675,23 +798,22 @@ State which requirements (at the level of use case and scenario) are tested by t
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
-\caption{Template Test Case}
+\caption{UT-X}
 \label{UT-X}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
-\textbf{Test Case Number}      &                           \\ \hline
-\textbf{Test Case Description}    &                  \\ \hline
-\textbf{Input}         & 	\begin{enumerate}
-	\item
-\end{enumerate} \\ \hline
-
-\textbf{Expected Output}     & \begin{enumerate}
-	\item 
-\end{enumerate} \\ \hline
-\textbf{Expected Post-Conditions}           &                 \\ \hline
-\textbf{Execution History}   &  \begin{enumerate}
-	\item mm/dd/yyyy | Tester's name | Execution result
-\end {enumerate} \\ \hline
+\textbf{Test Case Number}      		&  UT-X                   			\\ \hline
+\textbf{Test Case Description}    	&                  				\\ \hline
+\textbf{Input}         			& 	\begin{enumerate}
+								\item
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		& 	\begin{enumerate}
+								\item 
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	&                 				\\ \hline
+\textbf{Execution History}   		&  	\begin{enumerate}
+								\item mm/dd/yyyy | Tester's name | Execution result
+							\end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
@@ -739,8 +861,11 @@ State which requirements (at the level of use case and scenario) are tested by t
 3 & Transaction: deleteItem (all items)& Pass 			\\ \hline
 4 & RepositoryContainer: saveItem (all types) & Pass	 \\ \hline
 5 & AccountRepository: saveItem, deleteItem & Fail 		\\ \hline
-6 & BudgetRepository: saveItem & N/A 				\\ \hline
-7 & BudgetRepository: deleteItem & N/A 			\\ \hline
+6 & BudgetRepository: saveItem & Pass 			\\ \hline
+7 & BudgetRepository: deleteItem & Pass 			\\ \hline
+8 & AccountController & Pass					\\ \hline
+9 & TransactionController & Pass					\\ \hline
+10 & BudgetController & Pass					\\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
