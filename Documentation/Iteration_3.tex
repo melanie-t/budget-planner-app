@@ -367,12 +367,16 @@ This satisfies use case 8 - \textit{ViewTransactions}
 \subsubsection{Test Case 9 - Add Budget} \label{TC-9}
 \noindent
 {\bf Purpose}\\
-                                                        
-\noindent
-{\bf Input Specification}\\
+This test verifies that the user is able to add a budget to their account.
 
-\noindent
+{\bf Input Specification}\\
+The budget takes a Name - string of any length and of any characters
+and an Amount - a non-negative integer.
+
 {\bf Expected Output}\\
+The application displays the window.
+The budget is added to the user's account and is displayed in the top-right window
+under the budget tab.
 
 \noindent
 {\bf Traces to Use Cases}\\
@@ -380,14 +384,19 @@ This satisfies use case 9 - \textit{AddBudget}
 
 %Test case 10
 \subsubsection{Test Case 10 - Update Budget} \label{TC-10}
-\noindent
+
 {\bf Purpose}\\
-                                                        
-\noindent
+This test verifies that the user is able to modify a previously added budget.                  
+
 {\bf Input Specification}\\
+The budget takes a Name - string of any length and of any characters
+and an Amount - an integer.
 
 \noindent
 {\bf Expected Output}\\
+The application displays the window.
+The updated budget is added to the user's account and is displayed in the top-right window
+under the budget tab.
 
 \noindent
 {\bf Traces to Use Cases}\\
