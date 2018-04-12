@@ -607,6 +607,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \hline
 \textbf{Execution History}   &  \begin{enumerate}
 	\item 04/07/2018 | Wayne Yiel Leung | Test fail.
+	\item 04/12/2018 | Melanie Taing | Test pass.
 \end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -851,6 +852,21 @@ State which requirements (at the level of use case and scenario) are tested by t
 \section{Test Results}
 % List the tests, indicating which passed and which did not pass.
 % List requirements indicating the percentage of tests that passed for that requirement.
+
+\subsection {Requirement Test Results}
+\begin{table}[htbp]
+\centering
+\caption {Requirement Test Results}
+\label{test-result}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Requirement}  &\textbf{Test Passed}   \\ \hline
+Account & 100\% 				\\ \hline
+Transaction & 100\%			\\ \hline
+Budget & 100\%				\\ \hline
+\end{tabularx}
+\end{table}
+
 \subsection{System Level Tests}
 \begin{table}[htbp]
 \centering
@@ -888,7 +904,7 @@ State which requirements (at the level of use case and scenario) are tested by t
 2 & Transaction: deleteItem & Pass 				\\ \hline
 3 & Transaction: deleteItem (all items)& Pass 			\\ \hline
 4 & RepositoryContainer: saveItem (all types) & Pass	 \\ \hline
-5 & AccountRepository: saveItem, deleteItem & Fail 		\\ \hline
+5 & AccountRepository: saveItem, deleteItem & Pass		\\ \hline
 6 & BudgetRepository: saveItem & Pass 			\\ \hline
 7 & BudgetRepository: deleteItem & Pass 			\\ \hline
 8 & AccountController & Pass					\\ \hline
@@ -896,21 +912,6 @@ State which requirements (at the level of use case and scenario) are tested by t
 10 & BudgetController & Pass					\\ \hline
 \end{tabularx}
 \end{table}
-
-\subsection {Requirement Test Results}
-\begin{table}[htbp]
-\centering
-\caption {Requirement Test Results}
-\label{test-result}
-\begin{tabularx}{\textwidth}{ | l | X |}
-\hline
-\textbf{Requirement}  &\textbf{Test Passed}   \\ \hline
-Account & 80\% 				\\ \hline
-Transaction & 100\%			\\ \hline
-Budget & 100\%				\\ \hline
-\end{tabularx}
-\end{table}
-\clearpage
 
 \section{References}
 \href{https://users.encs.concordia.ca/~gregb/home/PDF/comp354-testing-intro.pdf}{Sinnig, D., "Introduction to Software Testing"} (Current April 8, 2018)
@@ -925,7 +926,9 @@ Larman, C. Applying UML and Patterns: An Introduction to Object-Oriented Analysi
 \includegraphics[scale=0.5]{Diagrams/UML/SOEN.png}
 \end{figure}
 
-\section{Description of Input Files}
+%\section{Description of Input Files}
 % Describe/include test data from input files.
 
+%\section{Description of Output Files}
+% Describe/include test data from output files.
 \end{document}
