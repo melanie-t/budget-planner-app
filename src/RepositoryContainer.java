@@ -176,30 +176,56 @@ public class RepositoryContainer implements IModelView, IModelController {
     public void saveItem(Account account) {
 
         int initialAmount;
-        Transaction initialTransaction = null;
-
+        Transaction deltaTransaction = null;
+        
+        
         //id 0 is reserved for new accounts
         if(account.getId() == 0 && account.getBalance() != 0) {
             initialAmount = account.getBalance();
             account.setBalance(0);
-            initialTransaction = new Transaction(
-                    0,
-                    0,
-                    1,
-                    "Deposit",
-                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-                    initialAmount,
-                    "Initial Balance"
-            );
+            deltaTransaction = new Transaction();
+            deltaTransaction.setDescription("Initial Balance");
+            deltaTransaction.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            deltaTransaction.setType(transactionRepository.depositType);
+            deltaTransaction.setAmount(initialAmount);
+                 
+        } else {
+        	System.out.println("Account "+account.getId());
+        	
+        	Integer transactionAccountBalance = transactionRepository.fetchBlanaceForAccount(account.getId());
+        	
+        	System.out.println("Old Transaction Balance: "+transactionAccountBalance);
+        	if(account.getBalance() != transactionAccountBalance) {
+        		
+        		Integer delta = account.getBalance()-transactionAccountBalance;
+        		Integer absoluteDelta = Math.abs(delta);
+        		String transactionType = delta > 0 ? transactionRepository.depositType : transactionRepository.withdrawlType;
+        		String transactionDescription = "Balance Difference";
+        		
+        		if(delta != 0) {
+        			deltaTransaction = new Transaction();
+                    deltaTransaction.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                    deltaTransaction.setType(transactionType);
+                    deltaTransaction.setAmount(absoluteDelta);
+                    deltaTransaction.setDescription(transactionDescription);
+                    System.out.println("New Transaction: "+deltaTransaction.toString());
+        		}
+        	}
         }
-
+        
+        //Make sure Account Exists
         accountRepository.saveItem(account);
 
-        if(initialTransaction != null) {
-            initialTransaction.setAssociatedAccountId(account.getId()); //update the transaction with the new account id
-            saveItem(initialTransaction);
+        //Save Transaction to represent the discrepancy - this will update account balance
+        if(deltaTransaction != null) {
+        	System.out.println("save Transaction");
+        	deltaTransaction.setAssociatedAccountId(account.getId()); //update the transaction with the new account id
+            saveItem(deltaTransaction);
         }
 
+        //Resave the balance to be the intended amount
+        accountRepository.saveItem(account);
+        
         notifyObservers();
     }
 

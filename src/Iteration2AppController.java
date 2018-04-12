@@ -32,35 +32,51 @@ public class Iteration2AppController implements IAppController, WindowListener{
 
 
 	public void start() {
-		
         if (user.getName() == "Jane_Doe")
-        {
             devStart();
-        }
         else
-        {
             productionStart();
-        }
 	}
 
 	// Development Mode
 	protected void devStart() {
 		model.resetSQLStructure();
-		InsertFakeAccounts();
-
-		// Create views
-		accountView = new AccountView(model);
-		transactionView = new TransactionView(model);
-		budgetView = new BudgetView(model);
-
-		// Create controllers
-		accountController = new AccountController(accountView, model);
-		transactionController = new TransactionController(transactionView, model);
-		budgetController = new BudgetController(budgetView, model);
-
-		model.forceUpdate();
+		InsertTestingEntries();
+		startMVC();
 	}
+	
+	protected void InsertTestingEntries() {
+		
+		//-------------------------------
+		// Accounts 
+		//-------------------------------
+		Account newAccount = new Account();
+		newAccount.setBankName("Toronto Dominion");
+		newAccount.setNickname("TD");
+		model.saveItem(newAccount);
 
+		Account newAccount2 = new Account();
+		newAccount2.setBankName("Bank National");
+		newAccount2.setNickname("National");
+		newAccount2.setBalance(200);
+		model.saveItem(newAccount2);
+		//-------------------------------
+		
+		
+		//-------------------------------
+		// Budgets 
+		//-------------------------------
+		Budget newBudget1 = new Budget();
+		newBudget1.setName("Resteraunts");
+		newBudget1.setAmount(200);
+		model.saveItem(newBudget1);
+		//-------------------------------
+		
+		
+
+	}
+	
+	
 	//Production Mode
 	protected void productionStart() {
         if (user.isNew())
@@ -71,7 +87,11 @@ public class Iteration2AppController implements IAppController, WindowListener{
         {
             model.loadAllItems();
         }
+        startMVC();
+	}
+	
 
+	protected void startMVC() {
 		// Create views
 		accountView = new AccountView(model);
 		transactionView = new TransactionView(model);
@@ -85,62 +105,14 @@ public class Iteration2AppController implements IAppController, WindowListener{
 		model.forceUpdate();
 	}
 
-	protected void InsertFakeAccounts() {
-		Account newAccount = new Account();
-		newAccount.setBankName("TD");
-		model.saveItem(newAccount);
-
-		Account newAccount2 = new Account();
-		newAccount2.setBankName("National");
-		newAccount2.setBalance(200);
-		model.saveItem(newAccount2);
-	}
-
-
+	
 	private void shutdown() {
 		myDatabase.shutdown();
 	}
 
 	public void run() {
-
 		// Create window
 		window = new MainView("My Money Manager - " + "User : " + user.getName(), accountView, transactionView, budgetView, this);
-
-
-		/*
-		mainController.setAccountRepository(theAccountRespository);
-		mainController.setTransactionRepository(theTransactionRepository);
-		*/
-
-
-
-
-		/*
-
-		System.out.println("Running Iteration 2 app");
-
-		User currentUser = new User();
-		currentUser.setAccountRepository(theAccountRespository);
-
-
-		AccountsMainController accountMainController = new AccountsMainController();
-		accountMainController.setUser(currentUser);
-
-		//Create view
-		AccountsMainView accountMainView = new AccountsMainView();
-
-		//Attach models
-		accountMainView.setUser(currentUser);
-
-		//-------------------------------------------------------------
-		// Add controls
-		// would be nice if these didn't have to be in separate classes / files
-		accountMainView.setListener("delete", accountMainController.deleteAccountListener(theAccountRespository));
-		//__________________________________________________
-
-		accountMainView.update();
-		accountMainView.display();
-		*/
 	}
 
 	@Override

@@ -275,7 +275,7 @@ public class SQLStringFactory
 	 * @param value string to "escape"
 	 * @return SQL escape character sequence
 	 */
-	protected String EscapeSQLValue(String value) {
+	public String EscapeSQLValue(String value) {
 		// Credit: https://stackoverflow.com/questions/1812891/java-escape-string-to-prevent-sql-injection
 		value = value.replace("\\", "\\\\");
 		value = value.replace("'", "\\'");

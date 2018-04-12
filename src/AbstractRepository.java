@@ -30,7 +30,7 @@ public abstract class AbstractRepository<T extends AbstractUniqueId> {
         this.tableName = tableName;
         this.primaryKey = primaryKey;
         this.sql = SQLStringFactory.getInstance();
-        itemMap = new HashMap<>();
+        itemMap = new HashMap<Integer, T>();
     }
 
     /**

@@ -14,7 +14,8 @@ public class BudgetRepository extends AbstractRepository<Budget>
 
     @Override
     public Budget getItem(Integer id) {
-        return new Budget(itemMap.get(id));
+    	Budget aBudget = itemMap.get(id);
+        return aBudget == null ? new Budget() : new Budget(aBudget);
     }
 
     @Override

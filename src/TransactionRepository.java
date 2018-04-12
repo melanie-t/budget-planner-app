@@ -9,12 +9,15 @@ import java.util.Iterator;
  */
 public class TransactionRepository extends AbstractRepository<Transaction>{
 
+	public String depositType = "Deposit";
+	public String withdrawlType = "Withdrawl";
+	
     /**
      * Constructor.
      * @param database database associated with this repository
      */
 	public TransactionRepository(Database database) {
-	    super(database, "transactions", "transactionId");
+	    super(database, "transactions", "transactionId"); // transactionId should be in a constant
 	}
 
     public void initSQLStructure() {
@@ -48,6 +51,33 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
             System.err.println(sqle.getMessage());
         }
     }
+    
+    
+    /**
+     * Initialize this repository will all the contents of its associated table in the database.
+     */
+    public Integer fetchSumOfTransactionTypeForAccount(Integer intAccount, String strType) {
+        ResultSet result = database.fetchSQL("SELECT SUM(amount) intAmount FROM "+tableName+" WHERE type='"+sql.EscapeSQLValue(strType)+"' AND accountId = '"+intAccount+"' GROUP BY accountId");
+        try {
+            while(result.next())
+            	return result.getInt("intAmount");
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+    
+    public Integer fetchBlanaceForAccount(Integer intAccount) {
+    	Integer in = fetchSumOfTransactionTypeForAccount(intAccount, depositType);
+    	Integer out = fetchSumOfTransactionTypeForAccount(intAccount, withdrawlType);
+    	
+    	System.out.println("In:" +in);
+    	System.out.println("Out: " +out);
+    	return in - out;
+    }
+    
+    
 
 	public void saveItem(Transaction transaction) {
 		System.out.println(transaction.toString());
