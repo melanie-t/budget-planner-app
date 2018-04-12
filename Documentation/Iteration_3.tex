@@ -684,7 +684,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 
 % Unit Test Case 8
 %Budget repository test case
-\subsubsection{Unit Test Case 8 - AccountController}
+\subsubsection{Unit Test Case 8 - AccountController: addOrUpdateAccount, deleteAccount}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -693,16 +693,18 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
 \textbf{Test Case Number}      		&  UT-8                   			\\ \hline
-\textbf{Test Case Description}    	&                  				\\ \hline
-\textbf{Input}         			& 	\begin{enumerate}
-								\item
-							\end{enumerate} 		\\ \hline
-\textbf{Expected Output}     		& 	\begin{enumerate}
-								\item 
-							\end{enumerate} 		\\ \hline
-\textbf{Expected Post-Conditions}	&                 				\\ \hline
+\textbf{Test Case Description}    	&  This test verifies that an user is able add or update, or remove their account.                 				\\ \hline
+\textbf{Input}         			& 
+\begin{enumerate}
+\item An account with accountId, bankName, nickname, balance
+\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		&
+\begin{enumerate}
+\item The account is deleted from the database.
+\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	&   There is one less account in the database.                 				\\ \hline
 \textbf{Execution History}   		&  	\begin{enumerate}
-								\item mm/dd/yyyy | Tester's name | Execution result
+								\item 04/11/2018 | Wayne Yiel Leung | Test pass
 							\end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
@@ -714,7 +716,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 
 % Unit Test Case 9
 %Budget repository test case
-\subsubsection{Unit Test Case 9 - TransactionController}
+\subsubsection{Unit Test Case 9 - TransactionController: addOrUpdateTransaction, deleteTransaction}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -723,17 +725,20 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
 \textbf{Test Case Number}      		&  UT-9                   			\\ \hline
-\textbf{Test Case Description}    	&                  				\\ \hline
-\textbf{Input}         			& 	\begin{enumerate}
-								\item
-							\end{enumerate} 		\\ \hline
-\textbf{Expected Output}     		& 	\begin{enumerate}
-								\item 
-							\end{enumerate} 		\\ \hline
-\textbf{Expected Post-Conditions}	&                 				\\ \hline
-\textbf{Execution History}   		&  	\begin{enumerate}
-								\item mm/dd/yyyy | Tester's name | Execution result
-							\end {enumerate} \\ \hline
+\textbf{Test Case Description}    	&  This test verifies that an user is able add or update, or remove a transaction from their account.                				\\ \hline
+\textbf{Input}         			&
+\begin{enumerate}
+\item A transaction with transactionId, accountId, BudgetId, type, date, amount and description
+\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		&
+\begin{enumerate}
+\item The transaction is deleted from the database.
+\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	& There is one less transaction in the database. \\ \hline
+\textbf{Execution History}   		&
+\begin{enumerate}
+\item 04/11/2018 | Wayne Yiel Leung | Test pass
+\end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
