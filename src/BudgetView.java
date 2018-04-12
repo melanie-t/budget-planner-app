@@ -108,6 +108,7 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 				if (selectedRow >= 0) {
                     Budget selectedItem = items.get(selectedRow);
                     setCurrentBudgetSelection(selectedItem.getId());
+                    update();
 				}
 			}
 		});
@@ -386,6 +387,9 @@ public class BudgetView extends AbstractView<Budget> implements IBudgetView, IVi
 
         // Fetch transactions associated with account and display
         boolean validSelectionFound = false;
+        
+        System.out.println("======="+items.size());
+        
         if (!items.isEmpty()) {
             //add rows to table
             for (Budget item : items)

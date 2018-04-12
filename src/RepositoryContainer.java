@@ -115,10 +115,11 @@ public class RepositoryContainer implements IModelView, IModelController {
         	associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
             saveItem(associatedAccount);
         }
+        
         Budget associatedBudget = budgetRepository.getItem(transactionToDelete.getAssociatedBudgetId());
         if(associatedBudget != null) // This should never happen, if tests fails without this then the tests are wrong
         {
-        	associatedBudget.setAmount(transactionRepository.fetchBlanaceForBudget(associatedBudget.getId()));
+        	associatedBudget.setBalance(transactionRepository.fetchBlanaceForBudget(associatedBudget.getId()));
             saveItem(associatedBudget);
         }
 
@@ -141,17 +142,28 @@ public class RepositoryContainer implements IModelView, IModelController {
 
     @Override
     public void saveItem(Transaction transaction) {
-        Budget associatedBudget = budgetRepository.getItem(transaction.getAssociatedBudgetId());
-        Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
+    	
+    	Integer budgetId = transaction.getAssociatedBudgetId();
+    	Integer accountId = transaction.getAssociatedAccountId();
+    	
+        Budget associatedBudget = (budgetId == 0 ? null : budgetRepository.getItem(budgetId));
+        Account associatedAccount = (accountId == 0 ? null : accountRepository.getItem(transaction.getAssociatedAccountId()));
 
+        System.out.println(transaction.toString());
+        System.out.println(associatedBudget);
+        
         transactionRepository.saveItem(transaction);
         
-        associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
-        accountRepository.saveItem(associatedAccount);
+        if(associatedAccount != null) {
+	        associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
+	        accountRepository.saveItem(associatedAccount);
+	        if(associatedBudget != null) {
+		        associatedBudget.setBalance(transactionRepository.fetchBlanaceForBudget(associatedBudget.getId()));
+		        budgetRepository.saveItem(associatedBudget);
+	        }
+        }
         
-        associatedBudget.setAmount(transactionRepository.fetchBlanaceForBudget(associatedBudget.getId()));
-        budgetRepository.saveItem(associatedBudget);
-
+        
         notifyObservers();
     }
 
@@ -191,7 +203,7 @@ public class RepositoryContainer implements IModelView, IModelController {
                     deltaTransaction.setType(transactionType);
                     deltaTransaction.setAmount(absoluteDelta);
                     deltaTransaction.setDescription(transactionDescription);
-                    System.out.println("New Transaction: "+deltaTransaction.toString());
+                    
         		}
         	}
         }
@@ -201,7 +213,6 @@ public class RepositoryContainer implements IModelView, IModelController {
 
         //Save Transaction to represent the discrepancy - this will update account balance
         if(deltaTransaction != null) {
-        	System.out.println("save Transaction");
         	deltaTransaction.setAssociatedAccountId(account.getId()); //update the transaction with the new account id
             saveItem(deltaTransaction);
         }
