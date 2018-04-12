@@ -837,16 +837,14 @@ State which requirements (at the level of use case and scenario) are tested by t
 6 & Update Transaction &	Pass			\\ \hline
 7 & Delete Transaction & 	Pass			\\ \hline
 8 & View Account Transactions & Pass		 \\ \hline
-9 & Add Budget & N/A				\\ \hline
-10 & Update Budget & N/A			\\ \hline
-11 & Delete Budget & N/A				\\ \hline
-12 & Apply Transaction to Budget & N/A	\\ \hline
-13 & View Budget Transactions & N/A		\\ \hline
+9 & Add Budget & Pass				\\ \hline
+10 & Update Budget & Pass			\\ \hline
+11 & Delete Budget & Pass				\\ \hline
+12 & Apply Transaction to Budget & Pass	\\ \hline
+13 & View Budget Transactions & Pass		\\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
-
-\subsection {Subsystem Level Tests}
 
 \subsection {Unit Level Tests}
 \begin{table}[htbp]
@@ -866,6 +864,20 @@ State which requirements (at the level of use case and scenario) are tested by t
 8 & AccountController & Pass					\\ \hline
 9 & TransactionController & Pass					\\ \hline
 10 & BudgetController & Pass					\\ \hline
+\end{tabularx}
+\end{table}
+
+\subsection {Requirement Test Results}
+\begin{table}[htbp]
+\centering
+\caption {Requirement Test Results}
+\label{test-result}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Requirement}  &\textbf{Test Passed}   \\ \hline
+Account & 80\% 				\\ \hline
+Transaction & 100\%			\\ \hline
+Budget & 100\%				\\ \hline
 \end{tabularx}
 \end{table}
 \clearpage
