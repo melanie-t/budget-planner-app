@@ -109,20 +109,17 @@ public class RepositoryContainer implements IModelView, IModelController {
         Transaction transactionToDelete = transactionRepository.getItem(transactionId);
         transactionRepository.deleteItem(transactionId);
 
-        int amount = transactionToDelete.getAmount();
-        amount *= transactionToDelete.getType().equals("Deposit") ? 1 : -1;
-
         Account associatedAccount = accountRepository.getItem(transactionToDelete.getAssociatedAccountId());
         if(associatedAccount != null) // This should never happen, if tests fails without this then the tests are wrong
         {
-        	associatedAccount.setBalance(associatedAccount.getBalance() - amount);
-        	accountRepository.saveItem(associatedAccount);
+        	associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
+            saveItem(associatedAccount);
         }
         Budget associatedBudget = budgetRepository.getItem(transactionToDelete.getAssociatedBudgetId());
         if(associatedBudget != null) // This should never happen, if tests fails without this then the tests are wrong
         {
-            associatedBudget.setBalance(associatedBudget.getBalance() + amount);
-            budgetRepository.saveItem(associatedBudget);
+        	associatedBudget.setAmount(transactionRepository.fetchBlanaceForBudget(associatedBudget.getId()));
+            saveItem(associatedBudget);
         }
 
         notifyObservers();
@@ -147,7 +144,6 @@ public class RepositoryContainer implements IModelView, IModelController {
         Budget associatedBudget = budgetRepository.getItem(transaction.getAssociatedBudgetId());
         Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
 
-        budgetRepository.saveItem(associatedBudget);
         transactionRepository.saveItem(transaction);
         
         associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
@@ -186,7 +182,7 @@ public class RepositoryContainer implements IModelView, IModelController {
         		
         		Integer delta = account.getBalance()-transactionAccountBalance;
         		Integer absoluteDelta = Math.abs(delta);
-        		String transactionType = delta > 0 ? transactionRepository.depositType : transactionRepository.withdrawlType;
+        		String transactionType = delta > 0 ? transactionRepository.depositType : transactionRepository.withdrawallType;
         		String transactionDescription = "Balance Difference";
         		
         		if(delta != 0) {
@@ -216,6 +212,7 @@ public class RepositoryContainer implements IModelView, IModelController {
 
     @Override
     public void saveItem(Budget budget) {
+    	System.out.println(budget.toString());
         budgetRepository.saveItem(budget);
         if (!budget.getName().equals("None"))
             notifyObservers();

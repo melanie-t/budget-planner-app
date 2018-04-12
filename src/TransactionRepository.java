@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class TransactionRepository extends AbstractRepository<Transaction>{
 
 	public String depositType = "Deposit";
-	public String withdrawlType = "Withdrawl";
+	public String withdrawallType = "Withdrawal";
 	
     /**
      * Constructor.
@@ -70,7 +70,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
     
     public Integer fetchBlanaceForAccount(Integer intAccount) {
     	Integer in = fetchSumOfTransactionTypeForAccount(intAccount, depositType);
-    	Integer out = fetchSumOfTransactionTypeForAccount(intAccount, withdrawlType);
+    	Integer out = fetchSumOfTransactionTypeForAccount(intAccount, withdrawallType);
     	
     	System.out.println("In:" +in);
     	System.out.println("Out: " +out);
@@ -94,7 +94,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
     }
     
     public Integer fetchBlanaceForBudget(Integer intBudget) {
-    	Integer out = fetchSumOfTransactionTypeForBudget(intBudget, withdrawlType);
+    	Integer out = fetchSumOfTransactionTypeForBudget(intBudget, withdrawallType);
     	System.out.println("Out: " +out);
     	return out;
     }
