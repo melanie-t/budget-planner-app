@@ -54,7 +54,7 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
     
     
     /**
-     * Initialize this repository will all the contents of its associated table in the database.
+     * Account Balance
      */
     public Integer fetchSumOfTransactionTypeForAccount(Integer intAccount, String strType) {
         ResultSet result = database.fetchSQL("SELECT SUM(amount) intAmount FROM "+tableName+" WHERE type='"+sql.EscapeSQLValue(strType)+"' AND accountId = '"+intAccount+"' GROUP BY accountId");
@@ -75,6 +75,28 @@ public class TransactionRepository extends AbstractRepository<Transaction>{
     	System.out.println("In:" +in);
     	System.out.println("Out: " +out);
     	return in - out;
+    }
+    
+    
+    /**
+     * User Budget
+     */
+    public Integer fetchSumOfTransactionTypeForBudget(Integer intBudget, String strType) {
+        ResultSet result = database.fetchSQL("SELECT SUM(amount) intAmount FROM "+tableName+" WHERE type='"+sql.EscapeSQLValue(strType)+"' AND budgetId = '"+intBudget+"' GROUP BY budgetId");
+        try {
+            while(result.next())
+            	return result.getInt("intAmount");
+
+        } catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+    
+    public Integer fetchBlanaceForBudget(Integer intBudget) {
+    	Integer out = fetchSumOfTransactionTypeForBudget(intBudget, withdrawlType);
+    	System.out.println("Out: " +out);
+    	return out;
     }
     
     

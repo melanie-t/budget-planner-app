@@ -147,23 +147,14 @@ public class RepositoryContainer implements IModelView, IModelController {
         Budget associatedBudget = budgetRepository.getItem(transaction.getAssociatedBudgetId());
         Account associatedAccount = accountRepository.getItem(transaction.getAssociatedAccountId());
 
-        if (transaction.getId() != 0)
-        {
-            Transaction previousTransaction = transactionRepository.getItem(transaction.getId());
-            int previousAmount = previousTransaction.getAmount();
-            previousAmount *= previousTransaction.getType().equals("Deposit") ? 1 : -1;
-
-            // Undo for budget and account balance (we can change budgets, but not accounts)
-            Budget previousBudget = budgetRepository.getItem(previousTransaction.getAssociatedBudgetId());
-            previousBudget.setBalance(previousBudget.getBalance() + previousAmount);
-            budgetRepository.saveItem(previousBudget);
-        }
-
         budgetRepository.saveItem(associatedBudget);
         transactionRepository.saveItem(transaction);
         
         associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
         accountRepository.saveItem(associatedAccount);
+        
+        associatedBudget.setAmount(transactionRepository.fetchBlanaceForBudget(associatedBudget.getId()));
+        budgetRepository.saveItem(associatedBudget);
 
         notifyObservers();
     }
@@ -220,7 +211,6 @@ public class RepositoryContainer implements IModelView, IModelController {
         }
 
 
-        
         notifyObservers();
     }
 
