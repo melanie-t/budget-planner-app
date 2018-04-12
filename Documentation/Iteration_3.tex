@@ -405,12 +405,15 @@ This satisfies use case 10 - \textit{UpdateBudget}
 \subsubsection{Test Case 11 - Delete Budget} \label{TC-11}
 \noindent
 {\bf Purpose}\\
-                                        
+The purpose of the test is to verify that the user is able to delete a budget from their account.           
+                         
 \noindent
 {\bf Input Specification}\\
+The app's main GUI contains a tab called Budget. A list of existing budgets is visible on the right. By clicking on a budget in this list, and then clicking the Delete button in the left section of the GUI, the selected budget is marked for deleteion.
 
 \noindent
 {\bf Expected Output}\\
+The selected budget is deleted. The list of budgets on the right hand side of the GUI is refreshed, with the deleted budget no longer present.
 
 \noindent
 {\bf Traces to Use Cases}\\
@@ -744,7 +747,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 
 % Unit Test Case 10
 %Budget repository test case
-\subsubsection{Unit Test Case 10 - BudgetController}
+\subsubsection{Unit Test Case 10 - BudgetController testAddOrUpdateBudget}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -753,16 +756,43 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}
 \begin{tabularx}{\textwidth}{ | l | X |}
 \hline
 \textbf{Test Case Number}      		&  UT-10                 			\\ \hline
-\textbf{Test Case Description}    	&                  				\\ \hline
+\textbf{Test Case Description}    	&  This test checks that new budgets can be added, and existing budgets can be updated.                				\\ \hline
 \textbf{Input}         			& 	\begin{enumerate}
-								\item
+								\item test Model
+								\item test Controller
+								\item test Budget
 							\end{enumerate} 		\\ \hline
 \textbf{Expected Output}     		& 	\begin{enumerate}
-								\item 
+								\item No output 
 							\end{enumerate} 		\\ \hline
-\textbf{Expected Post-Conditions}	&                 				\\ \hline
+\textbf{Expected Post-Conditions}	& Budget is properly saved.                				\\ \hline
 \textbf{Execution History}   		&  	\begin{enumerate}
-								\item mm/dd/yyyy | Tester's name | Execution result
+								\item 04/12/2018 - Colin Greczkowski - Test executed successfully.
+							\end {enumerate} \\ \hline
+\end{tabularx}
+\end{table}
+\clearpage
+
+\subsubsection{Unit Test Case 11 - BudgetController testDeleteAccount}
+\def\arraystretch{1.5}%
+\begin{table}[htbp]
+\centering
+\caption{UT-11}
+\label{UT-11}
+\begin{tabularx}{\textwidth}{ | l | X |}
+\hline
+\textbf{Test Case Number}      		&  UT-11                 			\\ \hline
+\textbf{Test Case Description}    	&  This test ensures that, for a given a budget ID, the associated budget is deleted. 				\\ \hline
+\textbf{Input}         			& 	\begin{enumerate}
+								\item test Controller
+								\item test Budget
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Output}     		& 	\begin{enumerate}
+								\item No output
+							\end{enumerate} 		\\ \hline
+\textbf{Expected Post-Conditions}	& The test budget is deleted from the repository.             				\\ \hline
+\textbf{Execution History}   		&  	\begin{enumerate}
+								\item 04/12/2018 - Colin Greczkowski - Test executed successfully.
 							\end {enumerate} \\ \hline
 \end{tabularx}
 \end{table}
