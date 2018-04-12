@@ -25,7 +25,8 @@ public class AccountRepository extends AbstractRepository<Account> {
 
     @Override
     public Account getItem(Integer id) {
-        return new Account(itemMap.get(id));
+    	Account item = itemMap.get(id);
+        return item == null ? new Account() : new Account(item);
     }
 
     protected void setItemFromResult(ResultSet result) {

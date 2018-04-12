@@ -157,18 +157,14 @@ public class RepositoryContainer implements IModelView, IModelController {
             Budget previousBudget = budgetRepository.getItem(previousTransaction.getAssociatedBudgetId());
             previousBudget.setBalance(previousBudget.getBalance() + previousAmount);
             budgetRepository.saveItem(previousBudget);
-            associatedAccount.setBalance(associatedAccount.getBalance() - previousAmount);
         }
 
-        int amount = transaction.getAmount();
-        amount *= transaction.getType().equals("Deposit") ? 1 : -1;
-        associatedBudget.setBalance(associatedBudget.getBalance() - amount);
-        associatedAccount.setBalance(associatedAccount.getBalance() + amount);
-
         budgetRepository.saveItem(associatedBudget);
+        transactionRepository.saveItem(transaction);
+        
+        associatedAccount.setBalance(transactionRepository.fetchBlanaceForAccount(associatedAccount.getId()));
         accountRepository.saveItem(associatedAccount);
 
-        transactionRepository.saveItem(transaction);
         notifyObservers();
     }
 
@@ -223,8 +219,7 @@ public class RepositoryContainer implements IModelView, IModelController {
             saveItem(deltaTransaction);
         }
 
-        //Resave the balance to be the intended amount
-        accountRepository.saveItem(account);
+
         
         notifyObservers();
     }
