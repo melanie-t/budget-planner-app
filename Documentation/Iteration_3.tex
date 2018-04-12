@@ -351,17 +351,12 @@ For this operation, the user selects their account with the mouse.
 \noindent
 {\bf Expected Output}\\
 The application displays the window.       
-The transaction window is visible.
+The transaction window is visible when the account is selected.
 The selected account's transactions shows up in the transaction table. 
 
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 8 - \textit{ViewTransactions}
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
-
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
 
 %Test case 9
 \subsubsection{Test Case 9 - Add Budget} \label{TC-9}
@@ -401,7 +396,6 @@ under the budget tab.
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 10 - \textit{UpdateBudget}
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 
 %%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
@@ -422,52 +416,44 @@ This satisfies use case 10 - \textit{UpdateBudget}
 {\bf Traces to Use Cases}\\
 This satisfies use case 11 - \textit{DeleteBudget}
 
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
-
 %Test case 12
 \subsubsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
 \noindent
 {\bf Purpose}\\
+This test verifies that the budget balance is updated according to transactions added.
                                                         
 \noindent
 {\bf Input Specification}\\
+MyMoney displays a graphical interface on the screen. The user has Accounts, Transactions and Budgets already created. Under the Budget tab, the user selects a Budget, and selects the month and year to display transactions under the selected Budget.
 
 \noindent
 {\bf Expected Output}\\
+The application displays the main window. The selected budget's balance is updated according to the transactions.
 
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 12 - \textit{ApplyTransactionToBudget}
 \clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
 
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
-
 %Test case 13
 \subsubsection{Test Case 13 - View Budget Transactions} \label{TC-13}
 \noindent
 {\bf Purpose}\\
-                                                        
+This test verifies that the user is able to view the selected budget's transactions across all accounts.                    
+                            
 \noindent
 {\bf Input Specification}\\
+MyMoney displays a graphical user interface on the screen. The user has Accounts, Transactions and Budgets already created. Under the Budget tab, the user selects a Budget, and selects the month and year to display transactions under the selected Budget.
 
 \noindent
 {\bf Expected Output}\\
+The application displays the main window. The selected budget's transactions are listed in the Budget Transactions table.
 
 \noindent
 {\bf Traces to Use Cases}\\
 This satisfies use case 13 - \textit{ViewBudgetTransactions}
-
-
-\subsection{Subsystem Level Test Cases}
-% All test cases for testing at the subsystem level.
-% One subsection per subsystem
-
-\subsubsection{Subsystem X}
 \clearpage
+
 \subsection{Unit Test cases}
 % All test cases for testing at the unit level.
 % One subsection per unit
