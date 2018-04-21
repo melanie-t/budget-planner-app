@@ -140,13 +140,13 @@ The unit tests will include the following classes:
 % Indicate which qualities (from requirements) were tested and which qualities were not tested.
 
 \clearpage
-\subsection{System Level Test Cases}
+\section{System Level Test Cases}
 % All test cases for testing at the system level.
 
 
 % Test case 1
 
-\subsubsection {Test Case 1 - Add Account} \label{TC-1}
+\subsection {Test Case 1 - Add Account} \label{TC-1}
 
 \noindent
 {\bf Purpose}\\
@@ -170,23 +170,28 @@ It satisfies the requirement of the user being able to create a bank account.\\
     {\bf Traces to Use Cases}\\
     This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.\\
     
-\noindent
-{\bf Alternate Flow 1 - Empty Field}\\
-A user omits input in any of the required fields (\textit{Bank}, \textit{Nickname} or \textit{Balance}). \\ 
-If any field is left empty, an Input Error window pops up, asking the user to complete the missing fields. User must press "OK" and fill the required fields.\\
 
-\noindent
-{\bf Alternate Flow 2 - Non-Numerical Balance}\\
-A user enters a non-numerical value in the \textit{Balance} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test-Case 1-1 Alternate Flow 1 - Empty Field}
+\noindent 
+A user omits input in any of the required fields (\textit{Bank}, \textit{Nickname} or \textit{Balance})  
+If any field is left empty, an Input Error window pops up, asking the user to complete the missing fields. User must press "OK" and fill the required fields.
 
-\noindent{\bf Alternate Flow 3 - Negative Balance}\\
-A user enters a negative value in the \textit{Balance} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 1-2 Alternate Flow 2 - Non-Numerical Balance}
+\noindent 
+A user enters a non-numerical value in the \textit{Balance} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
+
+\subsubsection
+{Test Case 1-3 Alternate Flow 3 - Negative Balance}
+\noindent
+A user enters a negative value in the \textit{Balance} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
 \clearpage
 % Test case 2
-\subsubsection{Test Case 2 - Update Account} \label{TC-2}
+\subsection{Test Case 2 - Update Account} \label{TC-2}
 \noindent
 {\bf Purpose}\\
         The test verifies that for an existing bank account its bank name, nickname and balance can be modified.
@@ -209,25 +214,29 @@ An Input Error window pops up, asking the user to complete the field with a numb
  {\bf Traces to Use Cases}\\
      This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.\\
      
+\subsubsection
+{Test Case 2-1 Alternate Flow 1 - Empty Field}
 \noindent
-{\bf Alternate Flow 1 - Empty Field}\\
 When updating a field, the user leaves the field blank.
-If any field is left empty, an Input Error window pops up, asking the user to complete the missing fields. User must press "OK" and fill the required fields.\\
+If any field is left empty, an Input Error window pops up, asking the user to complete the missing fields. User must press "OK" and fill the required fields.
 
+\subsubsection
+{Test Case 2-2 Alternate Flow 2 - Non-Numerical Balance}
 \noindent
-{\bf Alternate Flow 2 - Non-Numerical Balance}\\
-When updating a field, the user enters a non-numerical value in the \textit{Balance} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+When updating a field, the user enters a non-numerical value in the \textit{Balance} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
-\noindent{\bf Alternate Flow 3 - Negative Balance}\\
-When updating a field, the user enters a negative value in the \textit{Balance} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
-                 
+\subsubsection 
+{Test Case 2-3 Alternate Flow 3 - Negative Balance}
+\noindent
+When updating a field, the user enters a negative value in the \textit{Balance} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
+            
 \clearpage   
 
 
 %Test case 3
-\subsubsection{Test Case 3 - Delete Account} \label{TC-3}
+\subsection{Test Case 3 - Delete Account} \label{TC-3}
 \noindent
 {\bf Purpose}\\
  This test verifies the user is able to delete their own account.
@@ -248,13 +257,15 @@ An Input Error window pops up, asking the user to complete the field with a numb
 {\bf Traces to Use Cases}\\
 This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.\\
 
-\noindent{\bf Alternate Flow 1 - No Account}\\
-A user attempts to delete an account by pressing the \textit{Delete} button. If there is no account to delete, nothing happens in the application.\\
+\subsubsection
+{Test Case 3-1 Alternate Flow 1 - No Account}
+\noindent
+A user attempts to delete an account by pressing the \textit{Delete} button. If there is no account to delete, nothing happens in the application.
 
 \clearpage 
 
 %Test case 4
-\subsubsection{Test Case 4 - Add Transaction} \label{TC-4}
+\subsection{Test Case 4 - Add Transaction} \label{TC-4}
 
 \noindent
 {\bf Purpose}\\
@@ -281,24 +292,25 @@ the bottom-right window displays the newly created transaction. In addition, thi
 {\bf Traces to Use Cases}\\
 This satisfies the main scenario of use case 4 - \textit{AddTransaction}.\\
 
-\noindent
-{\bf Alternate Flow 1 - Empty Amount Field}\\
+\subsubsection
+{Test Case 4-1 Alternate Flow 1 - Empty Amount Field}
 When adding an amount for the transaction, the user leaves the field blank.
 An Input Error window pops up, asking the user to complete the field. User must press "OK" and fill the required field.\\
 
-\noindent
-{\bf Alternate Flow 2 - Non-Numerical Balance}\\
-When adding an amount for the transaction, the user enters a non-numerical value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 4-2 Alternate Flow 2 - Non-Numerical Balance}
+When adding an amount for the transaction, the user enters a non-numerical value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
-\noindent{\bf Alternate Flow 3 - Negative Balance}\\
-When adding an amount for the transaction, the user enters a negative value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 4-3 Alternate Flow 3 - Negative Balance}
+When adding an amount for the transaction, the user enters a negative value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
 \clearpage 
 
 %Test case 5
-\subsubsection{Test Case 5 - Import Transaction} \label{TC-5}
+\subsection{Test Case 5 - Import Transaction} \label{TC-5}
 
 \noindent
 {\bf Purpose}\\
@@ -309,7 +321,7 @@ This satisfies the requirement that the user can import a transaction into their
 {\bf Input Specification}\\
 MyMoney displays a graphical user interface on the screen.
 For this operation, the user selects their account with the mouse,
-clicks the import button, chose the csv file.\\
+clicks the import button, and chooses the .csv file.\\
                                                     
 \noindent
 {\bf Expected Output}\\
@@ -320,22 +332,26 @@ The bottom-right corner displays the transaction.\\
 {\bf Traces to Use Cases}\\
 This satisfies use case 5 - \textit{ImportTransactions}\\
 
-\noindent{\bf Alternate Flow 1 - Invalid Date Format}\\
-The user attempts to import a file that has an invalid date format found inside.\\
-An error window pops up, and displays the message "Invalid date format found in import file at line " with the line number. No transactions are imported.\\
+\subsubsection
+{Test Case 5-1 Alternate Flow 1 - Invalid Date Format}
 
-\noindent{\bf Alternate Flow 2 - File Not Found}\\
-The user attempts to import a file that is not found in the system. \\
-An error window pops up and displays "Error."\\
+The user attempts to import a file that has an invalid date format found inside.
+An error window pops up, and displays the message "Invalid date format found in import file at line " with the line number. No transactions are imported.
 
-\noindent{\bf Alternate Flow 3 - Invalid Input Format}\\
-The user attempts to import a file that contains an invalid numerical value.\\
+\subsubsection
+{Test Case 5-2 Alternate Flow 2 - File Not Found}
+The user attempts to import a file that is not found in the system. 
+An error window pops up and displays "Error."
+
+\subsubsection
+{Test Case 5-3 Alternate Flow 3 - Invalid Input Format}
+The user attempts to import a file that contains an invalid numerical value.
 An error window pops up and displays "Invalid input for amount column."
 
 \clearpage
 
 %Test case 6
-\subsubsection{Test Case 6 - Update Transaction} \label{TC-6}
+\subsection{Test Case 6 - Update Transaction} \label{TC-6}
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to update an existing transaction in their account.
@@ -363,25 +379,26 @@ If selected, the bottom-right corner displays the updated transaction. The assoc
     {\bf Traces to Use Cases}\\
     This satisfies use case 6 - \textit{UpdateTransactions}\\
     
-\noindent
-{\bf Alternate Flow 1 - Empty Amount Field}\\
+\subsubsection
+{Test Case 6-1 Alternate Flow 1 - Empty Amount Field}
 When updating a transaction, the user leaves the field blank.
-An Input Error window pops up, asking the user to complete the field. User must press "OK" and fill the required field.\\
+An Input Error window pops up, asking the user to complete the field. User must press "OK" and fill the required field.
 
-\noindent
-{\bf Alternate Flow 2 - Non-Numerical Balance}\\
-When updating a transaction, the user enters a non-numerical value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 6-2 Alternate Flow 2 - Non-Numerical Balance}
+When updating a transaction, the user enters a non-numerical value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
-\noindent{\bf Alternate Flow 3 - Negative Balance}\\
-When updating a transaction, the user enters a negative value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 6-3 Alternate Flow 3 - Negative Balance}
+When updating a transaction, the user enters a negative value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
 \clearpage 
 
 
 %Test case 7
-\subsubsection{Test Case 7 - Delete Transaction} \label{TC-7}
+\subsection{Test Case 7 - Delete Transaction} \label{TC-7}
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to delete an existing transaction in their account.
@@ -403,11 +420,13 @@ The transaction does not show in the bottom-right window.\\
 {\bf Traces to Use Cases}\\
 This satisfies use case  - 7 \textit{DeleteTransactions}\\
 
-\noindent{\bf Alternate Flow 1 - No Transaction}\\
-A user attempts to delete a transaction by pressing the \textit{Delete} button. If there is no transaction to delete, nothing happens in the application.\\
+\subsubsection
+{Test Case 7-1 Alternate Flow 1 - No Transaction}
+A user attempts to delete a transaction by pressing the \textit{Delete} button. If there is no transaction to delete, nothing happens in the application.
 
+\clearpage 
 %Test case 8
-\subsubsection{Test Case 8 - View Account Transactions} \label{TC-8}
+\subsection{Test Case 8 - View Account Transactions} \label{TC-8}
 \noindent
 {\bf Purpose}\\
 This test verifies that the user is able to view the selected account's transactions.\\
@@ -425,10 +444,16 @@ The selected account's transactions shows up in the transaction table. \\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 8 - \textit{ViewTransactions}
+This satisfies use case 8 - \textit{ViewTransactions} 
+
+\subsubsection
+{Test Case 8-1 Alternate Flow 1 - No Transactions}
+There are no transactions to view. 
+
+\clearpage 
 
 %Test case 9
-\subsubsection{Test Case 9 - Add Budget} \label{TC-9}
+\subsection{Test Case 9 - Add Budget} \label{TC-9}
 \noindent
 {\bf Purpose}\\
 This test verifies that the user is able to add a budget to their account.\\
@@ -444,26 +469,27 @@ under the budget tab.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 9 - \textit{AddBudget}\\
+This satisfies use case 9 - \textit{AddBudget}
 
-\noindent
-{\bf Alternate Flow 1 - Empty Field}\\
+\subsubsection
+{Test Case 9-1 Alternate Flow 1 - Empty Field}
 When adding a budget, the user leaves the \textit{Name} or \textit{Amount} fields blank.
-An Input Error window pops up, asking the user to complete the missing field. User must press "OK" and fill the required field.\\
+An Input Error window pops up, asking the user to complete the missing field. User must press "OK" and fill the required field.
 
-\noindent
-{\bf Alternate Flow 2 - Non-Numerical Amount}\\
-When adding a budget, the user enters a non-numerical value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 9-2 Alternate Flow 2 - Non-Numerical Amount}
+When adding a budget, the user enters a non-numerical value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
-\noindent{\bf Alternate Flow 3 - Negative Amount}\\
-When adding a budget, the user enters a negative value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 9-3 Alternate Flow 3 - Negative Amount}
+When adding a budget, the user enters a negative value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
 \clearpage
 
 %Test case 10
-\subsubsection{Test Case 10 - Update Budget} \label{TC-10}
+\subsection{Test Case 10 - Update Budget} \label{TC-10}
 
 {\bf Purpose}\\
 This test verifies that the user is able to modify a previously added budget.   \\               
@@ -482,24 +508,25 @@ under the budget tab.\\
 {\bf Traces to Use Cases}\\
 This satisfies use case 10 - \textit{UpdateBudget}\\
 
-\noindent
-{\bf Alternate Flow 1 - Empty Field}\\
+\subsubsection
+{Test Case 10-1 Alternate Flow 1 - Empty Field}\\
 When updating a budget, the user leaves the \textit{Name} or \textit{Amount} fields blank.
-An Input Error window pops up, asking the user to complete the missing field. User must press "OK" and fill the required field.\\
+An Input Error window pops up, asking the user to complete the missing field. User must press "OK" and fill the required field.
 
-\noindent
-{\bf Alternate Flow 2 - Non-Numerical Amount}\\
-When updating a budget, the user enters a non-numerical value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 10-2 Alternate Flow 2 - Non-Numerical Amount}
+When updating a budget, the user enters a non-numerical value in the \textit{Amount} field.
+An Input Error window pops up, asking the user to complete the field with a number. 
 
-\noindent{\bf Alternate Flow 3 - Negative Amount}\\
-When updating a budget, the user enters a negative value in the \textit{Amount} field. \\
-An Input Error window pops up, asking the user to complete the field with a number. \\
+\subsubsection
+{Test Case 10-3 Alternate Flow 3 - Negative Amount}
+When updating a budget, the user enters a negative value in the \textit{Amount} field. 
+An Input Error window pops up, asking the user to complete the field with a number. 
 
 \clearpage
 
 %Test case 11
-\subsubsection{Test Case 11 - Delete Budget} \label{TC-11}
+\subsection{Test Case 11 - Delete Budget} \label{TC-11}
 \noindent
 {\bf Purpose}\\
 The purpose of the test is to verify that the user is able to delete a budget from their account. \\          
@@ -514,15 +541,18 @@ The selected budget is deleted. The list of budgets on the right hand side of th
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 11 - \textit{DeleteBudget}\\
+This satisfies use case 11 - \textit{DeleteBudget}
 
-\noindent{\bf Alternate Flow 1 - No Budget}\\
-A user attempts to delete a budget by pressing the \textit{Delete} button. If there is no budget to delete, nothing happens in the application.\\
+\subsubsection
+{Test Case 11-1 Alternate Flow 1 - No Budget}
+A user attempts to delete a budget by pressing the \textit{Delete} button. If there is no budget to delete, nothing happens in the application.
+
+\clearpage
 
 %Test case 12
-\subsubsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
+\subsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
 \noindent
-{\bf Purpose}\\
+{\bf Purpose}
 This test verifies that the budget balance is updated according to transactions added.\\
                                                     
 \noindent
@@ -537,10 +567,14 @@ The application displays the main window. The selected budget's balance is updat
 {\bf Traces to Use Cases}\\
 This satisfies use case 12 - \textit{ApplyTransactionToBudget}\\
 
+\subsubsection
+{Test Case 12-1 Alternate Flow 1 - No Transactions}
+There are no transactions to view.
+
 \clearpage 
 
 %Test case 13
-\subsubsection{Test Case 13 - View Budget Transactions} \label{TC-13}
+\subsection{Test Case 13 - View Budget Transactions} \label{TC-13}
 \noindent
 {\bf Purpose}\\
 This test verifies that the user is able to view the selected budget's transactions across all accounts.\\                    
@@ -555,15 +589,27 @@ The application displays the main window. The selected budget's transactions are
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
+This satisfies use case 13 - \textit{ViewBudgetTransactions}
+
+\subsubsection
+{Test Case 13-1 Alternate Flow 1 - No Transactions}
+There are no budget transactions to view. 
+
+\subsubsection
+{Test Case 13-2 Alternate Flow 2 - No Budget}
+There is no budget to view. 
+
 \clearpage
 
-\subsection{Unit Test cases}
+
+
+
+\section{Unit Test cases}
 % All test cases for testing at the unit level.
 % One subsection per unit
 
 % Unit Test Case 1
-\subsubsection{Unit Test Case 1 - Transaction: saveItem}
+\subsection{Unit Test Case 1 - Transaction: saveItem}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -591,7 +637,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 \clearpage
 
 % Unit Test Case 2
-\subsubsection{Unit Test Case 2 - Transaction: deleteItem}
+\subsection{Unit Test Case 2 - Transaction: deleteItem}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -619,7 +665,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 \clearpage
 
 % Unit Test Case 3
-\subsubsection{Unit Test Case 3 - Transaction: deleteItem (all items)} 
+\subsection{Unit Test Case 3 - Transaction: deleteItem (all items)} 
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -648,7 +694,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 \clearpage
 
 % Unit Test Case 4
-\subsubsection{Unit Test Case 4 - RepositoryContainer: saveItem (all types)}
+\subsection{Unit Test Case 4 - RepositoryContainer: saveItem (all types)}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -680,7 +726,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 
 % Unit Test Case 5
 %Account repository test case
-\subsubsection{Unit Test Case 5 - AccountRepository: saveItem, deleteItem}
+\subsection{Unit Test Case 5 - AccountRepository: saveItem, deleteItem}
 \begin{table}[htbp]
 \centering
 \caption {UT-5}
@@ -716,7 +762,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 
 % Unit Test Case 6
 %Budget repository test case
-\subsubsection{Unit Test Case 6 - BudgetRepository: saveItem}
+\subsection{Unit Test Case 6 - BudgetRepository: saveItem}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -747,7 +793,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 
 % Unit Test Case 7
 %Budget repository test case
-\subsubsection{Unit Test Case 7 - BudgetRepository: deleteItem}
+\subsection{Unit Test Case 7 - BudgetRepository: deleteItem}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -784,7 +830,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 
 % Unit Test Case 8
 %Budget repository test case
-\subsubsection{Unit Test Case 8 - AccountController: addOrUpdateAccount, deleteAccount}
+\subsection{Unit Test Case 8 - AccountController: addOrUpdateAccount, deleteAccount}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -816,7 +862,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 
 % Unit Test Case 9
 %Budget repository test case
-\subsubsection{Unit Test Case 9 - TransactionController: addOrUpdateTransaction, deleteTransaction}
+\subsection{Unit Test Case 9 - TransactionController: addOrUpdateTransaction, deleteTransaction}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -849,7 +895,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 
 % Unit Test Case 10
 %Budget repository test case
-\subsubsection{Unit Test Case 10 - BudgetController testAddOrUpdateBudget}
+\subsection{Unit Test Case 10 - BudgetController testAddOrUpdateBudget}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -875,7 +921,7 @@ This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 \end{table}
 \clearpage
 
-\subsubsection{Unit Test Case 11 - BudgetController testDeleteAccount}
+\subsection{Unit Test Case 11 - BudgetController testDeleteAccount}
 \def\arraystretch{1.5}%
 \begin{table}[htbp]
 \centering
@@ -1027,9 +1073,5 @@ Larman, C. Applying UML and Patterns: An Introduction to Object-Oriented Analysi
 \includegraphics[scale=0.5]{Diagrams/UML/SOEN.png}
 \end{figure}
 
-%\section{Description of Input Files}
-% Describe/include test data from input files.
 
-%\section{Description of Output Files}
-% Describe/include test data from output files.
 \end{document}
