@@ -151,51 +151,79 @@ The unit tests will include the following classes:
 \noindent
 {\bf Purpose}\\
 The purpose of the test is to verify the user is able to add a bank account into the application's database.
-It satisfies the requirement of the user being able to create a bank account.
+It satisfies the requirement of the user being able to create a bank account.\\
 
 \noindent
     {\bf Input Specification}\\
     The application displays a graphical user interface on the screen.
     Optionally, it shows a list of pre-existing bank accounts in the window's top-right corner.
     MyMoney accepts any kind of characters and of any length as input in the \textit{Bank} and \textit{Nickname} fields while
-    the \textit{Balance} field accepts non-negative integers. The \textit{Bank} and \textit{Balance} fields cannot be empty.
-    The user presses \textit{Add} on the interface to add the account.
+    the \textit{Balance} field accepts non-negative integers. The \textit{Bank}, \textit{Nickname} and \textit{Balance} fields cannot be empty.
+    The user presses \textit{Add} on the interface to add the account.\\
     
 \noindent
     {\bf Expected Output}\\
     The application displays the window.
-    A created bank account with the information the user entered now exists in the application.
+    A created bank account with the information the user entered now exists in the application.\\
     
 \noindent
     {\bf Traces to Use Cases}\\
-    This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.
+    This test case satisfies the main scenario of use case 1 - \textit{AddAccount}.\\
+    
+\noindent
+{\bf Alternate Flow 1 - Empty Field}\\
+A user omits input in any of the required fields (\textit{Bank}, \textit{Nickname} or \textit{Balance}). \\ 
+If any field is left empty, an Input Error window pops up, asking the user to complete the missing fields. User must press "OK" and fill the required fields.\\
 
+\noindent
+{\bf Alternate Flow 2 - Non-Numerical Balance}\\
+A user enters a non-numerical value in the \textit{Balance} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
 
+\noindent{\bf Alternate Flow 3 - Negative Balance}\\
+A user enters a negative value in the \textit{Balance} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\clearpage
 % Test case 2
 \subsubsection{Test Case 2 - Update Account} \label{TC-2}
 \noindent
 {\bf Purpose}\\
         The test verifies that for an existing bank account its bank name, nickname and balance can be modified.
         This satisfies the requirement that the user is able to adjust account information in case of an account transfer
-        to another financial institution. 
+        to another financial institution. \\
 
 \noindent
 {\bf Input Specification}\\
             MyMoney displays a graphical user interface on the screen.
             For this operation, MyMoney accepts any kind of characters and of any length as
             input in the \textit{Bank} and \textit{Nickname} fields while the \textit{Balance} field accepts non-negative integers.
-            The \textit{Bank} and \textit{Balance} fields cannot be empty. The user presses the \textit{Update} to update the account information.
+            The \textit{Bank}, \textit{Nickname} and \textit{Balance} fields cannot be empty. The user presses the \textit{Update} to update the account information.\\
             
 \noindent
 {\bf Expected Output}\\
     The application displays the window.    
-    The system displays updated information of the bank account in the top-right window.
+    The system displays updated information of the bank account in the top-right window.\\
 
  \noindent
  {\bf Traces to Use Cases}\\
-     This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.
+     This satisfies the main scenario of use case 2 - \textit{UpdateAccount}.\\
+     
+\noindent
+{\bf Alternate Flow 1 - Empty Field}\\
+When updating a field, the user leaves the field blank.
+If any field is left empty, an Input Error window pops up, asking the user to complete the missing fields. User must press "OK" and fill the required fields.\\
+
+\noindent
+{\bf Alternate Flow 2 - Non-Numerical Balance}\\
+When updating a field, the user enters a non-numerical value in the \textit{Balance} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\noindent{\bf Alternate Flow 3 - Negative Balance}\\
+When updating a field, the user enters a negative value in the \textit{Balance} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
                  
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE   
+\clearpage   
 
 
 %Test case 3
@@ -204,22 +232,26 @@ It satisfies the requirement of the user being able to create a bank account.
 {\bf Purpose}\\
  This test verifies the user is able to delete their own account.
  This satisfies the requirement that the user is able to remove their account when their is no longer associated
- with a bank. 
+ with a bank. This will also delete the associated transactions and budgets with the account as well.\\
 
  \noindent
  {\bf Input Specification}\\
  MyMoney displays a graphical user interface on the screen.
- For this operation, the user selects their account with the mouse and presses \textit{Delete}.
+ For this operation, the user selects their account with the mouse and presses \textit{Delete}.\\
                             
  \noindent
  {\bf Expected Output}\\
  The application displays the window.
- Also it display a list of accounts in the top-right corner except the one that was deleted.
+ Also it display a list of accounts in the top-right corner except the one that was deleted.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
+This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.\\
 
+\noindent{\bf Alternate Flow 1 - No Account}\\
+A user attempts to delete an account by pressing the \textit{Delete} button. If there is no account to delete, nothing happens in the application.\\
+
+\clearpage 
 
 %Test case 4
 \subsubsection{Test Case 4 - Add Transaction} \label{TC-4}
@@ -227,7 +259,7 @@ This satisfies the main scenario of use case 3 - \textit{DeleteAccount}.
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to add a transaction into their existing account.
-This satisfies the requirement that the user can complete an addition of a transaction into their account.
+This satisfies the requirement that the user can complete an addition of a transaction into their account.\\
                                         
 \noindent
 {\bf Input Specification}\\
@@ -236,21 +268,34 @@ For this operation, MyMoney accepts a transaction \textit{type} - withdraw or de
 which is selected via the date picker, an \textit{Amount}, a integer, a \textit{Budget} which is chosen
 from a drop-down list, and a \textit{description} - a string composed of any characters and
 of non-negative length. To register the action, the user presses \textit{Add} located in the bottom left
-of the window.                                          
+of the window. \\
 
 \noindent
 {\bf Expected Output}\\
 The application displays the window.    
 The transaction is added to the account.
 If the user selects his account in the top-right corner of the window then
-the bottom-right window displays the newly created transaction.
+the bottom-right window displays the newly created transaction. In addition, this will modify the account balance and also the budget balance, if the transaction was tagged. \\
                                                 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
+This satisfies the main scenario of use case 4 - \textit{AddTransaction}.\\
 
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+\noindent
+{\bf Alternate Flow 1 - Empty Amount Field}\\
+When adding an amount for the transaction, the user leaves the field blank.
+An Input Error window pops up, asking the user to complete the field. User must press "OK" and fill the required field.\\
 
+\noindent
+{\bf Alternate Flow 2 - Non-Numerical Balance}\\
+When adding an amount for the transaction, the user enters a non-numerical value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\noindent{\bf Alternate Flow 3 - Negative Balance}\\
+When adding an amount for the transaction, the user enters a negative value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\clearpage 
 
 %Test case 5
 \subsubsection{Test Case 5 - Import Transaction} \label{TC-5}
@@ -258,35 +303,44 @@ This satisfies the main scenario of use case 4 - \textit{AddTransaction}.
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to import a transaction into their existing account.
-This satisfies the requirement that the user can import a transaction into their account.
-                                                        
-
+This satisfies the requirement that the user can import a transaction into their account.\\
+                                                    
 \noindent
 {\bf Input Specification}\\
 MyMoney displays a graphical user interface on the screen.
 For this operation, the user selects their account with the mouse,
-clicks the import button, chose the csv file.
-                                                          
-
+clicks the import button, chose the csv file.\\
+                                                    
 \noindent
 {\bf Expected Output}\\
 The transaction is added to the user's account.
-The bottom-right corner displays the transaction.
-
+The bottom-right corner displays the transaction.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 5 - \textit{ImportTransactions}
+This satisfies use case 5 - \textit{ImportTransactions}\\
 
+\noindent{\bf Alternate Flow 1 - Invalid Date Format}\\
+The user attempts to import a file that has an invalid date format found inside.\\
+An error window pops up, and displays the message "Invalid date format found in import file at line " with the line number. No transactions are imported.\\
+
+\noindent{\bf Alternate Flow 2 - File Not Found}\\
+The user attempts to import a file that is not found in the system. \\
+An error window pops up and displays "Error."\\
+
+\noindent{\bf Alternate Flow 3 - Invalid Input Format}\\
+The user attempts to import a file that contains an invalid numerical value.\\
+An error window pops up and displays "Invalid input for amount column."
+
+\clearpage
 
 %Test case 6
 \subsubsection{Test Case 6 - Update Transaction} \label{TC-6}
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to update an existing transaction in their account.
-This satisfies the requirement that the user can change information of a transaction in their account.
-                                                        
-
+This satisfies the requirement that the user can change information of a transaction in their account.\\
+                                                    
 \noindent
 {\bf Input Specification}\\
 MyMoney displays a graphical user interface on the screen.
@@ -297,20 +351,33 @@ In the pane, transaction \textit{type} - withdraw or deposit, a \textit{date}
 which is selected via the date picker, an \textit{Amount}, a integer, a \textit{Budget} which is chosen
 from a drop-down list, and a \textit{description} - a string composed of any characters and
 of non-negative length. The register the action, the user presses \textit{Add} located in the bottom left
-of the window.   
-                                                          
-
+of the window. \\
+                                                    
 \noindent
 {\bf Expected Output}\\
 The application displays the window.    
 The fields in the transaction are updated.
-If selected, the bottom-right corner displays the updated transaction.
+If selected, the bottom-right corner displays the updated transaction. The associated budget and account balance will be updated accordingly.\\
 
 \noindent
     {\bf Traces to Use Cases}\\
-    This satisfies use case 6 - \textit{ImportTransactions}
+    This satisfies use case 6 - \textit{UpdateTransactions}\\
+    
+\noindent
+{\bf Alternate Flow 1 - Empty Amount Field}\\
+When updating a transaction, the user leaves the field blank.
+An Input Error window pops up, asking the user to complete the field. User must press "OK" and fill the required field.\\
 
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+\noindent
+{\bf Alternate Flow 2 - Non-Numerical Balance}\\
+When updating a transaction, the user enters a non-numerical value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\noindent{\bf Alternate Flow 3 - Negative Balance}\\
+When updating a transaction, the user enters a negative value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\clearpage 
 
 
 %Test case 7
@@ -318,41 +385,43 @@ If selected, the bottom-right corner displays the updated transaction.
 \noindent
 {\bf Purpose}\\
 This test verifies the user is able to delete an existing transaction in their account.
-This satisfies the requirement that the user can changeremove a transaction from their account.
-                                                        
+This satisfies the requirement that the user can remove a transaction from their account.\\
+                                                    
 \noindent
 {\bf Input Specification}\\
 MyMoney displays a graphical user interface on the screen.
 For this operation, the user selects their account with the mouse,
 chose the appropriate transaction to remove in the bottom-right window.
-The user presses \textit{Delete} in the Transactions pane.
-                                                          
-
+The user presses \textit{Delete} in the Transactions pane.\\
+                                                         
 \noindent
 {\bf Expected Output}\\
 The application displays the window.       
-The transaction does not show in the bottom-right window.
+The transaction does not show in the bottom-right window.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case  - 7 \textit{DeleteTransactions}
+This satisfies use case  - 7 \textit{DeleteTransactions}\\
+
+\noindent{\bf Alternate Flow 1 - No Transaction}\\
+A user attempts to delete a transaction by pressing the \textit{Delete} button. If there is no transaction to delete, nothing happens in the application.\\
 
 %Test case 8
 \subsubsection{Test Case 8 - View Account Transactions} \label{TC-8}
 \noindent
 {\bf Purpose}\\
-This test verifies that the user is able to view the selected account's transactions.
-                                                        
+This test verifies that the user is able to view the selected account's transactions.\\
+                                                    
 \noindent
 {\bf Input Specification}\\
 MyMoney displays a graphical user interface on the screen.
-For this operation, the user selects their account with the mouse.
+For this operation, the user selects their account with the mouse.\\
 
 \noindent
 {\bf Expected Output}\\
 The application displays the window.       
 The transaction window is visible when the account is selected.
-The selected account's transactions shows up in the transaction table. 
+The selected account's transactions shows up in the transaction table. \\
 
 \noindent
 {\bf Traces to Use Cases}\\
@@ -362,99 +431,131 @@ This satisfies use case 8 - \textit{ViewTransactions}
 \subsubsection{Test Case 9 - Add Budget} \label{TC-9}
 \noindent
 {\bf Purpose}\\
-This test verifies that the user is able to add a budget to their account.
+This test verifies that the user is able to add a budget to their account.\\
 
 {\bf Input Specification}\\
-The budget takes a Name - string of any length and of any characters
-and an Amount - a non-negative integer.
+The user must select the \textit{Budget} tab. The budget takes a Name - string of any length and of any characters
+and an Amount - a non-negative integer.\\
 
 {\bf Expected Output}\\
 The application displays the window.
 The budget is added to the user's account and is displayed in the top-right window
-under the budget tab.
+under the budget tab.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 9 - \textit{AddBudget}
+This satisfies use case 9 - \textit{AddBudget}\\
+
+\noindent
+{\bf Alternate Flow 1 - Empty Field}\\
+When adding a budget, the user leaves the \textit{Name} or \textit{Amount} fields blank.
+An Input Error window pops up, asking the user to complete the missing field. User must press "OK" and fill the required field.\\
+
+\noindent
+{\bf Alternate Flow 2 - Non-Numerical Amount}\\
+When adding a budget, the user enters a non-numerical value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\noindent{\bf Alternate Flow 3 - Negative Amount}\\
+When adding a budget, the user enters a negative value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\clearpage
 
 %Test case 10
 \subsubsection{Test Case 10 - Update Budget} \label{TC-10}
 
 {\bf Purpose}\\
-This test verifies that the user is able to modify a previously added budget.                  
+This test verifies that the user is able to modify a previously added budget.   \\               
 
 {\bf Input Specification}\\
 The budget takes a Name - string of any length and of any characters
-and an Amount - an integer.
+and an Amount - an integer.\\
 
 \noindent
 {\bf Expected Output}\\
 The application displays the window.
 The updated budget is added to the user's account and is displayed in the top-right window
-under the budget tab.
+under the budget tab.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 10 - \textit{UpdateBudget}
+This satisfies use case 10 - \textit{UpdateBudget}\\
 
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%	 COMPLETE THIS SECTION	%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%						%%%%%%%%%%%%%%%
+\noindent
+{\bf Alternate Flow 1 - Empty Field}\\
+When updating a budget, the user leaves the \textit{Name} or \textit{Amount} fields blank.
+An Input Error window pops up, asking the user to complete the missing field. User must press "OK" and fill the required field.\\
+
+\noindent
+{\bf Alternate Flow 2 - Non-Numerical Amount}\\
+When updating a budget, the user enters a non-numerical value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\noindent{\bf Alternate Flow 3 - Negative Amount}\\
+When updating a budget, the user enters a negative value in the \textit{Amount} field. \\
+An Input Error window pops up, asking the user to complete the field with a number. \\
+
+\clearpage
 
 %Test case 11
 \subsubsection{Test Case 11 - Delete Budget} \label{TC-11}
 \noindent
 {\bf Purpose}\\
-The purpose of the test is to verify that the user is able to delete a budget from their account.           
+The purpose of the test is to verify that the user is able to delete a budget from their account. \\          
                          
 \noindent
 {\bf Input Specification}\\
-The app's main GUI contains a tab called Budget. A list of existing budgets is visible on the right. By clicking on a budget in this list, and then clicking the Delete button in the left section of the GUI, the selected budget is marked for deleteion.
+The app's main GUI contains a tab called Budget. A list of existing budgets is visible on the right. By clicking on a budget in this list, and then clicking the Delete button in the left section of the GUI, the selected budget is marked for deletion.\\
 
 \noindent
 {\bf Expected Output}\\
-The selected budget is deleted. The list of budgets on the right hand side of the GUI is refreshed, with the deleted budget no longer present.
+The selected budget is deleted. The list of budgets on the right hand side of the GUI is refreshed, with the deleted budget no longer present.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 11 - \textit{DeleteBudget}
+This satisfies use case 11 - \textit{DeleteBudget}\\
+
+\noindent{\bf Alternate Flow 1 - No Budget}\\
+A user attempts to delete a budget by pressing the \textit{Delete} button. If there is no budget to delete, nothing happens in the application.\\
 
 %Test case 12
 \subsubsection{Test Case 12 - Apply Transaction to Budget} \label{TC-12}
 \noindent
 {\bf Purpose}\\
-This test verifies that the budget balance is updated according to transactions added.
-                                                        
+This test verifies that the budget balance is updated according to transactions added.\\
+                                                    
 \noindent
 {\bf Input Specification}\\
-MyMoney displays a graphical interface on the screen. The user has Accounts, Transactions and Budgets already created. Under the Budget tab, the user selects a Budget, and selects the month and year to display transactions under the selected Budget.
+MyMoney displays a graphical interface on the screen. The user has Accounts, Transactions and Budgets already created. Under the Budget tab, the user selects a Budget, and selects the month and year to display transactions under the selected Budget.\\
 
 \noindent
 {\bf Expected Output}\\
-The application displays the main window. The selected budget's balance is updated according to the transactions.
+The application displays the main window. The selected budget's balance is updated according to the transactions.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 12 - \textit{ApplyTransactionToBudget}
-\clearpage %%%%%%%%%%%%%CAN BE REMOVED IF THE TEST CASE DISPLAYS ON SINGLE PAGE
+This satisfies use case 12 - \textit{ApplyTransactionToBudget}\\
+
+\clearpage 
 
 %Test case 13
 \subsubsection{Test Case 13 - View Budget Transactions} \label{TC-13}
 \noindent
 {\bf Purpose}\\
-This test verifies that the user is able to view the selected budget's transactions across all accounts.                    
+This test verifies that the user is able to view the selected budget's transactions across all accounts.\\                    
                             
 \noindent
 {\bf Input Specification}\\
-MyMoney displays a graphical user interface on the screen. The user has Accounts, Transactions and Budgets already created. Under the Budget tab, the user selects a Budget, and selects the month and year to display transactions under the selected Budget.
+MyMoney displays a graphical user interface on the screen. The user has Accounts, Transactions and Budgets already created. Under the Budget tab, the user selects a Budget, and selects the month and year to display transactions under the selected Budget.\\
 
 \noindent
 {\bf Expected Output}\\
-The application displays the main window. The selected budget's transactions are listed in the Budget Transactions table.
+The application displays the main window. The selected budget's transactions are listed in the Budget Transactions table.\\
 
 \noindent
 {\bf Traces to Use Cases}\\
-This satisfies use case 13 - \textit{ViewBudgetTransactions}
+This satisfies use case 13 - \textit{ViewBudgetTransactions}\\
 \clearpage
 
 \subsection{Unit Test cases}
